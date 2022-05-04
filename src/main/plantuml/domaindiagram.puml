@@ -1,0 +1,223 @@
+@startuml
+hide circle
+hide methods
+
+class Kunder {
+    String email
+    String kodeord
+    int tlfnr
+}
+
+class Admin {
+    String email
+    String kodeord
+}
+
+class Carport {
+    int orderId
+    Skur skur
+    Tag tag
+    Bolte[] bolte
+    Rem[] rem
+    Stolpe[] stolpe
+    Beslag[] beslag
+    Skruer[] skruer
+}
+
+class Bolte {
+    String type
+    int længde
+    int diameter
+    int vareNr
+    double prisPerEnhed
+}
+
+class Rem {
+    String type
+    int bredde
+    int længde
+    int højde
+    int vareNr
+    double prisPerMeter
+}
+
+class Stolpe {
+    String type
+    int bredde
+    int længde
+    int højde
+    int vareNr
+    double prisPerMeter
+}
+
+class Skur {
+    Dør dør
+    Beklædning[] beklæd
+    Beslag[] beslag
+    Løsholter[] løsholter
+    Skruer[] skruer
+}
+
+class Dør {
+    int antalHængsler
+    Greb greb
+    Hængsel hængsler
+    Beklædning[] beklæd
+    Lægte[] lægt
+}
+
+class Greb {
+    String type
+    int vareNr
+    double pris
+}
+
+class Hængsel {
+    String type
+    int vareNr
+    double pris
+}
+
+class Lægte {
+    String type
+    int vareNr
+    int bredde
+    int længde
+    int højde
+    double prisPerMeter
+}
+
+class Løsholter {
+    String type
+    int bredde
+    int længde
+    int vareNr
+    double prisPerMeter
+}
+
+class Beslag {
+    String type
+    int vareNr
+    double prisPerEnhed
+}
+
+class Tag {
+    int antalSpær
+    int antalTagryg
+    Gavl gavl
+    Spær spær
+    Tagrygning tagryg
+    OverSternbrædder[] oSternbræd
+    UnderSternbrædder[] uSternbræd
+    Tagbelægning[] tagbelæg
+    Vandbræt[] vandbræt
+    Skruer[] skruer
+}
+
+class Gavl {
+    int hældning
+    int længde
+    int højde
+    Beklædning[] beklæd
+}
+
+class Beklædning {
+    String type
+    int bredde
+    int længde
+    int vareNr
+    double prisPerMeter
+}
+
+class Spær {
+    String type
+    int hældning
+    int bredde
+    int længde
+    int højde
+    double prisPerMeter
+}
+
+class OverSternbrædder {
+    String type
+    int bredde
+    int længde
+    int vareNr
+    double prisPerMeter
+}
+
+class UnderSternbrædder {
+    String type
+    int bredde
+    int længde
+    int vareNr
+    double prisPerMeter
+}
+
+class Tagbelægning {
+    String type
+    int bredde
+    int længde
+    int vareNr
+    double prisPerKvdMeter
+}
+
+class Tagrygning {
+    String type
+    int bredde
+    int længde
+    int vareNr
+    double prisPerEnhed
+}
+
+class Vandbræt {
+    String type
+    int bredde
+    int længde
+    int vareNr
+    double prisPerMeter
+}
+
+class Skruer {
+    String type
+    int længde
+    int diameter
+    int antalPerEnhed
+    int vareNr
+    double prisPerEnhed
+}
+
+Admin "1"-"*" Kunder
+
+Kunder "*"--"1" Carport
+
+Carport "*"---"1" Tag
+Carport "1"---"1" Skur
+Carport "*"---"*" Beslag
+Carport "*"---"*" Skruer
+Carport "*"--"*" Rem
+Carport "*"--"*" Stolpe
+Carport "*"--"*" Bolte
+
+Skur "*"---"*" Beklædning
+Skur "*"---"*" Skruer
+Skur "*"---"*" Beslag
+Skur "*"---"*" Løsholter
+Skur "1"---"1" Dør
+
+Dør "*"---"*" Lægte
+Dør "*"---"*" Beklædning
+Dør "*"---"1" Greb
+Dør "*"---"1" Hængsel
+
+Tag "*"---"*" Tagbelægning
+Tag "*"---"1" Spær
+Tag "*"---"1" Tagrygning
+Tag "*"---"1" Gavl
+Tag "*"---"*" OverSternbrædder
+Tag "*"---"*" UnderSternbrædder
+Tag "*"---"*" Vandbræt
+Tag "*"---"*" Skruer
+
+Gavl "*"---"*" Beklædning
+@enduml
