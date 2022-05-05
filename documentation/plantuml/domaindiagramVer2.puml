@@ -1,0 +1,46 @@
+@startuml
+hide circle
+hide methods
+
+class Customer {
+   email
+   password
+   adress
+   phonenumber
+}
+
+class Admin {
+    email
+    password
+}
+
+class Carport {
+    type
+}
+
+class Orderline {
+    description
+    unit price
+    length
+    amount
+    unitDescription
+
+
+}
+
+class Products {
+    description
+}
+
+class Shed {
+}
+
+Customer "1"---"*" Carport
+Admin "1"---"*" Customer
+Admin "1"---"*" Carport
+Carport "1"---"*" Orderline
+Carport "1"---"1"Shed
+Orderline"*"---"*"Products
+
+
+@enduml
