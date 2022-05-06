@@ -35,12 +35,12 @@ class Products {
 class Shed {
 }
 
-Customer "1"---"*" Carport
-Admin "1"---"*" Customer
-Admin "1"---"*" Carport
-Carport "1"---"*" Orderline
-Carport "1"---"1"Shed
-Orderline"*"---"*"Products
+Customer "1"-"*" Carport
+Admin "1"-"*" Customer
+Admin "1"--"*" Carport
+Carport "1"--"*" Orderline
+Carport "1"-"1"Shed
+Orderline"*"-"*"Products
 
 
 @enduml
