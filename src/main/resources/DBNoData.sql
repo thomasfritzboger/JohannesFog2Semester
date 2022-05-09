@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`user` (
 CREATE TABLE IF NOT EXISTS `fog`.`coverage` (
                                                 `coverage_id` INT NOT NULL AUTO_INCREMENT,
                                                 `coverage` INT NOT NULL,
-                                                `created` DATETIME NOT NULL,
+                                                `coverage_created` DATETIME NOT NULL,
                                                 PRIMARY KEY (`coverage_id`))
     ENGINE = InnoDB;
 
@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`carport` (
                                                `shed_id` INT NULL,
                                                `hasShed` TINYINT NOT NULL DEFAULT '0',
                                                `isConfirmed` TINYINT NOT NULL DEFAULT '0',
+                                               `carport_created` DATETIME NOT NULL,
                                                PRIMARY KEY (`carport_id`),
     INDEX `fk_carport_shed_idx` (`shed_id` ASC) VISIBLE,
     INDEX `fk_carport_user1_idx` (`user_id` ASC) VISIBLE,
