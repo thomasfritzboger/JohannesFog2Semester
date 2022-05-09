@@ -17,7 +17,7 @@
 
         <h3>Her kan der stå lidt om dig</h3>
 
-        <p><a href="../index.jsp">Til forsiden</a></p>
+        <p><a href="index.jsp">Til forsiden</a></p>
 
     </jsp:body>
 </t:pagetemplate>

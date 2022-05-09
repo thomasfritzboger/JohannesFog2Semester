@@ -29,15 +29,35 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/about?command=about">About</a>
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc">Page 2</a>
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc">Page 3</a>
-                    <c:if test="${sessionScope.user == null }">
+
+                    <!--Navigationsbaren hvis INGEN er logget ind endnu-->
+                    <c:if test="${sessionScope.user == null}">
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/forside?command=forside">Forside</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/faq?command=faq">FAQ</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/login.jsp">Login</a>
                     </c:if>
-                    <c:if test="${sessionScope.user != null }">
+
+                    <!--Navigationsbaren hvis kunden er logget IND-->
+                    <c:if test="${sessionScope.user.role.equals('kunde')}">
+                        <a class="nav-item nav-link" style="pointer-events: none; cursor: default;">Velkommen: ${sessionScope.user.email}</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/forside?command=forside">Forside</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/faq?command=faq">FAQ</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/profil?command=profil">Profil</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/logout?command=logout">Log out</a>
                     </c:if>
+
+                    <!--Navigationsbaren hvis admin er logget IND-->
+                    <c:if test="${sessionScope.user.role.equals('admin')}">
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/forespoergsler?command=forespoergsler">Forespørgsler</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/ordre?command=ordre">Ordre</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/kunder?command=kunder">Kunder</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/lager?command=lager">Lager</a>
+                        <a class="nav-item nav-link" style="pointer-events: none; cursor: default;">Admin: ${sessionScope.user.email}</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/logout?command=logout">Log out</a>
+                    </c:if>
+
+
+
                 </div>
             </div>
         </div>
