@@ -13,7 +13,7 @@ public class ConnectionPool
     private HikariDataSource ds;
     private static String USER = System.getenv("db_un");
     private static String PASSWORD = System.getenv("db_up");
-    private static String URL = "jdbc:mysql://localhost:3306/startcode";
+    private static String URL = "jdbc:mysql://localhost:3306/fog";
 
     public ConnectionPool()
     {
