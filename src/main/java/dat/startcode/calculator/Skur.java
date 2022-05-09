@@ -89,7 +89,6 @@ public class Skur {
 
 
 
-
         switch (placeringAfSkur){
 
             case "midt":
@@ -262,7 +261,7 @@ public class Skur {
         }
 
 
-       // System.out.println("\n\nAntalr efterr beregning vinkel: "+antalVinkelbeslagEkstraNårSkur);
+        // System.out.println("\n\nAntalr efterr beregning vinkel: "+antalVinkelbeslagEkstraNårSkur);
         //System.out.println();
         //System.out.println("Lægnde løsholter på skurets bredside er: " +længdeAfLøsholterSkurBredside + " skurbredde "+skurBredde);
 

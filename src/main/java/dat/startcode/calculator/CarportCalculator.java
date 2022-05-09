@@ -1,7 +1,6 @@
 package dat.startcode.calculator;
 
 
-
 public class CarportCalculator {
 
     static Skur skur;
@@ -68,7 +67,7 @@ public class CarportCalculator {
         setHasSkur("y");
 
         //Set carportlængde til beregning af afstand mellem spær
-        setCarportLængde(900);
+        setCarportLængde(750);
 
         //Beregn antal spær
         setAntalSpær(carportLængde);
@@ -78,21 +77,21 @@ public class CarportCalculator {
         if (hasSkur){
             skur.breddeAfDør = 2*afstandMellemSpær;
             skur.afstandMellemSpær = afstandMellemSpær;
-            skur.setPlaceringAfSkur("midt");
+
             setDimensionSkur(8*afstandMellemSpær);
+            skur.setPlaceringAfSkur("midt");
+            checkDimensionsSkur(skur.skurLængde);
+
             skur.længdeLangsideMinusDør = skur.skurLængde-skur.breddeAfDør;
 
             //skur.beregnAntalLøsholter(skur.skurLængde,skur.skurBredde);
         }
 
-        //Set dimensioner for carport                
+        //Set dimensioner for carport
         setDimensionCarport(carportLængde,600,210);
         setSkurBredde(carportBredde);
 
-        if (hasSkur) {
-                skur.beregnAntalLøsholter(skur.skurLængde,skur.skurBredde);
-
-        }
+        if (hasSkur) {   skur.beregnAntalLøsholter(skur.skurLængde,skur.skurBredde); }
 
         //Beregn stolpeLængde
         setStolpeLængde(carportHøjde);
@@ -216,8 +215,15 @@ public class CarportCalculator {
             stolpeIkkeFastgjortRem = 1;
             return 7;
         }
-        stolpeIkkeFastgjortRem = 1 + skur.antalStolperPåSpærEkstraNårSkur;
-        return 11;
+        stolpeIkkeFastgjortRem = 1 + skur.antalStolperPåRemEkstraNårSkur;
+        int ex = skur.antalStolperPåSpærEkstraNårSkur;
+        int res = 7 + stolpeIkkeFastgjortRem;
+
+
+
+
+        return res;
+        //return 11;
     }
 
     static void beregnAntalTagpladerPlast(int l, int b) {
@@ -321,7 +327,7 @@ public class CarportCalculator {
 
     //Skal være deleligt med afstand mellem spær
     static void setDimensionSkur(int l) {
-        checkDimensionsSkur(l);
+        //checkDimensionsSkur(l);
         skur.skurLængde = l;
         skur.skurHøjde = carportHøjde;
 
@@ -350,9 +356,9 @@ public class CarportCalculator {
 
         if (skur.placeringAfSkur.equals("midt")) {
             if (l < 3*afstandMellemSpær || l > 10*afstandMellemSpær) {
-                 System.out.println("Dit skur er enten for kort eller for langt, længden skal være mellem "+(3*afstandMellemSpær)+" cm til "+(10*afstandMellemSpær)+" cm");
-                 System.out.println("Der er ikke tilføjet skur");
-                 hasSkur = false;
+                System.out.println("Dit skur er enten for kort eller for langt, længden skal være mellem "+(3*afstandMellemSpær)+" cm til "+(10*afstandMellemSpær)+" cm");
+                System.out.println("Der er ikke tilføjet skur");
+                hasSkur = false;
             }     else {
                 hasSkur = true;
             }

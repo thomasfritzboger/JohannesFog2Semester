@@ -164,3 +164,35 @@ CREATE TABLE IF NOT EXISTS `fog`.`material_line` (
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Insert into `fog DB`
+-- -----------------------------------------------------
+INSERT INTO `fog`.`shed` (`width`, `length`, `placement`) VALUES ('3', '5', 'left');
+INSERT INTO `fog`.`shed` (`width`, `length`, `placement`) VALUES ('3', '5', 'right');
+INSERT INTO `fog`.`shed` (`width`, `length`, `placement`) VALUES ('5', '5', 'middel');
+
+INSERT INTO `fog`.`user` (`email`, `password`, `role`, `phonenumber`, `address`, `postal_code`) VALUES ('admin@fog.dk', '1234', 'admin', '70707070', 'Peter Knudsensvej', '3650');
+INSERT INTO `fog`.`user` (`email`, `password`, `role`, `phonenumber`, `address`, `postal_code`) VALUES ('kunde1@fog.dk', '1234', 'kunde', '12345678', 'Envej 1', '3600');
+INSERT INTO `fog`.`user` (`email`, `password`, `role`, `phonenumber`, `address`, `postal_code`) VALUES ('kunde2@fog.dk', '4321', 'kunde', '23456789', 'Tovej 2', '2800');
+
+INSERT INTO `fog`.`coverage` (`coverage`, `coverage_created`) VALUES ('100', '221203');
+INSERT INTO `fog`.`coverage` (`coverage`, `coverage_created`) VALUES ('50', '150822');
+
+INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `hasShed`, `isConfirmed`, `carport_created`) VALUES ('2', '1', '0', '0', '160823');
+INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `shed_id`, `hasShed`, `isConfirmed`, `carport_created`) VALUES ('1', '2', '1', '1', '0', '220413');
+
+INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('understernbrædder til for & bag ende');
+INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('understernbrædder til siderne');
+INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('oversternbrædder til forenden');
+
+INSERT INTO `fog`.`productvariant` (`length`, `width`, `unit_length`, `unit_amount`) VALUES ('200', '25', '360', '4');
+INSERT INTO `fog`.`productvariant` (`length`, `width`, `unit_length`, `unit_amount`) VALUES ('200', '25', '540', '4');
+INSERT INTO `fog`.`productvariant` (`length`, `width`, `unit_length`, `unit_amount`) VALUES ('125', '25', '360', '2');
+
+INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale`, `product_description`, `unitprice`) VALUES ('1', 'Stk', 'trykimp. Brædt', '10');
+INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale`, `product_description`, `unitprice`) VALUES ('2', 'Stk', 'trykimp. Brædt', '15');
+INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale`, `product_description`, `unitprice`) VALUES ('3', 'Stk', 'trykimp. Brædt', '10');
+
+INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `usement_id`, `quantity`, `total_price`) VALUES ('1', '1', '1', '7', '70');
+INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `usement_id`, `quantity`, `total_price`) VALUES ('2', '2', '2', '4', '60');
