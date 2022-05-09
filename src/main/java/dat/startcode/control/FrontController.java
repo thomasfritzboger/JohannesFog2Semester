@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet( name = "FrontController", urlPatterns = { "/fc/*" } )
+@WebServlet( name = "FrontController", urlPatterns = { "/FrontController" } )
 public class FrontController extends HttpServlet {
 
     protected void processRequest( HttpServletRequest request, HttpServletResponse response )
@@ -32,7 +32,8 @@ public class FrontController extends HttpServlet {
             String view = action.execute( request, response );
             if (view.equals("index"))
             {
-                response.sendRedirect(request.getServletContext().getContextPath() + "/index.jsp");
+                request.getRequestDispatcher(view + ".jsp").forward(request, response);
+                //response.sendRedirect(request.getServletContext().getContextPath() + "/index.jsp");
             } else
             {
                 request.getRequestDispatcher("/WEB-INF/" + view + ".jsp").forward(request, response);
@@ -41,7 +42,7 @@ public class FrontController extends HttpServlet {
         {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
             request.setAttribute("errormessage", e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher(request.getServletContext().getContextPath() + "/error.jsp");
         }
     }
 

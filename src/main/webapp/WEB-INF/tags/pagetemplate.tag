@@ -32,7 +32,7 @@
 
                     <!--Navigationsbaren hvis INGEN er logget ind endnu-->
                     <c:if test="${sessionScope.user == null}">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/forside?command=forside">Forside</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Forside</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/faq?command=faq">FAQ</a>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
@@ -44,9 +44,9 @@
                     <c:if test="${sessionScope.user.role.equals('kunde')}">
                         <a class="nav-item nav-link" style="pointer-events: none; cursor: default;">Velkommen: ${fn:toLowerCase(sessionScope.user.email)}</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/forside?command=forside">Forside</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Forside</a> <!--???-->
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/faq?command=faq">FAQ</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/profil?command=profil">Profil</a>
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/logout?command=logout">Log out</a>
                     </c:if>
 
                     <!--Navigationsbaren hvis admin er logget IND-->
@@ -56,7 +56,16 @@
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/kunder?command=kunder">Kunder</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/lager?command=lager">Lager</a>
                         <a class="nav-item nav-link" style="pointer-events: none; cursor: default;">Admin: ${fn:toLowerCase(sessionScope.user.email)}</a>
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/logout?command=logout">Log out</a>
+                    </c:if>
+
+                    <c:if test="${sessionScope.user != null}">
+                        <form action="FrontController" method="post">
+                            <input type="hidden" name="command" value="logout"/>
+                            <button type="submit" class="btn btn-secondary">
+                                Log ud <img src="${pageContext.request.contextPath}/images/log_out.png" style="width: 20px" alt="">
+                            </button>
+                        </form>
+
                     </c:if>
                 </div>
             </div>
@@ -75,7 +84,8 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="login" method="post">
+                    <form action="FrontController" method="post">
+                        <input type="hidden" name="command" value="login"/>
                         <label for="email">Email: </label>
                         <br>
                         <input type="email" id="email" name="email" required/>

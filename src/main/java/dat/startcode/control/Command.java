@@ -19,7 +19,7 @@ abstract class Command
     }
 
     static Command from( HttpServletRequest request ) {
-        String commandName = request.getParameter( "command" );
+        String commandName = request.getParameter( "command");
         if ( commands == null ) {
             initCommands();
         }
