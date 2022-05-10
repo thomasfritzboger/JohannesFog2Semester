@@ -16,6 +16,15 @@ abstract class Command
         commands.put("login", new Login());
         commands.put("logout", new Logout());
         commands.put("about", new About());
+        commands.put("kundeLogin",new KundeLogin());
+        commands.put("carportDesigner", new CarportDesigner());
+        commands.put("forespørgsler", new Forespørgsler());
+        commands.put("kunder", new Kunder());
+        commands.put("ordre", new Ordre());
+        commands.put("lager", new Lager());
+        commands.put("skitse", new Skitse());
+        commands.put("profil", new Profil());
+        commands.put("stykliste", new Stykliste());
     }
 
     static Command from( HttpServletRequest request ) {
