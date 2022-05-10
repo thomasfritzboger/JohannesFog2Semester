@@ -14,7 +14,7 @@
     <jsp:body>
 
         <a href="${pageContext.request.contextPath}/fc/lager?command=lager" class="btn btn-primary" >Lager</a>
-        <a href="${pageContext.request.contextPath}/fc/forespørgsler?command=forespørgsler" class="btn btn-primary" >Forespørgsler</a>
+        <a href="${pageContext.request.contextPath}/fc/forespoergsler?command=forespoergsler" class="btn btn-primary" >Forespørgsler</a>
         <a href="${pageContext.request.contextPath}/fc/ordre?command=ordre" class="btn btn-primary" >Ordre</a>
 
     </jsp:body>

@@ -24,7 +24,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="index.jsp">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">
                 <img src="${pageContext.request.contextPath}/images/fog_logo_banner.png" width="400px;" class="img-fluid"/>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -47,8 +47,7 @@
                     <!--Navigationsbaren hvis kunden er logget IND-->
                     <c:if test="${sessionScope.user.role.equals('kunde')}">
                         <a class="nav-item nav-link" style="pointer-events: none; cursor: default;">Velkommen: ${fn:toLowerCase(sessionScope.user.email)}</a>
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/forside?command=forside">Forside</a>
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Forside</a> <!--???-->
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Forside</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/faq?command=faq">FAQ</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/profil?command=profil">Profil</a>
                     </c:if>
@@ -63,7 +62,7 @@
                     </c:if>
 
                     <c:if test="${sessionScope.user != null}">
-                        <form action="FrontController" method="post">
+                        <form name="logout" action="fc/" method="post">
                             <input type="hidden" name="command" value="logout"/>
                             <button type="submit" class="btn btn-secondary">
                                 Log ud <img src="${pageContext.request.contextPath}/images/log_out.png" style="width: 20px" alt="">
@@ -88,8 +87,9 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="FrontController" method="post">
+                    <form action="fc/login" method="post">
                         <input type="hidden" name="command" value="login"/>
+
                         <label for="email">Email: </label>
                         <br>
                         <input type="email" id="email" name="email" required/>

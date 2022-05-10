@@ -13,7 +13,7 @@
 
     <jsp:body>
 
-        <a href="${pageContext.request.contextPath}/fc/forespørgsler?command=forespørgsler" class="btn btn-primary" >forespørgsler</a>
+        <a href="${pageContext.request.contextPath}/fc/forespoergsler?command=forespoergsler" class="btn btn-primary" >forespørgsler</a>
 
     </jsp:body>
 

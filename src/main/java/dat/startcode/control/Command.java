@@ -15,10 +15,10 @@ abstract class Command
         commands = new HashMap<>();
         commands.put("login", new Login());
         commands.put("logout", new Logout());
-        commands.put("about", new About());
+        commands.put("faq", new Faq());
         commands.put("kundeLogin",new KundeLogin());
         commands.put("carportDesigner", new CarportDesigner());
-        commands.put("forespørgsler", new Forespørgsler());
+        commands.put("forespoergsler", new Forespoergsler());
         commands.put("kunder", new Kunder());
         commands.put("ordre", new Ordre());
         commands.put("lager", new Lager());

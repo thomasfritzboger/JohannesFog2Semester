@@ -6,7 +6,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-             About
+             FAQ
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -15,7 +15,7 @@
 
     <jsp:body>
 
-        <h3>Her kan der stå lidt om dig</h3>
+        <h3>FAQ</h3>
 
         <p><a href="index.jsp">Til forsiden</a></p>
 

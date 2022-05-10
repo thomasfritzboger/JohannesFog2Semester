@@ -24,15 +24,24 @@ public class Login extends Command
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException
     {
-        HttpSession session = request.getSession();
-        session.setAttribute("user", null); // adding empty user object to session scope
 
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        try {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", null); // adding empty user object to session scope
 
-        User user = UserFacade.login(email, password, connectionPool);
-        session = request.getSession();
-        session.setAttribute("user", user); // adding user object to session scope
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+
+            User user = UserFacade.login(email, password, connectionPool);
+
+            session = request.getSession();
+            session.setAttribute("user", user); // adding user object to session scope
+        } catch (DatabaseException e) {
+            Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
+            request.setAttribute("errormessage", e.getMessage());
+            return "error";
+        }
+
         return "index";
     }
 }

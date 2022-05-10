@@ -22,7 +22,9 @@
 
         <!--If logged in only link to carport factory TODO-->
         <c:if test="${sessionScope.user != null}">
-            <input type="image" src="${pageContext.request.contextPath}/images/carport_bygselv.png" name="carport" id="123"/>
+            <a href="${pageContext.request.contextPath}/fc/kundeLogin?command=kundeLogin">
+                <img src="${pageContext.request.contextPath}/images/carport_bygselv.png">
+            </a>
         </c:if>
 
         <c:if test="${sessionScope.user == null}">
@@ -43,7 +45,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="FrontController" method="post">
+                        <form action="fc/login" method="post">
                             <input type="hidden" name="command" value="login"/>
 
                             <label for="email">Email: </label> <br>
@@ -53,7 +55,6 @@
                             <input type="password" id="password" name="password" minlength="4" required/> <br> <br>
 
                             <input type="submit"  value="Log in"/>
-
 
                             <br>
                         </form>
@@ -77,7 +78,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="FrontController" method="post">
+                        <form name="createuser" action="fc/login" method="post">
                             <input type="hidden" name="command" value="createuser"/>
 
                             <label for="navn">Navn: </label> <br>
