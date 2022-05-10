@@ -15,6 +15,7 @@ abstract class Command
         commands = new HashMap<>();
         commands.put("login", new Login());
         commands.put("logout", new Logout());
+        commands.put("lavbruger", new LavBruger());
         commands.put("faq", new Faq());
         commands.put("kundeLogin",new KundeLogin());
         commands.put("carportDesigner", new CarportDesigner());

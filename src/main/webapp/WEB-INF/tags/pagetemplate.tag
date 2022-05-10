@@ -100,7 +100,9 @@
                                required/>
                         <br>
                         <br>
-                        <input type="submit" value="Log ind"/>
+                        <button type="submit" class="btn btn-primary" >
+                            Log ind
+                        </button>
                         <br>
                     </form>
                 </div>

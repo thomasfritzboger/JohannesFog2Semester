@@ -78,11 +78,11 @@
                     </div>
                     <div class="modal-body">
 
-                        <form name="createuser" action="fc/login" method="post">
-                            <input type="hidden" name="command" value="createuser"/>
+                        <form action="fc/lavbruger" method="post">
+                            <input type="hidden" name="command" value="lavbruger"/>
 
-                            <label for="navn">Navn: </label> <br>
-                            <input type="text" id="navn" name="navn" pattern="(?!^[aA][dD][mM][iI][nN]([iI][sS][tT][rR][aA][tT][oO][rR])?$)(?!^root$).{4,20}" required> <br> <br>
+                            <label for="emailny">Email: </label> <br>
+                            <input type="emailny" id="emailny" name="emailny" required> <br> <br>
 
                             <label for="telefonnr">Telefonnr: </label> <br>
                             <input type="tel" id="telefonnr" placeholder="40404040" name="telefonnr" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
@@ -94,16 +94,13 @@
                             <label for="postnr">Postnr.: </label> <br>
                             <input type="text" id="postnr" name="postnr" pattern="[0-9]{4}" placeholder="Fire cifre" required> <br><br>
 
-                            <label for="emailny">Email: </label> <br>
-                            <input type="email" id="emailny" name="emailny" required> <br> <br>
-
                             <label for="passwordny">Kodeord: </label> <br>
                             <input type="password" id="passwordny" name="passwordny" minlength="4" pattern="^\S{4,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Skal være på mindst 4 karakterer' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Kode" required> <br> <br>
 
                             <label for="passwordRepeated">Bekræft kodeord: </label> <br>
                             <input type="password" id="passwordRepeated" name="passwordRepeated" minlength="4" pattern="^\S{4,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Indtast venligst samme kodeord som foroven' : '');" placeholder="Verificer kodeord" required> <br> <br>
 
-                            <button type="submit" class="btn btn-primary" formaction="createuser">
+                            <button type="submit" class="btn btn-primary" >
                                 Bliv medlem
                             </button>
 
