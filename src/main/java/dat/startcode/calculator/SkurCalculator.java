@@ -1,6 +1,6 @@
 package dat.startcode.calculator;
 
-public class Skur {
+public class SkurCalculator {
 
     public int størrelseIForholdTilCarportBredde;
     public String placeringAfSkur;
@@ -46,7 +46,7 @@ public class Skur {
 
 
 
-    public Skur() {
+    public SkurCalculator() {
 
         antalTHængsel = 2;
         antalStalddørsgreb = 1;
