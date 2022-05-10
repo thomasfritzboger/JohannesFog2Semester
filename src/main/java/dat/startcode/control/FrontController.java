@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet( name = "FrontController", urlPatterns = { "/FrontController" } )
+@WebServlet( name = "FrontController", urlPatterns = { "/fc/*" } )
 public class FrontController extends HttpServlet {
 
     protected void processRequest( HttpServletRequest request, HttpServletResponse response )
