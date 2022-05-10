@@ -91,8 +91,8 @@
                             <input type="text" id="addresse" name="addresse" minlength="4" required>
                             <br> <br>
 
-                            <label for="postnr">Postnr.: </label>
-                            <input type="text" id="addresse" name="addresse" minlength="4" required>
+                            <label for="postnr">Postnr.: </label> <br>
+                            <input type="text" id="postnr" name="postnr" pattern="[0-9]{4}" placeholder="Fire cifre" required> <br><br>
 
                             <label for="emailny">Email: </label> <br>
                             <input type="email" id="emailny" name="emailny" required> <br> <br>
