@@ -35,18 +35,15 @@ public class UserMapper implements IUserMapper
                 if (rs.next())
                 {
                     String role = rs.getString("role");
-                    //String phoneNumber = rs.getString("phonenumber");
-                    //String address = rs.getString("address");
-                    //int postalCode = rs.getInt("postal_code");
                     user = new User(email, password, role);
                 } else
                 {
-                    throw new DatabaseException("Wrong email or password");
+                    throw new DatabaseException("Forkert email eller kodeord.");
                 }
             }
         } catch (SQLException ex)
         {
-            throw new DatabaseException(ex, "Error logging in. Something went wrong with the database buddy!");
+            throw new DatabaseException(ex, "Fejl opstået ved log ind. Noget gik galt med databasen.");
         }
         return user;
     }
@@ -74,13 +71,13 @@ public class UserMapper implements IUserMapper
                     user = new User(email, password, role, phoneNumber, address, postalCode);
                 } else
                 {
-                    throw new DatabaseException("The user with username = " + email + " could not be inserted into the database");
+                    throw new DatabaseException("Brugeren med email = " + email + " kunne ikke indsættes i databasen");
                 }
             }
         }
         catch (SQLException ex)
         {
-            throw new DatabaseException(ex, "Could not insert username into database");
+            throw new DatabaseException(ex, "Kunne ikke indsætte brugeren i databasen");
         }
         return user;
     }

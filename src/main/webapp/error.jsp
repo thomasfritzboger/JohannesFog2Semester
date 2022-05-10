@@ -6,7 +6,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-             Fejlside
+             En fejl er opstået
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -15,15 +15,12 @@
 
     <jsp:body>
 
-        <p>En fejl er opstået. Fejlbesked: </p>
-
         <c:if test="${pageContext.errorData.statusCode == 404 }">
             <p><b>Fejl kode:</b> ${pageContext.errorData.statusCode}</p>
         </c:if>
 
         <c:if test="${pageContext.errorData.statusCode == 500 }">
-            <p><b>Fejl kode:</b> ${pageContext.errorData.statusCode}</p>
-            <p>En seriøs fejl opstod i serveren.</p>
+            <p>En seriøs fejl opstod i serveren. <b>Fejl kode:</b> ${pageContext.errorData.statusCode}.</p>
         </c:if>
 
 
@@ -35,8 +32,8 @@
             <p>Abandon ship. We have no idea how you ended up here!</p>
         </c:if>
 
-        <p>Hop tilbage til <a href="index.jsp">forsiden</a>,
-            eller prøv at <a href="login.jsp">logge</a> ind igen.</p>
+        <p>Hop tilbage til <a href="${pageContext.request.contextPath}/index.jsp">forsiden</a>,
+            eller prøv at logge ind igen fra hovedmenuen.</p>
 
     </jsp:body>
 </t:pagetemplate>

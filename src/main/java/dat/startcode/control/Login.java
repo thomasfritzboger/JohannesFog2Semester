@@ -24,6 +24,7 @@ public class Login extends Command
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException
     {
+        User user = null;
 
         try {
             HttpSession session = request.getSession();
@@ -32,7 +33,7 @@ public class Login extends Command
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
-            User user = UserFacade.login(email, password, connectionPool);
+            user = UserFacade.login(email, password, connectionPool);
 
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
@@ -42,6 +43,10 @@ public class Login extends Command
             return "error";
         }
 
-        return "index";
+        if(user.getRole().equals("admin")) {
+            return "forespoergsler";
+        } else {
+            return "kundeLogin";
+        }
     }
 }

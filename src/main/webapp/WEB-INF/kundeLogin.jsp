@@ -4,7 +4,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-        KundeLogin
+        Carport factory!
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -13,7 +13,23 @@
 
     <jsp:body>
 
-        <a href="${pageContext.request.contextPath}/fc/carportDesigner?command=carportDesigner" class="btn btn-primary" >Carport designer</a>
+        <h2>Vælg carport type:</h2>
+
+        <div>
+            <p>Carport med fladt tag</p>
+            <a href="${pageContext.request.contextPath}/fc/carportDesigner?command=carportDesigner" >
+                <img src="${pageContext.request.contextPath}/images/fladt_tag.png" alt="carport med fladt tag">
+            </a>
+        </div>
+
+        <div>
+            <p>Carport med rejsning</p>
+            <a href="${pageContext.request.contextPath}/fc/carportDesigner?command=carportDesigner" >
+                <img src="${pageContext.request.contextPath}/images/carport_rejsning.png" alt="carport med rejsning">
+            </a>
+        </div>
+
+
 
     </jsp:body>
 
