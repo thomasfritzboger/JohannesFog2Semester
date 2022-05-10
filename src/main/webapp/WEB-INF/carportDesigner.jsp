@@ -35,9 +35,82 @@
             </select>
         </div>
 
-        <!--Denne div er til valg af tag og taghældni-->
-        <div></div>
+        <!--Denne div er til valg af tag og taghældning????-->
+        <div>
+            <label for="tagtype">Tagtype:</label> <br>
+            <select name="tagtype" id="tagtype">
+                <option value="" disabled selected>Valg tagtype/farve</option>
+                <option value="-">-</option>
+                    <%--
+                    <c:forEach items="${applicationScope.bottomlist}" var="bottoms">
+                        <option value="${bottoms.bottomId}">${bottoms.name} (${bottoms.price},-)</option>
+                    </c:forEach>
+                     --%>
+            </select>
 
+            <br>
+
+            <label for="taghaeldning">Taghældning:</label> <br>
+            <select name="taghaeldning" id="taghaeldning">
+                <option value="" disabled selected>15 grader</option>
+                <option value="-">-</option>
+                    <%--
+                    <c:forEach items="${applicationScope.bottomlist}" var="bottoms">
+                        <option value="${bottoms.bottomId}">${bottoms.name} (${bottoms.price},-)</option>
+                    </c:forEach>
+                     --%>
+            </select>
+        </div>
+
+
+
+        <label for="redskabsrumValgt">Tilføj redskabsrum? </label>
+        <input type="checkbox" id="redskabsrumValgt" name="redskabsrumValgt" value="redskabsrum">
+
+        <br><br>
+
+        <!--Hvis redskabsrum tilvælges og alt information er tastet ind mht. dimensioner fremvises
+        følgende muligheder til redskabsrummet-->
+
+        <div>
+            <label for="redskabsrumPlacering">Redskabsrum placering: </label> <br>
+            <select name="redskabsrumPlacering" id="redskabsrumPlacering">
+                <option value="" disabled selected>Valg placering</option>
+                <option value="-">-</option>
+                    <%--
+                    <c:forEach items="${applicationScope.bottomlist}" var="bottoms">
+                        <option value="${bottoms.bottomId}">${bottoms.name} (${bottoms.price},-)</option>
+                    </c:forEach>
+                     --%>
+            </select>
+
+            <br>
+
+            <label for="reskabsrumBredde">Redskabsrum bredde:</label> <br>
+            <select name="reskabsrumBredde" id="reskabsrumBredde">
+                <option value="" disabled selected>Vælg bredde</option>
+                <option value="-">-</option>
+                    <%--
+                    <c:forEach items="${applicationScope.bottomlist}" var="bottoms">
+                        <option value="${bottoms.bottomId}">${bottoms.name} (${bottoms.price},-)</option>
+                    </c:forEach>
+                     --%>
+            </select>
+
+            <br>
+
+            <label for="reskabsrumLængde">Redskabsrum længde:</label> <br>
+            <select name="reskabsrumLængde" id="reskabsrumLængde">
+                <option value="" disabled selected>Vælg længde</option>
+                <option value="-">-</option>
+                    <%--
+                    <c:forEach items="${applicationScope.bottomlist}" var="bottoms">
+                        <option value="${bottoms.bottomId}">${bottoms.name} (${bottoms.price},-)</option>
+                    </c:forEach>
+                     --%>
+            </select>
+
+        </div>
 
 
         <a href="${pageContext.request.contextPath}/fc/skitse?command=skitse" class="btn btn-primary" >Se skitse</a>

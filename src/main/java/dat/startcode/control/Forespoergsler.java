@@ -7,6 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 public class Forespoergsler extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
-        return "forespørgsler";
+        return "forespoergsler";
     }
 }
