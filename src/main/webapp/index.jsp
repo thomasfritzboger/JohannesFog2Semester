@@ -82,18 +82,26 @@
                             <input type="hidden" name="command" value="createuser"/>
 
                             <label for="navn">Navn: </label> <br>
-                            <input type="text" id="navn" name="navn" pattern="(?!^[aA][dD][mM][iI][nN]([iI][sS][tT][rR][aA][tT][oO][rR])?$)(?!^root$).{3,20}" required> <br> <br>
+                            <input type="text" id="navn" name="navn" pattern="(?!^[aA][dD][mM][iI][nN]([iI][sS][tT][rR][aA][tT][oO][rR])?$)(?!^root$).{4,20}" required> <br> <br>
+
                             <label for="telefonnr">Telefonnr: </label> <br>
-                            <input type="tel" id="telefonnr" placeholder="40404040" name="telefonnr" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}" required> <br> <br>
+                            <input type="tel" id="telefonnr" placeholder="40404040" name="telefonnr" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
+
+                            <label for="addresse">Addresse: </label> <br>
+                            <input type="text" id="addresse" name="addresse" minlength="4" required>
+                            <br> <br>
+
+                            <label for="postnr">Postnr.: </label>
+                            <input type="text" id="addresse" name="addresse" minlength="4" required>
 
                             <label for="emailny">Email: </label> <br>
                             <input type="email" id="emailny" name="emailny" required> <br> <br>
 
                             <label for="passwordny">Kodeord: </label> <br>
-                            <input type="password" id="passwordny" name="passwordny" minlength="4" required> <br> <br>
+                            <input type="password" id="passwordny" name="passwordny" minlength="4" pattern="^\S{4,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Skal være på mindst 4 karakterer' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Kode" required> <br> <br>
 
-                            <label for="passwordRepeated">Gentag kodeord: </label> <br>
-                            <input type="password" id="passwordRepeated" name="passwordRepeated" minlength="4" required> <br> <br>
+                            <label for="passwordRepeated">Bekræft kodeord: </label> <br>
+                            <input type="password" id="passwordRepeated" name="passwordRepeated" minlength="4" pattern="^\S{4,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Indtast venligst samme kodeord som foroven' : '');" placeholder="Verificer kodeord" required> <br> <br>
 
                             <button type="submit" class="btn btn-primary" formaction="createuser">
                                 Bliv medlem
