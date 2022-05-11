@@ -16,6 +16,7 @@ import java.util.List;
 public class Kunder extends Command {
 
     List<User> kundeListe;
+    User searchedCustomer = null;
 
     private ConnectionPool connectionPool;
 
@@ -31,9 +32,25 @@ public class Kunder extends Command {
 
         HttpSession session = request.getSession();
 
+        String email = request.getParameter("soegt-email");
+        boolean emailFound = false;
+
+        if(email != null) {
+            for (User user : kundeListe) {
+                if(user.getEmail().equals(email)) {
+                    searchedCustomer = user;
+                    emailFound = true;
+                    break;
+                }
+                searchedCustomer = null;
+            }
+        }
+
         session = request.getSession();
 
         session.setAttribute("customerlist", kundeListe);
+        session.setAttribute("searchedcustomer", searchedCustomer);
+        session.setAttribute("soegt-email", email);
 
         return "kunder";
     }
