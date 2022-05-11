@@ -6,6 +6,7 @@ import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.persistence.UserMapper;
 
 import javax.xml.crypto.Data;
+import java.util.List;
 
 public class UserFacade
 {
@@ -19,5 +20,11 @@ public class UserFacade
     {
         UserMapper userMapper = new UserMapper(connectionPool);
         return userMapper.createUser(email, password, role, phoneNumber, address, postalCode);
+    }
+
+
+    public static List<User> getCustomerList(ConnectionPool connectionPool) throws DatabaseException {
+        UserMapper userMapper = new UserMapper(connectionPool);
+        return userMapper.getCustomers();
     }
 }

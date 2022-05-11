@@ -82,7 +82,7 @@
                             <input type="hidden" name="command" value="lavbruger"/>
 
                             <label for="emailny">Email: </label> <br>
-                            <input type="emailny" id="emailny" name="emailny" required> <br> <br>
+                            <input type="email" id="emailny" name="emailny" required> <br> <br>
 
                             <label for="telefonnr">Telefonnr: </label> <br>
                             <input type="tel" id="telefonnr" placeholder="40404040" name="telefonnr" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
@@ -95,10 +95,22 @@
                             <input type="text" id="postnr" name="postnr" pattern="[0-9]{4}" placeholder="Fire cifre" required> <br><br>
 
                             <label for="passwordny">Kodeord: </label> <br>
-                            <input type="password" id="passwordny" name="passwordny" minlength="4" pattern="^\S{4,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Skal være på mindst 4 karakterer' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Kode" required> <br> <br>
+                            <input type="password" id="passwordny" name="passwordny" minlength="4" placeholder="Kode" required> <br> <br>
 
                             <label for="passwordRepeated">Bekræft kodeord: </label> <br>
-                            <input type="password" id="passwordRepeated" name="passwordRepeated" minlength="4" pattern="^\S{4,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Indtast venligst samme kodeord som foroven' : '');" placeholder="Verificer kodeord" required> <br> <br>
+                            <input type="password" id="passwordRepeated" name="passwordRepeated" minlength="4" oninput="check(this)" required> <br> <br>
+
+                            <script type='text/javascript'>
+                                function check(input) {
+                                    if (input.value != document.getElementById('password').value) {
+                                        input.setCustomValidity('Koderne skal være ens.');
+                                    } else {
+                                        // input is valid -- reset the error message
+                                        input.setCustomValidity('');
+                                    }
+                                }
+                            </script>
+                            <br /><br />
 
                             <button type="submit" class="btn btn-primary" >
                                 Bliv medlem

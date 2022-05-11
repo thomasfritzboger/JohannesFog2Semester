@@ -4,6 +4,8 @@ import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,6 +53,8 @@ public class UserMapper implements IUserMapper
     @Override
     public User createUser(String email, String password, String role, String phoneNumber, String address, int postalCode) throws DatabaseException
     {
+        checkEmailIfExisting(email);
+
         Logger.getLogger("web").log(Level.INFO, "");
         User user;
         String sql = "insert into user (email, password, role, phonenumber, address, postal_code) values (?,?,?,?,?,?)";
@@ -80,6 +84,72 @@ public class UserMapper implements IUserMapper
             throw new DatabaseException(ex, "Kunne ikke indsætte brugeren i databasen");
         }
         return user;
+    }
+
+    @Override
+    public void checkEmailIfExisting(String email) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        User user = null;
+        int result = 0;
+
+        String sql = "SELECT EXISTS(SELECT * FROM user WHERE email = ?) AS TEST";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                {
+                    result = Integer.parseInt(rs.getString("TEST"));
+
+                    if(result == 1) {
+                        throw new DatabaseException("En bruger findes allerede med denne email.");
+                    }
+
+                } else
+                {
+                    throw new DatabaseException("Noget gik galt.");
+                }
+            }
+        } catch (SQLException ex)
+        {
+            throw new DatabaseException(ex, "Noget gik galt 2.");
+        }
+
+
+    }
+
+    @Override
+    public List<User> getCustomers() throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        List<User> customerList = new ArrayList<>();
+
+        String sql = "SELECT user_id, email, phonenumber, address, postal_code FROM user WHERE role = 'kunde'";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int userId = rs.getInt("user_id");
+                    String email = rs.getString("email");
+                    String phoneNumber = rs.getString("phonenumber");
+                    String address = rs.getString("address");
+                    int postalCode = rs.getInt("postal_code");
+                    customerList.add(new User(userId, email, phoneNumber, address, postalCode));
+                }
+            } catch (SQLException throwables) {
+                throw new DatabaseException("Kunne ikke få alle kunder fra database");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DatabaseException("Kunne få forbindelse til databasen");
+        }
+
+        return customerList;
     }
 
 
