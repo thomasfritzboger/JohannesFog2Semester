@@ -4,7 +4,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-        Lager
+        Lagerstyring
     </jsp:attribute>
 
     <jsp:attribute name="footer">
