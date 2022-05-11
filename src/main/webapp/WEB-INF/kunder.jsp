@@ -18,6 +18,8 @@
         <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#fremsogkundemodal">
             Fremsøg kunde
         </button>
+        <br>
+        <br>
 
             <!-- Modal -->
             <div class="modal fade" id="fremsogkundemodal" tabindex="-1" aria-labelledby="fremsogkundemodal"
@@ -34,10 +36,10 @@
                             <form action="fc/kunder" method="post">
                                 <input type="hidden" name="command" value="kunder"/>
 
-                                <label for="soegt-email">Søg efter kunde med deres email:</label>
+                                <label for="soegtemail">Søg efter kunde med deres email:</label>
                                 <br>
-                                <input type="email" id="soegt-email" name="soegt-email" required/>
-                                <br>
+                                <input type="email" id="soegtemail" name="soegtemail" required/>
+                                <br> <br>
                                 <button type="submit" class="btn btn-dark">
                                     Søg
                                 </button>
@@ -51,7 +53,10 @@
 
         <c:if test="${searchedcustomer != null}">
             <!--TODO tjek hvis en kunde er slået op. Hvis ja, så fremvis tabellen og headeren-->
-            <h3>Her er den kunde du søgte efter</h3>
+            <br>
+
+            <b><h5>Fandt kunden du søgte: </h5></b>
+
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -74,9 +79,9 @@
         </c:if>
 
 
-        <c:if test="${searchedcustomer == null && soegt-email != null}">
+        <c:if test="${searchedcustomer == null && soegtemail != null}">
         <!--Hvis kunden ikke findes så hvis - kan evt. slettes-->
-            <h3>Kunden du søgte kunne ikke findes</h3>
+            <b><h5>Kunde med email: (${soegtemail}) kunne ikke findes</h5></b>
         </c:if>
 
 

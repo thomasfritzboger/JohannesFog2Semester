@@ -32,7 +32,7 @@ public class Kunder extends Command {
 
         HttpSession session = request.getSession();
 
-        String email = request.getParameter("soegt-email");
+        String email = request.getParameter("soegtemail");
         boolean emailFound = false;
 
         if(email != null) {
@@ -50,7 +50,7 @@ public class Kunder extends Command {
 
         session.setAttribute("customerlist", kundeListe);
         session.setAttribute("searchedcustomer", searchedCustomer);
-        session.setAttribute("soegt-email", email);
+        session.setAttribute("soegtemail", email);
 
         return "kunder";
     }
