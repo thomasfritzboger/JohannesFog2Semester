@@ -1,7 +1,6 @@
-package dat.startcode.calculator;
+package dat.startcode.model.services;
 
-public class Skur {
-
+public class SkurCalculator {
     public int størrelseIForholdTilCarportBredde;
     public String placeringAfSkur;
 
@@ -46,7 +45,7 @@ public class Skur {
 
 
 
-    public Skur() {
+    public SkurCalculator() {
 
         antalTHængsel = 2;
         antalStalddørsgreb = 1;
@@ -61,7 +60,10 @@ public class Skur {
 
 
         placeringAfSkur = placering;
-        beregnEkstraStolper(skurLængde, placering);
+        System.out.println("Skurlængde inden bregning: "+skurLængde);
+        System.out.println("Skurlængde inden bregning: "+skurBredde);
+
+
 
 
 
@@ -69,7 +71,6 @@ public class Skur {
             System.out.println("Du har valgt skur i carportbredde");
             skurBredde = carportBredde;
 
-            System.out.println("SkurBredde  :       " + skurBredde + " Skurlængde     " + skurLængde);
 
         } else if (placering.equals("venstre")) {
             System.out.println("Du har placeret skuret i venstre side");
@@ -83,33 +84,50 @@ public class Skur {
             System.out.println("Du har fravalgt skur");
 
         }
+
+        beregnEkstraStolper(skurLængde);
     }
 
-    private void beregnEkstraStolper(int l, String placering){
+    private void beregnEkstraStolper(int l){
 
-
-
+        System.out.println("SKUURBREEDDDDE "+skurBredde);
         switch (placeringAfSkur){
 
+
+
             case "midt":
+                if (skurBredde > 310) {
+                    antalStolperPåSpærEkstraNårSkur += 1;
+
+                    System.out.println("Antal stolper ekstra på spær"+ antalStolperPåSpærEkstraNårSkur);
+                }
 
                 if (l<=310) {
-                    antalStolperPåSpærEkstraNårSkur = 1;
-                    antalStolperPåRemEkstraNårSkur = 3;
-                    antalEkstraBolteNårSkur = 3;
-                    antalEkstraFirkantSkiverNårSkur = 3;
 
-                } else if (l > 310 && l < 410 ) {
-                    antalStolperPåSpærEkstraNårSkur = 1;
-                    antalStolperPåRemEkstraNårSkur = 4;
-                    antalEkstraBolteNårSkur = 4;
-                    antalEkstraFirkantSkiverNårSkur = 4;
+                    System.out.println("TTTTTTTTTT");
+
+
+
+                    antalStolperPåRemEkstraNårSkur += 3;
+                    antalEkstraBolteNårSkur += 3;
+                    antalEkstraFirkantSkiverNårSkur += 3;
+
+                } else if (l > 310 && l < 310+breddeAfDør ) {
+
+                    System.out.println("J310-410");
+
+
+                    antalStolperPåRemEkstraNårSkur += 4;
+                    antalEkstraBolteNårSkur += 4;
+                    antalEkstraFirkantSkiverNårSkur += 4;
 
                 } else {
-                    antalStolperPåSpærEkstraNårSkur = 1;
-                    antalStolperPåRemEkstraNårSkur = 5;
-                    antalEkstraBolteNårSkur = 5;
-                    antalEkstraFirkantSkiverNårSkur = 5;
+
+                    System.out.println("over 420");
+
+                    antalStolperPåRemEkstraNårSkur += 5;
+                    antalEkstraBolteNårSkur += 5;
+                    antalEkstraFirkantSkiverNårSkur += 5;
 
                 }
                 break;
@@ -117,40 +135,40 @@ public class Skur {
             case "venstre":
 
                 if (l<=310) {
-                    antalStolperPåSpærEkstraNårSkur = 2;
-                    antalStolperPåRemEkstraNårSkur = 1;
-                    antalEkstraBolteNårSkur = 1;
-                    antalEkstraFirkantSkiverNårSkur = 1;
+                    antalStolperPåSpærEkstraNårSkur += 2;
+                    antalStolperPåRemEkstraNårSkur += 1;
+                    antalEkstraBolteNårSkur += 1;
+                    antalEkstraFirkantSkiverNårSkur += 1;
 
 
 
 
                 } else if (l > 310 && l < 310+breddeAfDør ) {
 
-                    antalStolperPåSpærEkstraNårSkur = 2;
-                    antalStolperPåRemEkstraNårSkur = 1;
-                    antalEkstraBolteNårSkur = 1;
-                    antalEkstraFirkantSkiverNårSkur = 1;
+                    antalStolperPåSpærEkstraNårSkur += 2;
+                    antalStolperPåRemEkstraNårSkur += 1;
+                    antalEkstraBolteNårSkur += 1;
+                    antalEkstraFirkantSkiverNårSkur += 1;
 
                 }
                 break;
 
             case "højre":
                 if (l<=310) {
-                    antalStolperPåSpærEkstraNårSkur = 2;
-                    antalStolperPåRemEkstraNårSkur = 1;
-                    antalEkstraBolteNårSkur = 1;
-                    antalEkstraFirkantSkiverNårSkur = 1;
+                    antalStolperPåSpærEkstraNårSkur += 2;
+                    antalStolperPåRemEkstraNårSkur += 1;
+                    antalEkstraBolteNårSkur += 1;
+                    antalEkstraFirkantSkiverNårSkur += 1;
 
 
 
 
                 } else if (l > 310 && l <  310+breddeAfDør ) {
 
-                    antalStolperPåSpærEkstraNårSkur = 2;
-                    antalStolperPåRemEkstraNårSkur = 1;
-                    antalEkstraBolteNårSkur = 1;
-                    antalEkstraFirkantSkiverNårSkur = 1;
+                    antalStolperPåSpærEkstraNårSkur += 2;
+                    antalStolperPåRemEkstraNårSkur += 1;
+                    antalEkstraBolteNårSkur += 1;
+                    antalEkstraFirkantSkiverNårSkur += 1;
 
                 }
                 break;
@@ -299,4 +317,5 @@ public class Skur {
 
 
     }
+
 }
