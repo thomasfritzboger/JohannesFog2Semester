@@ -121,19 +121,58 @@ class CarportCalculatorTest {
     }
 
     @Test
-    void testBeregnAntalStolperMedSkur() {
+    //Carport under 3m bred
+    void testBeregnAntalStolperMedSkurMidtSmal() throws IllegalDimensionException {
+        CarportCalculator c = new CarportCalculator();
+
+        c.beregnCarport(600,300,210,"y","plast","midt",3);
+        assertEquals(9,c.beregnAntalStolper(c.carportLængde));
+
+        c = null;
+        c = new CarportCalculator();
+
+
+        //Halvlang (310-(310+dørbredde))
+        c.beregnCarport(850,300,210,"y","plast","midt",7);
+
+
+        c = null;
+        c = new CarportCalculator();
+
+        //Lang mere end 310+dørbredde
+        c.beregnCarport(950,300,210,"y","plast","midt",9);
+
+        assertEquals(11,c.beregnAntalStolper(c.carportLængde));
+
+    }
+
+    @Test
+    void testBeregnAntalStolperMedSkurMidtBred() throws IllegalDimensionException {
+        CarportCalculator c = new CarportCalculator();
+
+        c.beregnCarport(600,480,210,"y","plast","midt",3);
+        assertEquals(11,c.beregnAntalStolper(c.carportLængde));
+
+
+
+
+
+    }
+
+    @Test
+    void testBeregnAntalStolperMedSkurVenstreHøjre() {
         CarportCalculator c = new CarportCalculator();
 
 
         //Smal carport (under 3m bred)
-        c.skur.setPlaceringAfSkur("midt");
-        c.setDimensionCarport(600,300,210);
+        c.skur.setPlaceringAfSkur("venstre");
+        c.setDimensionCarport(0,300,210);
         c.hasSkur = true;
         c.setSkurLængde(165);
-        c.setSkurBredde(300);
+        c.setSkurBredde(600);
 
 
-        //assertEquals(9,c.beregnAntalStolper(c.carportLængde));
+        assertEquals(2,c.beregnAntalStolper(c.carportLængde));
         //assertEquals(1,c.mList.size());
         //Bred carport (mere end 3m bred)
         c.setDimensionCarport(600,400,210);
@@ -143,7 +182,7 @@ class CarportCalculatorTest {
 
         c.skur.setPlaceringAfSkur("venstre");
         c.setDimensionCarport(600,400,210);
-        assertEquals(11,c.beregnAntalStolper(c.carportLængde));
+        //assertEquals(11,c.beregnAntalStolper(c.carportLængde));
 
     }
 

@@ -60,7 +60,10 @@ public class SkurCalculator {
 
 
         placeringAfSkur = placering;
-        beregnEkstraStolper(skurLængde);
+        System.out.println("Skurlængde inden bregning: "+skurLængde);
+        System.out.println("Skurlængde inden bregning: "+skurBredde);
+
+
 
 
 
@@ -81,36 +84,47 @@ public class SkurCalculator {
             System.out.println("Du har fravalgt skur");
 
         }
+
+        beregnEkstraStolper(skurLængde);
     }
 
     private void beregnEkstraStolper(int l){
 
-
-        if (skurBredde<310) {
-
-
-            antalStolperPåSpærEkstraNårSkur -= 1;
-        }
-
+        System.out.println("SKUURBREEDDDDE "+skurBredde);
         switch (placeringAfSkur){
 
-            case "midt":
 
+
+            case "midt":
+                if (skurBredde > 310) {
+                    antalStolperPåSpærEkstraNårSkur += 1;
+
+                    System.out.println("Antal stolper ekstra på spær"+ antalStolperPåSpærEkstraNårSkur);
+                }
 
                 if (l<=310) {
-                    antalStolperPåSpærEkstraNårSkur += 1;
+
+                    System.out.println("TTTTTTTTTT");
+
+
+
                     antalStolperPåRemEkstraNårSkur += 3;
                     antalEkstraBolteNårSkur += 3;
                     antalEkstraFirkantSkiverNårSkur += 3;
 
-                } else if (l > 310 && l < 410 ) {
-                    antalStolperPåSpærEkstraNårSkur += 1;
+                } else if (l > 310 && l < 310+breddeAfDør ) {
+
+                    System.out.println("J310-410");
+
+
                     antalStolperPåRemEkstraNårSkur += 4;
                     antalEkstraBolteNårSkur += 4;
                     antalEkstraFirkantSkiverNårSkur += 4;
 
                 } else {
-                    antalStolperPåSpærEkstraNårSkur += 1;
+
+                    System.out.println("over 420");
+
                     antalStolperPåRemEkstraNårSkur += 5;
                     antalEkstraBolteNårSkur += 5;
                     antalEkstraFirkantSkiverNårSkur += 5;

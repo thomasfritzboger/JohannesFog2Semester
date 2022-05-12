@@ -24,9 +24,12 @@ public class CarportCalculator {
     public String tagtype;
 
     public CarportCalculator() {
+
+
     }
 
-    public List<OrderLineDTO> beregnCarport(int l, int b, int h, String hasSkur, String tagmateriale, String placeringSkur, int skurSize) throws IllegalDimensionException {
+    public List<OrderLineDTO> beregnCarport(int l, int b, int h, String hasSkur, String tagmateriale,
+                                            String placeringSkur, int skurSize) throws IllegalDimensionException {
 
 
         setDimensionCarport(l,b,h);
@@ -34,14 +37,19 @@ public class CarportCalculator {
         setAntalSpær(l);
         beregnAfstandMellemSpær(l,antalSpær);
 
+
         if (this.hasSkur) {
             skur.breddeAfDør = 2*afstandMellemSpær;
             skur.afstandMellemSpær = afstandMellemSpær;
             skur.længdeLangsideMinusDør = skur.skurLængde-skur.breddeAfDør;
             setSkurLængde(skurSize*afstandMellemSpær);
+
+
+
             skur.setPlaceringAfSkur(placeringSkur);
             setSkurBredde(carportBredde);
             checkDimensionsSkur(skur.skurLængde);
+
 
             //Er ikke testet og sat i skurCalculator
             //skur.beregnAntalLøsholter(skur.skurLængde,skur.skurBredde);
@@ -101,6 +109,7 @@ public class CarportCalculator {
     }
 
     public int beregnAntalStolper(int l) {
+
         double stolpeUnitPrice = 75.95;
         int res = 0;
         if (carportBredde<=310) {
@@ -119,19 +128,24 @@ public class CarportCalculator {
         } else {
 
 
+            int ekstra =stolpeIkkeFastgjortRem + skur.antalStolperPåRemEkstraNårSkur + skur.antalStolperPåSpærEkstraNårSkur;
 
-            int ekstra = skur.antalStolperPåRemEkstraNårSkur + 2*stolpeIkkeFastgjortRem + skur.antalStolperPåSpærEkstraNårSkur;
-            System.out.println();
-            System.out.println(skur.antalStolperPåRemEkstraNårSkur);
-            System.out.println(2*stolpeIkkeFastgjortRem);
-            System.out.println(skur.antalStolperPåSpærEkstraNårSkur);
-            System.out.println(6+ekstra);
+
+            System.out.println("Stolpe ikke på rem "+stolpeIkkeFastgjortRem);
+            System.out.println("Skur ekstra på spær "+skur.antalStolperPåSpærEkstraNårSkur);
+            System.out.println("Skur ekstra på rem "+skur.antalStolperPåRemEkstraNårSkur);
+            System.out.println("Ekstra i alt "+ekstra);
 
             res = 6+ekstra;
+
+
+
             OrderLineDTO orderLineDTO = new OrderLineDTO("97x97 mm. trykimp. Stolpe",
                     stolpeLængde,res,"stk","Stolper nedgraves 90 cm i jord",(stolpeLængde/100)*(res)*stolpeUnitPrice);
 
             mList.add(orderLineDTO);
+
+
             return res;
 
         }
