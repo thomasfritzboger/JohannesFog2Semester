@@ -28,6 +28,17 @@ public class CarportCalculator {
 
     }
 
+
+    //Der skal laves samme metode uden skur som er magen til den herunder måske, eller måske endnu bedre
+    //skal de argumenter der ikke skal bruges sendes som
+    //hasSkur = "n"
+    //tagmateriale = ""
+    //placeringSkur = ""
+    //skurSize = 0;
+
+
+
+    //Metode til beregning med med skur
     public List<OrderLineDTO> beregnCarport(int l, int b, int h, String hasSkur, String tagmateriale,
                                             String placeringSkur, int skurSize) throws IllegalDimensionException {
 
@@ -41,8 +52,10 @@ public class CarportCalculator {
         if (this.hasSkur) {
             skur.breddeAfDør = 2*afstandMellemSpær;
             skur.afstandMellemSpær = afstandMellemSpær;
-            skur.længdeLangsideMinusDør = skur.skurLængde-skur.breddeAfDør;
+
             setSkurLængde(skurSize*afstandMellemSpær);
+
+            skur.længdeLangsideMinusDør = skur.skurLængde-skur.breddeAfDør;
 
 
 
@@ -131,11 +144,6 @@ public class CarportCalculator {
             int ekstra =stolpeIkkeFastgjortRem + skur.antalStolperPåRemEkstraNårSkur + skur.antalStolperPåSpærEkstraNårSkur;
 
 
-            System.out.println("Stolpe ikke på rem "+stolpeIkkeFastgjortRem);
-            System.out.println("Skur ekstra på spær "+skur.antalStolperPåSpærEkstraNårSkur);
-            System.out.println("Skur ekstra på rem "+skur.antalStolperPåRemEkstraNårSkur);
-            System.out.println("Ekstra i alt "+ekstra);
-
             res = 6+ekstra;
 
 
@@ -169,10 +177,7 @@ public class CarportCalculator {
 
         } else {
             hasSkur = false;
-            System.out.println("Har carport skur?: "+hasSkur);
-
         }
-
     }
 
     public int setSkurLængde(int i) {
