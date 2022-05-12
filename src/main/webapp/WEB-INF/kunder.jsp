@@ -53,8 +53,6 @@
 
         <c:if test="${searchedcustomer != null}">
             <!--TODO tjek hvis en kunde er slået op. Hvis ja, så fremvis tabellen og headeren-->
-            <br>
-
             <b><h5>Fandt kunden du søgte: </h5></b>
 
             <table class="table table-striped">

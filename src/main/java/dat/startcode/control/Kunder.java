@@ -28,17 +28,25 @@ public class Kunder extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
 
-        kundeListe = UserFacade.getCustomerList(connectionPool);
-
         HttpSession session = request.getSession();
 
+        User user = (User) session.getAttribute("user");
+
+        if(!user.getRole().equals("admin")) {
+            return "error";
+        }
+
+
         String email = request.getParameter("soegtemail");
+
+        kundeListe = UserFacade.getCustomerList(connectionPool);
+
         boolean emailFound = false;
 
         if(email != null) {
-            for (User user : kundeListe) {
-                if(user.getEmail().equals(email)) {
-                    searchedCustomer = user;
+            for (User u : kundeListe) {
+                if(u.getEmail().equals(email)) {
+                    searchedCustomer = u;
                     emailFound = true;
                     break;
                 }
