@@ -102,7 +102,7 @@
 
                             <script type='text/javascript'>
                                 function check(input) {
-                                    if (input.value != document.getElementById('password').value) {
+                                    if (input.value != document.getElementById('passwordny').value) {
                                         input.setCustomValidity('Koderne skal være ens.');
                                     } else {
                                         // input is valid -- reset the error message
