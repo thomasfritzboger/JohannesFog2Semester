@@ -3,7 +3,7 @@
 </p>
 
 ## Om projektet
-Fog carport 2.sem eksamensprojekt. Vi har bygget en web-applikation i Java, MySql, HTML, CSS, JS og Bootstrap og kører det på en Tomcat webcontainer. Arkitekturen er implementeret med et command-pattern og en front-controller.
+Fog carport 2. semester eksamensprojekt. Produktet er en hjemmeside, hvor vi har løst en opgave for firmaet Johannes Fog. Vi har bygget et website, hvor man bl.a. kan bestille en skræddersyet carport og modtage en stykliste og en tegning af den model man har bestilt. Vi har bygget web-applikationen i Java, MySql, HTML, CSS, JS og Bootstrap og kører det på en Tomcat webcontainer. Arkitekturen er implementeret med et command-pattern og en front-controller.
 
 Vores rapport omkring projektet kan tilgås og læses her '[dokumentation/rapport]()'. <br> <br>
 Projektet er udført af:
