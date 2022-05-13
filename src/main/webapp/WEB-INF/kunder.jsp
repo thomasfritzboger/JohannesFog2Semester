@@ -105,8 +105,6 @@
             </tbody>
         </table>
 
-
-
     </jsp:body>
 
 </t:pagetemplate>

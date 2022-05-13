@@ -17,9 +17,12 @@
                 }*/
 
                 //hvis man vil skifte enabled på checkbox
-                if(document.getElementById("carportbredde").value > 0 && document.getElementById("carportlængde").value > 0) {
+                if(document.getElementById("carportbredde").value > 0
+                    && document.getElementById("carportlængde").value > 0
+                    && document.getElementById("carporthøjde").value > 0) {
                     document.getElementById("redskabsrumValgt").disabled = false;
-                    document.getElementById("checkBoxRedskabsrum").style.opacity = 0.7;
+                    document.getElementById("checkBoxRedskabsrum").style.opacity = 1;
+                    document.getElementById("seSkitse").disabled = false;
                 }
             }
 
@@ -28,6 +31,17 @@
                     document.getElementById("redskabsrumPlacering").disabled = false;
                     document.getElementById("reskabsrumBredde").disabled = false;
                     document.getElementById("redskabsrumLaengde").disabled = false;
+
+                    //tjek om deres værdier alle 3 er indtastet, hvis ja så enable se skitse knap ellers nej
+                    if((document.getElementById("redskabsrumPlacering").value === "midt"
+                            || document.getElementById("redskabsrumPlacering").value === "venstre"
+                            || document.getElementById("redskabsrumPlacering").value === "højre")
+                        && document.getElementById("reskabsrumBredde").value > 0
+                        && document.getElementById("redskabsrumLaengde").value > 0) {
+                        document.getElementById("seSkitse").disabled = false;
+                    } else {
+                        document.getElementById("seSkitse").disabled = true;
+                    }
                 }
 
                 if(!document.getElementById("redskabsrumValgt").checked) {
@@ -49,8 +63,6 @@
                 </c:forEach>
             </select>
 
-
-
             <br>
 
             <label for="carportlængde">Carport længde:</label> <br>
@@ -60,6 +72,17 @@
                         <option id="laengdevaerdi" value="${length}">${length/100} m</option>
                     </c:forEach>
             </select>
+
+            <br>
+
+            <label for="carporthøjde">Carport højde:</label> <br>
+            <select name="carporthøjde" id="carporthøjde" onchange="checkChosen()">
+                <option value="" disabled selected>Vælg højde</option>
+                <c:forEach items="${sessionScope.carportHeightList}" var="height">
+                    <option id="højdeværdi" value="${height}">${height/100} m</option>
+                </c:forEach>
+            </select>
+
         </div>
 
         <!--Denne div er til valg af tag og taghældning????-->
@@ -96,7 +119,7 @@
         </div>-->
 
 
-        <label id="checkBoxRedskabsrum" for="redskabsrumValgt">Tilføj redskabsrum? </label>
+        <label id="checkBoxRedskabsrum" for="redskabsrumValgt" style="opacity: 0.6;">Tilføj redskabsrum? </label>
         <input type="checkbox" id="redskabsrumValgt" name="redskabsrumValgt"
                value="redskabsrum" onclick="redskabsRumValgt()" disabled>
         
@@ -109,40 +132,31 @@
         
         <div>
             <label for="redskabsrumPlacering">Redskabsrum placering: </label> <br>
-            <select name="redskabsrumPlacering" id="redskabsrumPlacering" disabled>
+            <select name="redskabsrumPlacering" id="redskabsrumPlacering" disabled onchange="redskabsRumValgt()">
                 <option value="" disabled selected>Valg placering</option>
-                <option value="-">-</option>
-                    <%--
-                    <c:forEach items="${applicationScope.bottomlist}" var="bottoms">
-                        <option value="${bottoms.bottomId}">${bottoms.name} (${bottoms.price},-)</option>
+                    <c:forEach items="${sessionScope.carportRoomPlacements}" var="placements">
+                        <option value="${placements}">${placements}</option>
                     </c:forEach>
-                     --%>
             </select>
 
             <br>
 
             <label for="reskabsrumBredde">Redskabsrum bredde:</label> <br>
-            <select name="reskabsrumBredde" id="reskabsrumBredde" disabled>
+            <select name="reskabsrumBredde" id="reskabsrumBredde" disabled onchange="redskabsRumValgt()">
                 <option value="" disabled selected>Vælg bredde</option>
-                <option value="-">-</option>
-                    <%--
-                    <c:forEach items="${applicationScope.bottomlist}" var="bottoms">
-                        <option value="${bottoms.bottomId}">${bottoms.name} (${bottoms.price},-)</option>
+                    <c:forEach items="${sessionScope.carportRoomWidthList}" var="roomWidths">
+                        <option value="${roomWidths}">${roomWidths}</option>
                     </c:forEach>
-                     --%>
             </select>
 
             <br>
 
             <label for="redskabsrumLaengde">Redskabsrum længde:</label> <br>
-            <select name="redskabsrumLaengde" id="redskabsrumLaengde" disabled>
+            <select name="redskabsrumLaengde" id="redskabsrumLaengde" disabled onchange="redskabsRumValgt()">
                 <option value="" disabled selected>Vælg længde</option>
-                <option value="-">-</option>
-                    <%--
-                    <c:forEach items="${applicationScope.bottomlist}" var="bottoms">
-                        <option value="${bottoms.bottomId}">${bottoms.name} (${bottoms.price},-)</option>
+                    <c:forEach items="${sessionScope.carportRoomLengthList}" var="roomlengths">
+                        <option value="${roomlengths}">${roomlengths}</option>
                     </c:forEach>
-                     --%>
             </select>
         </div>
 
