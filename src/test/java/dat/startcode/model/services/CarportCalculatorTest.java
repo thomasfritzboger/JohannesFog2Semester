@@ -10,12 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarportCalculatorTest {
 
-    static CarportCalculator c;
-
-    @BeforeAll
-    static void createTestCarportCalculator() {
-        c = new CarportCalculator();
-    }
+    CarportCalculator c = new CarportCalculator();
 
     @BeforeEach
     void setUp() {
@@ -133,9 +128,6 @@ class CarportCalculatorTest {
         //Carport under 3m bred
     void testBeregnAntalStolperKortMedSkurMidtSmal() throws IllegalDimensionException {
 
-
-        CarportCalculator c = new CarportCalculator();
-
         c.beregnCarport(600, 300, 210, "y", "p",
                 "midt", 3);
         assertEquals(9, c.beregnAntalStolper(c.carportLængde));
@@ -144,8 +136,6 @@ class CarportCalculatorTest {
     @Test
         //Halvlang (310-(310+dørbredde))
     void testBeregnAntalStolperHalvlangMedSkurMidtSmal() throws IllegalDimensionException {
-
-        CarportCalculator c = new CarportCalculator();
 
         c.beregnCarport(850,300,210,"y","p",
                 "midt",7);
@@ -170,8 +160,6 @@ class CarportCalculatorTest {
     @Test
     void testBeregnAntalStolperMedKortSkurMidtBred() throws IllegalDimensionException {
 
-        CarportCalculator c = new CarportCalculator();
-
         //Bred og kort carport med helt skur
         c.beregnCarport(600, 480, 210, "y", "p",
                 "midt", 3);
@@ -181,7 +169,6 @@ class CarportCalculatorTest {
 
     @Test
     void testBeregnAntalStolperMedMellemlangSkurMidtBred() throws IllegalDimensionException {
-        CarportCalculator c = new CarportCalculator();
 
         //Bred og mellemlang carport med helt skur
         c.beregnCarport(850,480,210,"y","p",
@@ -199,7 +186,6 @@ class CarportCalculatorTest {
 
     @Test
     void testBeregnAntalStolperMedSkurVenstreHøjre() throws IllegalDimensionException {
-        CarportCalculator c = new CarportCalculator();
 
         //Kort bred carport med skur i venstre side
         c.beregnCarport(600,480,210,"y","p",

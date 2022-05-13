@@ -11,6 +11,7 @@ public class CarportCalculator {
     public int carportLængde;
     public int carportBredde;
     public int carportHøjde;
+
     public List<OrderLineDTO> mList = new ArrayList<>();
 
     public boolean hasSkur;
@@ -44,7 +45,7 @@ public class CarportCalculator {
 
 
         setDimensionCarport(l,b,h);
-        setHasSkur(hasSkur);
+        setHasSkur(hasSkur.toLowerCase());
         setAntalSpær(l);
         beregnAfstandMellemSpær(l,antalSpær);
 
@@ -58,20 +59,28 @@ public class CarportCalculator {
             skur.længdeLangsideMinusDør = skur.skurLængde-skur.breddeAfDør;
 
 
-
-            skur.setPlaceringAfSkur(placeringSkur);
+            skur.setPlaceringAfSkur(placeringSkur.toLowerCase());
             setSkurBredde(carportBredde);
             checkDimensionsSkur(skur.skurLængde);
 
+            skur.beregnAntalLøsholter(skur.skurLængde,skur.skurBredde);
+            skur.skurHøjde = carportHøjde;
+            skur.beregenAntalBeklædningsBrædder();
+            skur.beregnAntalKorteBeklædningsSkruer();
+            skur.beregnAntalLangeBeklædningsSkruer();
+            skur.addAllSkurItemsTilListe();
 
-            //Er ikke testet og sat i skurCalculator
-            //skur.beregnAntalLøsholter(skur.skurLængde,skur.skurBredde);
+            //Alle beregninger på skur er færdige, hent materialer fra skuret og læg dem i carportlisten
+            for (OrderLineDTO orderLineDTO : skur.skurList) {
+                mList.add(orderLineDTO);
+            }
+
         }
 
         checkDimensionsCarport(carportLængde,carportBredde,carportHøjde);
         setStolpeLængde(carportHøjde);
         beregnAntalStolper(carportLængde);
-        tagtype = setTagType(tagmateriale);
+        tagtype = setTagType(tagmateriale.toLowerCase());
 
 
 
@@ -106,13 +115,13 @@ public class CarportCalculator {
 
 
     public int setAntalSpær (int l){
-        antalSpær =  1+ (int) Math.ceil(carportLængde/59.0);
+        antalSpær =  1+ (int) Math.ceil(l/59.0);
         return antalSpær;
         //Faktisk ikke helt korrekt, men ellers bliver det ikke 55 cm som på tegning
     }
 
     public int beregnAfstandMellemSpær(int l, int numOfSpær) {
-        afstandMellemSpær = (int)Math.ceil((carportLængde/(antalSpær-1)));
+        afstandMellemSpær = (int)Math.ceil((l/(numOfSpær-1)));
         return afstandMellemSpær;
     }
 
@@ -161,19 +170,18 @@ public class CarportCalculator {
     }
 
     public String setTagType(String s) {
-        if (s.toLowerCase().equals("p")) {
+        if (s.equalsIgnoreCase("p")) {
             tagtype = "Trapezplader i plast";
         }
-        if (s.toLowerCase().equals("c")) {
+        if (s.equalsIgnoreCase("c")) {
             tagtype = "Cembrit tagplader";
         }
         return tagtype;
     }
 
     public void setHasSkur(String s) {
-        if (s.toLowerCase().equals("y")) {
+        if (s.equalsIgnoreCase("y")) {
             hasSkur = true;
-            System.out.println("Du har valgt at bygge med skur?: " + hasSkur);
 
         } else {
             hasSkur = false;
