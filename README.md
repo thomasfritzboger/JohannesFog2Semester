@@ -1,4 +1,4 @@
-![fog_carport](https://raw.githubusercontent.com/thomasfritzboger/JohannesFog2Semester/main/src/main/webapp/images/fog_logo_banner.png?token=GHSAT0AAAAAABOLDIGFOTLNQN6OSZCELJCSYT6LBTQ)
+![fog_carport](https://i.ibb.co/PFfyyWD/fog-logo-banner.png)
 
 ## Om projektet
 Fog carport eksamensprojekt. Bygge en web-applikation i Java, MySql, HTML, CSS, JS og Bootstrap og køre det på en Tomcat webcontainer. Implementeret med et command-pattern og en front-controller.
