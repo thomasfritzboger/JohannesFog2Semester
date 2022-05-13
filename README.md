@@ -1,7 +1,10 @@
-![fog_carport](https://i.ibb.co/PFfyyWD/fog-logo-banner.png)
+<p align="center">
+  <img src="https://i.ibb.co/PFfyyWD/fog-logo-banner.png">
+</p>
 
 ## Om projektet
-Fog carport eksamensprojekt. Bygge en web-applikation i Java, MySql, HTML, CSS, JS og Bootstrap og køre det på en Tomcat webcontainer. Implementeret med et command-pattern og en front-controller.
+Fog carport 2.sem eksamensprojekt. Vi har bygget en web-applikation i Java, MySql, HTML, CSS, JS og Bootstrap og kører det på en Tomcat webcontainer. Arkitekturen er implementeret med et command-pattern og en front-controller.
+
 Vores rapport omkring projektet kan tilgås og læses her '[dokumentation/rapport]()'. <br> <br>
 Projektet er udført af:
 - [Andreas Fritzbøger](https://github.com/Wolfgang1235)
