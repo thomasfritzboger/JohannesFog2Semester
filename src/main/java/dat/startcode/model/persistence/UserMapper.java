@@ -1,5 +1,6 @@
 package dat.startcode.model.persistence;
 
+import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 
@@ -37,7 +38,8 @@ public class UserMapper implements IUserMapper
                 if (rs.next())
                 {
                     String role = rs.getString("role");
-                    user = new User(email, password, role);
+                    int id = rs.getInt("user_id");
+                    user = new User(email, password, role, id);
                 } else
                 {
                     throw new DatabaseException("Forkert email eller kodeord.");
@@ -123,33 +125,33 @@ public class UserMapper implements IUserMapper
     }
 
     @Override
-    public List<User> getCustomers() throws DatabaseException {
-        Logger.getLogger("web").log(Level.INFO, "");
+    public List<Carport> getCarportByUser(int loggedInUserId) throws DatabaseException {
 
-        List<User> customerList = new ArrayList<>();
 
-        String sql = "SELECT user_id, email, phonenumber, address, postal_code FROM user WHERE role = 'kunde'";
+        List<Carport> carportListe = new ArrayList<>();
+
+        String sql = "SELECT carport_id, user_id, shed_id, hasShed FROM carport WHERE user_id = ?";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ResultSet rs = ps.executeQuery();
+                ps.setInt(1,loggedInUserId);
+                ResultSet rs = ps.executeQuery(); //Her fejler den
                 while (rs.next()) {
+                    int carportId = rs.getInt("carport_id");
                     int userId = rs.getInt("user_id");
-                    String email = rs.getString("email");
-                    String phoneNumber = rs.getString("phonenumber");
-                    String address = rs.getString("address");
-                    int postalCode = rs.getInt("postal_code");
-                    customerList.add(new User(userId, email, phoneNumber, address, postalCode));
+                    int shedId = rs.getInt("shed_id");
+                    int hasShed =  1; //rs.getInt("hasShed");
+                    carportListe.add(new Carport(carportId, userId, shedId, hasShed));
                 }
             } catch (SQLException throwables) {
-                throw new DatabaseException("Kunne ikke få alle kunder fra database");
+                throw new DatabaseException("Kunne ikke få carporte fra database"); //xxx?
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DatabaseException("Kunne få forbindelse til databasen");
+            throw new DatabaseException("Kunne få forbindelse til databasen"); //xxx?
         }
 
-        return customerList;
+        return carportListe;
     }
 
 

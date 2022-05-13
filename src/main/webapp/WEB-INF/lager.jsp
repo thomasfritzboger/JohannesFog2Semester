@@ -17,6 +17,26 @@
         <a href="${pageContext.request.contextPath}/fc/forespoergsler?command=forespoergsler" class="btn btn-primary" >Forespørgsler</a>
         <a href="${pageContext.request.contextPath}/fc/ordre?command=ordre" class="btn btn-primary" >Ordre</a>
 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product scale</th>
+                    <th>Product Description</th>
+                    <th>Unit Price</th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+<%--            TODO Lave joins i database mellem product og productvariant så fylde dem i tablellen. --%>
+<%--            <c:forEach var="product" items="${}"> </c:forEach>--%>
+
+            </tbody>
+
+        </table>
+
+
     </jsp:body>
 
 </t:pagetemplate>

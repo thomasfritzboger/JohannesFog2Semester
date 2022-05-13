@@ -5,6 +5,7 @@ import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.persistence.UserMapper;
+import dat.startcode.model.services.AdminFacade;
 import dat.startcode.model.services.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,7 @@ public class Kunder extends Command {
 
         String email = request.getParameter("soegtemail");
 
-        kundeListe = UserFacade.getCustomerList(connectionPool);
+        kundeListe = AdminFacade.getCustomerList(connectionPool);
 
         boolean emailFound = false;
 

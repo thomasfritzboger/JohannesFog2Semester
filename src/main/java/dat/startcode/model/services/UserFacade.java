@@ -1,5 +1,6 @@
 package dat.startcode.model.services;
 
+import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
@@ -22,9 +23,9 @@ public class UserFacade
         return userMapper.createUser(email, password, role, phoneNumber, address, postalCode);
     }
 
-
-    public static List<User> getCustomerList(ConnectionPool connectionPool) throws DatabaseException {
+    public static List<Carport> getCarportByUser(int userId, ConnectionPool connectionPool) throws DatabaseException {
         UserMapper userMapper = new UserMapper(connectionPool);
-        return userMapper.getCustomers();
+        return userMapper.getCarportByUser(userId);
     }
+
 }
