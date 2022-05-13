@@ -12,16 +12,6 @@ class CarportCalculatorTest {
 
     CarportCalculator c = new CarportCalculator();
 
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    public void after() {
-        System.out.println("After");
-    }
-
     @Test
     void testSetDimensionCarport() {
         c.setDimensionCarport(780,600,210);
@@ -111,14 +101,14 @@ class CarportCalculatorTest {
     @Test
     void testBeregnAntalStolperSmalUdenSkur() throws IllegalDimensionException {
 
-        c.beregnCarport(500, 300, 210, "n", "",
+        c.beregnCarport(500, 300, 210, "n", "p",
                 "", 0);
         assertEquals(6, c.beregnAntalStolper(c.carportLængde));
     }
 
     @Test
     void testBeregnAntalStolperBredUdenSkur() throws IllegalDimensionException {
-        c.beregnCarport(500, 400, 210, "n", "",
+        c.beregnCarport(500, 400, 210, "n", "p",
                 "", 0);
         assertEquals(7,c.beregnAntalStolper(c.carportLængde));
 
