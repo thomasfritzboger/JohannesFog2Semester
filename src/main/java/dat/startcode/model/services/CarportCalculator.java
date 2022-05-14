@@ -231,6 +231,7 @@ public class CarportCalculator {
         beregnAntalSternbrædder(carportLængde,carportBredde);
         beregnAntalVandbrædder(carportLængde,carportBredde);
         beregnAntalVinkelbeslag();
+        beregnSkruerTag(carportLængde,carportBredde);
         //Beregn antal univesal beslag
         universalbeslagVenstreAntal = 2*spærAntal;
         universalbeslagHøjreAntal = 2*spærAntal;
@@ -242,11 +243,12 @@ public class CarportCalculator {
         //Beregn antal firkantskiver
         firkantSkiverAntal =  2*(stolperAntal-stolpeIkkeFastgjortRem);
 
-
         //Beregn antal bolte
         bolteAntal = 2*(stolperAntal-stolpeIkkeFastgjortRem);
-
         addAllCarportItemsTilListe();
+
+        for (OrderLineDTO orderLineDTO : mList) {System.out.println(orderLineDTO);}
+
         return mList;
     }
 
@@ -290,7 +292,7 @@ public class CarportCalculator {
 
     public int beregnAntalStolper(int l) {
 
-        int res = 0;
+        int res;
         if (carportBredde<=310) {
             stolpeIkkeFastgjortRem = 0;
         } else {
@@ -335,10 +337,10 @@ public class CarportCalculator {
 
     public int setSkurBredde (int b) {
         if (skur.placeringAfSkur.equals("midt")) {
-            skur.skurBredde = b;
+            skur.skurBredde = b -70;
 
         }   else {
-            skur.skurBredde = b/2;
+            skur.skurBredde = (b/2)-35;
         }
         return skur.skurBredde;
     }
@@ -411,14 +413,17 @@ public class CarportCalculator {
     }
 
     public void beregnSkruerTag (int l, int b) {
+
         //Antagelse 16 skruer pr kvm
         //Beregn antal pakker med bundskruer til trapez tag;
-        if (tagtype.equals("p")) {
-            pakkerPlastTagskruerAntal = ((l/100)*(b/100)*16)/200;
+        if (tagtype.equals("Trapezplader i plast")) {
+
+            pakkerPlastTagskruerAntal = (int) Math.ceil(((l/100)*(b/100)*16.0)/200);
         }
+
         //Antagelse 8 skruer pr kvm, der er 100 skruer i en pakke.
         //Beregn antal pakker med bundskruer til cembrit tag;
-        else if (tagtype.equals("c")) {
+        else if (tagtype.equals("Cembrit tagplader")) {
             pakkerCembritTagskruerAntal = (int) Math.ceil((((l/100.0)*(b/100.0))*8)/100);
 
         } else {

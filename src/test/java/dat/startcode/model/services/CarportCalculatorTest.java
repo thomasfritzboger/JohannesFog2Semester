@@ -142,11 +142,6 @@ class CarportCalculatorTest {
         assertEquals(11,c.beregnAntalStolper(c.carportLængde));
     }
 
-
-
-
-
-
     @Test
     void testBeregnAntalStolperMedKortSkurMidtBred() throws IllegalDimensionException {
 
@@ -165,7 +160,6 @@ class CarportCalculatorTest {
                 "midt",7);
         assertEquals(12,c.beregnAntalStolper(c.carportLængde));
 
-        c = null;
         c = new CarportCalculator();
 
         //Bred og lang carport med helt skur
@@ -183,8 +177,6 @@ class CarportCalculatorTest {
         assertEquals(11,c.beregnAntalStolper(c.carportLængde));
         //Bred og mellemlang carport med halvt skur (maks 5 spær langt skur)
         //Der kan laves beregniong på ekstra langt smalt skur, men vores antagelser forbyder dette.
-
-
     }
 
     @Test
@@ -214,16 +206,16 @@ class CarportCalculatorTest {
         c.skur.setPlaceringAfSkur("midt");
         c.setSkurLængde(45);
         c.setDimensionCarport(780,600,210);
-        assertEquals(600,c.setSkurBredde(c.carportBredde));
+        assertEquals(530,c.setSkurBredde(c.carportBredde));
         c.skur.setPlaceringAfSkur("venstre");
         c.setDimensionCarport(780,600,210);
-        assertEquals(300,c.setSkurBredde(c.carportBredde));
+        assertEquals(265,c.setSkurBredde(c.carportBredde));
         c.skur.setPlaceringAfSkur("højre");
         c.setDimensionCarport(780,600,210);
-        assertEquals(300,c.setSkurBredde(c.carportBredde));
+        assertEquals(265,c.setSkurBredde(c.carportBredde));
         c.skur.setPlaceringAfSkur("");
         c.setDimensionCarport(780,600,210);
-        assertEquals(300,c.setSkurBredde(c.carportBredde));
+        assertEquals(265,c.setSkurBredde(c.carportBredde));
     }
 
     @Test
@@ -282,7 +274,24 @@ class CarportCalculatorTest {
 
         assertTrue(c.hasSkur == false);
 
+    }
+
+    @Test
+    void testBeregnSkruerTag() throws IllegalDimensionException {
+        c.beregnCarport(600,500,210,"y","p",
+                "midt",3);
+        assertEquals(3,c.pakkerPlastTagskruerAntal);
+        c.beregnCarport(600,500,210,"y","c",
+                "midt",3);
+        assertEquals(3,c.pakkerCembritTagskruerAntal);
 
     }
 
+    @Test
+    void testBeregn() throws IllegalDimensionException {
+        int i = 1;
+        c.beregnCarport(780,600,210,"Y","p","midt",4);
+        assertEquals(1,i);
+
+    }
 }
