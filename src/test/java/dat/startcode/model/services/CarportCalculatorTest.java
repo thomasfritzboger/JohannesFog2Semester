@@ -228,7 +228,7 @@ class CarportCalculatorTest {
                 () ->  { calculator.checkDimensionsSkur(skurLængde);
                 });
 
-        assertTrue(calculator.hasSkur == false);
+        assertFalse(calculator.hasSkur);
 
         calculator.skur.setPlaceringAfSkur("højre");
         int skurLængde1 = calculator.setSkurLængde(6*afstand);
@@ -252,7 +252,7 @@ class CarportCalculatorTest {
         calculator.skur.setPlaceringAfSkur("midt");
         int skurLængde3 = calculator.setSkurLængde(8*afstand);
         calculator.checkDimensionsSkur(skurLængde3);
-        assertTrue(calculator.hasSkur == true);
+        assertTrue(calculator.hasSkur);
     }
 
 
