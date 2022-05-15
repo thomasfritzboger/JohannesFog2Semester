@@ -335,6 +335,7 @@ public class CarportCalculator {
         return skur.skurLængde;
     }
 
+    //Minus 70 hvis udhæng begge sider, ellers 35cm til halvt skur, som har udhæng i en side
     public int setSkurBredde (int b) {
         if (skur.placeringAfSkur.equals("midt")) {
             skur.skurBredde = b -70;

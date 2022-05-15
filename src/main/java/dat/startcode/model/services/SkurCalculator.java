@@ -15,7 +15,7 @@ public class SkurCalculator {
     //Skal være delelig med afstand mellem spær
     public int skurLængde;
     public int skurHøjde;
-    //public int størrelseIForholdTilCarportBredde;
+
     public String placeringAfSkur;
     //Sættes når bredden sættes i carport klassen
     public int carportBredde;
@@ -314,7 +314,7 @@ public class SkurCalculator {
     }
 
     public void addAllSkurItemsTilListe() {
-        //Saml ens produkter ????
+
 
         //productdescription, length, amount, unitscale, usementdescription, totalprice
         skurList.add(new OrderLineDTO(lægteTilDørProductDescription,
