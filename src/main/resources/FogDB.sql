@@ -261,3 +261,6 @@ INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('stk');
 INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('pakke');
 INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('rulle');
 INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('sæt');
+
+INSERT INTO `fog`.`dimensions` (`length`, `width`, `height`) VALUES ('780','600','210');
+INSERT INTO `fog`.`dimensions` (`length`, `width`, `height`) VALUES ('600','500','210');
