@@ -284,11 +284,10 @@ class CarportCalculatorTest {
 
     }
 
-    @Test
-    void testBeregn() throws IllegalDimensionException {
+  //  @Test
+   // void testBeregn() throws IllegalDimensionException {
 
-        calculator.beregnCarport(780,600,210,"Y","p","midt",4);
+    //    calculator.beregnCarport(780,600,210,"Y","p","midt",4);
 
-
-    }
+    //}
 }
