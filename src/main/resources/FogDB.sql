@@ -216,9 +216,6 @@ INSERT INTO `fog`.`user` (`email`, `password`, `role`, `phonenumber`, `address`,
 INSERT INTO `fog`.`coverage` (`coverage`, `coverage_created`) VALUES ('100', '221203');
 INSERT INTO `fog`.`coverage` (`coverage`, `coverage_created`) VALUES ('50', '150822');
 
-INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `hasShed`, `isConfirmed`, `carport_created`) VALUES ('2', '1', '0', '0', '160823');
-INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `shed_id`, `hasShed`, `isConfirmed`, `carport_created`) VALUES ('1', '2', '1', '1', '0', '220413');
-
 INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('understernbrædder til for & bag ende');
 INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('understernbrædder til siderne');
 INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('oversternbrædder til forenden');
@@ -245,6 +242,10 @@ INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('til lås på dør i
 INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('til skurdør');
 INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('til montering af løsholter i skur');
 
+INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('stk');
+INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('pakke');
+INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('rulle');
+INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('sæt');
 
 INSERT INTO `fog`.`productvariant` (`length`, `width`, `unit_length`, `unit_amount`) VALUES ('200', '25', '360', '4');
 INSERT INTO `fog`.`productvariant` (`length`, `width`, `unit_length`, `unit_amount`) VALUES ('200', '25', '540', '4');
@@ -254,13 +255,11 @@ INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale_id`, `product_desc
 INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale_id`, `product_description`, `unitprice`) VALUES ('2', '1', 'trykimp. Brædt', '15');
 INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale_id`, `product_description`, `unitprice`) VALUES ('3', '1', 'trykimp. Brædt', '10');
 
-INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `usement_id`, `quantity`, `total_price`) VALUES ('1', '1', '1', '7', '70');
-INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `usement_id`, `quantity`, `total_price`) VALUES ('2', '2', '2', '4', '60');
-
-INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('stk');
-INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('pakke');
-INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('rulle');
-INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('sæt');
-
 INSERT INTO `fog`.`dimensions` (`length`, `width`, `height`) VALUES ('780','600','210');
 INSERT INTO `fog`.`dimensions` (`length`, `width`, `height`) VALUES ('600','500','210');
+
+INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `dimensions_id`, `hasShed`, `isConfirmed`, `carport_created`) VALUES ('2', '1', '1', '0', '0', '160823');
+INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `dimensions_id`,`shed_id`, `hasShed`, `isConfirmed`, `carport_created`) VALUES ('1', '2', '1', '1', '1', '0', '220413');
+
+INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `usement_id`, `quantity`, `total_price`) VALUES ('1', '1', '1', '7', '70');
+INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `usement_id`, `quantity`, `total_price`) VALUES ('2', '2', '2', '4', '60');
