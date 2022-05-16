@@ -29,7 +29,7 @@
         </c:if>
 
         <c:if test="${requestScope.errormessage  == null}">
-            <p>Abandon ship. We have no idea how you ended up here!</p>
+            <p>Forlad skibet! Vi har ingen idé om hvordan du endte her.</p>
         </c:if>
 
         <p>Hop tilbage til <a href="${pageContext.request.contextPath}/index.jsp">forsiden</a>,

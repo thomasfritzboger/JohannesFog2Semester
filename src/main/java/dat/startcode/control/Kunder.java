@@ -42,13 +42,10 @@ public class Kunder extends Command {
 
         kundeListe = AdminFacade.getCustomerList(connectionPool);
 
-        boolean emailFound = false;
-
         if(email != null) {
             for (User u : kundeListe) {
                 if(u.getEmail().equals(email)) {
                     searchedCustomer = u;
-                    emailFound = true;
                     break;
                 }
                 searchedCustomer = null;

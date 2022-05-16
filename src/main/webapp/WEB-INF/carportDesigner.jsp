@@ -11,10 +11,6 @@
         <!--to funktioner til at tjekke om bredde og længde er valgt-->
         <script type="text/javascript">
             function checkChosen() {
-                //hvis man vil have label til at poppe up
-                /*if(document.getElementById("carportbredde").value > 0 && document.getElementById("carportlængde").value > 0) {
-                    document.getElementById("ifYes").style.display = "block";
-                }*/
 
                 //hvis man vil skifte enabled på checkbox
                 if(document.getElementById("carportbredde").value > 0
@@ -24,19 +20,32 @@
                     document.getElementById("checkBoxRedskabsrum").style.opacity = 1;
                     document.getElementById("seSkitse").disabled = false;
                 }
+
+                //redskabsRumValgt();
+
             }
 
             function redskabsRumValgt() {
                 if(document.getElementById("redskabsrumValgt").checked) {
                     document.getElementById("redskabsrumPlacering").disabled = false;
-                    document.getElementById("reskabsrumBredde").disabled = false;
                     document.getElementById("redskabsrumLaengde").disabled = false;
+
+
+                    //tjek om bredden af vores carport er mindre end 3.8, hvis ja, så kan man kun have redskabsrumplaceringen
+                    // i midten
+                    if(document.getElementById("carportbredde").value < 380) {
+                        document.getElementById("venstre").disabled = true;
+                        document.getElementById("hojre").disabled = true;
+                    } else {
+                        document.getElementById("venstre").disabled = false;
+                        document.getElementById("hojre").disabled = false;
+                    }
+
 
                     //tjek om deres værdier alle 3 er indtastet, hvis ja så enable se skitse knap ellers nej
                     if((document.getElementById("redskabsrumPlacering").value === "midt"
                             || document.getElementById("redskabsrumPlacering").value === "venstre"
                             || document.getElementById("redskabsrumPlacering").value === "højre")
-                        && document.getElementById("reskabsrumBredde").value > 0
                         && document.getElementById("redskabsrumLaengde").value > 0) {
                         document.getElementById("seSkitse").disabled = false;
                     } else {
@@ -44,15 +53,98 @@
                     }
                 }
 
+                let carportWidth = parseInt(document.getElementById("carportbredde").value);
+                let carportLength = parseInt(document.getElementById("carportlængde").value);
+                //console.log(carportWidth + ", " + carportLength);
+                //udregn spærantal
+                let spaerantal = Math.ceil(carportLength/59.0);
+
+                //udregn afstand mellem spær
+                let afstandMellemSpaer = Math.ceil(carportLength/spaerantal);
+
+                let options = [];
+
+                if(document.getElementById("redskabsrumPlacering").value === "venstre"
+                    || document.getElementById("redskabsrumPlacering").value === "højre") {
+                    document.getElementById("redskabsrumBredde").value = ((carportWidth / 2)-35) / 100;
+
+                    //fjern nuværende elementer i længde dropdown
+                    let selectLaengde = document.getElementById("redskabsrumLaengde");
+                    removeOptions(selectLaengde);
+
+                    //indsætter array i options
+                    options = [(3*afstandMellemSpaer),
+                        (4*afstandMellemSpaer),
+                        (5*afstandMellemSpaer)];
+
+                    for(let i = 0; i < options.length; i++) {
+                        let opt = options[i];
+                        let el = document.createElement("option");
+                        el.text = (opt/100)+" m";
+                        el.value = opt+"";
+                        selectLaengde.add(el);
+                    }
+                }
+
+                if(document.getElementById("redskabsrumPlacering").value === "midt") {
+                    document.getElementById("redskabsrumBredde").value = (carportWidth-70)/100;
+
+                    //fjern nuværende elementer i længde dropdown
+                    let selectLaengde = document.getElementById("redskabsrumLaengde");
+                    removeOptions(selectLaengde);
+
+                    //indsætter array i options
+                    options = [(3*afstandMellemSpaer),
+                        (4*afstandMellemSpaer),
+                        (5*afstandMellemSpaer),
+                        (6*afstandMellemSpaer),
+                        (7*afstandMellemSpaer),
+                        (8*afstandMellemSpaer),
+                        (9*afstandMellemSpaer),
+                        (10*afstandMellemSpaer)];
+
+                    for(let i = 0; i < options.length; i++) {
+                        let opt = options[i];
+                        let el = document.createElement("option");
+                        el.text = (opt/100)+" m";
+                        el.value = opt+"";
+                        selectLaengde.add(el);
+                    }
+
+
+                }
+
                 if(!document.getElementById("redskabsrumValgt").checked) {
                     document.getElementById("redskabsrumPlacering").disabled = true;
-                    document.getElementById("reskabsrumBredde").disabled = true;
                     document.getElementById("redskabsrumLaengde").disabled = true;
                     document.getElementById("seSkitse").disabled = false;
                 }
             }
+
+            function removeOptions(selectElement) {
+                let i, L = selectElement.options.length - 1;
+                for(i = L; i > 0; i--) {
+                    selectElement.remove(i);
+                }
+            }
+
+            function tjekOmAltErIndtastet() {
+                //tjek om deres værdier alle 3 er indtastet, hvis ja så enable se skitse knap ellers nej
+                if((document.getElementById("redskabsrumPlacering").value === "midt"
+                        || document.getElementById("redskabsrumPlacering").value === "venstre"
+                        || document.getElementById("redskabsrumPlacering").value === "højre")
+                    && document.getElementById("redskabsrumLaengde").value > 0) {
+                    document.getElementById("seSkitse").disabled = false;
+                } else {
+                    document.getElementById("seSkitse").disabled = true;
+                }
+            }
+
+
         </script>
 
+
+        <form action="fc/skitse" method="post">
         <!--Denne div er til valg af carport bredde og længde-->
         <div>
             <label for="carportbredde">Carport bredde:</label> <br>
@@ -90,12 +182,8 @@
             <label for="tagtype">Tagtype:</label> <br>
             <select name="tagtype" id="tagtype">
                 <!--<option value="" disabled selected>Valg tagtype/farve</option>-->
-                <option value="-">Plasttrapeztag</option>
-                    <%--
-                    <c:forEach items="${applicationScope.bottomlist}" var="bottoms">
-                        <option value="${bottoms.bottomId}">${bottoms.name} (${bottoms.price},-)</option>
-                    </c:forEach>
-                     --%>
+                <option value="plast">Plasttrapez tag</option>
+                <option value="cembrit">Cembrit tag</option>
             </select>
 
             <br>
@@ -103,75 +191,50 @@
             <label for="taghaeldning">Taghældning:</label> <br>
             <select name="taghaeldning" id="taghaeldning">
                 <option value="" disabled selected>0 grader</option>
-                    <%--
-                    <c:forEach items="${applicationScope.bottomlist}" var="bottoms">
-                        <option value="${bottoms.bottomId}">${bottoms.name} (${bottoms.price},-)</option>
-                    </c:forEach>
-                     --%>
             </select>
         </div>
-
-
-
-        <!--<div id="ifYes" style="display: none;">
-            <label for="redskabsrumValgt">Tilføj redskabsrum? </label>
-            <input type="checkbox" id="redskabsrumValgt" name="redskabsrumValgt" value="redskabsrum">
-        </div>-->
-
 
         <label id="checkBoxRedskabsrum" for="redskabsrumValgt" style="opacity: 0.6;">Tilføj redskabsrum? </label>
         <input type="checkbox" id="redskabsrumValgt" name="redskabsrumValgt"
                value="redskabsrum" onclick="redskabsRumValgt()" disabled>
-        
 
         <br><br>
 
         <!--Hvis redskabsrum tilvælges og alt information er tastet ind mht. dimensioner fremvises
         følgende muligheder til redskabsrummet-->
-
         
         <div>
             <label for="redskabsrumPlacering">Redskabsrum placering: </label> <br>
             <select name="redskabsrumPlacering" id="redskabsrumPlacering" disabled onchange="redskabsRumValgt()">
                 <option value="" disabled selected>Valg placering</option>
-                    <c:forEach items="${sessionScope.carportRoomPlacements}" var="placements">
-                        <option value="${placements}">${placements}</option>
-                    </c:forEach>
+                <option id="venstre" value="venstre">venstre</option>
+                <option id="midt" value="midt">midt</option>
+                <option id="hojre" value="højre">højre</option>
             </select>
 
             <br>
 
-            <label for="reskabsrumBredde">Redskabsrum bredde:</label> <br>
-            <select name="reskabsrumBredde" id="reskabsrumBredde" disabled onchange="redskabsRumValgt()">
-                <option value="" disabled selected>Vælg bredde</option>
-                    <c:forEach items="${sessionScope.carportRoomWidthList}" var="roomWidths">
-                        <option value="${roomWidths}">${roomWidths}</option>
-                    </c:forEach>
-            </select>
+            <label for="redskabsrumBredde">Redskabsrum bredde:</label> <br>
+            <input type="text" id="redskabsrumBredde" value="" readonly> m (denne er fastlagt)
 
             <br>
 
             <label for="redskabsrumLaengde">Redskabsrum længde:</label> <br>
-            <select name="redskabsrumLaengde" id="redskabsrumLaengde" disabled onchange="redskabsRumValgt()">
+            <select name="redskabsrumLaengde" id="redskabsrumLaengde" disabled onchange="tjekOmAltErIndtastet();">
                 <option value="" disabled selected>Vælg længde</option>
-                    <c:forEach items="${sessionScope.carportRoomLengthList}" var="roomlengths">
-                        <option value="${roomlengths}">${roomlengths}</option>
-                    </c:forEach>
             </select>
         </div>
 
         <br><br>
 
         <div>
-            <form action="fc/skitse" method="post">
+
+                <input type="hidden" name="command" value="skitse"/>
                 <button id="seSkitse" class="btn btn-primary" disabled>
                     Se skitse
                 </button>
-            </form>
         </div>
-
-
-
+        </form>
 
 
 
