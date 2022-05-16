@@ -100,7 +100,7 @@ class SkurCalculatorTest {
         calculator.beregnCarport(700,540,210,"y","p",
                 "venstre",3);
         assertEquals(6, calculator.skur.løsholterBredsideAntal);
-        assertEquals(270, calculator.skur.løsholterBredsideLængde);
+        assertEquals(240, calculator.skur.løsholterBredsideLængde);
     }
 
     @Test //Udregner antal og længde på løsholter på bredside (Bredde mere end 310 og mindre end 480)
@@ -117,7 +117,7 @@ class SkurCalculatorTest {
         calculator.beregnCarport(700,500,210,"y","p",
                 "midt",4);
         assertEquals(12, calculator.skur.løsholterBredsideAntal);
-        assertEquals(270, calculator.skur.løsholterBredsideLængde);
+        assertEquals(240, calculator.skur.løsholterBredsideLængde);
 
     }
 
@@ -126,7 +126,7 @@ class SkurCalculatorTest {
         //Da inder og yderbrædder er ens, regnes det samlede antal ud.
         calculator.beregnCarport(780,600,210,"y","p",
                 "midt",4);
-        assertEquals(205, calculator.skur.beklædningsBrædderAntal);
+        assertEquals(187, calculator.skur.beklædningsBrædderAntal);
         assertEquals(210, calculator.skur.skurHøjde);
     }
 
@@ -142,7 +142,7 @@ class SkurCalculatorTest {
     void testBeregnAntalLangeBeklædningsSkruer() throws IllegalDimensionException{
         calculator.beregnCarport(780,600,210,"y","p",
                 "midt",4);
-        assertEquals(3, calculator.skur.pakkerLangeBeklædningsSkruerAntal);
+        assertEquals(2, calculator.skur.pakkerLangeBeklædningsSkruerAntal);
     }
 
     @Test
