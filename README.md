@@ -1,68 +1,48 @@
-# default-web-applikation
+<p align="center">
+  <img src="https://i.ibb.co/PFfyyWD/fog-logo-banner.png">
+</p>
 
-## Startkode på 2. semester forår 2022
+## Om projektet
+Fog carport 2. semester eksamensprojekt. Produktet er en hjemmeside, hvor vi har løst en opgave for firmaet Johannes Fog. Vi har bygget et website, hvor man bl.a. kan bestille en skræddersyet carport og modtage en stykliste og en tegning af den model man har bestilt. Vi har bygget web-applikationen i Java, MySql, HTML, CSS, JS og Bootstrap og kører det på en Tomcat webcontainer. Arkitekturen er implementeret med et command-pattern og en front-controller.
 
-Dette repository er lavet i forbindelse med 2. semester på
-Datamatikeruddannelsen i Lyngby og på Bornholm forår 2022.
+Vores rapport omkring projektet kan tilgås og læses her '[dokumentation/rapport]()'. <br> <br>
+Projektet er udført af:
+- [Andreas Fritzbøger](https://github.com/Wolfgang1235)
+- [Mads Herlevsen](https://github.com/Mads725)
+- [Owais Dashti](https://github.com/OwaisAD)
+- [Thomas Fritzbøger](https://github.com/thomasfritzboger)
 
-Denne udgave af startkoden er implementeret med et command-pattern og en front-controller.
+## Logbog
+Her er et link til vores logbog
+- [LOGBOG]()
 
-## Java version
-I pom.xml er diverse dependencies valgt, så projektet kan bygges og køres i Java 8. Nyere versioner af 
-Java vil formentlig også fungere, men vi har kun testet med version 8 og 11.
 
-## Tomcat
-Brug version 9.
 
 ## Deployment på Droplet
 T.B.D.
 
-## Du skal gøre følgende for at få webapplikationen i luften:
-
+## Hvordan køres projektet?
 1. Først skal du clone projektet eller downloade en zip-fil med projektet til din arbejdsstation.
-   1. Clone: git clone git@github.com:jonbertelsen/startcode_2sem_2022.git ditprojektnavn
-   2. Slet .git folderen, så du kan gøre projektet til dit eget git-projekt
-      1. > rm -rf .git/
-   3. Opret dit eget git repository:
-      1. > git init
-2. Beslut dig for hvad projektets database skal hedde. Det skal du bruge i næste punkt.
-3. Åbn Workbench og kør en tilpasset (med dit databasenavn i stedet for `startcode`) version af sql-filen `startcode.sql`, som ligger i mappen `resources`. Den opretter en database med en user-tabel og en test-database.
-4. Du skal evt. ændre kodeord til databasen i projektet. Det gøres i filerne: `/persistence/ConnectionPool` i linie 14 og 15. Du skal også ændre i UserMapperTest.
-5. Refactor `startcode` til dit eget projekt alle de steder, hvor det er relevant. Fx her:
-   1. I projektroden
-   2. I pom.xml (`artifactId`og `name` elementerne)
-   3. Den package som ligger lige under `dat`
-6. Til sidst skal du lave en Tomcat konfiguration. Dvs, 
+2. Åbn Workbench og kør sql-filen `FogDB.sql`, som ligger under mappen `resources`. Den opretter de nødvendige databaser. 
+3. Du skal nu lave en Tomcat konfiguration. Dvs, 
    1. klik på "Add Configuration ..."
    2. Klik på "+" og vælg "Tomcat Server Local".
    3. Klik på "Fix knappen"
    4. Vælg war-exploded som deployment type
    5. Nu kan du klikke på den grønne play-knap for at bygge og køre projektet.
-7. Lav et repo på GitHub
+4. Du skal nok ændre kodeord til databasen i projektet, så du kan tilgå den lokalt. Det gøres under model-delen i filerne: `/persistence/ConnectionPool` i linie 13 og 14. Du kan evt. klikke på Configuration i top-menuen -> Edit configurations -> Startup/Connection og lave to environment variabler. Den ene skal under Name hedde db_un og ud fra Value taster du din MySQL brugernavn. Den anden skal hedde db_up under navn og skal have din MySQL kode under value. På den måde kan du tilgå scriptet.
 
 ## Bemærkninger
-
-Startkoden indeholder følgende:
-
-- Strukturering i passende packages for overblik (MVC). Noget af strukturen er også givet af Maven, og kan ikke laves om. F.eks. opdelingen i `/java` og `/webapp`.
-- Javaservlets
-- JSP sider. Læg dem i WEB-INF som kun skal tilgås via en servlet.
-- En super skrabet css-fil til styling
-- Datamapper for user-tabellen, som anvender en connection pool.
-- En UserFacadefor at afkoble UserMapper klassen.
-- Fejlhåndtering med exceptions for databaseoperationer.
-- Integrationstest af datamapperen for User.
+- Strukturering er i passende packages for overblik (MVC). Noget af strukturen er også givet af Maven, og kan ikke laves om. F.eks. opdelingen i `/java` og `/webapp`.
 
 Funktionelt kan applikationen:
-
-- Vise en forside med links til undersider, som endnu ikke er lavet (bortset fra "About")
-- Logge en user på. Der findes to brugere i databasen.
-    1. `user` med password: `1234` (rolle: `user`)
-    2. `admin` med password: `1234` (rolle: `admin`)
-- Man kan se på index.jsp hvordan man kan udnytte om en user er logget på eller ej.
+- Vise hhv. sider for brugeren og administrator.
+- Kunden kan bestille en carport efter egne ønskede dimensioner. Bekræftes denne kan en stykliste fås i profilen.
+- Administratoren kan bekræfte forespørgsler, fremsøge kunder, tjekke ordre og ændre på lagerholdning.
+- Du kan oprette en bruger eller logge på en følgende roler:
+    1. `kunde1@fog.dk` med password: `1234` (rolle: `kunde`)
+    2. `admin@fog.dk` med password: `1234` (rolle: `admin`)
 - Hvis man indtaster ugyldige data under indlogning, bliver man sendt til en en fejlside.
-- Logge en bruger af
-- Begyndelsen på en metode til at tjekke om en given bruger har adgang ligger i `services`
 
 ## MVC arkitektur med front-controller
 

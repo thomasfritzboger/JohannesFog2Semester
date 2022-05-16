@@ -10,7 +10,7 @@ public class User
     private String role;
     private String phoneNumber;
     private String address;
-    private String postalCode;
+    private int postalCode;
 
 
     public User(String email, String password, String role) {
@@ -19,7 +19,31 @@ public class User
         this.role = role;
     }
 
-    public User(int userId, String email, String password, String role, String phoneNumber, String address, String postalCode) {
+    public User(String email, String password, String role, int userId) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.userId = userId;
+    }
+
+    public User(int userId, String email, String phoneNumber, String address, int postalCode) {
+        this.userId = userId;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.postalCode = postalCode;
+    }
+
+    public User(String email, String password, String role, String phoneNumber, String address, int postalCode) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.postalCode = postalCode;
+    }
+
+    public User(int userId, String email, String password, String role, String phoneNumber, String address, int postalCode) {
         this.userId = userId;
         this.email = email;
         this.password = password;
@@ -77,11 +101,11 @@ public class User
         this.address = address;
     }
 
-    public String getPostalCode() {
+    public int getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
+    public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
     }
 

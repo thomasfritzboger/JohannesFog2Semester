@@ -15,11 +15,21 @@ abstract class Command
         commands = new HashMap<>();
         commands.put("login", new Login());
         commands.put("logout", new Logout());
-        commands.put("about", new About());
+        commands.put("lavbruger", new LavBruger());
+        commands.put("faq", new Faq());
+        commands.put("kundeLogin",new KundeLogin());
+        commands.put("carportDesigner", new CarportDesigner());
+        commands.put("forespoergsler", new Forespoergsler());
+        commands.put("kunder", new Kunder());
+        commands.put("ordre", new Ordre());
+        commands.put("lager", new Lager());
+        commands.put("skitse", new Skitse());
+        commands.put("profil", new Profil());
+        commands.put("stykliste", new Stykliste());
     }
 
     static Command from( HttpServletRequest request ) {
-        String commandName = request.getParameter( "command" );
+        String commandName = request.getParameter( "command");
         if ( commands == null ) {
             initCommands();
         }

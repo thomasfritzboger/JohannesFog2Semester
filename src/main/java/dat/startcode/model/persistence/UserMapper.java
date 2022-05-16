@@ -1,9 +1,12 @@
 package dat.startcode.model.persistence;
 
+import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +20,7 @@ public class UserMapper implements IUserMapper
     }
 
     @Override
-    public User login(String username, String password) throws DatabaseException
+    public User login(String email, String password) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -29,53 +32,126 @@ public class UserMapper implements IUserMapper
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
-                ps.setString(1, username);
+                ps.setString(1, email);
                 ps.setString(2, password);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next())
                 {
                     String role = rs.getString("role");
-                    user = new User(username, password, role);
+                    int id = rs.getInt("user_id");
+                    user = new User(email, password, role, id);
                 } else
                 {
-                    throw new DatabaseException("Wrong username or password");
+                    throw new DatabaseException("Forkert email eller kodeord.");
                 }
             }
         } catch (SQLException ex)
         {
-            throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
+            throw new DatabaseException(ex, "Fejl opstået ved log ind. Noget gik galt med databasen.");
         }
         return user;
     }
 
     @Override
-    public User createUser(String username, String password, String role) throws DatabaseException
+    public User createUser(String email, String password, String role, String phoneNumber, String address, int postalCode) throws DatabaseException
     {
+        checkEmailIfExisting(email);
+
         Logger.getLogger("web").log(Level.INFO, "");
         User user;
-        String sql = "insert into user (username, password, role) values (?,?,?)";
+        String sql = "insert into user (email, password, role, phonenumber, address, postal_code) values (?,?,?,?,?,?)";
         try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
-                ps.setString(1, username);
+                ps.setString(1, email);
                 ps.setString(2, password);
                 ps.setString(3, role);
+                ps.setString(4, phoneNumber);
+                ps.setString(5, address);
+                ps.setInt(6, postalCode);
+
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 1)
                 {
-                    user = new User(username, password, role);
+                    user = new User(email, password, role, phoneNumber, address, postalCode);
                 } else
                 {
-                    throw new DatabaseException("The user with username = " + username + " could not be inserted into the database");
+                    throw new DatabaseException("Brugeren med email = " + email + " kunne ikke indsættes i databasen");
                 }
             }
         }
         catch (SQLException ex)
         {
-            throw new DatabaseException(ex, "Could not insert username into database");
+            throw new DatabaseException(ex, "Kunne ikke indsætte brugeren i databasen");
         }
         return user;
+    }
+
+    @Override
+    public void checkEmailIfExisting(String email) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        User user = null;
+        int result = 0;
+
+        String sql = "SELECT EXISTS(SELECT * FROM user WHERE email = ?) AS TEST";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                {
+                    result = Integer.parseInt(rs.getString("TEST"));
+
+                    if(result == 1) {
+                        throw new DatabaseException("En bruger findes allerede med denne email.");
+                    }
+
+                } else
+                {
+                    throw new DatabaseException("Noget gik galt.");
+                }
+            }
+        } catch (SQLException ex)
+        {
+            throw new DatabaseException(ex, "Noget gik galt 2.");
+        }
+
+
+    }
+
+    @Override
+    public List<Carport> getCarportByUser(int loggedInUserId) throws DatabaseException {
+
+
+        List<Carport> carportListe = new ArrayList<>();
+
+        String sql = "SELECT carport_id, user_id, shed_id, hasShed FROM carport WHERE user_id = ?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1,loggedInUserId);
+                ResultSet rs = ps.executeQuery(); //Her fejler den
+                while (rs.next()) {
+                    int carportId = rs.getInt("carport_id");
+                    int userId = rs.getInt("user_id");
+                    int shedId = rs.getInt("shed_id");
+                    int hasShed =  1; //rs.getInt("hasShed");
+                    carportListe.add(new Carport(carportId, userId, shedId, hasShed));
+                }
+            } catch (SQLException throwables) {
+                throw new DatabaseException("Kunne ikke få carporte fra database"); //xxx?
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DatabaseException("Kunne få forbindelse til databasen"); //xxx?
+        }
+
+        return carportListe;
     }
 
 
