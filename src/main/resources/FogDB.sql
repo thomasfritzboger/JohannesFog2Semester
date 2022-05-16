@@ -250,9 +250,9 @@ INSERT INTO `fog`.`productvariant` (`length`, `width`, `unit_length`, `unit_amou
 INSERT INTO `fog`.`productvariant` (`length`, `width`, `unit_length`, `unit_amount`) VALUES ('200', '25', '540', '4');
 INSERT INTO `fog`.`productvariant` (`length`, `width`, `unit_length`, `unit_amount`) VALUES ('125', '25', '360', '2');
 
-INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale_id`, `product_description`, `unitprice`) VALUES ('1', 'Stk', 'trykimp. Brædt', '10');
-INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale_id`, `product_description`, `unitprice`) VALUES ('2', 'Stk', 'trykimp. Brædt', '15');
-INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale_id`, `product_description`, `unitprice`) VALUES ('3', 'Stk', 'trykimp. Brædt', '10');
+INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale_id`, `product_description`, `unitprice`) VALUES ('1', '1', 'trykimp. Brædt', '10');
+INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale_id`, `product_description`, `unitprice`) VALUES ('2', '1', 'trykimp. Brædt', '15');
+INSERT INTO `fog`.`product` (`productvariant_id`, `unit_scale_id`, `product_description`, `unitprice`) VALUES ('3', '1', 'trykimp. Brædt', '10');
 
 INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `usement_id`, `quantity`, `total_price`) VALUES ('1', '1', '1', '7', '70');
 INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `usement_id`, `quantity`, `total_price`) VALUES ('2', '2', '2', '4', '60');
