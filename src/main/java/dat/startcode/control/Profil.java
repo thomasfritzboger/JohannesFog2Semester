@@ -33,6 +33,10 @@ public class Profil extends Command {
 
         session.setAttribute("carportListe", carportListe);
 
+        if(!user.getRole().equals("kunde")) {
+            return "error";
+        }
+
         return "profil";
     }
 }
