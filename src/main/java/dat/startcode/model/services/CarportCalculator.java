@@ -1,25 +1,35 @@
 package dat.startcode.model.services;
 
 import dat.startcode.model.dtos.OrderLineDTO;
+import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.entities.Produkt;
+import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.exceptions.IllegalDimensionException;
 
 
 
 import dat.startcode.model.dtos.OrderLineDTO;
 import dat.startcode.model.exceptions.IllegalDimensionException;
+import dat.startcode.model.persistence.ConnectionPool;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarportCalculator {
+public class CarportCalculator{
+
+    List<ProduktDTO> produktDTOListe;
+
+    public CarportCalculator(List<ProduktDTO> liste) {
+        this.produktDTOListe = liste;
+    }
+
+    public CarportCalculator() {} //Test-constructor needed for test to not error.
+
     //Materialeliste for carport inklusive skur, hvis de bruger samme type
     public List<OrderLineDTO> mList = new ArrayList<>();
 
     //Hentes senere fra database
     public List<Produkt> produktliste = new ArrayList<>();
-
-
 
     public int carportLængde;
     public int carportBredde;
@@ -188,24 +198,14 @@ public class CarportCalculator {
     public double pakkerBeslagskruerUnitPrice;
 
 
-
-    public CarportCalculator() {
-
-    }
-
     //Metode til beregning med med skur
     public List<OrderLineDTO> beregnCarport(int l, int b, int h, String hasSkur, String tagmateriale,
                                             String placeringSkur, int skurSize) throws IllegalDimensionException {
-
-
-
-        addToProduktliste();
 
         setDimensionCarport(l,b,h);
         setHasSkur(hasSkur.toLowerCase());
         setAntalSpær(l);
         beregnAfstandMellemSpær(l, spærAntal);
-
 
         if (this.hasSkur) {
             skur.breddeAfDør = 2*afstandMellemSpær;
@@ -214,7 +214,6 @@ public class CarportCalculator {
             setSkurLængde(skurSize*afstandMellemSpær);
 
             skur.længdeLangsideMinusDør = skur.skurLængde-skur.breddeAfDør;
-
 
             skur.setPlaceringAfSkur(placeringSkur.toLowerCase());
             setSkurBredde(carportBredde);
@@ -269,14 +268,6 @@ public class CarportCalculator {
         return mList;
     }
 
-    public void addToProduktliste() {
-        //simuleret stolpe
-        produktliste.add(new Produkt(1,1,1,1));
-        //imuleret spær
-        produktliste.add(new Produkt(2,2,1,2));
-    }
-
-
     public void setDimensionCarport(int l, int b, int h){
         carportLængde = l;
         carportBredde = b;
@@ -311,9 +302,9 @@ public class CarportCalculator {
 
     public int setStolpeLængde (int l) {
         int id = 0;
-        stolperProductDecsription = produktliste.get(id).productDescriptionId + "";
-        stolperUnitScale = produktliste.get(id).unitscaleId + "";
-        stolperUsementDescription = produktliste.get(id).usementDescriptionId + "";
+        //stolperProductDecsription = produktliste.get(id).productDescriptionId + "";
+        //stolperUnitScale = produktliste.get(id).unitscaleId + "";
+        //stolperUsementDescription = produktliste.get(id).usementDescriptionId + "";
         stolperLængde = l + 90;
         return stolperLængde;
     }
@@ -338,8 +329,6 @@ public class CarportCalculator {
             return res;
         }
     }
-
-
 
     public String setTagType(String s) {
         if (s.equalsIgnoreCase("p")) {

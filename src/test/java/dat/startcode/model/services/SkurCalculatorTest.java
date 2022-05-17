@@ -10,6 +10,7 @@ class SkurCalculatorTest {
     CarportCalculator calculator = new CarportCalculator();
 
 
+
     @Test //Udregner antal og længde på løsholter på dørside i kort skur
     void testBeregnAntalLøsholterDørSideKort() throws IllegalDimensionException {
         calculator.beregnCarport(700,600,210,"y","p",
