@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class OrderLineDTO {
 
-    private String productDescription;
+    public String productDescription;
     private int length;
     private int amount;
     private String unitScale;

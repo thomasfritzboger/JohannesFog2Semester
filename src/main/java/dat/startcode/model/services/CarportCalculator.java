@@ -1,6 +1,7 @@
 package dat.startcode.model.services;
 
 import dat.startcode.model.dtos.OrderLineDTO;
+import dat.startcode.model.entities.Produkt;
 import dat.startcode.model.exceptions.IllegalDimensionException;
 
 
@@ -14,6 +15,11 @@ import java.util.List;
 public class CarportCalculator {
     //Materialeliste for carport inklusive skur, hvis de bruger samme type
     public List<OrderLineDTO> mList = new ArrayList<>();
+
+    //Hentes senere fra database
+    public List<Produkt> produktliste = new ArrayList<>();
+
+
 
     public int carportLængde;
     public int carportBredde;
@@ -191,6 +197,10 @@ public class CarportCalculator {
     public List<OrderLineDTO> beregnCarport(int l, int b, int h, String hasSkur, String tagmateriale,
                                             String placeringSkur, int skurSize) throws IllegalDimensionException {
 
+
+
+        addToProduktliste();
+
         setDimensionCarport(l,b,h);
         setHasSkur(hasSkur.toLowerCase());
         setAntalSpær(l);
@@ -252,9 +262,18 @@ public class CarportCalculator {
         bolteAntal = 2*(stolperAntal-stolpeIkkeFastgjortRem);
         addAllCarportItemsTilListe();
 
-        for (OrderLineDTO orderLineDTO : mList) {System.out.println(orderLineDTO);}
+        for (OrderLineDTO orderLineDTO : mList) {
+            if (orderLineDTO.productDescription != null)  System.out.println(orderLineDTO);
+        }
 
         return mList;
+    }
+
+    public void addToProduktliste() {
+        //simuleret stolpe
+        produktliste.add(new Produkt(1,1,1,1));
+        //imuleret spær
+        produktliste.add(new Produkt(2,2,1,2));
     }
 
 
@@ -291,6 +310,10 @@ public class CarportCalculator {
     }
 
     public int setStolpeLængde (int l) {
+        int id = 0;
+        stolperProductDecsription = produktliste.get(id).productDescriptionId + "";
+        stolperUnitScale = produktliste.get(id).unitscaleId + "";
+        stolperUsementDescription = produktliste.get(id).usementDescriptionId + "";
         stolperLængde = l + 90;
         return stolperLængde;
     }
@@ -315,6 +338,8 @@ public class CarportCalculator {
             return res;
         }
     }
+
+
 
     public String setTagType(String s) {
         if (s.equalsIgnoreCase("p")) {

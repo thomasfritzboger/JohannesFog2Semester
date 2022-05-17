@@ -24,8 +24,8 @@ public class CustomerMapper implements ICustomerMapper
     @Override
     public Request sendCarportRequest(int coverageId, int userId, int dimensionId, int shedId, boolean hasShed, boolean isConfirmed) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
-        Request request;
-        String sql = "insert into carport (coverage_id, user_id, dimension_id, shed_id, hasShed, isCofirmed) values (?,?,?,?,?,?)";
+        Request request; //insert into user (email, password, role, phonenumber, address, postal_code) values (?,?,?,?,?,?)
+        String sql = "insert into carport (coverage_id, user_id, dimensions_id, shed_id, hasShed, isConfirmed) values (?,?,?,?,?,?)";
         try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
