@@ -12,6 +12,12 @@
         <script type="text/javascript">
             function checkChosen() {
 
+
+                document.getElementById("redskabsrumValgt").checked = false;
+                document.getElementById("redskabsrumPlacering").disabled = true;
+                document.getElementById("redskabsrumLaengde").disabled = true;
+
+
                 //hvis man vil skifte enabled på checkbox
                 if(document.getElementById("carportbredde").value > 0
                     && document.getElementById("carportlængde").value > 0
@@ -21,12 +27,11 @@
                     document.getElementById("seSkitse").disabled = false;
                 }
 
-                //redskabsRumValgt();
-
             }
 
             function redskabsRumValgt() {
                 if(document.getElementById("redskabsrumValgt").checked) {
+                    document.getElementById("erRedskabsrumValgt").value ="y";
                     document.getElementById("redskabsrumPlacering").disabled = false;
                     document.getElementById("redskabsrumLaengde").disabled = false;
 
@@ -35,10 +40,11 @@
                     // i midten
                     if(document.getElementById("carportbredde").value < 380) {
                         document.getElementById("venstre").disabled = true;
-                        document.getElementById("hojre").disabled = true;
+                        document.getElementById("højre").disabled = true;
+                        document.getElementById("redskabsrumPlacering").value = "midt";
                     } else {
                         document.getElementById("venstre").disabled = false;
-                        document.getElementById("hojre").disabled = false;
+                        document.getElementById("højre").disabled = false;
                     }
 
 
@@ -61,6 +67,7 @@
 
                 //udregn afstand mellem spær
                 let afstandMellemSpaer = Math.ceil(carportLength/spaerantal);
+                document.getElementById("afstandMellemSpaer").value = afstandMellemSpaer;
 
                 let options = [];
 
@@ -93,15 +100,32 @@
                     let selectLaengde = document.getElementById("redskabsrumLaengde");
                     removeOptions(selectLaengde);
 
+                    for(let i = 3; i <= 10; i++) {
+                        if ((i * afstandMellemSpaer) + parseInt(document.getElementById("carportlængde").value) > 1000) {
+                            break;
+                        }
+                        options.push(i*afstandMellemSpaer);
+                    }
+
+                    /*let x = 3;
+                    while(document.getElementById("carportlængde").value + x <= 1000) {
+                        options.push((x*afstandMellemSpaer));
+                        console.log(options);
+                        if(x > 10) {
+                            break;
+                        }
+                        x++;
+                    }*/
+
                     //indsætter array i options
-                    options = [(3*afstandMellemSpaer),
+                    /*options = [(3*afstandMellemSpaer),
                         (4*afstandMellemSpaer),
                         (5*afstandMellemSpaer),
                         (6*afstandMellemSpaer),
                         (7*afstandMellemSpaer),
                         (8*afstandMellemSpaer),
                         (9*afstandMellemSpaer),
-                        (10*afstandMellemSpaer)];
+                        (10*afstandMellemSpaer)];*/
 
                     for(let i = 0; i < options.length; i++) {
                         let opt = options[i];
@@ -111,10 +135,10 @@
                         selectLaengde.add(el);
                     }
 
-
                 }
 
                 if(!document.getElementById("redskabsrumValgt").checked) {
+                    document.getElementById("erRedskabsrumValgt").value = "n";
                     document.getElementById("redskabsrumPlacering").disabled = true;
                     document.getElementById("redskabsrumLaengde").disabled = true;
                     document.getElementById("seSkitse").disabled = false;
@@ -135,12 +159,13 @@
                         || document.getElementById("redskabsrumPlacering").value === "højre")
                     && document.getElementById("redskabsrumLaengde").value > 0) {
                     document.getElementById("seSkitse").disabled = false;
+                    document.getElementById("skurSize").value = (document.getElementById("redskabsrumLaengde").value / document.getElementById("afstandMellemSpaer").value);
+                    console.log(document.getElementById("skurSize").value);
                 } else {
                     document.getElementById("seSkitse").disabled = true;
                 }
+
             }
-
-
         </script>
 
 
@@ -182,8 +207,8 @@
             <label for="tagtype">Tagtype:</label> <br>
             <select name="tagtype" id="tagtype">
                 <!--<option value="" disabled selected>Valg tagtype/farve</option>-->
-                <option value="plast">Plasttrapez tag</option>
-                <option value="cembrit">Cembrit tag</option>
+                <option value="p">Plasttrapez tag</option>
+                <option value="c">Cembrit tag</option>
             </select>
 
             <br>
@@ -197,6 +222,7 @@
         <label id="checkBoxRedskabsrum" for="redskabsrumValgt" style="opacity: 0.6;">Tilføj redskabsrum? </label>
         <input type="checkbox" id="redskabsrumValgt" name="redskabsrumValgt"
                value="redskabsrum" onclick="redskabsRumValgt()" disabled>
+            <input id="erRedskabsrumValgt" type="text" value="n" hidden>
 
         <br><br>
 
@@ -209,7 +235,7 @@
                 <option value="" disabled selected>Valg placering</option>
                 <option id="venstre" value="venstre">venstre</option>
                 <option id="midt" value="midt">midt</option>
-                <option id="hojre" value="højre">højre</option>
+                <option id="højre" value="højre">højre</option>
             </select>
 
             <br>
@@ -223,6 +249,9 @@
             <select name="redskabsrumLaengde" id="redskabsrumLaengde" disabled onchange="tjekOmAltErIndtastet();">
                 <option value="" disabled selected>Vælg længde</option>
             </select>
+
+            <input id="afstandMellemSpaer" type="text" hidden value="">
+            <input name="skurSize" id="skurSize" type="number" hidden value="0">
         </div>
 
         <br><br>

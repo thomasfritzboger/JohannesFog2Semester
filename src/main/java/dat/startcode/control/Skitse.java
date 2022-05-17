@@ -2,6 +2,8 @@ package dat.startcode.control;
 
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
+import dat.startcode.model.exceptions.IllegalDimensionException;
+import dat.startcode.model.services.CarportCalculator;
 import dat.startcode.model.services.SVG;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +28,23 @@ public class Skitse extends Command {
 
         //hent carport længde
         int carportLength = Integer.parseInt(request.getParameter("carportlængde"));
+
+        // hent carport højde
+        int carportHojde = Integer.parseInt(request.getParameter("carporthøjde"));
+
+        String erRedskabsRumValgt = request.getParameter("redskabsrumValgt");
+
+        //tagmateriale
+        String tagType = request.getParameter("tagtype");
+
+        //placering
+        String placering = request.getParameter("redskabsrumPlacering");
+
+        //skurSize
+        int skurSize = Integer.parseInt(request.getParameter("skurSize"));
+
+        CarportCalculator calculator = new CarportCalculator();
+
 
 
 

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 public class CarportDesigner extends Command{
 
     int[] carportWidth = {300,320,340,360,380,400,420,440,460,480,500,520,540,560,580,600};
-    int[] carportLength = {420,440,460,480,500,520,540,560,580,600,620,640,660,680, 700,720,740,760,780,800,820,840,860,880,900,920,940,960,980,1000};
+    int[] carportLength = {420,440,460,480,500,520,540,560,580,600};
     int[] carportHeight = {210,220,230,240,250,260,270,280,290,300};
     //String[] redskabsRumPlacering = {"venstre", "højre", "midt"};
     int[] redskabsrumBredder = {210,220,230,240,250,260,270,280,290,300}; // skal fikses
