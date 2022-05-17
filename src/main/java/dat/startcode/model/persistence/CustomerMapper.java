@@ -1,6 +1,8 @@
 package dat.startcode.model.persistence;
 
+import dat.startcode.model.entities.CarportDimension;
 import dat.startcode.model.entities.Request;
+import dat.startcode.model.entities.ShedDimension;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 
@@ -19,6 +21,66 @@ public class CustomerMapper implements ICustomerMapper
     public CustomerMapper(ConnectionPool connectionPool)
     {
         this.connectionPool = connectionPool;
+    }
+
+    @Override
+    public CarportDimension makeCarportDimension(int length, int width, int height) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        CarportDimension carportDimension;
+        String sql = "insert into dimensions (length, width, height) values (?,?,?)";
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, length);
+                ps.setInt(2, width);
+                ps.setInt(3, height);
+
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected == 1)
+                {
+                    carportDimension = new CarportDimension(length, width, height);
+                } else
+                {
+                    throw new DatabaseException("Carport med målene = " + length + "x " + width + "x " + height + " kunne ikke indsættes i databasen");
+                }
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new DatabaseException(ex, "Kunne ikke indsætte carport i databasen.");
+        }
+        return carportDimension;
+    }
+
+    @Override
+    public ShedDimension makeShedDimension(int width, int length, String placement) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        ShedDimension shedDimension;
+        String sql = "insert into shed (width, length, placement) values (?,?,?)";
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, width);
+                ps.setInt(2, length);
+                ps.setString(3, placement);
+
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected == 1)
+                {
+                    shedDimension = new ShedDimension(length, width, placement);
+                } else
+                {
+                    throw new DatabaseException("Carport med placering = (" + placement + ") kunne ikke indsættes i databasen");
+                }
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new DatabaseException(ex, "Kunne ikke indsætte carport i databasen.");
+        }
+        return shedDimension;
     }
 
     @Override
