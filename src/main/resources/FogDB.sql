@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`productvariant` (
                                                       `productvariant_id` INT NOT NULL AUTO_INCREMENT,
                                                       `length` INT NULL DEFAULT NULL,
                                                       `width` INT NULL DEFAULT NULL,
-                                                      `heigth` INT NULL DEFAULT NULL,
+                                                      `height` INT NULL DEFAULT NULL,
                                                       `diameter` DOUBLE NULL DEFAULT NULL,
                                                       PRIMARY KEY (`productvariant_id`))
     ENGINE = InnoDB
@@ -271,8 +271,8 @@ INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('200', '25');
 INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('200', '25');
 INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('125', '25');
 
-INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('trykimp. Brædt','10');
-INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('trykimp. Brædt', '15');
+INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x200 mm. trykimp. Brædt', '10');
+INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x200 mm. trykimp. Brædt', '15');
 
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`,`unit_scale_id`, `usement_id`) VALUES ('1', '1','1','1');
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`,`unit_scale_id`, `usement_id`) VALUES ('2', '1','1','2');
@@ -285,3 +285,18 @@ INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `dimensions_id`, `hasShed
 
 INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_price`) VALUES ('1', '1', '360', '7', '70');
 INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_price`) VALUES ('2', '2', '540', '4', '60');
+
+-- -----------------------------------------------------
+-- Views
+-- -----------------------------------------------------
+CREATE VIEW ProduktDTO AS
+SELECT p.product_id, d.product_description, d.unit_price, v.length, v.width, v.height, v.diameter, m.usement_description as description, s.unit_scale as scale
+FROM product as p
+         inner join product_description as d
+                    using (product_description_id)
+         inner join productvariant as v
+                    using (productvariant_id)
+         inner join usement as m
+                    using (usement_id)
+         inner join unit_scale as s
+                    using (unit_scale_id)

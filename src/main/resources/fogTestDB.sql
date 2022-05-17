@@ -7,3 +7,4 @@ create table fog_test.productvariant like fog.productvariant;
 create table fog_test.shed like fog.shed;
 create table fog_test.usement like fog.usement;
 create table fog_test.user like fog.user;
+create table fog_test.dimensions like fog.dimensions
