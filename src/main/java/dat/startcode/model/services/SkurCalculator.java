@@ -315,7 +315,6 @@ public class SkurCalculator {
 
     public void addAllSkurItemsTilListe() {
 
-
         //productdescription, length, amount, unitscale, usementdescription, totalprice
         skurList.add(new OrderLineDTO(lægteTilDørProductDescription,
                 lægtePåDørLængde, lægteTilDørAntal, lægtePåDørUnitScale,
