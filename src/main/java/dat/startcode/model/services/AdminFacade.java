@@ -1,5 +1,6 @@
 package dat.startcode.model.services;
 
+import dat.startcode.model.dtos.RequestDTO;
 import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
@@ -20,4 +21,8 @@ public class AdminFacade {
         return adminMapper.getDoneCarports();
     }
 
+    public static List<RequestDTO> getRequest(ConnectionPool connectionPool) throws DatabaseException {
+        AdminMapper adminMapper = new AdminMapper(connectionPool);
+        return adminMapper.getRequest();
+    }
 }

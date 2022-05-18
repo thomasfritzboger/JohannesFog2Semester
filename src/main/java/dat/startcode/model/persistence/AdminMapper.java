@@ -1,5 +1,6 @@
 package dat.startcode.model.persistence;
 
+import dat.startcode.model.dtos.RequestDTO;
 import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -47,6 +49,36 @@ public class AdminMapper implements IAdminMapper {
         }
 
         return customerList;
+    }
+
+    @Override
+    public List<RequestDTO> getRequest() throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO,"");
+
+        List<RequestDTO> requestList = new ArrayList<>();
+
+        String sql = "SELECT * FROM requestdto";
+
+        try (Connection connection = connectionPool.getConnection()){
+            try (PreparedStatement ps = connection.prepareStatement(sql)){
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int carportId = rs.getInt("carport_id");
+                    int userId = rs.getInt("user_id");
+                    String date =  rs.getString("carport_created");
+                    int coverage = rs.getInt("coverage");
+                    double price = rs.getDouble("price");
+                    requestList.add(new RequestDTO(carportId,userId,date,coverage,price));
+                }
+            } catch (SQLException sqlException) {
+                throw new DatabaseException("Kunne ikke få alle carporte fra database");
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            throw new DatabaseException("Kunne ikke få forbindelse til databasen");
+        }
+
+        return requestList;
     }
 
 

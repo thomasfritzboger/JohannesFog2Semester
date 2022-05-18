@@ -299,4 +299,14 @@ FROM product as p
          inner join usement as m
                     using (usement_id)
          inner join unit_scale as s
-                    using (unit_scale_id)
+                    using (unit_scale_id);
+
+create view requestdto AS
+SELECT ca.carport_id, ca.user_id, ca.carport_created, co.coverage, SUM(m.total_price) AS price
+FROM carport AS ca
+         INNER JOIN coverage AS co
+                    USING (coverage_id)
+         INNER JOIN material_line AS m
+                    USING (carport_id)
+WHERE ca.isConfirmed=0
+group by carport_id;
