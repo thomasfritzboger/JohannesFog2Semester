@@ -268,11 +268,27 @@ INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('rulle');
 INSERT INTO `fog`.`unit_scale` (`unit_scale`) VALUES ('sæt');
 
 INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('200', '25');
-INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('200', '25');
 INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('125', '25');
+INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('73', '38');
+INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('95', '45');
+INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('195', '45');
+INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('97', '97');
+INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('100', '19');
+INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('1', '20');
+INSERT INTO `fog`.`productvariant` (`length`) VALUES ('190');
+INSERT INTO `fog`.`productvariant` (`length`, `diameter`) VALUES ('60', '4.5');
+INSERT INTO `fog`.`productvariant` (`length`, `diameter`) VALUES ('50', '4.0');
+INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('120', '10');
+INSERT INTO `fog`.`productvariant` (`length`, `width`, `height`) VALUES ('40', '40', '11');
+INSERT INTO `fog`.`productvariant` (`length`, `diameter`) VALUES ('70', '4.5');
+INSERT INTO `fog`.`productvariant` (`length`, `diameter`) VALUES ('50', '4.5');
+INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('75', '50');
+INSERT INTO `fog`.`productvariant` (`length`) VALUES ('390');
+INSERT INTO `fog`.`productvariant` (`length`) VALUES ('35');
+INSERT INTO `fog`.`productvariant` (`length`) VALUES (null);
 
 INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x200 mm. trykimp. Brædt', '54.96');
-INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x200 mm. trykimp. Brædt', '35.68');
+INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x125 mm. trykimp. Brædt', '35.68');
 INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES  ('38x73 mm lægte ubh', '35.68');
 INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('45x95 mm. reglar ubh', '59.91');
 INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('45x195 mm. spærtræ ubh', '67.82');
@@ -299,7 +315,34 @@ INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VA
 
 
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`,`unit_scale_id`, `usement_id`) VALUES ('1', '1','1','1');
-INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`,`unit_scale_id`, `usement_id`) VALUES ('2', '1','1','2');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`,`unit_scale_id`, `usement_id`) VALUES ('1', '1','1','2');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('2', '2', '1', '3');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('2', '2', '1', '4');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('3', '3', '1', '5');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('4', '4', '1', '6');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('4', '4', '1', '7');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('5', '5', '1', '8');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('5', '5', '1', '9');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('6', '6', '1', '10');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('7', '7', '1', '11');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('7', '7', '1', '12');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('7', '7', '1', '13');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('8', '19', '1', '14');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('9', '19', '2', '15');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('10', '8', '3', '16');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('11', '9', '1', '17');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('12', '9', '1', '17');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('13', '10', '2', '18');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('14', '11', '2', '19');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('15', '12', '1', '20');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('16', '13', '1', '20');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('17', '14', '3', '21');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('18', '15', '3', '22');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('19', '16', '4', '23');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('20', '17', '1', '24');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('21', '18', '1', '25');
+
+
 
 INSERT INTO `fog`.`dimensions` (`length`, `width`, `height`) VALUES ('780', '600', '210');
 INSERT INTO `fog`.`dimensions` (`length`, `width`, `height`) VALUES ('600', '500', '210');
