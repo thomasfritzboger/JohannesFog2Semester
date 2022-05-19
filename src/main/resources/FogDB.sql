@@ -30,20 +30,6 @@ CREATE TABLE IF NOT EXISTS `fog`.`coverage` (
 
 
 -- -----------------------------------------------------
--- Table `fog`.`dimensions`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fog`.`dimensions` (
-                                                  `dimensions_id` INT NOT NULL AUTO_INCREMENT,
-                                                  `length` INT NOT NULL,
-                                                  `width` INT NOT NULL,
-                                                  `height` INT NOT NULL,
-                                                  PRIMARY KEY (`dimensions_id`))
-    ENGINE = InnoDB
-    AUTO_INCREMENT = 1
-    DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
 -- Table `fog`.`shed`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fog`.`shed` (
@@ -81,7 +67,9 @@ CREATE TABLE IF NOT EXISTS `fog`.`carport` (
                                                `carport_id` INT NOT NULL AUTO_INCREMENT,
                                                `coverage_id` INT NOT NULL,
                                                `user_id` INT NOT NULL,
-                                               `dimensions_id` INT NOT NULL,
+                                               `width` INT NOT NULL,
+                                               `length` INT NOT NULL,
+                                               `height` INT NOT NULL,
                                                `shed_id` INT NULL DEFAULT NULL,
                                                `hasShed` TINYINT NOT NULL DEFAULT '0',
                                                `isConfirmed` TINYINT NOT NULL DEFAULT '0',
@@ -90,19 +78,28 @@ CREATE TABLE IF NOT EXISTS `fog`.`carport` (
                                                INDEX `fk_carport_shed_idx` (`shed_id` ASC) VISIBLE,
                                                INDEX `fk_carport_user1_idx` (`user_id` ASC) VISIBLE,
                                                INDEX `fk_carport_coverage1_idx` (`coverage_id` ASC) VISIBLE,
-                                               INDEX `fk_carport_dimensions1_idx` (`dimensions_id` ASC) VISIBLE,
                                                CONSTRAINT `fk_carport_coverage1`
                                                    FOREIGN KEY (`coverage_id`)
                                                        REFERENCES `fog`.`coverage` (`coverage_id`),
-                                               CONSTRAINT `fk_carport_dimensions1`
-                                                   FOREIGN KEY (`dimensions_id`)
-                                                       REFERENCES `fog`.`dimensions` (`dimensions_id`),
                                                CONSTRAINT `fk_carport_shed`
                                                    FOREIGN KEY (`shed_id`)
                                                        REFERENCES `fog`.`shed` (`shed_id`),
                                                CONSTRAINT `fk_carport_user1`
                                                    FOREIGN KEY (`user_id`)
                                                        REFERENCES `fog`.`user` (`user_id`))
+    ENGINE = InnoDB
+    AUTO_INCREMENT = 1
+    DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `fog`.`product_description`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fog`.`product_description` (
+                                                           `product_description_id` INT NOT NULL AUTO_INCREMENT,
+                                                           `product_description` VARCHAR(45) NOT NULL,
+                                                           `unit_price` DOUBLE NOT NULL,
+                                                           PRIMARY KEY (`product_description_id`))
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
@@ -148,17 +145,6 @@ CREATE TABLE IF NOT EXISTS `fog`.`usement` (
 
 
 -- -----------------------------------------------------
--- Table `fog`.`product_description`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fog`.`product_description` (
-                                                           `product_description_id` INT NOT NULL AUTO_INCREMENT,
-                                                           `product_description` VARCHAR(45) NOT NULL,
-                                                           `unit_price` DOUBLE NOT NULL,
-                                                           PRIMARY KEY (`product_description_id`))
-    ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `fog`.`product`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fog`.`product` (
@@ -172,6 +158,9 @@ CREATE TABLE IF NOT EXISTS `fog`.`product` (
                                                INDEX `fk_product_unit_scale_idx` (`unit_scale_id` ASC) VISIBLE,
                                                INDEX `fk_product_usement1_idx` (`usement_id` ASC) VISIBLE,
                                                INDEX `fk_product_product_description1_idx` (`product_description_id` ASC) VISIBLE,
+                                               CONSTRAINT `fk_product_product_description1`
+                                                   FOREIGN KEY (`product_description_id`)
+                                                       REFERENCES `fog`.`product_description` (`product_description_id`),
                                                CONSTRAINT `fk_product_productvariant1`
                                                    FOREIGN KEY (`productvariant_id`)
                                                        REFERENCES `fog`.`productvariant` (`productvariant_id`),
@@ -180,14 +169,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`product` (
                                                        REFERENCES `fog`.`unit_scale` (`unit_scale_id`),
                                                CONSTRAINT `fk_product_usement1`
                                                    FOREIGN KEY (`usement_id`)
-                                                       REFERENCES `fog`.`usement` (`usement_id`)
-                                                       ON DELETE NO ACTION
-                                                       ON UPDATE NO ACTION,
-                                               CONSTRAINT `fk_product_product_description1`
-                                                   FOREIGN KEY (`product_description_id`)
-                                                       REFERENCES `fog`.`product_description` (`product_description_id`)
-                                                       ON DELETE NO ACTION
-                                                       ON UPDATE NO ACTION)
+                                                       REFERENCES `fog`.`usement` (`usement_id`))
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
@@ -200,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`material_line` (
                                                      `material_line_id` INT NOT NULL AUTO_INCREMENT,
                                                      `carport_id` INT NOT NULL,
                                                      `product_id` INT NOT NULL,
-                                                     `unit_length` INT NULL,
+                                                     `unit_length` INT NULL DEFAULT NULL,
                                                      `unit_quantity` INT NOT NULL,
                                                      `total_price` DOUBLE NOT NULL,
                                                      PRIMARY KEY (`material_line_id`),
@@ -344,11 +326,9 @@ INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `uni
 
 
 
-INSERT INTO `fog`.`dimensions` (`length`, `width`, `height`) VALUES ('780', '600', '210');
-INSERT INTO `fog`.`dimensions` (`length`, `width`, `height`) VALUES ('600', '500', '210');
 
-INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `dimensions_id`, `shed_id`, `hasShed`, `isConfirmed`) VALUES ('40', '2', '1', '1', '1', '0');
-INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `dimensions_id`, `hasShed`, `isConfirmed`) VALUES ('25', '3', '1', '0', '0');
+INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `width`, `length`, `height`, `shed_id`, `hasShed`, `isConfirmed`) VALUES ('40', '2', '360', '600', '210', '1', '1', '0');
+INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `width`, `length`, `height`, `hasShed`, `isConfirmed`) VALUES ('25', '3', '320', '540', '230', '0', '0');
 
 INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_price`) VALUES ('1', '1', '360', '7', '70');
 INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_price`) VALUES ('2', '2', '540', '4', '60');
