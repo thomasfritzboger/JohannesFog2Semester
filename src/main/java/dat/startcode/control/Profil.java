@@ -1,6 +1,7 @@
 package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
+import dat.startcode.model.dtos.OrderLineDTO;
 import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
@@ -15,6 +16,7 @@ import java.util.List;
 public class Profil extends Command {
 
     List<Carport> carportListe;
+    List<OrderLineDTO> orderLineDTOList;
 
     private ConnectionPool connectionPool;
 
@@ -28,10 +30,21 @@ public class Profil extends Command {
         User user = (User) session.getAttribute("user");
 
         carportListe = UserFacade.getCarportByUser(user.getUserId(),connectionPool);
+        orderLineDTOList = (List<OrderLineDTO>) session.getAttribute("orderLineDTOList");
+
+        int carportSamletPris = 0;
+
+        for (OrderLineDTO orderLineDTO : orderLineDTOList) {
+
+            carportSamletPris += orderLineDTO.totalPrice;
+
+        }
 
         session = request.getSession();
 
         session.setAttribute("carportListe", carportListe);
+        session.setAttribute("carportSamletPris",carportSamletPris);
+
 
         if(!user.getRole().equals("kunde")) {
             return "error";

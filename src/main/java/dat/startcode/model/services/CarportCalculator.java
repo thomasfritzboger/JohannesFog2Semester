@@ -3,24 +3,18 @@ package dat.startcode.model.services;
 import dat.startcode.model.dtos.OrderLineDTO;
 import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.entities.Produkt;
-import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.exceptions.IllegalDimensionException;
 
-
-
-import dat.startcode.model.dtos.OrderLineDTO;
-import dat.startcode.model.exceptions.IllegalDimensionException;
-import dat.startcode.model.persistence.ConnectionPool;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarportCalculator{
 
-    List<ProduktDTO> produktDTOListe;
+    List<ProduktDTO> pDTO;
 
     public CarportCalculator(List<ProduktDTO> liste) {
-        this.produktDTOListe = liste;
+        this.pDTO = liste;
     }
 
     public CarportCalculator() {} //Test-constructor needed for test to not error.
@@ -394,6 +388,10 @@ public class CarportCalculator{
         }
     }
 
+
+
+
+
     public void beregnTagPlader (int l, int b) {
 
         if (tagtype.equals("c")) {
@@ -468,12 +466,26 @@ public class CarportCalculator{
             oversternBredsideLængde = (int) Math.ceil(b/60.0)*60;
             understernBredsideAntal = 2;
             oversternBredsideAntal = 1;
+
         }  else {
             understernBredsideLængde = (int) Math.ceil((b/2)/60.0)*60;
             oversternBredsideLængde = (int) Math.ceil((b/2)/60.0)*60;
             understernBredsideAntal = 4;
             oversternBredsideAntal = 2;
         }
+        mList.add(new OrderLineDTO(pDTO.get(0).getProduktDescription(),
+                understernBredsideLængde,
+                understernBredsideAntal,
+                pDTO.get(0).getUnitScale(),
+                pDTO.get(0).getUsementDescription(),
+                understernBredsideAntal*understernBredsideLængde/100.0*pDTO.get(0).getUnitPrice()));
+        mList.add(new OrderLineDTO(pDTO.get(1).getProduktDescription(),
+                understernLangsideLængde,
+                understernLangsideAntal,
+                pDTO.get(1).getUnitScale(),
+                pDTO.get(1).getUsementDescription(),
+                understernLangsideAntal*understernLangsideLængde/100.0*pDTO.get(1).getUnitPrice()));
+
     }
 
     public void beregnAntalVandbrædder(int l, int b){
@@ -515,7 +527,7 @@ public class CarportCalculator{
     }
 
     public void addAllCarportItemsTilListe () {
-        mList.add(new OrderLineDTO( spærProductDescription,
+       /* mList.add(new OrderLineDTO( spærProductDescription,
                 spærLængde, spærAntal, spærUnitScale,
                 spærUsementDescription, spærUnitPrice*spærAntal));
         mList.add(new OrderLineDTO(remProductDescription,
@@ -581,6 +593,6 @@ public class CarportCalculator{
         mList.add(new OrderLineDTO(pakkerBeslagskruerDecsription,
                 pakkerBeslagskruerLængde, pakkerBeslagskruerAntal, pakkerBeslagskruerUnitScale,
                 pakkerBeslagskruerUsementDescription, pakkerBeslagskruerUnitPrice*pakkerBeslagskruerAntal));
-
+*/
     }
 }

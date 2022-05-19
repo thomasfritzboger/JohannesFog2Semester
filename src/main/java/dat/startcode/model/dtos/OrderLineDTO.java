@@ -10,7 +10,7 @@ public class OrderLineDTO {
     private String unitScale;
     private String usementDescription;
 
-    private double totalPrice;
+    public double totalPrice;
 
     public OrderLineDTO(String productDescription, int length, int amount, String unitScale, String usementDescription, double totalPrice) {
         this.productDescription = productDescription;

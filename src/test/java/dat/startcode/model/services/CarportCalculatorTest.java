@@ -1,13 +1,41 @@
 package dat.startcode.model.services;
 
+import dat.startcode.model.config.ApplicationStart;
+import dat.startcode.model.dtos.ProduktDTO;
+import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.exceptions.IllegalDimensionException;
+import dat.startcode.model.persistence.ConnectionPool;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarportCalculatorTest {
 
     CarportCalculator calculator = new CarportCalculator();
+    String user = "root";
+    String password = "DiskoT@ngo";
+    String url = "jdbc:mysql://localhost:3306/fog";
+    ConnectionPool connectionPool = new ConnectionPool(user,password,url);
+
+
+
+
+    List<ProduktDTO> pDTO = ProductFacade.getProduktDTOs(connectionPool);
+
+
+    CarportCalculator c;
+    CarportCalculatorTest() throws DatabaseException {
+
+    }
+
+    @BeforeEach
+    void setUp() {
+         c = new CarportCalculator(pDTO);
+
+    }
 
     @Test
     void testSetDimensionCarport() {
@@ -285,9 +313,13 @@ class CarportCalculatorTest {
     }
 
     @Test
-    void testBeregn() throws IllegalDimensionException {
+    void testBeregn() throws IllegalDimensionException, DatabaseException {
 
-        calculator.beregnCarport(420,400,210,"n","p","midt",4);
+       // ConnectionPool connectionPool = new ConnectionPool(user,password,url);
+        //List<ProduktDTO> pDTO = ProductFacade.getProduktDTOs(connectionPool);
+       // CarportCalculator c = new CarportCalculator(pDTO);
+
+        c.beregnCarport(600,300,210,"n","p","midt",4);
 
     }
 }
