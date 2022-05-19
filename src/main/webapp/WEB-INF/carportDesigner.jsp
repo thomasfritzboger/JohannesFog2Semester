@@ -31,7 +31,7 @@
 
             function redskabsRumValgt() {
                 if(document.getElementById("redskabsrumValgt").checked) {
-                    document.getElementById("erRedskabsrumValgt").value ="y";
+                    document.getElementById("redskabsrumValgt").value ="y";
                     document.getElementById("redskabsrumPlacering").disabled = false;
                     document.getElementById("redskabsrumLaengde").disabled = false;
 
@@ -107,26 +107,6 @@
                         options.push(i*afstandMellemSpaer);
                     }
 
-                    /*let x = 3;
-                    while(document.getElementById("carportlængde").value + x <= 1000) {
-                        options.push((x*afstandMellemSpaer));
-                        console.log(options);
-                        if(x > 10) {
-                            break;
-                        }
-                        x++;
-                    }*/
-
-                    //indsætter array i options
-                    /*options = [(3*afstandMellemSpaer),
-                        (4*afstandMellemSpaer),
-                        (5*afstandMellemSpaer),
-                        (6*afstandMellemSpaer),
-                        (7*afstandMellemSpaer),
-                        (8*afstandMellemSpaer),
-                        (9*afstandMellemSpaer),
-                        (10*afstandMellemSpaer)];*/
-
                     for(let i = 0; i < options.length; i++) {
                         let opt = options[i];
                         let el = document.createElement("option");
@@ -138,7 +118,7 @@
                 }
 
                 if(!document.getElementById("redskabsrumValgt").checked) {
-                    document.getElementById("erRedskabsrumValgt").value = "n";
+                    document.getElementById("redskabsrumValgt").value = "n";
                     document.getElementById("redskabsrumPlacering").disabled = true;
                     document.getElementById("redskabsrumLaengde").disabled = true;
                     document.getElementById("seSkitse").disabled = false;
@@ -221,8 +201,7 @@
 
         <label id="checkBoxRedskabsrum" for="redskabsrumValgt" style="opacity: 0.6;">Tilføj redskabsrum? </label>
         <input type="checkbox" id="redskabsrumValgt" name="redskabsrumValgt"
-               value="redskabsrum" onclick="redskabsRumValgt()" disabled>
-            <input id="erRedskabsrumValgt" type="text" value="n" hidden>
+               value="n" onclick="redskabsRumValgt()" disabled>
 
         <br><br>
 
@@ -241,7 +220,7 @@
             <br>
 
             <label for="redskabsrumBredde">Redskabsrum bredde:</label> <br>
-            <input type="text" id="redskabsrumBredde" value="" readonly> m (denne er fastlagt)
+            <input type="text" id="redskabsrumBredde" readonly> m (denne er fastlagt)
 
             <br>
 
