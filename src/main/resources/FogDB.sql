@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`productvariant` (
                                                       `productvariant_id` INT NOT NULL AUTO_INCREMENT,
                                                       `length` INT NULL DEFAULT NULL,
                                                       `width` INT NULL DEFAULT NULL,
-                                                      `heigth` INT NULL DEFAULT NULL,
+                                                      `height` INT NULL DEFAULT NULL,
                                                       `diameter` DOUBLE NULL DEFAULT NULL,
                                                       PRIMARY KEY (`productvariant_id`))
     ENGINE = InnoDB
@@ -271,8 +271,32 @@ INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('200', '25');
 INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('200', '25');
 INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('125', '25');
 
-INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x200 mm. trykimp. Brædt', '10');
-INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x200 mm. trykimp. Brædt', '15');
+INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x200 mm. trykimp. Brædt', '54.96');
+INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x200 mm. trykimp. Brædt', '35.68');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES  ('38x73 mm lægte ubh', '35.68');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('45x95 mm. reglar ubh', '59.91');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('45x195 mm. spærtræ ubh', '67.82');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('97x97 mm. trykimp. stolpe', '54.25');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('19x100 mm. trykimp. brædt', '21.39');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Plastmo Ecolite blåtonet', '37.20');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Plastmo bundskruer 200 stk.', '282.11');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Hulbånd 1x20 mm. 10 mtr.', '206.43');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Universal 190 mm højre', '39.25');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Universal 190 mm venstre', '39.25');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('4,5 x 60 mm. skruer 200 stk.', '71.39');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('4,0 x 50 mm. beslagskruer 250 stk.', '55.61');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Bræddebolt 10 x 120 mm.', '10.26');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Firkantskiver 40x40x11mm', '6.41');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('4,5 x 70 mm. skruer 400 stk.', '142.14');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('4,5 x 50 mm. skruer 300 stk.', '77.86');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Stalddørsgreb 50x75', '185.00');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('T hængsel 390 mm', '80.83');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Vinkelbeslag 35', '8.63');
+
+
+
+
+
 
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`,`unit_scale_id`, `usement_id`) VALUES ('1', '1','1','1');
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`,`unit_scale_id`, `usement_id`) VALUES ('2', '1','1','2');
