@@ -1,29 +1,16 @@
 package dat.startcode.control;
 
-import dat.startcode.model.config.ApplicationStart;
-import dat.startcode.model.dtos.OrderLineDTO;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.exceptions.IllegalDimensionException;
-import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.services.CarportCalculator;
-import dat.startcode.model.services.ProductFacade;
 import dat.startcode.model.services.SVG;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Skitse extends Command {
-
-    private ConnectionPool connectionPool;
-    List<OrderLineDTO> orderLineDTOList = new ArrayList<>();
-
-    public Skitse() {
-        this.connectionPool = ApplicationStart.getConnectionPool();}
-
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
 
@@ -35,7 +22,7 @@ public class Skitse extends Command {
             return "error";
         }
 
-       // CarportCalculator calculator = new CarportCalculator();
+        CarportCalculator calculator = new CarportCalculator();
 
         //hent carport bredde
         int carportWidth = Integer.parseInt(request.getParameter("carportbredde"));
@@ -58,22 +45,6 @@ public class Skitse extends Command {
         int skurSize = Integer.parseInt(request.getParameter("skurSize"));
 
         /*VI TEGNER SVG I DET FØLGENDE*/
-
-        CarportCalculator calculator = new CarportCalculator(ProductFacade.getProduktDTOs(connectionPool));
-        try {
-            orderLineDTOList = calculator.beregnCarport(carportLength,carportWidth,carportHojde,erRedskabsRumValgt,tagType,placering,skurSize);
-        } catch (IllegalDimensionException e) {
-            e.printStackTrace();
-        }
-
-        session.setAttribute("orderLineDTOList",orderLineDTOList);
-
-        // udregn stolper
-
-        //udregn rem
-
-        //udregn spær
-
 
         SVG svg = new SVG(0, 0, "0 0 1200 800", 100, 50);
         int xStart = (1200-carportLength)/2;
@@ -340,4 +311,7 @@ public class Skitse extends Command {
 
         return "skitse";
     }
+
+
+
 }
