@@ -81,6 +81,27 @@ public class AdminMapper implements IAdminMapper {
         return requestList;
     }
 
+    @Override
+    public Carport newCoverageForCarport(int newCoverage, int carportId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO,"");
+        Carport carport;
+        String sql = "UPDATE carport " +
+                "SET coverage_id = ? " +
+                "WHERE carport_id = ?";
+
+        try (Connection connection = connectionPool.getConnection()){
+            try (PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setInt(1,newCoverage);
+                ps.setInt(2,carportId);
+                ps.executeUpdate();
+                carport = new Carport(carportId,newCoverage);
+            }
+        }catch (SQLException sqlException) {
+            throw new DatabaseException("Kunne ikke dækningsbidrag for carport: " + carportId);
+        }
+        return carport;
+    }
+
 
     @Override
     public List<Carport> getDoneCarports() throws DatabaseException {

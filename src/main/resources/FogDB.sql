@@ -21,12 +21,11 @@ USE `fog` ;
 -- Table `fog`.`coverage`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fog`.`coverage` (
-                                                `coverage_id` INT NOT NULL AUTO_INCREMENT,
+                                                `coverage_id` INT NOT NULL,
                                                 `coverage` INT NOT NULL,
                                                 `coverage_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                                 PRIMARY KEY (`coverage_id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -116,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`productvariant` (
                                                       `productvariant_id` INT NOT NULL AUTO_INCREMENT,
                                                       `length` INT NULL DEFAULT NULL,
                                                       `width` INT NULL DEFAULT NULL,
-                                                      `height` INT NULL DEFAULT NULL,
+                                                      `heigth` INT NULL DEFAULT NULL,
                                                       `diameter` DOUBLE NULL DEFAULT NULL,
                                                       PRIMARY KEY (`productvariant_id`))
     ENGINE = InnoDB
@@ -233,8 +232,9 @@ INSERT INTO `fog`.`user` (`email`, `password`, `role`, `phonenumber`, `address`,
 INSERT INTO `fog`.`user` (`email`, `password`, `role`, `phonenumber`, `address`, `postal_code`) VALUES ('kunde1@fog.dk', '1234', 'kunde', '12345678', 'Envej 1', '3600');
 INSERT INTO `fog`.`user` (`email`, `password`, `role`, `phonenumber`, `address`, `postal_code`) VALUES ('kunde2@fog.dk', '4321', 'kunde', '23456789', 'Tovej 2', '2800');
 
-INSERT INTO `fog`.`coverage` (`coverage`) VALUES ('40');
-INSERT INTO `fog`.`coverage` (`coverage`) VALUES ('25');
+INSERT INTO `fog`.`coverage` (`coverage_id`,`coverage`) VALUES ('40','40');
+INSERT INTO `fog`.`coverage` (`coverage_id`,`coverage`) VALUES ('25','25');
+INSERT INTO `fog`.`coverage` (`coverage_id`,`coverage`) VALUES ('30','30');
 
 INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('understernbrædder til for & bag ende');
 INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('understernbrædder til siderne');
@@ -280,8 +280,8 @@ INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`,`unit
 INSERT INTO `fog`.`dimensions` (`length`, `width`, `height`) VALUES ('780', '600', '210');
 INSERT INTO `fog`.`dimensions` (`length`, `width`, `height`) VALUES ('600', '500', '210');
 
-INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `dimensions_id`, `shed_id`, `hasShed`, `isConfirmed`) VALUES ('1', '2', '1', '1', '1', '0');
-INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `dimensions_id`, `hasShed`, `isConfirmed`) VALUES ('2', '3', '1', '0', '0');
+INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `dimensions_id`, `shed_id`, `hasShed`, `isConfirmed`) VALUES ('40', '2', '1', '1', '1', '0');
+INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `dimensions_id`, `hasShed`, `isConfirmed`) VALUES ('25', '3', '1', '0', '0');
 
 INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_price`) VALUES ('1', '1', '360', '7', '70');
 INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_price`) VALUES ('2', '2', '540', '4', '60');

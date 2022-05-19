@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Carport {
 
     private int carportId;
+    private int coverageId;
     private int userId;
     private int carportWidth;
     private int carportLength;
@@ -15,6 +16,10 @@ public class Carport {
 //    Calculator variables
 
 
+    public Carport(int carportId, int coverageId) {
+        this.carportId = carportId;
+        this.coverageId = coverageId;
+    }
 
     public Carport (int carportId, int userId, int carportWidth, int carportLength){
         this.carportId = carportId;
@@ -39,6 +44,11 @@ public class Carport {
     public int getUserId() {
         return userId;
     }
+
+    public int getCoverageId() {
+        return coverageId;
+    }
+
     public int getCarportWidth() {
         return carportWidth;
     }

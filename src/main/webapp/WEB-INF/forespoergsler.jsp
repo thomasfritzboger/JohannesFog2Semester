@@ -14,9 +14,9 @@
     <jsp:body>
 
         <h3>Her er listen over afventende forespørgsler</h3>
-        <button formaction="" name="prisforslag" value=""
+        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" name="coverageEditor"
                 class="btn btn-secondary">
-            Prisforslag
+            Skift dækningsbidrag på carport forespørgelse
         </button>
         <table class="table table-striped">
             <thead>
@@ -54,6 +54,39 @@
                                 Afvis
                             </button>
                         </form>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Indtast hvilken carport det vedrører, og hvad det nye dækningsbidrag skal være.</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form action="fc/updateCarportPrice">
+                                            <input type="hidden" name="command" value="updateCarportPrice">
+                                            <label for="carportId">Carports id:</label>
+                                            <br>
+                                            <input type="number" id="carportId" name="carportId" required/>
+                                            <br>
+                                            <br>
+                                            <label for="newCoverage">Nyt dækningsbidrag:</label>
+                                            <br>
+                                            <input type="number" id="newCoverage" name="newCoverage" required min="1" max="100"/>
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-dark">
+                                                Bekræft ændring
+                                            </button>
+                                            <br>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>

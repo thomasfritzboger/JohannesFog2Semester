@@ -25,4 +25,9 @@ public class AdminFacade {
         AdminMapper adminMapper = new AdminMapper(connectionPool);
         return adminMapper.getRequest();
     }
+
+    public static Carport updateCarportPrice(int newCoverage, int carportId, ConnectionPool connectionPool) throws DatabaseException {
+        AdminMapper adminMapper = new AdminMapper(connectionPool);
+        return adminMapper.newCoverageForCarport(newCoverage,carportId);
+    }
 }

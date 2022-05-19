@@ -14,4 +14,6 @@ public interface IAdminMapper {
     //public List<Product> getProducts() throws DatabaseException;
     //TODO at gemme product som en classe.
     List<RequestDTO> getRequest() throws DatabaseException;
+
+    Carport newCoverageForCarport( int newCoverage ,int carportId) throws DatabaseException;
 }
