@@ -296,9 +296,6 @@ public class CarportCalculator{
 
     public int setStolpeLængde (int l) {
         int id = 0;
-        //stolperProductDecsription = produktliste.get(id).productDescriptionId + "";
-        //stolperUnitScale = produktliste.get(id).unitscaleId + "";
-        //stolperUsementDescription = produktliste.get(id).usementDescriptionId + "";
         stolperLængde = l + 90;
         return stolperLængde;
     }

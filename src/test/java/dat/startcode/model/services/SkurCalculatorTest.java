@@ -1,15 +1,44 @@
 package dat.startcode.model.services;
 
+import dat.startcode.model.dtos.ProduktDTO;
+import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.exceptions.IllegalDimensionException;
+import dat.startcode.model.persistence.ConnectionPool;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SkurCalculatorTest {
 
-    CarportCalculator calculator = new CarportCalculator();
+    static String user = "root";
+    static String password = "DiskoT@ngo";
+    static String url = "jdbc:mysql://localhost:3306/fog";
+    static ConnectionPool connectionPool = new ConnectionPool(user,password,url);
+    static List<ProduktDTO> pDTO;
+    CarportCalculator calculator;
 
+    SkurCalculatorTest() throws DatabaseException {
+    }
 
+    @BeforeAll
+    public static void beforeSetUp(){
+
+        try {
+            pDTO = ProductFacade.getProduktDTOs(connectionPool);
+            System.out.println(pDTO.size());
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @BeforeEach
+    void setUp() {
+        calculator = new CarportCalculator(pDTO);
+    }
 
     @Test //Udregner antal og længde på løsholter på dørside i kort skur
     void testBeregnAntalLøsholterDørSideKort() throws IllegalDimensionException {
@@ -27,14 +56,14 @@ class SkurCalculatorTest {
         System.out.println("3 gange Længde af hvert lille stykke mellem dør og stolpe "+(3*(4-2)* calculator.skur.afstandMellemSpær));
         assertEquals(360, calculator.skur.løsholterLangsideMedDørLængde);
 
-        calculator = new CarportCalculator();
+        calculator = new CarportCalculator(pDTO);
         calculator.beregnCarport(840,600,210,"y","p",
                 "midt",6);
         System.out.println("Længde af hvert lille stykke mellem dør og stolpe "+(6-2)* calculator.skur.afstandMellemSpær);
         assertEquals(3, calculator.skur.løsholterLangsideMedDørAntal);
         assertEquals(240, calculator.skur.løsholterLangsideMedDørLængde);
 
-        calculator = new CarportCalculator();
+        calculator = new CarportCalculator(pDTO);
         calculator.beregnCarport(840,600,210,"y","p",
                 "midt",7);
         System.out.println("Længde af hvert lille stykke mellem dør og stolpe "+(7-2)* calculator.skur.afstandMellemSpær);
@@ -59,7 +88,6 @@ class SkurCalculatorTest {
         assertEquals(240, calculator.skur.løsholterLangsideUdenDørLængde);
     }
 
-
     @Test //Udregner antal og længde på løsholter modsat dørside i mellemlangt skur
     void testBeregnLængdeLøsholterModsatDørSideMellemLang() throws IllegalDimensionException {
         calculator.beregnCarport(700,600,210,"y","p",
@@ -67,8 +95,7 @@ class SkurCalculatorTest {
         assertEquals(3, calculator.skur.løsholterLangsideUdenDørAntal);
         assertEquals(240, calculator.skur.løsholterLangsideUdenDørLængde);
 
-
-        calculator = new CarportCalculator();
+        calculator = new CarportCalculator(pDTO);
         calculator.beregnCarport(820,600,210,"y","p",
                 "midt",5);
         assertEquals(3, calculator.skur.løsholterLangsideUdenDørAntal);
@@ -82,7 +109,7 @@ class SkurCalculatorTest {
         assertEquals(6, calculator.skur.løsholterLangsideUdenDørAntal);
         assertEquals(240, calculator.skur.løsholterLangsideUdenDørLængde);
 
-        calculator = new CarportCalculator();
+        calculator = new CarportCalculator(pDTO);
         calculator.beregnCarport(960,600,210,"y","p",
                 "midt",9);
         assertEquals(6, calculator.skur.løsholterLangsideUdenDørAntal);
@@ -96,8 +123,7 @@ class SkurCalculatorTest {
         assertEquals(6, calculator.skur.løsholterBredsideAntal);
         assertEquals(240, calculator.skur.løsholterBredsideLængde);
 
-
-        calculator = new CarportCalculator();
+        calculator = new CarportCalculator(pDTO);
         calculator.beregnCarport(700,540,210,"y","p",
                 "venstre",3);
         assertEquals(6, calculator.skur.løsholterBredsideAntal);
@@ -110,7 +136,6 @@ class SkurCalculatorTest {
                 "midt",3);
         assertEquals(12, calculator.skur.løsholterBredsideAntal);
         assertEquals(240, calculator.skur.løsholterBredsideLængde);
-
     }
 
     @Test //Udregner antal og længde på løsholter på bredside (Bredde mere end 480)
@@ -119,7 +144,6 @@ class SkurCalculatorTest {
                 "midt",4);
         assertEquals(12, calculator.skur.løsholterBredsideAntal);
         assertEquals(240, calculator.skur.løsholterBredsideLængde);
-
     }
 
     @Test //Udregner længde og antal beklædningsbrædder
@@ -130,7 +154,6 @@ class SkurCalculatorTest {
         assertEquals(187, calculator.skur.beklædningsBrædderAntal);
         assertEquals(210, calculator.skur.skurHøjde);
     }
-
 
     @Test //Udregner hvor mange pakker skruer der skal til inderbeklædningsbrædderne
     void testBeregnAntalKorteBeklædningsSkruer() throws IllegalDimensionException{

@@ -1,40 +1,57 @@
 package dat.startcode.model.services;
 
-import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.exceptions.IllegalDimensionException;
 import dat.startcode.model.persistence.ConnectionPool;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarportCalculatorTest {
 
-    CarportCalculator calculator = new CarportCalculator();
-    String user = "root";
-    String password = "DiskoT@ngo";
-    String url = "jdbc:mysql://localhost:3306/fog";
-    ConnectionPool connectionPool = new ConnectionPool(user,password,url);
+    static String user = "root";
+    static String password = "DiskoT@ngo";
+    static String url = "jdbc:mysql://localhost:3306/fog";
+    static ConnectionPool connectionPool = new ConnectionPool(user,password,url);
+    static List<ProduktDTO> pDTO;
+    CarportCalculator calculator;
 
 
-
-
-    List<ProduktDTO> pDTO = ProductFacade.getProduktDTOs(connectionPool);
-
-
-    CarportCalculator c;
     CarportCalculatorTest() throws DatabaseException {
 
+    }
+    @BeforeAll
+    public static void beforeSetUp(){
+
+        try {
+            pDTO = ProductFacade.getProduktDTOs(connectionPool);
+            System.out.println(pDTO.size());
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
     }
 
     @BeforeEach
     void setUp() {
-         c = new CarportCalculator(pDTO);
+         calculator = new CarportCalculator(pDTO);
+    }
 
+    @Test
+    void testConnection() throws SQLException
+    {
+        Connection connection = connectionPool.getConnection();
+        assertNotNull(connection);
+        if (connection != null)
+        {
+            connection.close();
+        }
     }
 
     @Test
@@ -117,9 +134,9 @@ class CarportCalculatorTest {
 
     @Test
     void testSetStolpeLængde() throws IllegalDimensionException {
+
         calculator.beregnCarport(600,600,210,"y","p",
                 "midt",3);
-
         assertEquals(300, calculator.setStolpeLængde(calculator.carportHøjde));
     }
 
@@ -136,7 +153,6 @@ class CarportCalculatorTest {
         calculator.beregnCarport(500, 400, 210, "n", "p",
                 "", 0);
         assertEquals(7, calculator.beregnAntalStolper(calculator.carportLængde));
-
     }
 
     @Test
@@ -174,7 +190,6 @@ class CarportCalculatorTest {
         calculator.beregnCarport(600, 480, 210, "y", "p",
                 "midt", 3);
         assertEquals(11, calculator.beregnAntalStolper(calculator.carportLængde));
-
     }
 
     @Test
@@ -185,7 +200,7 @@ class CarportCalculatorTest {
                 "midt",7);
         assertEquals(12, calculator.beregnAntalStolper(calculator.carportLængde));
 
-        calculator = new CarportCalculator();
+        calculator = new CarportCalculator(pDTO);
 
         //Bred og lang carport med helt skur
         calculator.beregnCarport(950,480,210,"y","p",
@@ -196,7 +211,6 @@ class CarportCalculatorTest {
     @Test
     void testBeregnAntalStolperMedSkurVenstreHøjre() throws IllegalDimensionException {
 
-        //Kort bred carport med skur i venstre side
         calculator.beregnCarport(600,480,210,"y","p",
                 "venstre",3);
         assertEquals(11, calculator.beregnAntalStolper(calculator.carportLængde));
@@ -214,9 +228,9 @@ class CarportCalculatorTest {
     @Test
     void testSetHasSkur() {
         calculator.setHasSkur("Y");
-        assertTrue(calculator.hasSkur == true);
+        assertTrue(calculator.hasSkur);
         calculator.setHasSkur("N");
-        assertTrue(calculator.hasSkur == false);
+        assertFalse(calculator.hasSkur);
     }
 
 
@@ -265,7 +279,7 @@ class CarportCalculatorTest {
                 () ->  { calculator.checkDimensionsSkur(skurLængde1);
                 });
 
-        assertTrue(calculator.hasSkur == false);
+        assertFalse(calculator.hasSkur);
 
         calculator.skur.setPlaceringAfSkur("midt");
         int skurLængde2 = calculator.setSkurLængde(11*afstand);
@@ -274,8 +288,7 @@ class CarportCalculatorTest {
                 () ->  { calculator.checkDimensionsSkur(skurLængde2);
                 });
 
-        assertTrue(calculator.hasSkur == false);
-
+        assertFalse(calculator.hasSkur);
 
         calculator.skur.setPlaceringAfSkur("midt");
         int skurLængde3 = calculator.setSkurLængde(8*afstand);
@@ -298,28 +311,25 @@ class CarportCalculatorTest {
                 });
 
         assertFalse(calculator.hasSkur);
-
     }
 
     @Test
-    void testBeregnSkruerTag() throws IllegalDimensionException {
-        calculator.beregnCarport(600,500,210,"y","p",
-                "midt",3);
+    void testBeregnSkruerPlastTag() throws IllegalDimensionException {
+        calculator.beregnCarport(600, 500, 210, "y", "p",
+                "midt", 3);
         assertEquals(3, calculator.pakkerPlastTagskruerAntal);
+    }
+
+    @Test
+            void testBeregnSkruerCembritTag() throws IllegalDimensionException {
         calculator.beregnCarport(600,500,210,"y","c",
                 "midt",3);
         assertEquals(3, calculator.pakkerCembritTagskruerAntal);
-
     }
 
     @Test
     void testBeregn() throws IllegalDimensionException, DatabaseException {
 
-       // ConnectionPool connectionPool = new ConnectionPool(user,password,url);
-        //List<ProduktDTO> pDTO = ProductFacade.getProduktDTOs(connectionPool);
-       // CarportCalculator c = new CarportCalculator(pDTO);
-
-        c.beregnCarport(600,300,210,"n","p","midt",4);
-
+        calculator.beregnCarport(600,300,210,"n","p","midt",4);
     }
 }
