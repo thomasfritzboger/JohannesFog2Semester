@@ -35,12 +35,9 @@ public class CarportDesigner extends Command{
 
         User user = (User) session.getAttribute("user");
 
-        System.out.println("inden getProduktDTOs.");
-
-        List<ProduktDTO> productDTOListe = new ArrayList<>();
+        List<ProduktDTO> productDTOListe;
         productDTOListe = ProductFacade.getProduktDTOs(connectionPool);
 
-        System.out.println(productDTOListe.get(0));
 
         if(!user.getRole().equals("kunde")) {
             return "error";

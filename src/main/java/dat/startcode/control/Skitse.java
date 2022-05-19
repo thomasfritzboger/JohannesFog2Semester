@@ -44,10 +44,6 @@ public class Skitse extends Command {
         //skurSize
         int skurSize = Integer.parseInt(request.getParameter("skurSize"));
 
-
-        System.out.println("-----------" + placering);
-        System.out.println("Redskabsrum valgt????: "+ erRedskabsRumValgt);
-
         /*VI TEGNER SVG I DET FØLGENDE*/
 
         SVG svg = new SVG(0, 0, "0 0 1200 800", 100, 50);
