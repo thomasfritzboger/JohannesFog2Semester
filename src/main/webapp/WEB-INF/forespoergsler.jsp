@@ -18,6 +18,10 @@
                 class="btn btn-secondary">
             Skift dækningsbidrag på carport forespørgelse
         </button>
+
+        <br>
+        <br>
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -40,13 +44,14 @@
                     <td></td>
 
                     <td>
-                        <form method="post">
+                        <form>
                             <button formaction="" name="forespoergsel" value=""
                                     class="btn btn-secondary">
                                 Se forespørgsel
                             </button>
-                            <button formaction="" name="godkend" value=""
+                            <button formaction="confirmCarportRequest" name="godkend" value="${carportRequest.carportId}"
                                     class="btn btn-secondary">
+                                <input type="hidden" name="command" value="confirmCarportRequest">
                                 Godkend
                             </button>
                             <button formaction="" name="afvis" value=""
@@ -66,7 +71,7 @@
                                     </div>
                                     <div class="modal-body">
 
-                                        <form action="fc/updateCarportPrice">
+                                        <form action="updateCarportPrice">
                                             <input type="hidden" name="command" value="updateCarportPrice">
                                             <label for="carportId">Carports id:</label>
                                             <br>

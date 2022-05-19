@@ -16,18 +16,23 @@ public class AdminFacade {
         return adminMapper.getCustomers();
     }
 
-    public static List<Carport> getDoneCarports(ConnectionPool connectionPool) throws DatabaseException {
-        AdminMapper adminMapper = new AdminMapper(connectionPool);
-        return adminMapper.getDoneCarports();
-    }
-
     public static List<RequestDTO> getRequest(ConnectionPool connectionPool) throws DatabaseException {
         AdminMapper adminMapper = new AdminMapper(connectionPool);
         return adminMapper.getRequest();
     }
 
+    public static List<RequestDTO> getApprovedRequest(ConnectionPool connectionPool) throws DatabaseException {
+        AdminMapper adminMapper = new AdminMapper(connectionPool);
+        return adminMapper.getApprovedRequest();
+    }
+
     public static Carport updateCarportPrice(int newCoverage, int carportId, ConnectionPool connectionPool) throws DatabaseException {
         AdminMapper adminMapper = new AdminMapper(connectionPool);
         return adminMapper.newCoverageForCarport(newCoverage,carportId);
+    }
+
+    public static Carport confirmCarportRequest(int carportId, ConnectionPool connectionPool) throws DatabaseException {
+        AdminMapper adminMapper = new AdminMapper(connectionPool);
+        return adminMapper.approveCarport(carportId);
     }
 }

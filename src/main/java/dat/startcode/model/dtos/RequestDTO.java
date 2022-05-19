@@ -7,6 +7,7 @@ public class RequestDTO {
     private String created;
     private int coverage;
     private double price;
+    private String accepted;
 
     public RequestDTO(int carportId, int userId, String created, int coverage, double price) {
         this.carportId = carportId;
@@ -14,6 +15,13 @@ public class RequestDTO {
         this.created = created;
         this.coverage = coverage;
         this.price = price;
+    }
+
+    public RequestDTO(int carportId, int userId, String created, String accepted) {
+        this.carportId = carportId;
+        this.userId = userId;
+        this.created = created;
+        this.accepted = accepted;
     }
 
     public int getCarportId() {
@@ -34,5 +42,9 @@ public class RequestDTO {
 
     public double getPrice() {
         return price;
+    }
+
+    public String getAccepted() {
+        return accepted;
     }
 }

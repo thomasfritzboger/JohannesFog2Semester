@@ -82,6 +82,36 @@ public class AdminMapper implements IAdminMapper {
     }
 
     @Override
+    public List<RequestDTO> getApprovedRequest() throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO,"");
+
+        List<RequestDTO> requestList = new ArrayList<>();
+
+        String sql = "SELECT carport_id, user_id, carport_created, isConfirmed " +
+                "FROM carport " +
+                "WHERE isConfirmed = 1";
+
+        try (Connection connection = connectionPool.getConnection()){
+            try (PreparedStatement ps = connection.prepareStatement(sql)){
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int carportId = rs.getInt("carport_id");
+                    int userId = rs.getInt("user_id");
+                    String date = rs.getString("carport_created");
+                    String accepted = rs.getString("isConfirmed");
+                    requestList.add(new RequestDTO(carportId,userId,date,accepted));
+                }
+            } catch (SQLException sqlException) {
+                throw new DatabaseException("Kunne ikke få alle carport");
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            throw new DatabaseException("Kunne ikke få forbindelse til databasen");
+        }
+        return requestList;
+    }
+
+    @Override
     public Carport newCoverageForCarport(int newCoverage, int carportId) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO,"");
         Carport carport;
@@ -97,23 +127,28 @@ public class AdminMapper implements IAdminMapper {
                 carport = new Carport(carportId,newCoverage);
             }
         }catch (SQLException sqlException) {
-            throw new DatabaseException("Kunne ikke dækningsbidrag for carport: " + carportId);
+            throw new DatabaseException("Kunne ikke ændre dækningsbidrag for carport: " + carportId);
         }
         return carport;
     }
 
-
     @Override
-    public List<Carport> getDoneCarports() throws DatabaseException {
+    public Carport approveCarport(int carportId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO,"");
+        Carport carport;
+        String sql = "UPDATE carport " +
+                "SET isConfirmed = 1 " +
+                "WHERE carport_id = ?";
 
-        List<Carport> carportList = new ArrayList<>();
-
-        //TODO Create carport i database så der er noget at hente.
-        //Temp data
-        carportList.add( new Carport(1,1,500,560));
-        carportList.add( new Carport(2,2,600,440));
-        carportList.add( new Carport(3,3,380,600));
-
-        return carportList;
+        try (Connection connection = connectionPool.getConnection()){
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1,carportId);
+                ps.executeUpdate();
+                carport = new Carport(carportId);
+            }
+        }catch (SQLException sqlException) {
+            throw new DatabaseException("Kunne bekræfte forspørgsel for carport: " + carportId);
+        }
+        return carport;
     }
 }

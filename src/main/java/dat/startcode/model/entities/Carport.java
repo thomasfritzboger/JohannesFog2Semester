@@ -16,6 +16,10 @@ public class Carport {
 //    Calculator variables
 
 
+    public Carport(int carportId) {
+        this.carportId = carportId;
+    }
+
     public Carport(int carportId, int coverageId) {
         this.carportId = carportId;
         this.coverageId = coverageId;

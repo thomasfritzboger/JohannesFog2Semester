@@ -4,7 +4,6 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-        Ordre
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -12,36 +11,32 @@
     </jsp:attribute>
 
     <jsp:body>
-
-        <a href="${pageContext.request.contextPath}/fc/kunder?command=kunder" class="btn btn-primary" >Kunder</a>
-        <a href="${pageContext.request.contextPath}/fc/forespoergsler?command=forespoergsler" class="btn btn-primary" >Forespørgsler</a>
-        <a href="${pageContext.request.contextPath}/fc/ordre?command=ordre" class="btn btn-primary" >Ordre</a>
-
-        <br>
-        <br>
-        <br>
-
+        <h3>Alle godkendte ordre</h3>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Carport ID</th>
-                <th>User ID</th>
-                <th>Carport size</th>
-                <th>Shed + shed size?</th>
-                <th>Carport Created</th>
-                <%--TODO: Flere informationer i listen?--%>
+                <th>Ordre id</th>
+                <th>Bruger id</th>
+                <th>Købsdato</th>
+                <th>Afsluttet</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="carporte" items="${sessionScope.carportListe}">
+            <c:forEach var="requestApproved" items="${sessionScope.requestApproved}">
                 <tr>
-                    <td>${carporte.carportId}</td>
-                    <td>${carporte.userId}</td>
-                    <td>${carporte.carportLength}x${carporte.carportWidth}</td>
-                    <td>shed no (test)</td>
-<%--                    <td>${carporte.hasShed} med ${carporte.shedLength}x${carporte.shedWidth}</td>--%>
-                        <%-- ^ if hasShed == true så vi størrelse eller bare nej/false/null--%>
-                    <td>Time created ?-?-?</td>
+                    <td>${requestApproved.carportId}</td>
+                    <td>${requestApproved.userId}</td>
+                    <td>${requestApproved.created}</td>
+                    <td>${requestApproved.accepted}</td>
+                    <td>
+                        <form>
+                            <button formaction="" name="stykliste" value=""
+                                    class="btn btn-secondary">
+                                Se stykliste
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
