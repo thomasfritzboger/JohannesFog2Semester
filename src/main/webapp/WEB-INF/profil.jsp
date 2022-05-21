@@ -46,7 +46,8 @@
                         <c:if test="${carport.getHasShed() == true}">${carport.getShed().getWidth()}x${carport.getShed().getLength()}, ${carport.getShed().getPlacement()}</c:if>    </td>
                         <td>d. ${carport.getCreated()}</td>
 
-                        <td><c:if test="${carport.isConfirmed()}"><a href="${pageContext.request.contextPath}/fc/stykliste?command=stykliste" class="btn btn-primary" >Se stykliste</a>
+                        <td><c:if test="${carport.isConfirmed()}">Din carport er igang med at blive pakket. <br> Ring og aftal levering.
+                            <br><a href="${pageContext.request.contextPath}/fc/stykliste?command=stykliste" class="btn btn-primary" >Se stykliste</a>
                             <a href="${pageContext.request.contextPath}/fc/stykliste?command=seSkitse" class="btn btn-primary" >Se skitse</a></c:if>
 
                         <c:if test="${carport.isConfirmed() == false}">Afventer bekræftelse <br>

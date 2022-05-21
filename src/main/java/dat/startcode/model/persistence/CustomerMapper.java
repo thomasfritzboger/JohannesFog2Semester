@@ -126,7 +126,7 @@ public class CustomerMapper implements ICustomerMapper
         Shed shed = null;
         Request request = null;
 
-        String sql = "SELECT carport_id, coverage_id, width, length, height, shed_id, hasShed, isConfirmed, carport_created FROM carport WHERE user_id = ? order by carport_id desc ";
+        String sql = "SELECT carport_id, coverage_id, width, length, height, shed_id, hasShed, isConfirmed, carport_created FROM carport WHERE user_id = ? order by isConfirmed desc";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {

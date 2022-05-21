@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Carport {
 
     private int carportId;
+    private int coverage;
     private int userId;
     private int carportWidth;
     private int carportLength;
@@ -40,6 +41,15 @@ public class Carport {
         this.carportHeight = height;
         this.shed = shed;
         this.hasShed = hasShed;
+    }
+
+    public Carport(int carportId, int newCoverage) {
+        this.carportId = carportId;
+        this.coverage = newCoverage;
+    }
+
+    public Carport(int carportId) {
+        this.carportId = carportId;
     }
 
     public int getCarportId() {
