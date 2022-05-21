@@ -22,7 +22,7 @@ public class ProductMapper implements IProductMapper {
 
         List<ProduktDTO> produktDTOList = new ArrayList<>();
 
-        String sql = "SELECT * FROM produktdto";
+        String sql = "SELECT * FROM produktdto order by product_id";
 
         System.out.println("Inden SQL");
         try (Connection connection = connectionPool.getConnection()) {

@@ -1,13 +1,15 @@
 package dat.startcode.model.services;
 
 import dat.startcode.model.dtos.OrderLineDTO;
+import dat.startcode.model.dtos.ProduktDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SkurCalculator {
-    //Liste med marerialer der kun angår skuret
+
     public List<OrderLineDTO> skurList;
+    List<ProduktDTO> pDTO;
 
     //Klassevariabler der bruges til beregninger
     public int skurBredde;
@@ -95,12 +97,17 @@ public class SkurCalculator {
     public String pakkerLangeBeklædningsSkruerUsementDescription;
     public double pakkerLangeBeklædningsSkruerUnitPrice;
 
-    public SkurCalculator() {
+    public SkurCalculator(List<ProduktDTO> liste) {
+        this.pDTO = liste;
+        skurList = new ArrayList<>();
         tHængselAntal = 2;
+        addItemToList(25,tHængselLængde,tHængselAntal);
         stalddørsgrebAntal = 1;
+        addItemToList(24,stalddørsgrebLængde,stalddørsgrebAntal);
         lægteTilDørAntal = 1;
         lægtePåDørLængde = 420;
-        skurList = new ArrayList<>();
+        addItemToList(4,lægtePåDørLængde,lægteTilDørAntal);
+
     }
 
     public void setPlaceringAfSkur (String placering) {
@@ -128,73 +135,54 @@ public class SkurCalculator {
 
             case "midt":
                 if (skurBredde > 310) {
-                    antalStolperPåSpærEkstraNårSkur += 1;
+                    antalStolperPåSpærEkstraNårSkur += 2;
                 }
-
                 if (l<=310) {
 
                     antalStolperPåRemEkstraNårSkur += 3;
                     antalEkstraBolteNårSkur += 3;
                     antalEkstraFirkantSkiverNårSkur += 3;
-
                 } else if (l > 310 && l < 310+breddeAfDør ) {
-
-
 
                     antalStolperPåRemEkstraNårSkur += 4;
                     antalEkstraBolteNårSkur += 4;
                     antalEkstraFirkantSkiverNårSkur += 4;
-
                 } else {
-
 
                     antalStolperPåRemEkstraNårSkur += 5;
                     antalEkstraBolteNårSkur += 5;
                     antalEkstraFirkantSkiverNårSkur += 5;
-
                 }
                 break;
 
             case "venstre":
-
-
-
                 if (l<=310) {
 
-                    antalStolperPåSpærEkstraNårSkur += 2;
+                    antalStolperPåSpærEkstraNårSkur += 3;
                     antalStolperPåRemEkstraNårSkur += 2;
                     antalEkstraBolteNårSkur += 2;
                     antalEkstraFirkantSkiverNårSkur += 2;
-
-
-
-
                 } else if (l > 310 && l < 310+breddeAfDør ) {
 
-                    antalStolperPåSpærEkstraNårSkur += 2;
+                    antalStolperPåSpærEkstraNårSkur += 3;
                     antalStolperPåRemEkstraNårSkur += 4;
                     antalEkstraBolteNårSkur += 4;
                     antalEkstraFirkantSkiverNårSkur += 4;
-
                 }
                 break;
 
             case "højre":
                 if (l<=310) {
-                    antalStolperPåSpærEkstraNårSkur += 2;
+                    antalStolperPåSpærEkstraNårSkur += 3;
                     antalStolperPåRemEkstraNårSkur += 2;
                     antalEkstraBolteNårSkur += 2;
                     antalEkstraFirkantSkiverNårSkur += 2;
 
-
-
                 } else if (l > 310 && l <  310+breddeAfDør ) {
-
-                    antalStolperPåSpærEkstraNårSkur += 2;
+                    antalStolperPåSpærEkstraNårSkur += 3;
                     antalStolperPåRemEkstraNårSkur += 4;
                     antalEkstraBolteNårSkur += 4;
                     antalEkstraFirkantSkiverNårSkur += 4;
-
                 }
                 break;
 
@@ -209,7 +197,7 @@ public class SkurCalculator {
                 lægteTilDørAntal = 0;
                 lægtePåDørLængde = 0;
             }
-        }
+        } //end switch
     }
 
     public void beregnAntalLøsholter (int l, int b) {
@@ -218,7 +206,7 @@ public class SkurCalculator {
         if (3*længdeLangsideMinusDør <=240) {
             løsholterLangsideMedDørLængde = 240;
             løsholterLangsideMedDørAntal += 1;
-            antalVinkelbeslagEkstraNårSkur += 6;    //HER VINKELBESLAG//
+            antalVinkelbeslagEkstraNårSkur += 6;
 
         } else if (3*længdeLangsideMinusDør <= 480) {
             løsholterLangsideMedDørLængde = (int) Math.ceil((3*længdeLangsideMinusDør)/30.0)*30;
@@ -241,7 +229,7 @@ public class SkurCalculator {
                 løsholterLangsideMedDørAntal += 6;
                 antalVinkelbeslagEkstraNårSkur += 6;
             }
-        }
+        } //End calculate skurside med dør
         //Løsholter skurside overfor dør
         if (l <= 240) {
             løsholterLangsideUdenDørLængde = 240;
@@ -249,23 +237,24 @@ public class SkurCalculator {
             antalVinkelbeslagEkstraNårSkur += 6;
         }
         else if (l > 240 && l <= 310 ) {
+
             l = (int) Math.ceil((l)/30.0)*30;
             løsholterLangsideUdenDørLængde = l;
             løsholterLangsideUdenDørAntal += 3;
             antalVinkelbeslagEkstraNårSkur += 6;
-
         } else {
             if (skurLængde/2 <= 240 ) {
+
                 løsholterLangsideUdenDørLængde = 240;
                 løsholterLangsideUdenDørAntal += 6;
                 antalVinkelbeslagEkstraNårSkur += 12;
-
             } else {
+
                 løsholterLangsideUdenDørLængde = (int) Math.ceil((l/2)/30.0)*30;
                 løsholterLangsideUdenDørAntal += 6;
                 antalVinkelbeslagEkstraNårSkur += 12;
             }
-        }
+        } //End calculate side overfor dør
 
         //Løsholter på skurets bredsider
         if (skurBredde <= 240) {
@@ -288,8 +277,11 @@ public class SkurCalculator {
                 løsholterBredsideLængde = (int) Math.ceil((b/2)/30.0)*30;
                 løsholterBredsideAntal += 12;
                 antalVinkelbeslagEkstraNårSkur += 24;
-            }
+            } //End calculate sider i carportens bredde
         }
+        addItemToList(6,løsholterLangsideUdenDørAntal,løsholterLangsideUdenDørLængde);
+        addItemToList(6,løsholterLangsideMedDørLængde,løsholterLangsideMedDørAntal);
+        addItemToList(5,løsholterBredsideLængde,løsholterBredsideAntal);
     }
 
     //Antagelse, der skal sidde et hvert 16 cm
@@ -299,49 +291,37 @@ public class SkurCalculator {
         //Gange 2 fordi der er 2 længdesider og 2 breddesider
         //Dividere med 16, for så meget dækker et brædt inklusiv "hul" i mellem
         beklædningsBrædderAntal = 2*(2*(skurLængde+skurBredde))/16;
+        addItemToList(10,beklædningsBrædderLængde,beklædningsBrædderAntal);
     }
 
     //Antagelse: der skal bruges 8 skruer pr inderbrædt, og disse er jo halvdelen af alle brædder
     //Kommer i pakker af 300
     public void beregnAntalKorteBeklædningsSkruer () {
+
         pakkerKorteBeklædningsSkruerAntal = (int) Math.ceil(((beklædningsBrædderAntal /2)*8.0)/300);
+        addItemToList(23,pakkerKorteBeklædningsSkruerLængde,pakkerKorteBeklædningsSkruerAntal);
     }
 
     //Antagelse: der skal bruges 8 skruer pr yderbrædt, og disse er jo halvdelen af alle brædder
     //Kommer i pakker af 400
     public void beregnAntalLangeBeklædningsSkruer () {
         pakkerLangeBeklædningsSkruerAntal = (int) Math.ceil(((beklædningsBrædderAntal /2)*8.0)/400);
+        addItemToList(22,pakkerLangeBeklædningsSkruerLængde,pakkerLangeBeklædningsSkruerAntal);
     }
 
-    public void addAllSkurItemsTilListe() {
-
-        //productdescription, length, amount, unitscale, usementdescription, totalprice
-        skurList.add(new OrderLineDTO(lægteTilDørProductDescription,
-                lægtePåDørLængde, lægteTilDørAntal, lægtePåDørUnitScale,
-                lægteTilDørUsementDescription,lægtePåDørUnitPrice * lægteTilDørAntal));
-        skurList.add(new OrderLineDTO(stalddørsgrebProductDescription,
-                stalddørsgrebLængde, stalddørsgrebAntal, stalddørsgrebUnitScale,
-                stalddørsgrebUsementDescription, stalddørsgrebUnitPrice * stalddørsgrebAntal));
-        skurList.add(new OrderLineDTO(tHængselProductDescription,
-                tHængselLængde, tHængselAntal, tHængselUnitScale,
-                tHængselUsementDescription, tHængselUnitPrice * tHængselAntal));
-        skurList.add(new OrderLineDTO(løsholterLangsideUdenDørDescription,
-                løsholterLangsideUdenDørLængde, løsholterLangsideUdenDørAntal, løsholterLangsideUdenDørUnitScale,
-                løsholterLangsideUdenDørUsementDescription, løsholterLangsideUdenDørUnitPrice * løsholterLangsideUdenDørAntal));
-        skurList.add(new OrderLineDTO(løsholterLangsideMedDørDescription,
-                løsholterLangsideMedDørLængde, løsholterLangsideMedDørAntal, løsholterLangsideMedDørUnitScale,
-                løsholterLangsideMedDørUsementDescription, løsholterLangsideMedDørUnitPrice * løsholterLangsideMedDørAntal));
-        skurList.add(new OrderLineDTO(løsholterBredsideDescription,
-                løsholterBredsideLængde, løsholterBredsideAntal, løsholterBredsideUnitScale,
-                løsholterBredsideUsementDescription,  løsholterBredsideUnitPrice * løsholterBredsideAntal));
-        skurList.add(new OrderLineDTO(beklædningsBrædderDescription,
-                beklædningsBrædderLængde, beklædningsBrædderAntal, beklædningsBrædderUnitScale,
-                beklædningsBrædderUsementDescription, beklædningsBrædderUnitPrice * beklædningsBrædderAntal));
-        skurList.add(new OrderLineDTO(pakkerKorteBeklædningsSkruerDescription,
-                pakkerKorteBeklædningsSkruerLængde, pakkerKorteBeklædningsSkruerAntal, pakkerKorteBeklædningsSkruerUnitScale,
-                pakkerKorteBeklædningsSkruerUsementDescription, pakkerKorteBeklædningsSkruerUnitPrice* pakkerKorteBeklædningsSkruerAntal));
-        skurList.add(new OrderLineDTO(pakkerLangeBeklædningsSkruerDescription,
-                pakkerLangeBeklædningsSkruerLængde, pakkerLangeBeklædningsSkruerAntal, pakkerLangeBeklædningsSkruerUnitScale,
-                pakkerLangeBeklædningsSkruerUsementDescription, pakkerLangeBeklædningsSkruerUnitPrice* pakkerLangeBeklædningsSkruerAntal));
+    private void addItemToList(int index, int length, int amount) {
+        if (length == 0) {
+            skurList.add(new OrderLineDTO(pDTO.get(index).getProduktDescription(),
+                    length, amount,
+                    pDTO.get(index).getUnitScale(),
+                    pDTO.get(index).getUsementDescription(),
+                    amount*pDTO.get(index).getUnitPrice()));
+        } else {
+            skurList.add(new OrderLineDTO(pDTO.get(index).getProduktDescription(),
+                    length, amount,
+                    pDTO.get(index).getUnitScale(),
+                    pDTO.get(index).getUsementDescription(),
+                    amount*length/100.0*pDTO.get(index).getUnitPrice()));
+        }
     }
 }

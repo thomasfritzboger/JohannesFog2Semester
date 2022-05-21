@@ -4,7 +4,6 @@ import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.exceptions.IllegalDimensionException;
 import dat.startcode.model.persistence.ConnectionPool;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,22 +13,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SkurCalculatorTest {
 
-    static String user = "root";
-    static String password = "DiskoT@ngo";
-    static String url = "jdbc:mysql://localhost:3306/fog";
-    static ConnectionPool connectionPool = new ConnectionPool(user,password,url);
-    static List<ProduktDTO> pDTO;
     CarportCalculator calculator;
+    String user = "root";
+    String password = "DiskoT@ngo";
+    String url = "jdbc:mysql://localhost:3306/fog";
+    ConnectionPool connectionPool = new ConnectionPool(user,password,url);
+    List<ProduktDTO> pDTO;
 
-    SkurCalculatorTest() throws DatabaseException {
-    }
-
-    @BeforeAll
-    public static void beforeSetUp(){
-
+    {
         try {
             pDTO = ProductFacade.getProduktDTOs(connectionPool);
-            System.out.println(pDTO.size());
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
@@ -53,7 +46,6 @@ class SkurCalculatorTest {
         calculator.beregnCarport(700,600,210,"y","p",
                 "midt",4);
         assertEquals(1, calculator.skur.løsholterLangsideMedDørAntal);
-        System.out.println("3 gange Længde af hvert lille stykke mellem dør og stolpe "+(3*(4-2)* calculator.skur.afstandMellemSpær));
         assertEquals(360, calculator.skur.løsholterLangsideMedDørLængde);
 
         calculator = new CarportCalculator(pDTO);
@@ -94,6 +86,7 @@ class SkurCalculatorTest {
                 "midt",4);
         assertEquals(3, calculator.skur.løsholterLangsideUdenDørAntal);
         assertEquals(240, calculator.skur.løsholterLangsideUdenDørLængde);
+
 
         calculator = new CarportCalculator(pDTO);
         calculator.beregnCarport(820,600,210,"y","p",
