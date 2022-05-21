@@ -13,34 +13,52 @@
 
     <jsp:body>
 
+        <h3>Dine forespørgsler</h3>
+
+        <button>
+            Rediger dine oplysninger
+        </button>
+
+        <c:if test="${carportRequestByUser.isEmpty()}">
+            Du har ingen forespørgsler.
+            <a href="${pageContext.request.contextPath}/fc/kundeLogin?command=kundeLogin" class="link-primary" >Klik her</a> for at komme igang med at bygge din helt egen carport.
+        </c:if>
+
+        <c:if test="${!carportRequestByUser.isEmpty()}">
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Carport Number</th>
-                <th>Buyer</th>
-                <th>Carport size</th>
-                <th>Shed + shed size?</th>
-                <th>Carport Created</th>
-                <%--TODO: Flere informationer i listen?--%>
+                <th>Carport nummer</th>
+                <th>Carport størrelse <br> bredde * længde * højde</th>
+                <th>Redskabsrum + størrelse?</th>
+                <th>Oprettet</th>
                 <th>Stykliste</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="carporte" items="${sessionScope.carportListe}">
-                <tr>
-                    <td>${carporte.carportId}</td>
-                    <td>${carporte.userId}</td>
-                    <td>${carporte.carportLength}x${carporte.carportWidth}</td>
-                    <td>shed no (test)</td>
-                    <td>Time created ?-?-?</td>
-                    <td><a href="${pageContext.request.contextPath}/fc/stykliste?command=stykliste" class="btn btn-primary" >Se stykliste</a></td>
+            <c:forEach var="carport" items="${carportRequestByUser}">
+                <form action="fc/seSkitse" method="post">
+                    <input type="hidden" name="command" value="seSkitse">
+                    <tr>
+                        <td>${carport.getCarportId()}</td>
+                        <td>${carport.getWidth()}x${carport.getLength()}x${carport.getHeight()}</td>
+                        <td><c:if test="${carport.getHasShed() == false}">Intet redskabsrum valgt</c:if>
+                        <c:if test="${carport.getHasShed() == true}">${carport.getShed().getWidth()}x${carport.getShed().getLength()}, ${carport.getShed().getPlacement()}</c:if>    </td>
+                        <td>d. ${carport.getCreated()}</td>
 
-                </tr>
+                        <td><c:if test="${carport.isConfirmed()}"><a href="${pageContext.request.contextPath}/fc/stykliste?command=stykliste" class="btn btn-primary" >Se stykliste</a>
+                            <a href="${pageContext.request.contextPath}/fc/stykliste?command=seSkitse" class="btn btn-primary" >Se skitse</a></c:if>
+
+                        <c:if test="${carport.isConfirmed() == false}">Afventer bekræftelse <br>
+                            <a href="${pageContext.request.contextPath}/fc/stykliste?command=seSkitse" class="btn btn-primary" >Se skitse</a></c:if>
+                        </td>
+                        <input hidden id="carportId" name="carportId" value="${carport.getCarportId()}">
+                    </tr>
+                </form>
             </c:forEach>
             </tbody>
         </table>
-
-        <a href="${pageContext.request.contextPath}/fc/stykliste?command=stykliste" class="btn btn-primary" >Se stykliste</a>
+        </c:if>
 
     </jsp:body>
 

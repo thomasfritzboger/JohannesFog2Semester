@@ -28,6 +28,7 @@ abstract class Command
         commands.put("stykliste", new Stykliste());
         commands.put("updateCarportPrice", new UpdateCarportPrice());
         commands.put("confirmCarportRequest", new ConfirmCarportRequest());
+        commands.put("seSkitse", new SeSkitse());
     }
 
     static Command from( HttpServletRequest request ) {

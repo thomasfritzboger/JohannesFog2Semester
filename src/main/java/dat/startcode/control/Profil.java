@@ -1,22 +1,26 @@
 package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
-import dat.startcode.model.dtos.OrderLineDTO;
 import dat.startcode.model.entities.Carport;
+import dat.startcode.model.entities.Request;
+import dat.startcode.model.entities.Shed;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
+import dat.startcode.model.persistence.CustomerMapper;
+import dat.startcode.model.services.CustomerFacade;
 import dat.startcode.model.services.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Profil extends Command {
 
-    List<Carport> carportListe;
-    List<OrderLineDTO> orderLineDTOList;
+    Request request;
+    Shed shed;
 
     private ConnectionPool connectionPool;
 
@@ -29,22 +33,42 @@ public class Profil extends Command {
 
         User user = (User) session.getAttribute("user");
 
-        carportListe = UserFacade.getCarportByUser(user.getUserId(),connectionPool);
-        orderLineDTOList = (List<OrderLineDTO>) session.getAttribute("orderLineDTOList");
+        int coverageId = 40;
+        int userId = ((User) session.getAttribute("user")).getUserId();
 
-        int carportSamletPris = 0;
+        if(session.getAttribute("carportbredde") != null) {
+            int width = (int) session.getAttribute("carportbredde");
+            int length = (int) session.getAttribute("carportlængde");
+            int height = (int) session.getAttribute("carporthøjde");
+            boolean hasShed;
+            int shedId;
+            if (session.getAttribute("redskabsrumValgt") != null &&session.getAttribute("redskabsrumValgt").equals("y")) {
+                hasShed = true;
+                //stempel ned i shed tabel med width, length og placement
+                int shedWidth = (int) session.getAttribute("redskabsrumBredde");
+                int shedLength = (int) session.getAttribute("redskabsrumLængde");
+                String shedPlacement = (String) session.getAttribute("redskabsrumPlacering");
 
-        for (OrderLineDTO orderLineDTO : orderLineDTOList) {
+                shed = CustomerFacade.createNewShed(shedWidth, shedLength, shedPlacement, connectionPool);
+                shedId = shed.getShedId();
+            } else {
+                hasShed = false;
+                shedId = -1;
+            }
 
-            carportSamletPris += orderLineDTO.totalPrice;
+            boolean isConfirmed = false;
+
+            //createCarportRequest
+            Request carportRequest = CustomerFacade.createCarportRequest(coverageId, userId, width, length, height, hasShed, shedId, isConfirmed, connectionPool);
 
         }
 
+        //bruges til at loade på profilside
+        List<Request> userRequests = CustomerFacade.getCarportRequestById(user.getUserId(), connectionPool);
+
         session = request.getSession();
-
-        session.setAttribute("carportListe", carportListe);
-        session.setAttribute("carportSamletPris",carportSamletPris);
-
+        session.setAttribute("carportbredde", null); //sættes til null da denne bruges til at tjekke om vi har kommer fra carportdesigner eller blot profil fra hovedmenuen
+        session.setAttribute("carportRequestByUser", userRequests);
 
         if(!user.getRole().equals("kunde")) {
             return "error";

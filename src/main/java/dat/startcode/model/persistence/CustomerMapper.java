@@ -1,15 +1,11 @@
 package dat.startcode.model.persistence;
 
-import dat.startcode.model.entities.CarportDimension;
-import dat.startcode.model.entities.Request;
-import dat.startcode.model.entities.ShedDimension;
-import dat.startcode.model.entities.User;
+import dat.startcode.model.entities.*;
 import dat.startcode.model.exceptions.DatabaseException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,85 +20,91 @@ public class CustomerMapper implements ICustomerMapper
     }
 
     @Override
-    public CarportDimension makeCarportDimension(int length, int width, int height) throws DatabaseException {
+    public Shed createNewShed(int width, int length, String placement) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
-        CarportDimension carportDimension;
-        String sql = "insert into dimensions (length, width, height) values (?,?,?)";
-        try (Connection connection = connectionPool.getConnection())
-        {
-            try (PreparedStatement ps = connection.prepareStatement(sql))
-            {
-                ps.setInt(1, length);
-                ps.setInt(2, width);
-                ps.setInt(3, height);
-
-                int rowsAffected = ps.executeUpdate();
-                if (rowsAffected == 1)
-                {
-                    carportDimension = new CarportDimension(length, width, height);
-                } else
-                {
-                    throw new DatabaseException("Carport med målene = " + length + "x " + width + "x " + height + " kunne ikke indsættes i databasen");
-                }
-            }
-        }
-        catch (SQLException ex)
-        {
-            throw new DatabaseException(ex, "Kunne ikke indsætte carport i databasen.");
-        }
-        return carportDimension;
-    }
-
-    @Override
-    public ShedDimension makeShedDimension(int width, int length, String placement) throws DatabaseException {
-        Logger.getLogger("web").log(Level.INFO, "");
-        ShedDimension shedDimension;
+        boolean result = false;
+        int newId = 0;
+        Shed shed = null;
         String sql = "insert into shed (width, length, placement) values (?,?,?)";
-        try (Connection connection = connectionPool.getConnection())
-        {
-            try (PreparedStatement ps = connection.prepareStatement(sql))
-            {
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1, width);
                 ps.setInt(2, length);
                 ps.setString(3, placement);
 
                 int rowsAffected = ps.executeUpdate();
-                if (rowsAffected == 1)
-                {
-                    shedDimension = new ShedDimension(length, width, placement);
-                } else
-                {
+                if (rowsAffected == 1) {
+                    result = true;
+                } else {
                     throw new DatabaseException("Carport med placering = (" + placement + ") kunne ikke indsættes i databasen");
                 }
+                ResultSet idResultset = ps.getGeneratedKeys();
+                if (idResultset.next()) {
+                    newId = idResultset.getInt(1);
+                    shed = new Shed(newId, length, width, placement);
+                } else {
+                    shed = null;
+                }
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new DatabaseException(ex, "Kunne ikke indsætte carport i databasen.");
         }
-        return shedDimension;
+        return shed;
     }
 
     @Override
-    public Request sendCarportRequest(int coverageId, int userId, int dimensionId, int shedId, boolean hasShed, boolean isConfirmed) throws DatabaseException {
+    public Shed getShedById(int shedId) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
-        Request request; //insert into user (email, password, role, phonenumber, address, postal_code) values (?,?,?,?,?,?)
-        String sql = "insert into carport (coverage_id, user_id, dimensions_id, shed_id, hasShed, isConfirmed) values (?,?,?,?,?,?)";
+        Shed shed = null;
+
+        String sql = "SELECT width, length, placement FROM shed WHERE shed_id = ?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1,shedId);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int width = rs.getInt("width");
+                    int length = rs.getInt("length");
+                    String placement = rs.getString("placement");
+
+                    shed = new Shed(shedId, width,length,placement);
+                }
+            }
+        } catch (Exception ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning af shed tabellen fra databasen.");
+        }
+        return shed;
+    }
+
+    @Override
+    public Request createCarportRequest(int coverageId, int userId, int width, int length, int height, boolean hasShed, int shedId, boolean isConfirmed) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        Request request;
+        String sql = "insert into carport (coverage_id, user_id, width, length, height, shed_id, hasShed, isConfirmed) values (?,?,?,?,?,?,?,?)";
         try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
                 ps.setInt(1, coverageId);
                 ps.setInt(2, userId);
-                ps.setInt(3, dimensionId);
-                ps.setInt(6, shedId);
+                ps.setInt(3, width);
+                ps.setInt(4, length);
+                ps.setInt(5, height);
+                if(shedId == -1) {
+                    ps.setNull(6, java.sql.Types.INTEGER);
+                } else {
+                    ps.setInt(6, shedId);
+                }
                 ps.setBoolean(7, hasShed);
                 ps.setBoolean(8, isConfirmed);
 
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 1)
                 {
-                    request = new Request(coverageId,userId,dimensionId,shedId,hasShed,isConfirmed);
+                    request = new Request(coverageId,userId,width, length, height,shedId,hasShed,isConfirmed);
                 } else
                 {
                     throw new DatabaseException("Carport til brugeren med id = " + userId + " kunne ikke indsættes i databasen");
@@ -116,8 +118,76 @@ public class CustomerMapper implements ICustomerMapper
         return request;
     }
 
+
     @Override
-    public List<Request> getAllCarportRequests(int userId) throws DatabaseException {
-        return null;
+    public List<Request> getCarportRequestById(int userId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        List<Request> userRequestList = new ArrayList<>();
+        Shed shed = null;
+        Request request = null;
+
+        String sql = "SELECT carport_id, coverage_id, width, length, height, shed_id, hasShed, isConfirmed, carport_created FROM carport WHERE user_id = ? order by carport_id desc ";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1,userId);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int carportId = rs.getInt("carport_id");
+                    int width = rs.getInt("width");
+                    int length = rs.getInt("length");
+                    int height = rs.getInt("height");
+                    int shedId = rs.getInt("shed_id");
+                    boolean hasShed = rs.getBoolean("hasShed");
+                    boolean isConfirmed = rs.getBoolean("isConfirmed");
+                    Timestamp dateCreated = rs.getTimestamp("carport_created");
+
+                    if(hasShed)
+                        shed = getShedById(shedId);
+
+                    request = new Request(carportId, width, length, height, shedId, hasShed, shed, isConfirmed, dateCreated);
+                    userRequestList.add(request);
+                }
+            }
+        } catch (Exception ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning af carport tabellen fra databasen.");
+        }
+        return userRequestList;
     }
+
+    @Override
+    public Carport getCarportById(int carportId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        Carport carport = null;
+        Shed shed = null;
+
+        String sql = "SELECT width, length, height, shed_id, hasShed FROM carport WHERE carport_id = ?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1, carportId);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int width = rs.getInt("width");
+                    int length = rs.getInt("length");
+                    int height = rs.getInt("height");
+                    int shedId = rs.getInt("shed_id");
+                    boolean hasShed = rs.getBoolean("hasShed");
+
+                    shed = getShedById(shedId);
+
+                    carport = new Carport(carportId, width, length, height, shed, hasShed);
+                }
+            }
+        } catch (Exception ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning af shed tabellen fra databasen.");
+        }
+        return carport;
+    }
+
+
 }

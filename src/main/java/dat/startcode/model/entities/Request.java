@@ -1,35 +1,60 @@
 package dat.startcode.model.entities;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Request {
     private int carportId;
     private int coverageId;
     private int userId;
-    private int dimensionId;
+    private int width;
+    private int length;
+    private int height;
     private int shedId;
     private boolean hasShed;
+    private Shed shed; //blev nødt til at lave shed objekt
     private boolean isConfirmed;
     private LocalDate created;
 
 
-    public Request(int coverageId, int userId, int dimensionId, int shedId, boolean hasShed, boolean isConfirmed) {
+    public Request(int coverageId, int userId, int width, int length, int height, int shedId, boolean hasShed, boolean isConfirmed) {
         this.coverageId = coverageId;
         this.userId = userId;
-        this.dimensionId = dimensionId;
+        this.width = width;
+        this.length = length;
+        this.height = height;
         this.shedId = shedId;
         this.hasShed = hasShed;
         this.isConfirmed = isConfirmed;
     }
 
-    public Request(int carportId, int coverageId, int userId, int dimensionId, int shedId, boolean hasShed, boolean isConfirmed) {
+    public Request(int carportId, int coverageId, int userId, int width, int length, int height, int shedId, boolean hasShed, boolean isConfirmed) {
         this.carportId = carportId;
         this.coverageId = coverageId;
         this.userId = userId;
-        this.dimensionId = dimensionId;
+        this.width = width;
+        this.length = length;
+        this.height = height;
         this.shedId = shedId;
         this.hasShed = hasShed;
         this.isConfirmed = isConfirmed;
+    }
+
+
+    public Request(int carportId, int width, int length, int height, int shed_id, boolean hasShed, Shed shed, boolean isConfirmed, Timestamp created) {
+        this.carportId = carportId;
+        this.width = width;
+        this.length = length;
+        this.height = height;
+        this.shedId = shed_id;
+        this.hasShed = hasShed;
+        this.shed = shed;
+        this.isConfirmed = isConfirmed;
+        this.created = created.toLocalDateTime().toLocalDate();
+    }
+
+    public int getCarportId() {
+        return carportId;
     }
 
     public int getCoverageId() {
@@ -48,12 +73,28 @@ public class Request {
         this.userId = userId;
     }
 
-    public int getDimensionId() {
-        return dimensionId;
+    public int getWidth() {
+        return width;
     }
 
-    public void setDimensionId(int dimensionId) {
-        this.dimensionId = dimensionId;
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public int getShedId() {
@@ -64,12 +105,16 @@ public class Request {
         this.shedId = shedId;
     }
 
-    public boolean isHasShed() {
+    public boolean getHasShed() {
         return hasShed;
     }
 
     public void setHasShed(boolean hasShed) {
         this.hasShed = hasShed;
+    }
+
+    public Shed getShed() {
+        return shed;
     }
 
     public boolean isConfirmed() {
@@ -94,7 +139,9 @@ public class Request {
                 "carportId=" + carportId +
                 ", coverageId=" + coverageId +
                 ", userId=" + userId +
-                ", dimensionId=" + dimensionId +
+                ", width=" + width +
+                ", length=" + length +
+                ", height=" + height +
                 ", shedId=" + shedId +
                 ", hasShed=" + hasShed +
                 ", isConfirmed=" + isConfirmed +

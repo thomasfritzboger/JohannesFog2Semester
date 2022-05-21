@@ -1,16 +1,29 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
+import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.exceptions.IllegalDimensionException;
+import dat.startcode.model.persistence.ConnectionPool;
+import dat.startcode.model.persistence.CustomerMapper;
 import dat.startcode.model.services.CarportCalculator;
+import dat.startcode.model.services.CustomerFacade;
 import dat.startcode.model.services.SVG;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class Skitse extends Command {
+public class SeSkitse extends Command {
+
+    private ConnectionPool connectionPool;
+
+    public SeSkitse()
+    {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
+
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
 
@@ -22,27 +35,34 @@ public class Skitse extends Command {
             return "error";
         }
 
-        CarportCalculator calculator = new CarportCalculator();
+
+        int carportId = Integer.parseInt(request.getParameter("carportId"));
+
+        //getCarportById
+        Carport carport = CustomerFacade.getCarportById(carportId, connectionPool);
+
 
         //hent carport bredde
-        int carportWidth = Integer.parseInt(request.getParameter("carportbredde"));
+        int carportWidth = carport.getCarportWidth();
 
         //hent carport længde
-        int carportLength = Integer.parseInt(request.getParameter("carportlængde"));
+        int carportLength = carport.getCarportLength();
 
         // hent carport højde
-        int carportHojde = Integer.parseInt(request.getParameter("carporthøjde"));
+        int carportHojde = carport.getCarportHeight();
 
-        String erRedskabsRumValgt = request.getParameter("redskabsrumValgt");
+        //String erRedskabsRumValgt = request.getParameter("redskabsrumValgt");
+        boolean erRedskabsRumValgt = carport.isHasShed();
 
-        //tagmateriale
-        String tagType = request.getParameter("tagtype");
 
         //placering
-        String placering = request.getParameter("redskabsrumPlacering");
+        String placering = carport.getShed().getPlacement();
 
-        //skurSize
-        int skurSize = Integer.parseInt(request.getParameter("skurSize"));
+        int skurBredde = carport.getShed().getWidth();
+
+        int skurLaengde = carport.getShed().getLength();
+
+
 
         /*VI TEGNER SVG I DET FØLGENDE*/
         SVG svg = new SVG(0, 0, "0 0 1200 800", 100, 50);
@@ -50,7 +70,7 @@ public class Skitse extends Command {
         int yStart = (800-carportWidth)/2;
 
         //Her er redskabsrummet valgt
-        if(erRedskabsRumValgt != null && erRedskabsRumValgt.equals("y")) {
+        if(erRedskabsRumValgt) {
 
             //redskabsrum bredde
             int shedWidth = (carportWidth/2)-35;
@@ -75,10 +95,6 @@ public class Skitse extends Command {
                 //tegn kryds
                 svg.addLine(xStart+spærAfstand, yStart+35,xStart+carportLength-10,yStart+carportWidth-30);
                 svg.addLine(xStart+spærAfstand, yStart+carportWidth-30, xStart+carportLength-10, yStart+35);
-
-                //tegn kryds
-                /*svg.addLine(xStart+5+spærAfstand, yStart+35,xStart+carportLength-5,yStart+carportWidth-30);
-                svg.addLine(xStart+5+spærAfstand, yStart+carportWidth-30, xStart+carportLength-5, yStart+35);*/
 
                 //tegn rem
                 //øverste/venstre rem
@@ -190,7 +206,6 @@ public class Skitse extends Command {
                 //append mål til koordinat??
             }
 
-
             //hvis redskabsrummets placering er: midt
             if(placering.equals("midt")) {
                 //tegn carport ydre del
@@ -256,7 +271,7 @@ public class Skitse extends Command {
         }
 
         //Her er redskabsrummet IKKE valgt
-        if(erRedskabsRumValgt == null) {
+        if(!erRedskabsRumValgt) {
 
             //udregn stolper, rem og spær MED redskabsrum og tegn svg
             // udregn stolper
@@ -314,7 +329,7 @@ public class Skitse extends Command {
         session.setAttribute("redskabsrumPlacering", placering);
 
 
-        return "skitse";
+        return "SeSkitse";
     }
 
 

@@ -8,10 +8,17 @@
 
         <h1>Ønsket dimensioner for carport</h1>
 
+        <div style="background-color: grey; width: 400px; height: 120px;">
+            <h2>Good to knows:</h2>
+            <ul>
+                <li>Carport bredde skal være minimum <b>3.8 meter</b> før et redskabsrum kan tilføjes i venstre
+                    eller højre hjørne.</li>
+            </ul>
+        </div>
+
         <!--to funktioner til at tjekke om bredde og længde er valgt-->
         <script type="text/javascript">
             function checkChosen() {
-
 
                 document.getElementById("redskabsrumValgt").checked = false;
                 document.getElementById("redskabsrumPlacering").disabled = true;
@@ -147,6 +154,8 @@
 
             }
         </script>
+
+
 
 
         <form action="fc/skitse" method="post">

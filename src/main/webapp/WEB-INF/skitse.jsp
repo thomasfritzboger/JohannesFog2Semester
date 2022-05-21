@@ -17,9 +17,6 @@
 
         <!--SVG SKITSEN LAVES HER-->
 
-
-
-
         <script type="text/javascript">
             //er du sikker alert box, når der klikkes på send forespørgsel
             function sendForespoergsel() {
@@ -28,15 +25,11 @@
                 let carportHoejde = document.getElementById("carportHøjdeSkitseSide").value;
                 let carportRum = "Valgt redskabsrum: ☑️";
                 let redskabsRumPlacering = document.getElementById("redskabsrumPlacering").value;
-                let redskabsRumBredde = document.getElementById("redskabsrumBreddeSkitse").value;
-                let redskabsRumLaengde = document.getElementById("redskabsrumLængdeSkitse").value;
 
                 let text = "Send forespørgsel med følgende dimensioner?\n\n" +
-                    "Carport: " + carportBredde + "m (bredde), " + carportLaengde + "m (længde), " + carportHoejde + "m (højde) \n\n"
+                    "Carport: " + carportBredde + "cm (bredde), " + carportLaengde + "cm (længde), " + carportHoejde + "cm (højde) \n\n"
                     + carportRum +
-                    "\nRedskabsrum: " + redskabsRumPlacering + "(placering), "
-                    + redskabsRumBredde + "m (bredde), "
-                    + redskabsRumLaengde + "m (længde)";
+                    "\nRedskabsrum: " + redskabsRumPlacering + "(placering)";
 
                 confirm(text);
             }
@@ -45,14 +38,11 @@
 
         <!--hidden div med alle dimensioner hentet-->
         <div hidden>
-            <input type="text" id="carportBreddeSkitseSide" value="4.00" hidden>
-            <input type="text" id="carportLængdeSkitseSide" value="7.00" hidden>
-            <input type="text" id="carportHøjdeSkitseSide" value="3.0" hidden>
-            <input type="text" id="carportValgtRedskabsrumSkitseSide" value="" hidden>
-            <input type="text" id="redskabsrumPlacering" value="midt" hidden>
-            <input type="text" id="redskabsrumBreddeSkitse" value="2.5" hidden>
-            <input type="text" id="redskabsrumLængdeSkitse" value="2.6" hidden>
-
+            <input type="text" id="carportBreddeSkitseSide" value="${carportbredde}" hidden>
+            <input type="text" id="carportLængdeSkitseSide" value="${carportlængde}" hidden>
+            <input type="text" id="carportHøjdeSkitseSide" value="${carporthøjde}" hidden>
+            <input type="text" id="carportValgtRedskabsrumSkitseSide" value="${redskabsrumValgt}" hidden>
+            <input type="text" id="redskabsrumPlacering" value="${redskabsrumPlacering}" hidden>
         </div>
 
         <div>
@@ -69,8 +59,17 @@
         </div>
 
 
-        <div style="border: 2px solid black">
+        <div>
                 ${sessionScope.svgdrawing}
+        </div>
+
+        <div style="background-color: grey; width: 450px; height: 140px;">
+            <h2>Din carport:</h2>
+            <ul>
+                <li>Carport bredde: ${carportbredde} cm</li>
+                <li>Carport længde: ${carportlængde} cm</li>
+                <li>Carport højde: ${carporthøjde} cm</li>
+            </ul>
         </div>
 
 

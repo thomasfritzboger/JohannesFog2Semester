@@ -24,7 +24,7 @@ public class LavBruger extends Command
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException
     {
-
+        User user = null;
         try {
             HttpSession session = request.getSession();
             session.setAttribute("user", null); // adding empty user object to session scope
@@ -35,9 +35,12 @@ public class LavBruger extends Command
             String address = request.getParameter("addresse");
             int postalNumber = Integer.parseInt(request.getParameter("postnr"));
 
-            User user = UserFacade.createUser(email, password, "kunde", phoneNumber, address, postalNumber, connectionPool);
+            user = UserFacade.createUser(email, password, "kunde", phoneNumber, address, postalNumber, connectionPool);
+
+            user = UserFacade.login(email, password, connectionPool);
 
             session = request.getSession();
+
             session.setAttribute("user", user); // adding user object to session scope
         } catch (DatabaseException e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
@@ -45,6 +48,6 @@ public class LavBruger extends Command
             return "error";
         }
 
-        return "index";
+        return "kundeLogin";
     }
 }

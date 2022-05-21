@@ -1,19 +1,19 @@
 package dat.startcode.model.entities;
 
-public class ShedDimension {
+public class Shed {
     private int shedId;
     private int width;
     private int length;
     private String placement;
 
-    public ShedDimension(int shedId, int width, int length, String placement) {
+    public Shed(int shedId, int width, int length, String placement) {
         this.shedId = shedId;
         this.width = width;
         this.length = length;
         this.placement = placement;
     }
 
-    public ShedDimension(int width, int length, String placement) {
+    public Shed(int width, int length, String placement) {
         this.width = width;
         this.length = length;
         this.placement = placement;
@@ -21,6 +21,10 @@ public class ShedDimension {
 
     public int getShedId() {
         return shedId;
+    }
+
+    public void setShedId(int shedId) {
+        this.shedId = shedId;
     }
 
     public int getWidth() {
@@ -49,7 +53,7 @@ public class ShedDimension {
 
     @Override
     public String toString() {
-        return "ShedDimension{" +
+        return "Shed{" +
                 "shedId=" + shedId +
                 ", width=" + width +
                 ", length=" + length +
