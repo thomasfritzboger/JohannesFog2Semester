@@ -54,7 +54,8 @@ CREATE TABLE IF NOT EXISTS `fog`.`user` (
                                             `phonenumber` INT NOT NULL,
                                             `address` VARCHAR(45) NOT NULL,
                                             `postal_code` INT NOT NULL,
-                                            PRIMARY KEY (`user_id`))
+                                            PRIMARY KEY (`user_id`),
+                                            UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
