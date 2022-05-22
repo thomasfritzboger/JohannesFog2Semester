@@ -15,7 +15,6 @@ public class Skitse extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
 
         HttpSession session = request.getSession();
-
         User user = (User) session.getAttribute("user");
 
         if(!user.getRole().equals("kunde")) {
@@ -32,279 +31,191 @@ public class Skitse extends Command {
 
         // hent carport højde
         int carportHojde = Integer.parseInt(request.getParameter("carporthøjde"));
-
         String erRedskabsRumValgt = request.getParameter("redskabsrumValgt");
 
         //tagmateriale
         String tagType = request.getParameter("tagtype");
-
         //placering
         String placering = request.getParameter("redskabsrumPlacering");
-
         //skurSize
         int skurSize = Integer.parseInt(request.getParameter("skurSize"));
 
-        /*VI TEGNER SVG I DET FØLGENDE*/
-        SVG svg = new SVG(0, 0, "0 0 1200 800", 100, 50);
-        int xStart = (1200-carportLength)/2;
-        int yStart = (800-carportWidth)/2;
-
-        //Her er redskabsrummet valgt
-        if(erRedskabsRumValgt != null && erRedskabsRumValgt.equals("y")) {
-
+        if(erRedskabsRumValgt != null) {
+            carportLength += Integer.parseInt(request.getParameter("redskabsrumLaengde"));
             //redskabsrum bredde
             int shedWidth = (carportWidth/2)-35;
             session.setAttribute("redskabsrumBredde", shedWidth);
-
-            //redskabsrum længde
-            int shedLength = Integer.parseInt(request.getParameter("redskabsrumLaengde"));
-            session.setAttribute("redskabsrumLængde", shedLength);
-
-            int fullLength = shedLength + carportLength;
-
-            int antalSpær = (int) Math.ceil(fullLength/59.0);
-            int spærAfstand = (int) Math.ceil(fullLength/antalSpær);
-            //udregn stolper, rem og spær MED redskabsrum og tegn svg
-
-            //hvis redskabsrummets placering er: venstre
-            if(placering.equals("venstre")) {
-                //tegn carport ydre del
-
-                svg.addRect(xStart,yStart,carportWidth, fullLength);
-
-                //tegn kryds
-                svg.addLine(xStart+spærAfstand, yStart+35,xStart+carportLength-10,yStart+carportWidth-30);
-                svg.addLine(xStart+spærAfstand, yStart+carportWidth-30, xStart+carportLength-10, yStart+35);
-
-                //tegn kryds
-                /*svg.addLine(xStart+5+spærAfstand, yStart+35,xStart+carportLength-5,yStart+carportWidth-30);
-                svg.addLine(xStart+5+spærAfstand, yStart+carportWidth-30, xStart+carportLength-5, yStart+35);*/
-
-                //tegn rem
-                //øverste/venstre rem
-                svg.addRect(xStart, yStart+35, 5, fullLength-5);
-
-                //nederste/højre rem
-                svg.addRect(xStart, yStart+carportWidth-35, 5, fullLength-5);
-
-                //tegn spær
-                int x = 0;
-                int spærStartX = xStart;
-                int spærStartY = yStart;
-                int start = xStart;
-                while(spærStartX < fullLength + start) {
-                    svg.addRect(spærStartX + spærAfstand * x, spærStartY,carportWidth, 5);
-                    spærStartX+=spærAfstand;
-                }
-
-                svg.addRect(xStart+fullLength-5, yStart, carportWidth,5);
-
-                //tegn stolper
-                //stolper øverste del
-                svg.addRect(xStart+spærAfstand-3, yStart+32, 11,11); //første stolpe
-                svg.addRect(xStart+fullLength-11, yStart+32, 11,11); //bagerste stolpe
-
-                //stolper den midterste del
-                svg.addRect(xStart+fullLength-11,(carportWidth/2)+yStart,11,11); //bagerste stolpe
-                svg.addRect(xStart+fullLength-19-shedLength, (carportWidth/2)+yStart,11,11); //midter stolpe
-                svg.addRect(xStart+fullLength-19-shedLength,yStart+32,11,11); //øverste stolpe fremme
-                svg.addRect(xStart+fullLength-19-shedLength,yStart+carportWidth-38,11,11); //nederste stolpe fremme
-                svg.addRect(xStart+fullLength-10-(2*spærAfstand),(carportWidth/2)+yStart,11,11); //den hvor døren hægtes på
-                svg.addRect((xStart+(carportLength+spærAfstand-11)/2), yStart+32, 11,11); //midterste stolpe foroven før redskabsrum
-                svg.addRect((xStart+(carportLength+spærAfstand-11)/2), yStart+carportWidth-38, 11,11); //midterste stolpe forneden før redskabsrum
-
-
-
-                //spær nedre del
-                svg.addRect(xStart+spærAfstand-3, yStart+carportWidth-38, 11,11); //første stolpe
-                svg.addRect(xStart+fullLength-11, yStart+carportWidth-38, 11,11); //bagerste
-
-                //streger om redskabsrum
-                svg.addLine(xStart+carportLength-10, yStart+37,xStart+fullLength-11, yStart+37); //venstre side set forfra
-                svg.addLine(xStart+carportLength-10,(carportWidth/2)+yStart+5, xStart+fullLength-11,(carportWidth/2)+yStart+5); //højre side set forfra
-                svg.addLine(xStart+carportLength-10, yStart+37,xStart+carportLength-10,(carportWidth/2)+yStart+5); //forrest
-                svg.addLine(xStart+fullLength-11, yStart+37, xStart+fullLength-11,(carportWidth/2)+yStart+5); //bagerst
-                svg.addLine(xStart+fullLength-10-(2*spærAfstand),(carportWidth/2)+yStart+15, xStart+fullLength-11,(carportWidth/2)+yStart+5);//dør
-            }
-
-
-            //hvis redskabsrummets placering er: højre
-            if(placering.equals("højre")) {
-                //tegn carport ydre del
-
-                svg.addRect(xStart,yStart,carportWidth, fullLength);
-
-                //tegn kryds
-                svg.addLine(xStart+spærAfstand, yStart+35,xStart+carportLength-10,yStart+carportWidth-30);
-                svg.addLine(xStart+spærAfstand, yStart+carportWidth-30, xStart+carportLength-10, yStart+35);
-
-                //tegn kryds
-                /*svg.addLine(xStart+5+spærAfstand, yStart+35,xStart+carportLength-5,yStart+carportWidth-30);
-                svg.addLine(xStart+5+spærAfstand, yStart+carportWidth-30, xStart+carportLength-5, yStart+35);*/
-
-                //tegn rem
-                //øverste/venstre rem
-                svg.addRect(xStart, yStart+35, 5, fullLength-5);
-
-                //nederste/højre rem
-                svg.addRect(xStart, yStart+carportWidth-35, 5, fullLength-5);
-
-                //tegn spær
-                int x = 0;
-                int spærStartX = xStart;
-                int spærStartY = yStart;
-                int start = xStart;
-                while(spærStartX < fullLength + start) {
-                    svg.addRect(spærStartX + spærAfstand * x, spærStartY,carportWidth, 5);
-                    spærStartX+=spærAfstand;
-                }
-
-                svg.addRect(xStart+fullLength-5, yStart, carportWidth,5);
-
-                //tegn stolper
-                //stolper øverste del
-                svg.addRect(xStart+spærAfstand-3, yStart+32, 11,11); //første stolpe
-                svg.addRect(xStart+fullLength-11, yStart+32, 11,11); //bagerste stolpe
-
-                //stolper den midterste del
-                svg.addRect(xStart+fullLength-11,(carportWidth/2)+yStart,11,11); //bagerste stolpe
-                svg.addRect(xStart+fullLength-19-shedLength, (carportWidth/2)+yStart,11,11); //midter stolpe
-                svg.addRect(xStart+fullLength-19-shedLength,yStart+32,11,11); //øverste stolpe fremme
-                svg.addRect(xStart+fullLength-19-shedLength,yStart+carportWidth-38,11,11); //nederste stolpe fremme
-                svg.addRect(xStart+fullLength-10-(2*spærAfstand),(carportWidth/2)+yStart,11,11); //den hvor døren hægtes på
-
-                svg.addRect((xStart+(carportLength+spærAfstand-11)/2), yStart+32, 11,11); //midterste stolpe foroven før redskabsrum
-                svg.addRect((xStart+(carportLength+spærAfstand-11)/2), yStart+carportWidth-38, 11,11); //midterste stolpe forneden før redskabsrum
-
-                //spær nedre del
-                svg.addRect(xStart+spærAfstand-3, yStart+carportWidth-38, 11,11); //første stolpe
-                svg.addRect(xStart+fullLength-11, yStart+carportWidth-38, 11,11); //bagerste
-
-                //streger om redskabsrum
-                svg.addLine(xStart+carportLength-11,(carportWidth/2)+yStart+5, xStart+fullLength-11,(carportWidth/2)+yStart+5); //venstre side set forfra
-                svg.addLine(xStart+carportLength-11,yStart+carportWidth-35,xStart+fullLength-11, yStart+carportWidth-35); //højre side set forfra
-                svg.addLine(xStart+carportLength-11,(carportWidth/2)+yStart+5,xStart+carportLength-11,yStart+carportWidth-35); //forrest
-                svg.addLine(xStart+fullLength-11,(carportWidth/2)+yStart, xStart+fullLength-11, yStart+carportWidth-35); //bagerst
-                svg.addLine(xStart+fullLength-10-(2*spærAfstand),(carportWidth/2)+yStart-15, xStart+fullLength-11,(carportWidth/2)+yStart+5);//dør
-
-                //append mål til koordinat??
-            }
-
-
-            //hvis redskabsrummets placering er: midt
-            if(placering.equals("midt")) {
-                //tegn carport ydre del
-
-                svg.addRect(xStart,yStart,carportWidth, fullLength);
-
-                //tegn kryds
-                svg.addLine(xStart+spærAfstand, yStart+35,xStart+carportLength-10,yStart+carportWidth-30);
-                svg.addLine(xStart+spærAfstand, yStart+carportWidth-30, xStart+carportLength-10, yStart+35);
-
-                //tegn kryds
-                /*svg.addLine(xStart+5+spærAfstand, yStart+35,xStart+carportLength-5,yStart+carportWidth-30);
-                svg.addLine(xStart+5+spærAfstand, yStart+carportWidth-30, xStart+carportLength-5, yStart+35);*/
-
-                //tegn rem
-                //øverste/venstre rem
-                svg.addRect(xStart, yStart+35, 5, fullLength-5);
-
-                //nederste/højre rem
-                svg.addRect(xStart, yStart+carportWidth-35, 5, fullLength-5);
-
-                //tegn spær
-                int x = 0;
-                int spærStartX = xStart;
-                int spærStartY = yStart;
-                int start = xStart;
-                while(spærStartX < fullLength + start) {
-                    svg.addRect(spærStartX + spærAfstand * x, spærStartY,carportWidth, 5);
-                    spærStartX+=spærAfstand;
-                }
-
-                svg.addRect(xStart+fullLength-5, yStart, carportWidth,5);
-
-                //tegn stolper
-                //stolper øverste del
-                svg.addRect(xStart+spærAfstand-3, yStart+32, 11,11); //første stolpe
-                svg.addRect(xStart+fullLength-11, yStart+32, 11,11); //bagerste stolpe
-
-                //stolper den midterste del
-                svg.addRect(xStart+fullLength-11,(carportWidth/2)+yStart,11,11); //bagerste stolpe
-                svg.addRect(xStart+fullLength-19-shedLength, (carportWidth/2)+yStart,11,11); //midter stolpe
-                svg.addRect(xStart+fullLength-19-shedLength,yStart+32,11,11); //øverste stolpe fremme
-                svg.addRect(xStart+fullLength-19-shedLength,yStart+carportWidth-38,11,11); //nederste stolpe fremme
-                svg.addRect(xStart+fullLength-10-(2*spærAfstand),yStart+carportWidth-38,11,11); //den hvor døren hægtes på
-                svg.addRect((xStart+(carportLength+spærAfstand-11)/2), yStart+32, 11,11); //midterste stolpe foroven før redskabsrum
-                svg.addRect((xStart+(carportLength+spærAfstand-11)/2), yStart+carportWidth-38, 11,11); //midterste stolpe forneden før redskabsrum
-
-
-
-                //spær nedre del
-                svg.addRect(xStart+spærAfstand-3, yStart+carportWidth-38, 11,11); //første stolpe
-                svg.addRect(xStart+fullLength-11, yStart+carportWidth-38, 11,11); //bagerste
-
-                //streger om redskabsrum
-                svg.addLine(xStart+carportLength-10, yStart+37,xStart+fullLength-11, yStart+37); //venstre side set forfra
-                svg.addLine(xStart+carportLength-11,yStart+carportWidth-32,xStart+fullLength-11, yStart+carportWidth-32); //højre side set forfra
-                svg.addLine(xStart+carportLength-10, yStart+37,xStart+carportLength-11,yStart+carportWidth-35); //forrest
-                svg.addLine(xStart+fullLength-11, yStart+37, xStart+fullLength-11, yStart+carportWidth-32); //bagerst
-                svg.addLine(xStart+fullLength-10-(2*spærAfstand),yStart+carportWidth-15, xStart+fullLength-5,yStart+carportWidth-35);//dør
-                //append mål til koordinat??
-            }
-
         }
 
-        //Her er redskabsrummet IKKE valgt
-        if(erRedskabsRumValgt == null) {
+        int antalSpær = (int) Math.ceil(carportLength/59.0);
+        double spærAfs = (carportLength + 0.0)/antalSpær;
 
-            //udregn stolper, rem og spær MED redskabsrum og tegn svg
-            // udregn stolper
-            int antalSpær = (int) Math.ceil(carportLength/59.0);
-            int spærAfstand = (int) Math.ceil(carportLength/antalSpær);
+        /*VI TEGNER SVG I DET FØLGENDE*/
+        SVG svg = new SVG(0, 0, "0 0 1200 800", 100, 100);
+        SVG innerSVG = new SVG(50,50,"0 0 1200 800",100,100);
 
-            //tegn carport ydre del
-            svg.addRect(xStart,yStart,carportWidth, carportLength);
+        //Tegn Carport parkerings del
+        innerSVG.addRect(0,0,carportWidth, carportLength+20);
 
-            //tegn kryds
-            svg.addLine(xStart+5+spærAfstand, yStart+35,xStart+carportLength-5,yStart+carportWidth-30);
-            svg.addLine(xStart+5+spærAfstand, yStart+carportWidth-30, xStart+carportLength-5, yStart+35);
+        //Tegn remme
+        //øverste rem
+        innerSVG.addRect(0, 35, 5, carportLength+20);
+        //nederste rem
+        innerSVG.addRect(0, carportWidth-35, 5, carportLength+20);
 
-            //tegn rem
-            //øverste/venstre rem
-            svg.addRect(xStart, yStart+35, 5, carportLength-5);
+        //Skur tilvalgt
+        if (erRedskabsRumValgt != null) {
 
-            //nederste/højre rem
-            svg.addRect(xStart, yStart+carportWidth-35, 5, carportLength-5);
+            //Tegn spær
+            int spærStartX = 0;
+            int numOfSpær = 1;
+            int stolpeXStart = 0;
+            int stolpeStartMidt = 0;
 
-            //tegn spær
-            int x = 0;
-            int spærStartX = xStart;
-            int spærStartY = yStart;
-            int start = xStart;
-            while(spærStartX < carportLength + start) {
-                svg.addRect(spærStartX + spærAfstand * x, spærStartY,carportWidth, 5);
-                spærStartX+=spærAfstand;
+            while(spærStartX < carportLength/2) {
+                innerSVG.addRect( spærStartX, 0,carportWidth, 5);
+                numOfSpær++;
+                spærStartX+=spærAfs;
+                stolpeStartMidt = spærStartX;
+                if (numOfSpær == 2) stolpeXStart = spærStartX-3;
             }
 
-            svg.addRect(xStart+carportLength-5, yStart, carportWidth,5);
+            spærStartX = carportLength - 5;
+            while(spærStartX > (carportLength/2)-7) {
+                numOfSpær++;
+                innerSVG.addRect( spærStartX, 0,carportWidth, 5);
+                spærStartX-=spærAfs;
+            }
 
-            //tegn stolper
-            //stolper øverste del
-            svg.addRect(xStart+spærAfstand-3, yStart+32, 11,11); //første stolpe
-            svg.addRect(xStart+carportLength-11, yStart+32, 11,11); //bagerste stolpe
-            svg.addRect((xStart+(carportLength+spærAfstand-11)/2), yStart+32, 11,11); //midterste stolpe
+            //Tegn stolper
+            int stolpeYStart = 32;
 
+            //2 forreste stolper
+            innerSVG.addRect(stolpeXStart, stolpeYStart, 11,11);
+            innerSVG.addRect(stolpeXStart, carportWidth-38, 11,11);
 
-            //spær nedre del
-            svg.addRect(xStart+spærAfstand-3, yStart+carportWidth-38, 11,11); //første stolpe
-            svg.addRect(xStart+carportLength-11, yStart+carportWidth-38, 11,11); //bagerste
-            svg.addRect((xStart+(carportLength+spærAfstand-11)/2), yStart+carportWidth-38, 11,11); //midterste
+            //2 bagerste stolper
+            innerSVG.addRect(carportLength-8, stolpeYStart, 11,11);
+            innerSVG.addRect(carportLength-8, carportWidth-38, 11,11);
 
+            //Stolper ved skur start
+            innerSVG.addRect(carportLength-(int)Math.round(skurSize*spærAfs)-8, stolpeYStart, 11,11);
+            innerSVG.addRect(carportLength-(int)Math.round(skurSize*spærAfs)-8, carportWidth-38, 11,11);
 
-            //append mål til koordinat??
+            //Stolper midt mellem skur start og carport start
+            innerSVG.addRect((carportLength-(int)Math.round(skurSize*spærAfs)-8+stolpeXStart)/2, stolpeYStart, 11,11);
+            innerSVG.addRect((carportLength-(int)Math.round(skurSize*spærAfs)-8+stolpeXStart)/2, carportWidth-38, 11,11);
 
+            //Evt midterstolper skur
+            if (carportWidth>=380) {
+                //Bagerste
+                innerSVG.addRect(carportLength-8, carportWidth/2, 11,11);
+                //Forreste
+                innerSVG.addRect(carportLength-(int)Math.round(skurSize*spærAfs)-8, carportWidth/2, 11,11);
+            }
+
+            //Stolpe ved skurdør
+            if (placering.equals("midt")) {
+                innerSVG.addRect(carportLength-8-2*(int) Math.round(spærAfs), carportWidth-38, 11,11);
+            }
+            if (placering.equals("venstre") || placering.equals("højre")) {
+                innerSVG.addRect(carportLength-8-2*(int) Math.round(spærAfs), carportWidth/2, 11,11);
+            }
+
+            //Evt suplerende stolper
+            if (skurSize*spærAfs>310 && skurSize*spærAfs<310+2*spærAfs) {
+                    int halvSkur = ((carportLength-(int)Math.round(skurSize*spærAfs)-8)+(carportLength-8))/2;
+                    innerSVG.addRect(halvSkur, stolpeYStart, 11,11);
+            }
+            if (skurSize*spærAfs>310+2*spærAfs) {
+                int halvSkur = ((carportLength-(int)Math.round(skurSize*spærAfs)-8)+(carportLength-8))/2;
+                innerSVG.addRect(halvSkur, stolpeYStart, 11,11);
+                int skurStartX = carportLength-(int)Math.round(skurSize*spærAfs)-8;
+                int dørStolpe = carportLength-8-2*(int) Math.round(spærAfs);
+                int halvtDørside = ( skurStartX+dørStolpe)/2;
+                innerSVG.addRect(halvtDørside, carportWidth-38, 11,11);
+            }
+
+            int dørLængde = (int) Math.round(2*spærAfs);
+            //Tilføjer døren
+            if (placering.equals("midt")) {
+
+                innerSVG.addLine(carportLength-8,carportWidth-33,carportLength-8-100,carportWidth-13);
+            }
+            if (placering.equals("venstre")) {
+
+                innerSVG.addLine(carportLength-8,carportWidth/2,carportLength-8-100,carportWidth/2+13);
+
+            }
+            if (placering.equals("højre")) {
+                innerSVG.addLine(carportLength-8,carportWidth/2,carportLength-8-100,carportWidth/2-13);
+
+            }
+
+            innerSVG.addCrossLine(stolpeXStart+5, stolpeYStart+5,carportLength-(int)Math.round(skurSize*spærAfs)-8,carportWidth-33);
+            innerSVG.addCrossLine(stolpeXStart+5, carportWidth-33,carportLength-(int)Math.round(skurSize*spærAfs)-8,stolpeYStart+5);
+
+        } else {
+            //Skur fravalgt
+            //Tegn spær
+            int spærStartX = 0;
+            int numOfSpær = 1;
+            int stolpeXStart = 0;
+            int stolpeStartMidt = 0;
+
+            while(spærStartX < carportLength/2) {
+                innerSVG.addRect( spærStartX, 0,carportWidth, 5);
+                numOfSpær++;
+                spærStartX+=spærAfs;
+                stolpeStartMidt = spærStartX;
+                if (numOfSpær == 2) stolpeXStart = spærStartX-3;
+            }
+
+            spærStartX = carportLength - 5;
+            while(spærStartX > (carportLength/2)-7) {
+                numOfSpær++;
+                innerSVG.addRect( spærStartX, 0,carportWidth, 5);
+                spærStartX-=spærAfs;
+            }
+
+            //Tegn stolper
+            int stolpeYStart = 32;
+
+            //2 forreste stolper
+            innerSVG.addRect(stolpeXStart, stolpeYStart, 11,11);
+            innerSVG.addRect(stolpeXStart, carportWidth-38, 11,11);
+
+            //2 bagerste stolper
+            innerSVG.addRect(carportLength-8, stolpeYStart, 11,11);
+            innerSVG.addRect(carportLength-8, carportWidth-38, 11,11);
+
+            //Midterste 2 stolper
+            if (numOfSpær%2 != 0) {
+
+                int korrektion = 0;
+                if (carportLength == 480) korrektion = 9;
+                if (carportLength == 500) korrektion = 7;
+                if (carportLength == 520) korrektion = 6;
+                if (carportLength == 600) korrektion = 7;
+
+                innerSVG.addRect(stolpeStartMidt-korrektion, stolpeYStart, 11,11);
+                innerSVG.addRect(stolpeStartMidt-korrektion, carportWidth-38, 11,11);
+
+            } else {
+                innerSVG.addRect((carportLength+(int)Math.round(spærAfs))/2-7, stolpeYStart, 11,11);
+                innerSVG.addRect((carportLength+(int)Math.round(spærAfs))/2-7, carportWidth-38, 11,11);
+            }
+
+            innerSVG.addCrossLine(stolpeXStart+5, stolpeYStart+5,carportLength-3,carportWidth-33);
+            innerSVG.addCrossLine(stolpeXStart+5, carportWidth-33,carportLength-3,stolpeYStart+5);
         }
+
+        //Afstandsmålere
+        svg.addLine(carportLength+70,carportWidth+100,50,carportWidth+100);
+        svg.addLine(0,50,0,carportWidth+50);
+
+        svg.addSvg(innerSVG);
+
 
         session.setAttribute("svgdrawing", svg.toString());
         session.setAttribute("carportbredde", carportWidth);
@@ -312,7 +223,6 @@ public class Skitse extends Command {
         session.setAttribute("carporthøjde", carportHojde);
         session.setAttribute("redskabsrumValgt", erRedskabsRumValgt);
         session.setAttribute("redskabsrumPlacering", placering);
-
 
         return "skitse";
     }

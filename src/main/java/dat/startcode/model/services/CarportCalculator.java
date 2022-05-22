@@ -1,6 +1,5 @@
 package dat.startcode.model.services;
 
-import com.google.protobuf.Any;
 import dat.startcode.model.dtos.OrderLineDTO;
 import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.entities.Produkt;
@@ -25,6 +24,8 @@ public class CarportCalculator{
 
     //Hentes senere fra database
     public List<Produkt> produktliste = new ArrayList<>();
+
+    public double carportPris;
 
     public int carportLængde;
     public int carportBredde;
@@ -218,7 +219,7 @@ public class CarportCalculator{
 
             skur.beregnAntalLøsholter(skur.skurLængde,skur.skurBredde);
             skur.skurHøjde = carportHøjde;
-            skur.beregenAntalBeklædningsBrædder();
+            skur.beregenAntalBeklædningsBrædder(skur.skurHøjde);
             skur.beregnAntalKorteBeklædningsSkruer();
             skur.beregnAntalLangeBeklædningsSkruer();
             //skur.addAllSkurItemsTilListe();
@@ -239,22 +240,25 @@ public class CarportCalculator{
         remAntal = 2;
         remLængde = carportLængde;
 
-        mList.add(new OrderLineDTO(pDTO.get(7).getProduktDescription(),
-                remLængde,
-                remAntal,
-                pDTO.get(7).getUnitScale(),
-                pDTO.get(7).getUsementDescription(),
-                remAntal*remLængde/100.0*pDTO.get(7).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(7).getProduktDescription(),
+//                remLængde,
+//                remAntal,
+//                pDTO.get(7).getUnitScale(),
+//                pDTO.get(7).getUsementDescription(),
+//                remAntal*remLængde/100.0*pDTO.get(7).getUnitPrice()));
 
+        addItemToList(7,remLængde,remAntal);
 
         rullerHulbåndAntal = 2;
 
-        mList.add(new OrderLineDTO(pDTO.get(15).getProduktDescription(),
-                rullerHulbåndLængde,
-                rullerHulbåndAntal,
-                pDTO.get(15).getUnitScale(),
-                pDTO.get(15).getUsementDescription(),
-                rullerHulbåndAntal*pDTO.get(15).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(15).getProduktDescription(),
+//                rullerHulbåndLængde,
+//                rullerHulbåndAntal,
+//                pDTO.get(15).getUnitScale(),
+//                pDTO.get(15).getUsementDescription(),
+//                rullerHulbåndAntal*pDTO.get(15).getUnitPrice()));
+
+        addItemToList(15,rullerHulbåndLængde,rullerHulbåndAntal);
 
         beregnTagPlader(carportLængde,carportBredde);
         beregnAntalSternbrædder(carportLængde,carportBredde);
@@ -265,61 +269,68 @@ public class CarportCalculator{
         //Beregn antal univesal beslag
         universalbeslagHøjreAntal = spærAntal;
 
-        System.out.println("spærAntal. " + spærAntal);
-        System.out.println("Antal højrebeslag. "+universalbeslagHøjreAntal);
-        mList.add(new OrderLineDTO(pDTO.get(16).getProduktDescription(),
-                universalbeslagHøjreLængde,
-                universalbeslagHøjreAntal,
-                pDTO.get(16).getUnitScale(),
-                pDTO.get(16).getUsementDescription(),
-                universalbeslagHøjreAntal*pDTO.get(16).getUnitPrice()));
+
+//        mList.add(new OrderLineDTO(pDTO.get(16).getProduktDescription(),
+//                universalbeslagHøjreLængde,
+//                universalbeslagHøjreAntal,
+//                pDTO.get(16).getUnitScale(),
+//                pDTO.get(16).getUsementDescription(),
+//                universalbeslagHøjreAntal*pDTO.get(16).getUnitPrice()));
+
+        addItemToList(16,universalbeslagHøjreLængde,universalbeslagHøjreAntal);
 
         universalbeslagVenstreAntal = spærAntal;
 
-        mList.add(new OrderLineDTO(pDTO.get(17).getProduktDescription(),
-                universalbeslagVenstreLængde,
-                universalbeslagVenstreAntal,
-                pDTO.get(17).getUnitScale(),
-                pDTO.get(17).getUsementDescription(),
-                universalbeslagVenstreAntal*pDTO.get(17).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(17).getProduktDescription(),
+//                universalbeslagVenstreLængde,
+//                universalbeslagVenstreAntal,
+//                pDTO.get(17).getUnitScale(),
+//                pDTO.get(17).getUsementDescription(),
+//                universalbeslagVenstreAntal*pDTO.get(17).getUnitPrice()));
 
+        addItemToList(17,universalbeslagVenstreLængde,universalbeslagVenstreAntal);
 
         //Antagelse: Der skal altid bruges en pakke med skruer i størrelse 4,5x60
         pakkerSkruerAf45x60Antal = 1;
-        mList.add(new OrderLineDTO(pDTO.get(18).getProduktDescription(),
-                pakkerSkruerAf45x60Længde,
-                pakkerSkruerAf45x60Antal,
-                pDTO.get(18).getUnitScale(),
-                pDTO.get(18).getUsementDescription(),
-                pakkerSkruerAf45x60Antal*pDTO.get(18).getUnitPrice()));
-
+//        mList.add(new OrderLineDTO(pDTO.get(18).getProduktDescription(),
+//                pakkerSkruerAf45x60Længde,
+//                pakkerSkruerAf45x60Antal,
+//                pDTO.get(18).getUnitScale(),
+//                pDTO.get(18).getUsementDescription(),
+//                pakkerSkruerAf45x60Antal*pDTO.get(18).getUnitPrice()));
+        addItemToList(18,pakkerSkruerAf45x60Længde,pakkerSkruerAf45x60Antal);
         beregnAntalPakkerMedBeslagskruer();
 
         //Antagelse at der skal bruges en skive pr bolt, som fastgøres rem
         //Beregn antal firkantskiver
         firkantSkiverAntal =  2*(stolperAntal-stolpeIkkeFastgjortRem);
-        mList.add(new OrderLineDTO(pDTO.get(21).getProduktDescription(),
-                firkantSkiverLængde,
-                firkantSkiverAntal,
-                pDTO.get(21).getUnitScale(),
-                pDTO.get(21).getUsementDescription(),
-                firkantSkiverAntal*pDTO.get(21).getUnitPrice()));
+
+//        mList.add(new OrderLineDTO(pDTO.get(21).getProduktDescription(),
+//                firkantSkiverLængde,
+//                firkantSkiverAntal,
+//                pDTO.get(21).getUnitScale(),
+//                pDTO.get(21).getUsementDescription(),
+//                firkantSkiverAntal*pDTO.get(21).getUnitPrice()));
+
+        addItemToList(21,firkantSkiverLængde,firkantSkiverAntal);
 
         //Beregn antal bolte
         bolteAntal = 2*(stolperAntal-stolpeIkkeFastgjortRem);
-        mList.add(new OrderLineDTO(pDTO.get(20).getProduktDescription(),
-                bolteLængde,
-                bolteAntal,
-                pDTO.get(20).getUnitScale(),
-                pDTO.get(20).getUsementDescription(),
-                bolteAntal*pDTO.get(20).getUnitPrice()));
 
-        addAllCarportItemsTilListe();
+//        mList.add(new OrderLineDTO(pDTO.get(20).getProduktDescription(),
+//                bolteLængde,
+//                bolteAntal,
+//                pDTO.get(20).getUnitScale(),
+//                pDTO.get(20).getUsementDescription(),
+//                bolteAntal*pDTO.get(20).getUnitPrice()));
+
+        addItemToList(20,bolteLængde,bolteAntal);
 
         for (OrderLineDTO orderLineDTO : mList) {
             if (orderLineDTO.productDescription != null)  System.out.println(orderLineDTO);
         }
 
+        beregnCarportPris();
         return mList;
     }
 
@@ -380,20 +391,22 @@ public class CarportCalculator{
 //
 //        }
         if (!hasSkur) {
-            res = 6+stolpeIkkeFastgjortRem;
-            stolperAntal = res;
+            //res = 6+stolpeIkkeFastgjortRem;
+            stolperAntal = 6;
         } else {
             int ekstra =stolpeIkkeFastgjortRem + skur.antalStolperPåRemEkstraNårSkur + skur.antalStolperPåSpærEkstraNårSkur;
             res = 6+ekstra;
             stolperAntal = res;
         }
 
-        mList.add(new OrderLineDTO(pDTO.get(9).getProduktDescription(),
-                stolperLængde,
-                stolperAntal,
-                pDTO.get(9).getUnitScale(),
-                pDTO.get(9).getUsementDescription(),
-                stolperAntal*stolperLængde/100.0*pDTO.get(9).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(9).getProduktDescription(),
+//                stolperLængde,
+//                stolperAntal,
+//                pDTO.get(9).getUnitScale(),
+//                pDTO.get(9).getUsementDescription(),
+//                stolperAntal*stolperLængde/100.0*pDTO.get(9).getUnitPrice()));
+
+        addItemToList(9,stolperLængde,stolperAntal);
 
     }
 
@@ -505,20 +518,23 @@ public class CarportCalculator{
             System.out.println("Plasttagplader: " +plastTagpladerLangeAntal);
 
             //Lange plader
-            mList.add(new OrderLineDTO(pDTO.get(13).getProduktDescription(),
-                    plastTagpladerLangeLængde,
-                    plastTagpladerLangeAntal,
-                    pDTO.get(13).getUnitScale(),
-                    pDTO.get(13).getUsementDescription(),
-                    plastTagpladerLangeAntal*plastTagpladerLangeLængde/100.0*pDTO.get(13).getUnitPrice()));
+//            mList.add(new OrderLineDTO(pDTO.get(13).getProduktDescription(),
+//                    plastTagpladerLangeLængde,
+//                    plastTagpladerLangeAntal,
+//                    pDTO.get(13).getUnitScale(),
+//                    pDTO.get(13).getUsementDescription(),
+//                    plastTagpladerLangeAntal*plastTagpladerLangeLængde/100.0*pDTO.get(13).getUnitPrice()));
 
             //Korte plader
-            mList.add(new OrderLineDTO(pDTO.get(13).getProduktDescription(),
-                    plastTagpladerKorteLængde,
-                    plastTagpladerKorteAntal,
-                    pDTO.get(13).getUnitScale(),
-                    pDTO.get(13).getUsementDescription(),
-                    plastTagpladerKorteAntal*plastTagpladerKorteLængde/100.0*pDTO.get(13).getUnitPrice()));
+//            mList.add(new OrderLineDTO(pDTO.get(13).getProduktDescription(),
+//                    plastTagpladerKorteLængde,
+//                    plastTagpladerKorteAntal,
+//                    pDTO.get(13).getUnitScale(),
+//                    pDTO.get(13).getUsementDescription(),
+//                    plastTagpladerKorteAntal*plastTagpladerKorteLængde/100.0*pDTO.get(13).getUnitPrice()));
+
+            addItemToList(13,plastTagpladerLangeLængde,plastTagpladerLangeAntal);
+            addItemToList(13,plastTagpladerKorteLængde,plastTagpladerKorteAntal);
         }
     }
 
@@ -528,8 +544,8 @@ public class CarportCalculator{
             reglarAntal = (skur.løsholterLangsideMedDørAntal+skur.løsholterLangsideUdenDørAntal+
                     skur.løsholterBredsideAntal);
         }
-       // reglarAntal = (skur.løsholterLangsideMedDørAntal+skur.løsholterLangsideUdenDørAntal+
-       //         skur.løsholterBredsideAntal);
+        // reglarAntal = (skur.løsholterLangsideMedDørAntal+skur.løsholterLangsideUdenDørAntal+
+        //         skur.løsholterBredsideAntal);
     }
 
     public void beregnSkruerTag (int l, int b) {
@@ -542,12 +558,14 @@ public class CarportCalculator{
 
             System.out.println("antal skruer plast tag: " + pakkerPlastTagskruerAntal);
 
-            mList.add(new OrderLineDTO(pDTO.get(14).getProduktDescription(),
-                    pakkerPlastTagskruerLængde,
-                    pakkerPlastTagskruerAntal,
-                    pDTO.get(14).getUnitScale(),
-                    pDTO.get(14).getUsementDescription(),
-                    pakkerPlastTagskruerAntal*pDTO.get(14).getUnitPrice()));
+//            mList.add(new OrderLineDTO(pDTO.get(14).getProduktDescription(),
+//                    pakkerPlastTagskruerLængde,
+//                    pakkerPlastTagskruerAntal,
+//                    pDTO.get(14).getUnitScale(),
+//                    pDTO.get(14).getUsementDescription(),
+//                    pakkerPlastTagskruerAntal*pDTO.get(14).getUnitPrice()));
+
+            addItemToList(14,pakkerPlastTagskruerLængde,pakkerPlastTagskruerAntal);
         }
 
         //Antagelse 8 skruer pr kvm, der er 100 skruer i en pakke.
@@ -602,31 +620,37 @@ public class CarportCalculator{
             understernBredsideAntal = 4;
             oversternBredsideAntal = 2;
         }
-        mList.add(new OrderLineDTO(pDTO.get(0).getProduktDescription(),
-                understernBredsideLængde,
-                understernBredsideAntal,
-                pDTO.get(0).getUnitScale(),
-                pDTO.get(0).getUsementDescription(),
-                understernBredsideAntal*understernBredsideLængde/100.0*pDTO.get(0).getUnitPrice()));
-        mList.add(new OrderLineDTO(pDTO.get(1).getProduktDescription(),
-                understernLangsideLængde,
-                understernLangsideAntal,
-                pDTO.get(1).getUnitScale(),
-                pDTO.get(1).getUsementDescription(),
-                understernLangsideAntal*understernLangsideLængde/100.0*pDTO.get(1).getUnitPrice()));
-        mList.add(new OrderLineDTO(pDTO.get(2).getProduktDescription(),
-                oversternBredsideLængde,
-                oversternBredsideAntal,
-                pDTO.get(2).getUnitScale(),
-                pDTO.get(2).getUsementDescription(),
-                oversternBredsideAntal*oversternBredsideAntal/100.0*pDTO.get(2).getUnitPrice()));
-        mList.add(new OrderLineDTO(pDTO.get(3).getProduktDescription(),
-                oversternLangsideLængde,
-                oversternLangsideAntal,
-                pDTO.get(3).getUnitScale(),
-                pDTO.get(3).getUsementDescription(),
-                oversternLangsideAntal*oversternLangsideLængde/100.0*pDTO.get(3).getUnitPrice()));
-   }
+//        mList.add(new OrderLineDTO(pDTO.get(0).getProduktDescription(),
+//                understernBredsideLængde,
+//                understernBredsideAntal,
+//                pDTO.get(0).getUnitScale(),
+//                pDTO.get(0).getUsementDescription(),
+//                understernBredsideAntal*understernBredsideLængde/100.0*pDTO.get(0).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(1).getProduktDescription(),
+//                understernLangsideLængde,
+//                understernLangsideAntal,
+//                pDTO.get(1).getUnitScale(),
+//                pDTO.get(1).getUsementDescription(),
+//                understernLangsideAntal*understernLangsideLængde/100.0*pDTO.get(1).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(2).getProduktDescription(),
+//                oversternBredsideLængde,
+//                oversternBredsideAntal,
+//                pDTO.get(2).getUnitScale(),
+//                pDTO.get(2).getUsementDescription(),
+//                oversternBredsideAntal*oversternBredsideAntal/100.0*pDTO.get(2).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(3).getProduktDescription(),
+//                oversternLangsideLængde,
+//                oversternLangsideAntal,
+//                pDTO.get(3).getUnitScale(),
+//                pDTO.get(3).getUsementDescription(),
+//                oversternLangsideAntal*oversternLangsideLængde/100.0*pDTO.get(3).getUnitPrice()));
+
+        addItemToList(0,understernBredsideLængde,understernBredsideAntal);
+        addItemToList(1,understernLangsideLængde,understernLangsideAntal);
+        addItemToList(2,oversternBredsideLængde,oversternBredsideAntal);
+        addItemToList(3,oversternLangsideLængde, oversternLangsideAntal);
+    }
+
 
     public void beregnAntalVandbrædder(int l, int b){
         if (l<=480){
@@ -647,18 +671,21 @@ public class CarportCalculator{
             vandbrædderBredsideLængde = (int) Math.ceil((b/2)/60.0)*60;
             vandbrædderBredsideAntal = 2;
         }
-        mList.add(new OrderLineDTO(pDTO.get(11).getProduktDescription(),
-                vandbrædderLangsideLængde,
-                vandbrædderLangsideAntal,
-                pDTO.get(11).getUnitScale(),
-                pDTO.get(11).getUsementDescription(),
-                vandbrædderLangsideAntal*vandbrædderLangsideLængde/100.0*pDTO.get(11).getUnitPrice()));
-        mList.add(new OrderLineDTO(pDTO.get(12).getProduktDescription(),
-                vandbrædderBredsideLængde,
-                vandbrædderBredsideAntal,
-                pDTO.get(12).getUnitScale(),
-                pDTO.get(12).getUsementDescription(),
-                vandbrædderBredsideAntal*vandbrædderBredsideLængde/100.0*pDTO.get(12).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(11).getProduktDescription(),
+//                vandbrædderLangsideLængde,
+//                vandbrædderLangsideAntal,
+//                pDTO.get(11).getUnitScale(),
+//                pDTO.get(11).getUsementDescription(),
+//                vandbrædderLangsideAntal*vandbrædderLangsideLængde/100.0*pDTO.get(11).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(12).getProduktDescription(),
+//                vandbrædderBredsideLængde,
+//                vandbrædderBredsideAntal,
+//                pDTO.get(12).getUnitScale(),
+//                pDTO.get(12).getUsementDescription(),
+//                vandbrædderBredsideAntal*vandbrædderBredsideLængde/100.0*pDTO.get(12).getUnitPrice()));
+
+        addItemToList(11,vandbrædderLangsideLængde, vandbrædderLangsideAntal);
+        addItemToList(12,vandbrædderBredsideLængde, vandbrædderBredsideAntal);
     }
 
     //Antagelse: Der skal bruges 2 vinkelbeslag mellem spær og stolper, der ikke er boltet til rem
@@ -667,14 +694,23 @@ public class CarportCalculator{
         if (!hasSkur) {
             vinkelbeslagAntal = 2*stolpeIkkeFastgjortRem;
         }  else {
-            vinkelbeslagAntal = 2*stolpeIkkeFastgjortRem + 2*reglarAntal;
+            if (skur.længdeLangsideMinusDør*3 < 480) {
+
+            vinkelbeslagAntal = 4+ 2*skur.antalStolperPåSpærEkstraNårSkur+ 2*reglarAntal;
+            } else {
+
+            vinkelbeslagAntal = 2*skur.antalStolperPåSpærEkstraNårSkur+ 2*reglarAntal;
+            }
+
         }
-        mList.add(new OrderLineDTO(pDTO.get(26).getProduktDescription(),
-                vinkelbeslagLængde,
-                vinkelbeslagAntal,
-                pDTO.get(26).getUnitScale(),
-                pDTO.get(26).getUsementDescription(),
-                vinkelbeslagAntal*pDTO.get(26).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(26).getProduktDescription(),
+//                vinkelbeslagLængde,
+//                vinkelbeslagAntal,
+//                pDTO.get(26).getUnitScale(),
+//                pDTO.get(26).getUsementDescription(),
+//                vinkelbeslagAntal*pDTO.get(26).getUnitPrice()));
+
+        addItemToList(26,vinkelbeslagLængde, vinkelbeslagAntal);
 
     }
 
@@ -684,12 +720,13 @@ public class CarportCalculator{
         int tilHulbånd = 4*spærAntal;
         pakkerBeslagskruerAntal = (int) Math.ceil ((tilHulbånd+tilUniversal+0.0)/250);
 
-        mList.add(new OrderLineDTO(pDTO.get(19).getProduktDescription(),
-                pakkerBeslagskruerLængde,
-                pakkerBeslagskruerAntal,
-                pDTO.get(19).getUnitScale(),
-                pDTO.get(19).getUsementDescription(),
-                pakkerBeslagskruerAntal*pDTO.get(19).getUnitPrice()));
+//        mList.add(new OrderLineDTO(pDTO.get(19).getProduktDescription(),
+//                pakkerBeslagskruerLængde,
+//                pakkerBeslagskruerAntal,
+//                pDTO.get(19).getUnitScale(),
+//                pDTO.get(19).getUsementDescription(),
+//                pakkerBeslagskruerAntal*pDTO.get(19).getUnitPrice()));
+        addItemToList(19,pakkerBeslagskruerLængde,pakkerBeslagskruerAntal);
 
     }
 
@@ -709,7 +746,11 @@ public class CarportCalculator{
         }
     }
 
-    public void addAllCarportItemsTilListe () {
+    public void beregnCarportPris() {
+        for (OrderLineDTO orderLineDTODTO : mList) {
+            carportPris += orderLineDTODTO.totalPrice;
 
+        }
     }
+
 }

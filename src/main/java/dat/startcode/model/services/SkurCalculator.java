@@ -279,14 +279,15 @@ public class SkurCalculator {
                 antalVinkelbeslagEkstraNårSkur += 24;
             } //End calculate sider i carportens bredde
         }
-        addItemToList(6,løsholterLangsideUdenDørAntal,løsholterLangsideUdenDørLængde);
+        addItemToList(6,løsholterLangsideUdenDørLængde,løsholterLangsideUdenDørAntal);
         addItemToList(6,løsholterLangsideMedDørLængde,løsholterLangsideMedDørAntal);
         addItemToList(5,løsholterBredsideLængde,løsholterBredsideAntal);
     }
 
     //Antagelse, der skal sidde et hvert 16 cm
-    public void beregenAntalBeklædningsBrædder () {
-        beklædningsBrædderLængde = skurHøjde;
+    public void beregenAntalBeklædningsBrædder (int skurHøjde) {
+
+        beklædningsBrædderLængde = (int) Math.ceil(skurHøjde/30.0)*30;
         //Gange 2 fordi der er inde og ude brædder
         //Gange 2 fordi der er 2 længdesider og 2 breddesider
         //Dividere med 16, for så meget dækker et brædt inklusiv "hul" i mellem

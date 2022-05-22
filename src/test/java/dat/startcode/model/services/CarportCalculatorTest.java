@@ -8,6 +8,7 @@ import dat.startcode.model.persistence.ConnectionPool;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,6 +21,8 @@ class CarportCalculatorTest {
     String url = "jdbc:mysql://localhost:3306/fog";
     ConnectionPool connectionPool = new ConnectionPool(user,password,url);
     List<ProduktDTO> pDTO = ProductFacade.getProduktDTOs(connectionPool);
+
+    List<ProduktDTO> nyListe = new ArrayList<>();
 
     CarportCalculatorTest() throws DatabaseException { }
 
@@ -281,5 +284,11 @@ class CarportCalculatorTest {
     @Test
     void testBeregn() throws IllegalDimensionException, DatabaseException {
         calculator.beregnCarport(600,300,210,"n","p","midt",4);
+    }
+
+    @Test
+    void beregnCarportPris() throws IllegalDimensionException {
+        calculator.beregnCarport(780,600,220,"y","p","midt",5);
+        assertEquals(31628,calculator.carportPris,1);
     }
 }

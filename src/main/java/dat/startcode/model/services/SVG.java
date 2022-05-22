@@ -20,6 +20,8 @@ public class SVG {
 
     private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000;\" />";
 
+    private final String crossTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:black; stroke-dasharray=10 10;\"  />";
+
     public SVG(int x, int y, String viewBox, int width, int height) {
         this.x = x;
         this.y = y;
@@ -41,6 +43,8 @@ public class SVG {
     public void addSvg(SVG innerSVG) {
         svg.append(innerSVG.toString());
     }
+
+    public void addCrossLine (int x1, int y1, int x2, int y2) { svg.append(String.format(crossTemplate,x1,y1,x2,y2));}
 
     @Override
     public String toString()

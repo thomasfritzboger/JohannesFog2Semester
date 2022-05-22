@@ -25,12 +25,12 @@ public class OrderLineDTO {
     @Override
     public String toString() {
         return "OrderLineDTO{" +
-                "productDescription='" + productDescription + '\'' +
-                ", length=" + length +
+                "p='" + productDescription + '\'' +
+                ", l=" + length +
                 ", amount=" + amount +
                 ", unitScale='" + unitScale + '\'' +
-                ", usementDescription='" + usementDescription + '\'' +
-                ", totalPrice=" + totalPrice +
+                ", use='" + usementDescription + '\'' +
+                ", total=" + totalPrice +
                 '}';
     }
 }
