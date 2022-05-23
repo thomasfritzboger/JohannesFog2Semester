@@ -33,8 +33,10 @@ public class Skitse extends Command {
         int carportHojde = Integer.parseInt(request.getParameter("carporthøjde"));
         String erRedskabsRumValgt = request.getParameter("redskabsrumValgt");
 
-        int shedLength = Integer.parseInt(request.getParameter("redskabsrumLængde"));
-
+        int shedLength = 0;
+        if(request.getParameter("redskabsrumLængde") != null) {
+            shedLength = Integer.parseInt(request.getParameter("redskabsrumLængde"));
+        }
         //tagmateriale
         String tagType = request.getParameter("tagtype");
         //placering
