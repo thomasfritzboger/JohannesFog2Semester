@@ -488,13 +488,16 @@ public class CarportCalculator{
 
 
 
-        if (tagtype.equals("c")) {
+        if (tagtype.equals("Cembrit tagplader")) {
 
             int langsideRundetOp;
             int bredsideRundetOp;
             langsideRundetOp = (int) Math.ceil(carportLængde/100.0);
             bredsideRundetOp = (int) Math.ceil(carportBredde/100.0);
             cembritpladerAntal = langsideRundetOp*bredsideRundetOp;
+
+
+            addItemToList(27,cembritpladerLængde,cembritpladerAntal);
 
 
 
@@ -515,7 +518,7 @@ public class CarportCalculator{
                 plastTagpladerKorteLængde = (int) Math.ceil((l-580)/60.0)*60;
             }
 
-            System.out.println("Plasttagplader: " +plastTagpladerLangeAntal);
+
 
             //Lange plader
 //            mList.add(new OrderLineDTO(pDTO.get(13).getProduktDescription(),
@@ -556,7 +559,6 @@ public class CarportCalculator{
 
             pakkerPlastTagskruerAntal = (int) Math.ceil(((l/100)*(b/100)*16.0)/200);
 
-            System.out.println("antal skruer plast tag: " + pakkerPlastTagskruerAntal);
 
 //            mList.add(new OrderLineDTO(pDTO.get(14).getProduktDescription(),
 //                    pakkerPlastTagskruerLængde,
@@ -579,7 +581,7 @@ public class CarportCalculator{
             pakkerCembritTagskruerAntal = (int) Math.ceil((((l/100.0)*(b/100.0))*8)/100);
 
 
-
+        addItemToList(28,pakkerCembritTagskruerLængde,pakkerCembritTagskruerAntal);
 
 
             //Der skal oprettes produkter til cembrit plader og cembrit skruer i DB

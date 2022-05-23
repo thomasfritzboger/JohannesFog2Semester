@@ -90,6 +90,21 @@ public class Skitse extends Command {
             //Tegn stolper
             int stolpeYStart = 32;
 
+            //Tegn skur
+            if (placering.equals("midt")) {
+                // innerSVG.addRect(carportLength-(int)Math.round(skurSize*spærAfs)-8,stolpeYStart,carportWidth-59,(int)Math.round(skurSize*spærAfs)+11);
+                innerSVG.addShedRectTemplate(carportLength-(int)Math.round(skurSize*spærAfs)-8,stolpeYStart,carportWidth-59,(int)Math.round(skurSize*spærAfs)+11);
+            }
+
+            if (placering.equals("højre")) {
+                innerSVG.addShedRectTemplate(carportLength-(int)Math.round(skurSize*spærAfs)-8,carportWidth/2,(carportWidth/2)-33,(int)Math.round(skurSize*spærAfs)+11);
+
+            }
+
+            if (placering.equals("venstre")) {
+                innerSVG.addShedRectTemplate(carportLength-(int)Math.round(skurSize*spærAfs)-8,stolpeYStart,(carportWidth/2)-19,(int)Math.round(skurSize*spærAfs)+11);
+            }
+
             //2 forreste stolper
             innerSVG.addRect(stolpeXStart, stolpeYStart, 11,11);
             innerSVG.addRect(stolpeXStart, carportWidth-38, 11,11);
@@ -140,15 +155,15 @@ public class Skitse extends Command {
             //Tilføjer døren
             if (placering.equals("midt")) {
 
-                innerSVG.addLine(carportLength-8,carportWidth-33,carportLength-8-100,carportWidth-13);
+                innerSVG.addShedLine(carportLength-8,carportWidth-33,carportLength-8-100,carportWidth-13);
             }
             if (placering.equals("venstre")) {
 
-                innerSVG.addLine(carportLength-8,carportWidth/2,carportLength-8-100,carportWidth/2+13);
+                innerSVG.addShedLine(carportLength-8,carportWidth/2,carportLength-8-100,carportWidth/2+13);
 
             }
             if (placering.equals("højre")) {
-                innerSVG.addLine(carportLength-8,carportWidth/2,carportLength-8-100,carportWidth/2-13);
+                innerSVG.addShedLine(carportLength-8,carportWidth/2,carportLength-8-100,carportWidth/2-13);
 
             }
 

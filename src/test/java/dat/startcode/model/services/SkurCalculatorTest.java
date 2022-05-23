@@ -65,6 +65,8 @@ class SkurCalculatorTest {
         produktDTOList.add(new ProduktDTO(25,"Stalddærsgreb 50x75",185,75,50,0,0,"til lås på dør i skur","sæt"));
         produktDTOList.add(new ProduktDTO(26,"T hængsel 390 mm",80.83,390,0,0,0,"til skurdør","stk"));
         produktDTOList.add(new ProduktDTO(27,"Vinkelbeslag 35",8.63,35,0,0,0,"til montering af løsholter i skur","stk"));
+        produktDTOList.add(new ProduktDTO(28,"Cembrit tagplade 1090x1180",119.95,0,0,0,0,"tagplader monteres på spær","stk"));
+        produktDTOList.add(new ProduktDTO(29,"'Eternitskrue 6.0x100'",123.04,0,0,0,0,"'skruer til tagplader'","stk"));
 
         calculator = new CarportCalculator(produktDTOList);
     }
