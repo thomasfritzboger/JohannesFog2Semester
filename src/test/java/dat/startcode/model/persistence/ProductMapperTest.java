@@ -1,5 +1,6 @@
 package dat.startcode.model.persistence;
 
+import dat.startcode.model.dtos.LagerDTO;
 import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.services.ProductFacade;
@@ -50,7 +51,10 @@ class ProductMapperTest {
                 stmt.execute("delete from product_description");
                 // Insert product descriptions
                 stmt.execute("insert into product_description (product_description_id, product_description, unit_price) " +
-                        "values ('1','Tekst','22')");
+                        "values ('1','Tekst','22'), " +
+                        "('2','Andet tekst','33'), " +
+                        "('3','Tredje tekst','44'), " +
+                        "('4','Fjerde tekst','55')");
                 // Remove all rows from product table
                 stmt.execute("delete from product");
                 // Insert products
@@ -79,5 +83,21 @@ class ProductMapperTest {
     void getAllProducts() throws DatabaseException {
         List<ProduktDTO> productList = ProductFacade.getProduktDTOs(connectionPool);
         assertEquals(3,productList.size());
+    }
+
+    @Test
+    void getLager() throws DatabaseException {
+        List<LagerDTO> lagerList = ProductFacade.getLager(connectionPool);
+        assertEquals(4,lagerList.size());
+    }
+
+    @Test
+    void updateLagerPrice() throws DatabaseException {
+        List<LagerDTO> lagerProduct = ProductFacade.getLager(connectionPool);
+        assertEquals(22,lagerProduct.get(0).getLagerPrice());
+
+        ProductFacade.updateLagerPrice(connectionPool,lagerProduct.get(0).getLagerId(),66);
+        lagerProduct = ProductFacade.getLager(connectionPool);
+        assertEquals(66,lagerProduct.get(0).getLagerPrice());
     }
 }

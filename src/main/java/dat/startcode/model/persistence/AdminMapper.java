@@ -127,7 +127,7 @@ public class AdminMapper implements IAdminMapper {
                 carport = new Carport(carportId,newCoverage);
             }
         }catch (SQLException sqlException) {
-            throw new DatabaseException("Kunne ikke ændre dækningsbidrag for carport: " + carportId);
+            throw new DatabaseException("Enten er carportens id forkert, eller det valgte dækningsbidrag findes ikke");
         }
         return carport;
     }

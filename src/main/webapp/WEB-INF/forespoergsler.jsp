@@ -50,7 +50,7 @@
                                 Se forespørgsel
                             </button>
                             <button formaction="confirmCarportRequest" name="godkend" value="${carportRequest.carportId}"
-                                    class="btn btn-secondary">
+                                    class="btn btn-secondary" onclick="return confirm('Skal den godkendes?')">
                                 <input type="hidden" name="command" value="confirmCarportRequest">
                                 Godkend
                             </button>
