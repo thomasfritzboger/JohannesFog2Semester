@@ -33,6 +33,8 @@ public class Skitse extends Command {
         int carportHojde = Integer.parseInt(request.getParameter("carporthøjde"));
         String erRedskabsRumValgt = request.getParameter("redskabsrumValgt");
 
+        int shedLength = Integer.parseInt(request.getParameter("redskabsrumLængde"));
+
         //tagmateriale
         String tagType = request.getParameter("tagtype");
         //placering
@@ -41,7 +43,7 @@ public class Skitse extends Command {
         int skurSize = Integer.parseInt(request.getParameter("skurSize"));
 
         if(erRedskabsRumValgt != null) {
-            carportLength += Integer.parseInt(request.getParameter("redskabsrumLaengde"));
+            carportLength += Integer.parseInt(request.getParameter("redskabsrumLængde"));
             //redskabsrum bredde
             int shedWidth = (carportWidth/2)-35;
             session.setAttribute("redskabsrumBredde", shedWidth);
@@ -231,6 +233,9 @@ public class Skitse extends Command {
 
         svg.addSvg(innerSVG);
 
+        if(erRedskabsRumValgt != null) {
+            carportLength -= shedLength;
+        }
 
         session.setAttribute("svgdrawing", svg.toString());
         session.setAttribute("carportbredde", carportWidth);
@@ -238,6 +243,7 @@ public class Skitse extends Command {
         session.setAttribute("carporthøjde", carportHojde);
         session.setAttribute("redskabsrumValgt", erRedskabsRumValgt);
         session.setAttribute("redskabsrumPlacering", placering);
+        session.setAttribute("redskabsrumLængde", shedLength);
 
         return "skitse";
     }

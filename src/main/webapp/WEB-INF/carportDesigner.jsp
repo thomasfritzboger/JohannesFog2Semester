@@ -22,7 +22,7 @@
 
                 document.getElementById("redskabsrumValgt").checked = false;
                 document.getElementById("redskabsrumPlacering").disabled = true;
-                document.getElementById("redskabsrumLaengde").disabled = true;
+                document.getElementById("redskabsrumLængde").disabled = true;
 
 
                 //hvis man vil skifte enabled på checkbox
@@ -40,7 +40,7 @@
                 if(document.getElementById("redskabsrumValgt").checked) {
                     document.getElementById("redskabsrumValgt").value ="y";
                     document.getElementById("redskabsrumPlacering").disabled = false;
-                    document.getElementById("redskabsrumLaengde").disabled = false;
+                    document.getElementById("redskabsrumLængde").disabled = false;
 
 
                     //tjek om bredden af vores carport er mindre end 3.8, hvis ja, så kan man kun have redskabsrumplaceringen
@@ -59,7 +59,7 @@
                     if((document.getElementById("redskabsrumPlacering").value === "midt"
                             || document.getElementById("redskabsrumPlacering").value === "venstre"
                             || document.getElementById("redskabsrumPlacering").value === "højre")
-                        && document.getElementById("redskabsrumLaengde").value > 0) {
+                        && document.getElementById("redskabsrumLængde").value > 0) {
                         document.getElementById("seSkitse").disabled = false;
                     } else {
                         document.getElementById("seSkitse").disabled = true;
@@ -83,7 +83,7 @@
                     document.getElementById("redskabsrumBredde").value = ((carportWidth / 2)-35) / 100;
 
                     //fjern nuværende elementer i længde dropdown
-                    let selectLaengde = document.getElementById("redskabsrumLaengde");
+                    let selectLaengde = document.getElementById("redskabsrumLængde");
                     removeOptions(selectLaengde);
 
                     //indsætter array i options
@@ -104,7 +104,7 @@
                     document.getElementById("redskabsrumBredde").value = (carportWidth-70)/100;
 
                     //fjern nuværende elementer i længde dropdown
-                    let selectLaengde = document.getElementById("redskabsrumLaengde");
+                    let selectLaengde = document.getElementById("redskabsrumLængde");
                     removeOptions(selectLaengde);
 
                     for(let i = 3; i <= 10; i++) {
@@ -127,7 +127,7 @@
                 if(!document.getElementById("redskabsrumValgt").checked) {
                     document.getElementById("redskabsrumValgt").value = "n";
                     document.getElementById("redskabsrumPlacering").disabled = true;
-                    document.getElementById("redskabsrumLaengde").disabled = true;
+                    document.getElementById("redskabsrumLængde").disabled = true;
                     document.getElementById("seSkitse").disabled = false;
                 }
             }
@@ -144,9 +144,9 @@
                 if((document.getElementById("redskabsrumPlacering").value === "midt"
                         || document.getElementById("redskabsrumPlacering").value === "venstre"
                         || document.getElementById("redskabsrumPlacering").value === "højre")
-                    && document.getElementById("redskabsrumLaengde").value > 0) {
+                    && document.getElementById("redskabsrumLængde").value > 0) {
                     document.getElementById("seSkitse").disabled = false;
-                    document.getElementById("skurSize").value = (document.getElementById("redskabsrumLaengde").value / document.getElementById("afstandMellemSpaer").value);
+                    document.getElementById("skurSize").value = (document.getElementById("redskabsrumLængde").value / document.getElementById("afstandMellemSpaer").value);
                     console.log(document.getElementById("skurSize").value);
                 } else {
                     document.getElementById("seSkitse").disabled = true;
@@ -233,8 +233,8 @@
 
             <br>
 
-            <label for="redskabsrumLaengde">Redskabsrum længde:</label> <br>
-            <select name="redskabsrumLaengde" id="redskabsrumLaengde" disabled onchange="tjekOmAltErIndtastet();">
+            <label for="redskabsrumLængde">Redskabsrum længde:</label> <br>
+            <select name="redskabsrumLængde" id="redskabsrumLængde" disabled onchange="tjekOmAltErIndtastet();">
                 <option value="" disabled selected>Vælg længde</option>
             </select>
 
