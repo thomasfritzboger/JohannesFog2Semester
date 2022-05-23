@@ -53,6 +53,7 @@ public class User
         this.postalCode = postalCode;
     }
 
+
     public int getUserId() {
         return userId;
     }

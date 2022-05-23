@@ -15,5 +15,9 @@ public interface ICustomerMapper
     public Request createCarportRequest(int coverageId, int userId, int width, int length, int height, boolean hasShed, int shedId, boolean isConfirmed) throws DatabaseException;
     public List<Request> getCarportRequestById(int userId) throws DatabaseException;
     public Carport getCarportById(int carportId) throws DatabaseException;
+    public boolean updateEmail(int userId, String newEmail) throws DatabaseException;
+
+    public boolean updatePassword(int userId, String newPassword) throws DatabaseException;
+    public boolean updatePhoneNumber(int userId, String newPhoneNumber) throws DatabaseException;
 
 }

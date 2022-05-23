@@ -118,7 +118,6 @@ public class CustomerMapper implements ICustomerMapper
         return request;
     }
 
-
     @Override
     public List<Request> getCarportRequestById(int userId) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
@@ -187,6 +186,57 @@ public class CustomerMapper implements ICustomerMapper
             throw new DatabaseException(ex, "Fejl under indlæsning af shed tabellen fra databasen.");
         }
         return carport;
+    }
+
+    @Override
+    public boolean updateEmail(int userId, String newEmail) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        boolean result = false;
+        String sql = "update user SET email = ? where user_id = ?";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, newEmail);
+                ps.setInt(2, userId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Kunne ikke ændre email for bruger med " + userId +" i databasen.");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updatePassword(int userId, String newPassword) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        boolean result = false;
+        String sql = "update user SET password = ? where user_id = ?";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, newPassword);
+                ps.setInt(2, userId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Kunne ikke ændre kodeord for bruger med " + userId +" i databasen.");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updatePhoneNumber(int userId, String newPhoneNumber) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        boolean result = false;
+        String sql = "update user SET phonenumber = ? where user_id = ?";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, newPhoneNumber);
+                ps.setInt(2, userId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Kunne ikke ændre telefonnr. for bruger med " + userId +" i databasen.");
+        }
+        return true;
     }
 
 

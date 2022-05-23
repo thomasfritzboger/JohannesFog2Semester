@@ -36,6 +36,24 @@ public class Profil extends Command {
         int coverageId = 40;
         int userId = ((User) session.getAttribute("user")).getUserId();
 
+        String updatedEmail = request.getParameter("indtastNyEmail");
+        String newPass = request.getParameter("passwordny");
+        String newPhoneNumber = request.getParameter("nyttelefonnr");
+
+        if(updatedEmail != null) {
+            CustomerFacade.updateEmail(userId,updatedEmail,connectionPool);
+        }
+
+        if(newPass != null) {
+            CustomerFacade.updatePass(userId,newPass,connectionPool);
+        }
+
+        if(newPhoneNumber != null) {
+            CustomerFacade.updatePhoneNumber(userId,newPhoneNumber,connectionPool);
+        }
+
+        //laver et tjek på carportbredde for at se om vi kommer fra en forespørgsel eller forsøger
+        //at tilgå profilsiden fra menuen
         if(session.getAttribute("carportbredde") != null) {
             int width = (int) session.getAttribute("carportbredde");
             int length = (int) session.getAttribute("carportlængde");

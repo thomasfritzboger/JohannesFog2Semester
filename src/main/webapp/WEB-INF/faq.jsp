@@ -6,7 +6,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-             FAQ
+             Ofte stillede spørgsmål
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -15,14 +15,39 @@
 
     <jsp:body>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi, aut commodi cupiditate doloremque
-            esse excepturi impedit laboriosam molestias nostrum nulla officiis praesentium quas quidem rem similique
-            voluptatum. Distinctio eum ipsa nemo odit quod ratione soluta ut? Asperiores autem, corporis deleniti ea
-            eligendi esse eveniet fugit id iste magni minus nostrum odio omnis quas quidem similique sunt, tempora
-            tenetur totam velit vitae voluptas voluptatum. Accusamus impedit in optio, perferendis placeat quia
-            sapiente. Aliquam aliquid beatae cupiditate deserunt dolorem dolores doloribus eos est et ex impedit ipsa
-            libero maxime provident quidem quis quo, repudiandae suscipit, ullam veritatis voluptas voluptate
-            voluptatem, voluptates.</p>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Spørgsmål 1
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, accusantium cumque cupiditate deserunt doloribus dolorum eos
+                        exercitationem facilis harum hic, illo labore laborum magni maiores mollitia nesciunt nihil odio omnis quis quo ratione rerum sequi tempore velit veniam, vero voluptatem?</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Spørgsmål 2
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis labore molestias nobis. Dicta eius in incidunt minima optio! Excepturi exercitationem iste itaque repellat temporibus! Accusamus atque blanditiis consectetur delectus, doloribus eligendi enim exercitationem laudantium mollitia omnis, quas ratione tempora veritatis?</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        Spørgsmål 3
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aperiam aut deleniti deserunt doloribus eius explicabo illo inventore ipsa ipsam laborum laudantium necessitatibus neque numquam obcaecati perferendis perspiciatis porro quam quia quo quos, ratione recusandae reiciendis repellat repellendus reprehenderit soluta!</div>
+                </div>
+            </div>
+        </div>
 
 
         <div style="background-color: grey; width: 450px; height: 200px;">

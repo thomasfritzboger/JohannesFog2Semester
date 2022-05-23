@@ -39,7 +39,10 @@ public class UserMapper implements IUserMapper
                 {
                     String role = rs.getString("role");
                     int id = rs.getInt("user_id");
-                    user = new User(email, password, role, id);
+                    String phoneNumber = rs.getString("phonenumber");
+                    String address = rs.getString("address");
+                    int postalCode = rs.getInt("postal_code");
+                    user = new User(id,email,password,role,phoneNumber,address,postalCode);
                 } else
                 {
                     throw new DatabaseException("Forkert email eller kodeord.");

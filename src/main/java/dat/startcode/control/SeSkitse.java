@@ -35,32 +35,39 @@ public class SeSkitse extends Command {
             return "error";
         }
 
-
-        int carportId = Integer.parseInt(request.getParameter("carportId"));
+        int carportId = Integer.parseInt(request.getParameter("getcarportid"));
+        System.out.println(carportId);
 
         //getCarportById
         Carport carport = CustomerFacade.getCarportById(carportId, connectionPool);
-
+        System.out.println(carport);
 
         //hent carport bredde
         int carportWidth = carport.getCarportWidth();
+        System.out.println(carportWidth);
 
         //hent carport længde
         int carportLength = carport.getCarportLength();
+        System.out.println(carportLength);
 
         // hent carport højde
         int carportHojde = carport.getCarportHeight();
+        System.out.println(carportHojde);
 
         //String erRedskabsRumValgt = request.getParameter("redskabsrumValgt");
         boolean erRedskabsRumValgt = carport.isHasShed();
+        System.out.println(erRedskabsRumValgt);
 
 
         //placering
         String placering = carport.getShed().getPlacement();
+        System.out.println(placering);
 
         int skurBredde = carport.getShed().getWidth();
+        System.out.println(skurBredde);
 
         int skurLaengde = carport.getShed().getLength();
+        System.out.println(skurLaengde);
 
 
 

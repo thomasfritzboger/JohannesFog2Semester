@@ -36,4 +36,19 @@ public class CustomerFacade
         return customerMapper.getCarportById(carportId);
     }
 
+    public static boolean updateEmail(int userId, String newEmail, ConnectionPool connectionPool) throws DatabaseException {
+        CustomerMapper customerMapper = new CustomerMapper(connectionPool);
+        return customerMapper.updateEmail(userId,newEmail);
+    }
+
+    public static boolean updatePass(int userId, String pass, ConnectionPool connectionPool) throws DatabaseException {
+        CustomerMapper customerMapper = new CustomerMapper(connectionPool);
+        return customerMapper.updatePassword(userId,pass);
+    }
+
+    public static boolean updatePhoneNumber(int userId, String phonenumber, ConnectionPool connectionPool) throws DatabaseException {
+        CustomerMapper customerMapper = new CustomerMapper(connectionPool);
+        return customerMapper.updatePhoneNumber(userId,phonenumber);
+    }
+
 }

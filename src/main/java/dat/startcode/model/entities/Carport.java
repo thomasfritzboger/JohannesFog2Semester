@@ -85,5 +85,20 @@ public class Carport {
     public void setShed(Shed shed) {
         this.shed = shed;
     }
+
+    @Override
+    public String toString() {
+        return "Carport{" +
+                "carportId=" + carportId +
+                ", coverage=" + coverage +
+                ", userId=" + userId +
+                ", carportWidth=" + carportWidth +
+                ", carportLength=" + carportLength +
+                ", carportHeight=" + carportHeight +
+                ", hasShed=" + hasShed +
+                ", shed=" + shed +
+                ", created=" + created +
+                '}';
+    }
 }
       

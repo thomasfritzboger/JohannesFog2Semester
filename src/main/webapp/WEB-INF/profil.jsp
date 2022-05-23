@@ -15,9 +15,130 @@
 
         <h3>Dine forespørgsler</h3>
 
-        <button>
-            Rediger dine oplysninger
+        <br>
+        <button data-bs-toggle="modal" data-bs-target="#exampleModal2" name="coverageEditor"
+                class="btn btn-secondary">
+            Rediger kontaktoplysninger
         </button>
+        <br>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Rediger kontaktoplysninger</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Din email er: ${user.getEmail()} <br>
+                        Dit tlfnr. er: ${user.getPhoneNumber()} <br>
+                        Din adresse er: ${user.getAddress()} (${user.getPostalCode()}) <br> <br>
+                        <input type="hidden" name="command" value="updateUserInformation">
+                        <button id="newEmail" name="newEmail" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3">Rediger email</button>
+                        <br><br>
+                        <button id="newPassword" name="newPassword" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal4">Rediger kodeord</button>
+                        <br><br>
+                        <button id="newPhoneNumber" name="newPhoneNumber" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal5">Rediger telefonnr.</button>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal til ændring af email -->
+        <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Rediger din email</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="fc/profil">
+                            <input type="hidden" name="command" value="profil">
+                            <label for="indtastNyEmail">Indtast ny email: </label> <br>
+                            <input type="email" id="indtastNyEmail" name="indtastNyEmail" required> <br> <br>
+                            <button class="btn btn-primary">Bekræft</button>
+                        </form>
+                        <br>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal til ændring af kodeord -->
+        <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel4"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Rediger dit kodeord</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="fc/profil">
+                            <input type="hidden" name="command" value="profil">
+                            <label for="passwordny">Indtast nyt kodeord: </label> <br>
+                            <input type="password" id="passwordny" name="passwordny" minlength="4" placeholder="Kode" required> <br> <br>
+
+                            <label for="passwordRepeated">Bekræft kodeord: </label> <br>
+                            <input type="password" id="passwordRepeated" name="passwordRepeated" minlength="4" oninput="check(this)" required> <br> <br>
+
+                            <button class="btn btn-primary">Bekræft</button>
+
+                            <script type='text/javascript'>
+                                function check(input) {
+                                    if (input.value != document.getElementById('passwordny').value) {
+                                        input.setCustomValidity('Koderne skal være ens.');
+                                    } else {
+                                        // input is valid -- reset the error message
+                                        input.setCustomValidity('');
+                                    }
+                                }
+                            </script>
+                            <br /><br />
+                        </form>
+
+                        <br>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal til ændring af telefonnr-->
+        <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel5"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Rediger dit telefonnr.</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="fc/profil">
+                            <input type="hidden" name="command" value="profil">
+                            <label for="nyttelefonnr">Indtast nyt telefonnr.: </label> <br>
+                            <input type="tel" id="nyttelefonnr" placeholder="40404040" name="nyttelefonnr" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
+                            <button class="btn btn-primary">Bekræft</button>
+                        </form>
+                        <br>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <c:if test="${carportRequestByUser.isEmpty()}">
             Du har ingen forespørgsler.
@@ -47,18 +168,23 @@
                         <td>d. ${carport.getCreated()}</td>
 
                         <td><c:if test="${carport.isConfirmed()}">Din carport er igang med at blive pakket. <br> Ring og aftal levering.
-                            <br><a href="${pageContext.request.contextPath}/fc/stykliste?command=stykliste" class="btn btn-primary" >Se stykliste</a>
-                            <a href="${pageContext.request.contextPath}/fc/stykliste?command=seSkitse" class="btn btn-primary" >Se skitse</a></c:if>
+                            <br><button class="btn btn-primary">Se stykliste</button>
+                            <button class="btn btn-primary">Se skitse</button>
+                            </c:if>
 
                         <c:if test="${carport.isConfirmed() == false}">Afventer bekræftelse <br>
-                            <a href="${pageContext.request.contextPath}/fc/stykliste?command=seSkitse" class="btn btn-primary" >Se skitse</a></c:if>
+                            <button class="btn btn-primary">
+                                Se skitse
+                            </button>
+                        </c:if>
                         </td>
-                        <input hidden id="carportId" name="carportId" value="${carport.getCarportId()}">
+                        <input id="getcarportid" name="getcarportid" value="${carport.getCarportId()}" hidden>
                     </tr>
                 </form>
             </c:forEach>
             </tbody>
         </table>
+
         </c:if>
 
     </jsp:body>
