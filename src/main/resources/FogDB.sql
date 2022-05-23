@@ -269,10 +269,11 @@ INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('75', '50');
 INSERT INTO `fog`.`productvariant` (`length`) VALUES ('390');
 INSERT INTO `fog`.`productvariant` (`length`) VALUES ('35');
 INSERT INTO `fog`.`productvariant` (`length`) VALUES (null);
+INSERT INTO `fog`.`productvariant` (`length`, `width`) VALUES ('100', '60');
 
-INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x200 mm. trykimp. Brædt', '54.96');
-INSERT INTO `fog`.`product_description` (product_description, unit_price) VALUES ('25x125 mm. trykimp. Brædt', '35.68');
-INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES  ('38x73 mm lægte ubh', '35.68');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('25x200 mm. trykimp. Brædt', '54.96');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('25x125 mm. trykimp. Brædt', '35.68');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('38x73 mm lægte ubh', '35.68');
 INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('45x95 mm. reglar ubh', '59.91');
 INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('45x195 mm. spærtræ ubh', '67.82');
 INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('97x97 mm. trykimp. stolpe', '54.25');
@@ -291,14 +292,12 @@ INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VA
 INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Stalddørsgreb 50x75', '185.00');
 INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('T hængsel 390 mm', '80.83');
 INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Vinkelbeslag 35', '8.63');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Cembrit tagplade 1090x1180', '119.95');
+INSERT INTO `fog`.`product_description` (`product_description`, `unit_price`) VALUES ('Eternitskrue 6.0x100', '123.04');
 
 
-
-
-
-
-INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`,`unit_scale_id`, `usement_id`) VALUES ('1', '1','1','1');
-INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`,`unit_scale_id`, `usement_id`) VALUES ('1', '1','1','2');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('1', '1','1','1');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('1', '1','1','2');
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('2', '2', '1', '3');
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('2', '2', '1', '4');
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('3', '3', '1', '5');
@@ -324,6 +323,8 @@ INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `uni
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('19', '16', '4', '23');
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('20', '17', '1', '24');
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('21', '18', '1', '25');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('22', '19', '1', '14');
+INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('23', '19', '2', '15');
 
 
 
