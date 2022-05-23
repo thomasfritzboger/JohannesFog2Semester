@@ -75,7 +75,7 @@
                                             <input type="hidden" name="command" value="updateCarportPrice">
                                             <label for="carportId">Carports id:</label>
                                             <br>
-                                            <input type="number" id="carportId" name="carportId" required/>
+                                            <input type="number" id="carportId" name="carportId" required min="1" max="${sessionScope.carportRequest.size()}"/>
                                             <br>
                                             <br>
                                             <label for="newCoverage">Nyt dækningsbidrag:</label>

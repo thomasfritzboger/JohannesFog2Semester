@@ -1,6 +1,8 @@
 package dat.startcode.model.persistence;
 
+import dat.startcode.model.dtos.LagerDTO;
 import dat.startcode.model.dtos.ProduktDTO;
+import dat.startcode.model.entities.Carport;
 import dat.startcode.model.exceptions.DatabaseException;
 
 import java.sql.Connection;
@@ -24,7 +26,6 @@ public class ProductMapper implements IProductMapper {
 
         String sql = "SELECT * FROM produktdto order by product_id";
 
-        System.out.println("Inden SQL");
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
@@ -43,7 +44,7 @@ public class ProductMapper implements IProductMapper {
                     System.out.println("SQL Create");
                 }
             } catch (SQLException throwables) {
-                throw new DatabaseException("Kunne ikke få alle kunder fra database");
+                throw new DatabaseException("Kunne ikke få alle produtker fra database");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -52,4 +53,49 @@ public class ProductMapper implements IProductMapper {
 
         return produktDTOList;
     }
+
+    @Override
+    public List<LagerDTO> getLager() throws DatabaseException {
+
+        List<LagerDTO> lagerDTOList = new ArrayList<>();
+
+        String sql = "SELECT * FROM product_description";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int lagerID = rs.getInt("product_description_id");
+                    String lagerDescription = rs.getString("product_description");
+                    double lagerPrice = rs.getDouble("unit_price");
+
+                    lagerDTOList.add(new LagerDTO(lagerID,lagerDescription,lagerPrice));
+                }
+            } catch (SQLException throwables) {
+                throw new DatabaseException("Kunne ikke få alle product_descriptions fra databasen");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DatabaseException("Kunne få forbindelse til databasen");
+        }
+
+        return lagerDTOList;
+    }
+
+    @Override
+    public void updateLagerPrice(int id, double price) throws DatabaseException {
+
+        String sql = "UPDATE product_description SET unit_price = ? WHERE product_description_id = ?";
+
+        try (Connection connection = connectionPool.getConnection()){
+            try (PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setDouble(1,price);
+                ps.setInt(2,id);
+                ps.executeUpdate();
+            }
+        }catch (SQLException sqlException) {
+            throw new DatabaseException("Kunne ikke ændre prisen for produkt idet: "+ id);
+        }
+    }
+
 }

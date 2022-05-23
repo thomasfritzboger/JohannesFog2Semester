@@ -13,29 +13,62 @@
 
     <jsp:body>
 
-        <a href="${pageContext.request.contextPath}/fc/kunder?command=kunder" class="btn btn-primary" >Kunder</a>
-        <a href="${pageContext.request.contextPath}/fc/forespoergsler?command=forespoergsler" class="btn btn-primary" >Forespørgsler</a>
-        <a href="${pageContext.request.contextPath}/fc/ordre?command=ordre" class="btn btn-primary" >Ordre</a>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" name="priceEditor"
+                class="btn btn-secondary"> Skift pris på produkt </button>
+        <br>
+        <br>
+
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Indtast produkt ID og hvad den nye pris skal være</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="fc/lager" >
+                            <input type="hidden" name="command" value="lager">
+                            <label for="produktId">Produkt id:</label>
+                            <br>
+                            <input type="number" id="produktId" name="produktId" required min="1" max="${sessionScope.LagerListe.size()}"/>
+                            <br>
+                            <br>
+                            <label for="nyPris">Ny pris:</label>
+                            <br>
+                            <input type="number" id="nyPris" name="nyPris" step="0.01"/>
+                            <br>
+                            <br>
+                            <button type="submit" class="btn btn-dark">
+                                Bekræft ændring
+                            </button>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Product ID</th>
-                    <th>Product scale</th>
-                    <th>Product Description</th>
-                    <th>Unit Price</th>
-
+                    <th>Produkt ID</th>
+                    <th>Produkt Beskrivelse</th>
+                    <th>Unit pris</th>
                 </tr>
-
             </thead>
             <tbody>
-<%--            TODO Lave joins i database mellem product og productvariant så fylde dem i tablellen. --%>
-<%--            <c:forEach var="product" items="${}"> </c:forEach>--%>
-
+                <c:forEach var="LagerListe" items="${sessionScope.LagerListe}">
+                    <tr>
+                        <td>${LagerListe.lagerId}</td>
+                        <td>${LagerListe.lagerDescription}</td>
+                        <td>${LagerListe.lagerPrice}</td>
+                    </tr>
+                </c:forEach>
             </tbody>
-
         </table>
-
 
     </jsp:body>
 
