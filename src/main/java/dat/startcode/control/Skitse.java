@@ -21,8 +21,6 @@ public class Skitse extends Command {
             return "error";
         }
 
-        CarportCalculator calculator = new CarportCalculator();
-
         //hent carport bredde
         int carportWidth = Integer.parseInt(request.getParameter("carportbredde"));
 

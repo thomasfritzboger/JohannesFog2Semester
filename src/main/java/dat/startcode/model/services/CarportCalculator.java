@@ -468,13 +468,13 @@ public class CarportCalculator{
 
     private void addItemToList(int index, int length, int amount) {
         if (length == 0) {
-            mList.add(new OrderLineDTO(pDTO.get(index).getProduktDescription(),
+            mList.add(new OrderLineDTO(pDTO.get(index).getProduktId(),pDTO.get(index).getProduktDescription(),
                     length, amount,
                     pDTO.get(index).getUnitScale(),
                     pDTO.get(index).getUsementDescription(),
                     amount*pDTO.get(index).getUnitPrice()));
         } else {
-            mList.add(new OrderLineDTO(pDTO.get(index).getProduktDescription(),
+            mList.add(new OrderLineDTO(pDTO.get(index).getProduktId(),pDTO.get(index).getProduktDescription(),
                     length, amount,
                     pDTO.get(index).getUnitScale(),
                     pDTO.get(index).getUsementDescription(),

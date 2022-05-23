@@ -276,13 +276,13 @@ public class SkurCalculator {
 
     private void addItemToList(int index, int length, int amount) {
         if (length == 0) {
-            skurList.add(new OrderLineDTO(pDTO.get(index).getProduktDescription(),
+            skurList.add(new OrderLineDTO(pDTO.get(index).getProduktId(),pDTO.get(index).getProduktDescription(),
                     length, amount,
                     pDTO.get(index).getUnitScale(),
                     pDTO.get(index).getUsementDescription(),
                     amount*pDTO.get(index).getUnitPrice()));
         } else {
-            skurList.add(new OrderLineDTO(pDTO.get(index).getProduktDescription(),
+            skurList.add(new OrderLineDTO(pDTO.get(index).getProduktId(),pDTO.get(index).getProduktDescription(),
                     length, amount,
                     pDTO.get(index).getUnitScale(),
                     pDTO.get(index).getUsementDescription(),

@@ -36,8 +36,6 @@ public class Forespoergsler extends Command {
 
         carportRequest = AdminFacade.getRequest(connectionPool);
 
-        session = request.getSession();
-
         session.setAttribute("carportRequest", carportRequest);
 
         return "forespoergsler";
