@@ -38,11 +38,14 @@
 
         <!--hidden div med alle dimensioner hentet-->
         <div hidden>
-            <input type="text" id="carportBreddeSkitseSide" value="${carportbredde}" hidden>
-            <input type="text" id="carportLængdeSkitseSide" value="${carportlængde}" hidden>
-            <input type="text" id="carportHøjdeSkitseSide" value="${carporthøjde}" hidden>
-            <input type="text" id="carportValgtRedskabsrumSkitseSide" value="${redskabsrumValgt}" hidden>
-            <input type="text" id="redskabsrumPlacering" value="${redskabsrumPlacering}" hidden>
+            <input type="text" id="carportbredde" name="carportbredde" value="${carportbredde}" hidden>
+            <input type="text" id="carportlængde" name="carportlængde" value="${carportlængde}" hidden>
+            <input type="text" id="carporthøjde" name="carporthøjde" value="${carporthøjde}" hidden>
+            <input type="text" id="redskabsrumValgt" name="redskabsrumValgt" value="${redskabsrumValgt}" hidden>
+            <input type="text" id="redskabsrumPlacering" name="redskabsrumPlacering" value="${redskabsrumPlacering}" hidden>
+            <input type="text" id="redskabsrumLængde" name="redskabsrumLængde" value="${redskabsrumLængde}" hidden>
+            <input type="text" id="redskabsrumBredde" name="redskabsrumBredde" value="${redskabsrumBredde}" hidden>
+
         </div>
 
         <div>

@@ -60,11 +60,14 @@ public class Profil extends Command {
             int height = (int) session.getAttribute("carporthøjde");
             boolean hasShed;
             int shedId;
-            if (session.getAttribute("redskabsrumValgt") != null &&session.getAttribute("redskabsrumValgt").equals("y")) {
+            if (session.getAttribute("redskabsrumValgt") != null
+                    && session.getAttribute("redskabsrumValgt").equals("y")) {
                 hasShed = true;
                 //stempel ned i shed tabel med width, length og placement
                 int shedWidth = (int) session.getAttribute("redskabsrumBredde");
+                System.out.println(shedWidth);
                 int shedLength = (int) session.getAttribute("redskabsrumLængde");
+                System.out.println(shedLength);
                 String shedPlacement = (String) session.getAttribute("redskabsrumPlacering");
 
                 shed = CustomerFacade.createNewShed(shedWidth, shedLength, shedPlacement, connectionPool);
@@ -77,15 +80,27 @@ public class Profil extends Command {
             boolean isConfirmed = false;
 
             //createCarportRequest
+            System.out.println("width: " + width);
+            System.out.println("length: " + length);
+            System.out.println("height: " + height);
+            System.out.println("hasShed: " + hasShed);
+            System.out.println("shedId: " + shedId);
             Request carportRequest = CustomerFacade.createCarportRequest(coverageId, userId, width, length, height, hasShed, shedId, isConfirmed, connectionPool);
-
+            System.out.println(carportRequest);
         }
 
         //bruges til at loade på profilside
         List<Request> userRequests = CustomerFacade.getCarportRequestById(user.getUserId(), connectionPool);
 
         session = request.getSession();
-        session.setAttribute("carportbredde", null); //sættes til null da denne bruges til at tjekke om vi har kommer fra carportdesigner eller blot profil fra hovedmenuen
+
+        session.setAttribute("carportbredde", null);
+        session.setAttribute("carportlængde", null);
+        session.setAttribute("carporthøjde", null);
+        session.setAttribute("redskabsrumValgt", null);
+        session.setAttribute("redskabsrumPlacering", null);
+
+
         session.setAttribute("carportRequestByUser", userRequests);
 
         if(!user.getRole().equals("kunde")) {
