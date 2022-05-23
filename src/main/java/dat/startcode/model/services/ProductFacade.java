@@ -25,4 +25,9 @@ public class ProductFacade {
         productMapper.updateLagerPrice(id,price);
     }
 
+    public static void saveMaterialLines(ConnectionPool connectionPool, int materialLineId, int carport_id,int product_id,int unit_lenght, int unit_quantity, double total_price) throws DatabaseException {
+        ProductMapper productMapper = new ProductMapper(connectionPool);
+        productMapper.saveMaterialLines(materialLineId,carport_id,product_id,unit_lenght,unit_quantity,total_price);
+    }
+
 }

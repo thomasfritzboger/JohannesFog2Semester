@@ -1,7 +1,5 @@
 package dat.startcode.model.dtos;
 
-import java.time.LocalDate;
-
 public class OrderLineDTO {
 
     public String productDescription;

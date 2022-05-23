@@ -3,6 +3,7 @@ package dat.startcode.model.persistence;
 import dat.startcode.model.dtos.LagerDTO;
 import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.entities.Carport;
+import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 
 import java.sql.Connection;
@@ -96,6 +97,27 @@ public class ProductMapper implements IProductMapper {
         }catch (SQLException sqlException) {
             throw new DatabaseException("Kunne ikke ændre prisen for produkt idet: "+ id);
         }
+    }
+
+    public void saveMaterialLines(int materialLineId, int carport_id,int product_id,int unit_lenght, int unit_quantity, double total_price) throws DatabaseException {
+
+        String sql = "insert into material_line (material_line_id,carport_id,product_id,unit_length,unit_quantity,total_price)" +
+                " values (?,?,?,?,?,?)";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql))  {
+                ps.setInt(1, materialLineId);
+                ps.setInt(2, carport_id);
+                ps.setInt(3, product_id);
+                ps.setInt(4, unit_lenght);
+                ps.setInt(5, unit_quantity);
+                ps.setDouble(6, total_price);
+            }
+        }
+        catch (SQLException ex) {
+            throw new DatabaseException(ex, "Kunne ikke indsætte material line med id: "+materialLineId+" i databasen");
+        }
+
     }
 
 }

@@ -33,69 +33,33 @@ public class SkurCalculator {
     public int antalVinkelbeslagEkstraNårSkur;
 
     //Klassevariabler der kun angår skuret og skal tilføjes på liste.
-    public String lægteTilDørProductDescription;
     public int lægtePåDørLængde;
     public int lægteTilDørAntal;
-    public String lægtePåDørUnitScale;
-    public String lægteTilDørUsementDescription;
-    public double lægtePåDørUnitPrice;
 
-    public String stalddørsgrebProductDescription;
     public int stalddørsgrebLængde;
     public int stalddørsgrebAntal;
-    public String stalddørsgrebUnitScale;
-    public String stalddørsgrebUsementDescription;
-    public double stalddørsgrebUnitPrice;
 
-    public String tHængselProductDescription;
     public int tHængselLængde;
     public int tHængselAntal;
-    public String tHængselUnitScale;
-    public String tHængselUsementDescription;
-    public double tHængselUnitPrice;
 
-    // Der beregnes 3 udover spær/rem til hver side. Den side med dør kan måske klares med en, da den skæres til i 3 stykker
-    public String løsholterLangsideUdenDørDescription;
     public int løsholterLangsideUdenDørLængde;
     public int løsholterLangsideUdenDørAntal;
-    public String løsholterLangsideUdenDørUnitScale;
-    public String løsholterLangsideUdenDørUsementDescription;
-    public double løsholterLangsideUdenDørUnitPrice;
 
-    public String løsholterLangsideMedDørDescription;
     public int løsholterLangsideMedDørLængde;
     public int løsholterLangsideMedDørAntal;
-    public String løsholterLangsideMedDørUnitScale;
-    public String løsholterLangsideMedDørUsementDescription;
-    public double løsholterLangsideMedDørUnitPrice;
 
-    public String løsholterBredsideDescription;
     public int løsholterBredsideLængde;
     public int løsholterBredsideAntal;
-    public String løsholterBredsideUnitScale;
-    public String løsholterBredsideUsementDescription;
-    public double løsholterBredsideUnitPrice;
 
-    public String beklædningsBrædderDescription;
     public int beklædningsBrædderLængde;
     public int beklædningsBrædderAntal;
-    public String beklædningsBrædderUnitScale;
-    public String beklædningsBrædderUsementDescription;
-    public double beklædningsBrædderUnitPrice;
 
-    public String pakkerKorteBeklædningsSkruerDescription;
     public int pakkerKorteBeklædningsSkruerLængde;
     public int pakkerKorteBeklædningsSkruerAntal;
-    public String pakkerKorteBeklædningsSkruerUnitScale;
-    public String pakkerKorteBeklædningsSkruerUsementDescription;
-    public double pakkerKorteBeklædningsSkruerUnitPrice;
 
-    public String pakkerLangeBeklædningsSkruerDescription;
     public int pakkerLangeBeklædningsSkruerLængde;
     public int pakkerLangeBeklædningsSkruerAntal;
-    public String pakkerLangeBeklædningsSkruerUnitScale;
-    public String pakkerLangeBeklædningsSkruerUsementDescription;
-    public double pakkerLangeBeklædningsSkruerUnitPrice;
+
 
     public SkurCalculator(List<ProduktDTO> liste) {
         this.pDTO = liste;
