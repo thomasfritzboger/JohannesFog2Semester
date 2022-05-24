@@ -25,7 +25,7 @@ public class Stykliste extends Command {
 
         HttpSession session = request.getSession();
 
-        int carportId = Integer.parseInt(request.getParameter("getcarportid"));
+        int carportId = Integer.parseInt(request.getParameter("getcarportid0"));
 
         List<OrderLineDTO> materialLineList = ProductFacade.getMaterialLinesByCarportId(connectionPool, carportId);
 

@@ -49,7 +49,7 @@
                         <a class="nav-item nav-link" style="pointer-events: none; cursor: default;">Velkommen: ${fn:toLowerCase(sessionScope.user.email)}</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Forside</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/faq?command=faq">FAQ</a>
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/profil?command=profil">Profil</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/profil2?command=profil2">Profil</a>
                     </c:if>
 
                     <!--Navigationsbaren hvis admin er logget IND-->

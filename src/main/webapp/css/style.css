@@ -52,6 +52,69 @@ th, td {
     display: block;
 }
 
+
+/*Styling på carport dimensions siden*/
+
+.container-carportdesigner {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.container-width-length-height {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.container-tagtype-haeldning {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.container-redskabsrum-tilvalg {
+    display: flex;
+    justify-content: center;
+}
+
+.container-redskabsrum-dimensioner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.container-skitse-knap {
+    display: flex;
+    justify-content: center;
+}
+
+.dimensions-items {
+    margin: 10px;
+}
+
+
+/*styling på profilsiden*/
+.container-stykliste-og-skite-knapper-profil {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+@media (max-width: 475px) {
+    .dimensions-items {
+        margin: 3px;
+    }
+}
+
+#container-good-to-knows {
+    position: absolute;
+}
+
+
 @media (max-width: 1200px) {
     .div-around-accordion {
         width: 100%;

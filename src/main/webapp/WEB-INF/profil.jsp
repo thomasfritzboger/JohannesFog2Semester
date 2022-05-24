@@ -169,19 +169,37 @@
 
                         <td><c:if test="${carport.isConfirmed()}">Din carport er igang med at blive pakket. <br> Ring og aftal levering.
                             <br>
-                            <button formaction="fc/stykliste" class="btn btn-primary">
-                                <input type="hidden" name="command" value="stykliste">Se stykliste</button>
-                            <button formaction="fc/seskitse" class="btn btn-primary">
-                                <input type="hidden" name="command" value="seSkitse">Se skitse</button>
+
+                            <div class="container-stykliste-og-skite-knapper-profil">
+                                <form action="fc/stykliste">
+                                    <input type="hidden" name="command" value="stykliste">
+                                    <button class="btn btn-primary" style="margin: 2px">
+                                        Se stykliste
+                                    </button>
+                                    <input id="getcarportid0" name="getcarportid0" value="${carport.getCarportId()}" hidden>
+                                </form>
+
+                                <form action="fc/seSkitse">
+                                    <input type="hidden" name="command" value="seSkitse">
+                                    <button class="btn btn-primary" style="margin: 2px">
+                                        Se skitse
+                                    </button>
+                                    <input class="getcarportid1" name="getcarportid1" value="${carport.getCarportId()}" hidden>
+                                </form>
+                            </div>
+
                             </c:if>
 
                         <c:if test="${carport.isConfirmed() == false}">Afventer bekræftelse <br>
-                            <button formaction="fc/seskitse" class="btn btn-primary">
-                                <input type="hidden" name="command" value="seSkitse">Se skitse
-                            </button>
+                            <form action="fc/seSkitse">
+                                <input type="hidden" name="command" value="seSkitse">
+                                <button class="btn btn-primary">
+                                  Se skitse
+                                </button>
+                                <input class="getcarportid1" name="getcarportid1" value="${carport.getCarportId()}" hidden>
+                            </form>
                         </c:if>
                         </td>
-                        <input id="getcarportid" name="getcarportid" value="${carport.getCarportId()}" hidden>
                     </tr>
                 </form>
             </c:forEach>
