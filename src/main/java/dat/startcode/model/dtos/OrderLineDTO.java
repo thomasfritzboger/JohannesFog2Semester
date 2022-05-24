@@ -9,16 +9,16 @@ public class OrderLineDTO {
     private String unitScale;
     private String usementDescription;
 
-    public double totalPrice;
+    public double totalLinePrice;
 
-    public OrderLineDTO(int productId, String productDescription, int length, int amount, String unitScale, String usementDescription, double totalPrice) {
+    public OrderLineDTO(int productId, String productDescription, int length, int amount, String unitScale, String usementDescription, double totalLinePrice) {
         this.productId = productId;
         this.productDescription = productDescription;
         this.length = length;
         this.amount = amount;
         this.unitScale = unitScale;
         this.usementDescription = usementDescription;
-        this.totalPrice = totalPrice;
+        this.totalLinePrice = totalLinePrice;
     }
 
     public String getProductDescription() {
@@ -41,8 +41,8 @@ public class OrderLineDTO {
         return usementDescription;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public double getTotalLinePrice() {
+        return totalLinePrice;
     }
 
     public int getProductId() {
@@ -57,7 +57,7 @@ public class OrderLineDTO {
                 ", amount=" + amount +
                 ", unitScale='" + unitScale + '\'' +
                 ", use='" + usementDescription + '\'' +
-                ", total=" + totalPrice +
+                ", total=" + totalLinePrice +
                 '}';
     }
 }

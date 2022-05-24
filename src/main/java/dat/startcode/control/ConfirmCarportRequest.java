@@ -7,7 +7,6 @@ import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.Shed;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.exceptions.IllegalDimensionException;
-import dat.startcode.model.persistence.AdminMapper;
 import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.services.AdminFacade;
 import dat.startcode.model.services.CarportCalculator;
@@ -59,7 +58,7 @@ public class ConfirmCarportRequest extends Command{
         }
 
         for (OrderLineDTO i : materialLine) {
-            ProductFacade.saveMaterialLines(connectionPool,carportId,i.getProductId(),i.getLength(),i.getAmount(),i.getTotalPrice());
+            ProductFacade.saveMaterialLines(connectionPool,carportId,i.getProductId(),i.getLength(),i.getAmount(),i.getTotalLinePrice());
         }
 
         session.setAttribute("carportRequest",carportRequest);

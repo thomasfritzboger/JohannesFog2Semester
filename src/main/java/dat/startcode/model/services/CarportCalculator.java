@@ -484,7 +484,7 @@ public class CarportCalculator{
 
     public void beregnCarportPris() {
         for (OrderLineDTO orderLineDTODTO : mList) {
-            carportPris += orderLineDTODTO.totalPrice;
+            carportPris += orderLineDTODTO.totalLinePrice;
         }
     }
 }

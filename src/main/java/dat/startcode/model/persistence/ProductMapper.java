@@ -99,9 +99,9 @@ public class ProductMapper implements IProductMapper {
         }
     }
 
-    public void saveMaterialLines( int carport_id,int product_id,int unit_length, int unit_quantity, double total_price) throws DatabaseException {
+    public void saveMaterialLines( int carport_id,int product_id,int unit_length, int unit_quantity, double total_line_price) throws DatabaseException {
 
-        String sql = "insert into material_line (carport_id,product_id,unit_length,unit_quantity,total_price) values (?,?,?,?,?)";
+        String sql = "insert into material_line (carport_id,product_id,unit_length,unit_quantity,total_line_price) values (?,?,?,?,?)";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql))  {
@@ -109,7 +109,7 @@ public class ProductMapper implements IProductMapper {
                 ps.setInt(2, product_id);
                 ps.setInt(3, unit_length);
                 ps.setInt(4, unit_quantity);
-                ps.setDouble(5, total_price);
+                ps.setDouble(5, total_line_price);
                 ps.executeUpdate();
             }
         }
