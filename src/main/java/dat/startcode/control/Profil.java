@@ -28,7 +28,6 @@ public class Profil extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
-
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute("user");
@@ -84,20 +83,22 @@ public class Profil extends Command {
             }
 
             boolean isConfirmed = false;
-
+            System.out.println("Hello");
             //createCarportRequest
             System.out.println("width: " + width);
             System.out.println("length: " + length);
             System.out.println("height: " + height);
             System.out.println("hasShed: " + hasShed);
             System.out.println("shedId: " + shedId);
+            System.out.println("Hello 0.5");
             Request carportRequest = CustomerFacade.createCarportRequest(coverageId, userId, width, length, height, hasShed, shedId, isConfirmed, connectionPool);
             System.out.println(carportRequest);
+            System.out.println("Hello 0.75");
         }
 
         //bruges til at loade på profilside
         List<Request> userRequests = CustomerFacade.getCarportRequestById(user.getUserId(), connectionPool);
-
+        System.out.println("Hello 2");
         session = request.getSession();
 
         session.setAttribute("carportbredde", null);
@@ -106,13 +107,13 @@ public class Profil extends Command {
         session.setAttribute("redskabsrumValgt", null);
         session.setAttribute("redskabsrumPlacering", null);
 
-
+        System.out.println("Hello 3");
         session.setAttribute("carportRequestByUser", userRequests);
 
         if(!user.getRole().equals("kunde")) {
             return "error";
         }
-
+        System.out.println("Hello 4");
         return "profil";
     }
 }

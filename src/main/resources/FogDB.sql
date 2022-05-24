@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`carport` (
                                                `height` INT NOT NULL,
                                                `shed_id` INT NULL DEFAULT NULL,
                                                `hasShed` TINYINT NOT NULL DEFAULT '0',
-                                               `carport_price` DOUBLE NOT NULL,
+                                               `carport_price` DOUBLE NOT NULL DEFAULT '0',
                                                `isConfirmed` TINYINT NOT NULL DEFAULT '0',
                                                `carport_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                                PRIMARY KEY (`carport_id`),
