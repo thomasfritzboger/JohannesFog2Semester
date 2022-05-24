@@ -5,13 +5,6 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema fog
--- -----------------------------------------------------
-
--- -----------------------------------------------------
 -- Schema fog
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `fog` DEFAULT CHARACTER SET utf8 ;
@@ -28,7 +21,6 @@ CREATE TABLE IF NOT EXISTS `fog`.`coverage` (
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8mb3;
 
-
 -- -----------------------------------------------------
 -- Table `fog`.`shed`
 -- -----------------------------------------------------
@@ -41,7 +33,6 @@ CREATE TABLE IF NOT EXISTS `fog`.`shed` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
-
 
 -- -----------------------------------------------------
 -- Table `fog`.`user`
@@ -59,7 +50,6 @@ CREATE TABLE IF NOT EXISTS `fog`.`user` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
-
 
 -- -----------------------------------------------------
 -- Table `fog`.`carport`
@@ -93,7 +83,6 @@ CREATE TABLE IF NOT EXISTS `fog`.`carport` (
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
 
-
 -- -----------------------------------------------------
 -- Table `fog`.`product_description`
 -- -----------------------------------------------------
@@ -105,7 +94,6 @@ CREATE TABLE IF NOT EXISTS `fog`.`product_description` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
-
 
 -- -----------------------------------------------------
 -- Table `fog`.`productvariant`
@@ -120,7 +108,6 @@ CREATE TABLE IF NOT EXISTS `fog`.`productvariant` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
-
 
 -- -----------------------------------------------------
 -- Table `fog`.`unit_scale`
@@ -144,7 +131,6 @@ CREATE TABLE IF NOT EXISTS `fog`.`usement` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
-
 
 -- -----------------------------------------------------
 -- Table `fog`.`product`
@@ -175,7 +161,6 @@ CREATE TABLE IF NOT EXISTS `fog`.`product` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
-
 
 -- -----------------------------------------------------
 -- Table `fog`.`material_line`
@@ -208,17 +193,15 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 -- Insert into `fog DB`
 -- -----------------------------------------------------
-INSERT INTO `fog`.`shed` (`width`, `length`, `placement`) VALUES ('3', '5', 'left');
-INSERT INTO `fog`.`shed` (`width`, `length`, `placement`) VALUES ('3', '5', 'right');
-INSERT INTO `fog`.`shed` (`width`, `length`, `placement`) VALUES ('5', '5', 'middel');
-
 INSERT INTO `fog`.`user` (`email`, `password`, `role`, `phonenumber`, `address`, `postal_code`) VALUES ('admin@fog.dk', '1234', 'admin', '70707070', 'Peter Knudsensvej', '3650');
 INSERT INTO `fog`.`user` (`email`, `password`, `role`, `phonenumber`, `address`, `postal_code`) VALUES ('kunde1@fog.dk', '1234', 'kunde', '12345678', 'Envej 1', '3600');
 INSERT INTO `fog`.`user` (`email`, `password`, `role`, `phonenumber`, `address`, `postal_code`) VALUES ('kunde2@fog.dk', '4321', 'kunde', '23456789', 'Tovej 2', '2800');
 
-INSERT INTO `fog`.`coverage` (`coverage_id`,`coverage`) VALUES ('40','40');
 INSERT INTO `fog`.`coverage` (`coverage_id`,`coverage`) VALUES ('25','25');
 INSERT INTO `fog`.`coverage` (`coverage_id`,`coverage`) VALUES ('30','30');
+INSERT INTO `fog`.`coverage` (`coverage_id`,`coverage`) VALUES ('35','35');
+INSERT INTO `fog`.`coverage` (`coverage_id`,`coverage`) VALUES ('40','40');
+
 
 INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('understernbrædder til for & bag ende');
 INSERT INTO `fog`.`usement` (`usement_description`) VALUES ('understernbrædder til siderne');
@@ -326,15 +309,6 @@ INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `uni
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('21', '18', '1', '25');
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('22', '19', '1', '14');
 INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `unit_scale_id`, `usement_id`) VALUES ('23', '19', '2', '15');
-
-
-
-
-INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `width`, `length`, `height`, `shed_id`, `hasShed`, `carport_price`, `isConfirmed`) VALUES ('40', '2', '360', '600', '210', '1', '1', '2000','0');
-INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `width`, `length`, `height`, `hasShed`, `carport_price`, `isConfirmed`) VALUES ('25', '3', '320', '540', '230', '0', '1000','0');
-
-INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_line_price`) VALUES ('1', '1', '360', '7', '70');
-INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_line_price`) VALUES ('2', '2', '540', '4', '60');
 
 -- -----------------------------------------------------
 -- Views

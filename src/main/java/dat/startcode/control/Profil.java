@@ -1,20 +1,16 @@
 package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
-import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.Request;
 import dat.startcode.model.entities.Shed;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
-import dat.startcode.model.persistence.CustomerMapper;
 import dat.startcode.model.services.CustomerFacade;
-import dat.startcode.model.services.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Profil extends Command {

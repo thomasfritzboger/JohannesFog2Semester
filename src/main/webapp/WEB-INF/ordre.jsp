@@ -24,20 +24,22 @@
             </thead>
             <tbody>
             <c:forEach var="requestApproved" items="${sessionScope.requestApproved}">
-                <tr>
-                    <td>${requestApproved.carportId}</td>
-                    <td>${requestApproved.userId}</td>
-                    <td>${requestApproved.created}</td>
-                    <td>${requestApproved.accepted}</td>
-                    <td>
-                        <form>
-                            <button formaction="" name="stykliste" value=""
-                                    class="btn btn-secondary">
-                                Se stykliste
+                <form>
+                    <tr>
+                        <td>${requestApproved.carportId}</td>
+                        <td>${requestApproved.userId}</td>
+                        <td>${requestApproved.created}</td>
+                        <td>${requestApproved.accepted}</td>
+                        <td>
+
+                            <button formaction="fc/stykliste" class="btn btn-primary">
+                                <input type="hidden" name="command" value="stykliste">Se stykliste
                             </button>
-                        </form>
-                    </td>
-                </tr>
+
+                        </td>
+                        <input id="getcarportid" name="getcarportid" value="${requestApproved.carportId}" hidden>
+                    </tr>
+                </form>
             </c:forEach>
             </tbody>
         </table>

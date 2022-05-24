@@ -24,11 +24,6 @@ public class Stykliste extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-
-        if(!user.getRole().equals("kunde")) {
-            return "error";
-        }
 
         int carportId = Integer.parseInt(request.getParameter("getcarportid"));
 

@@ -10,7 +10,6 @@ import dat.startcode.model.services.ProductFacade;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CarportDesigner extends Command{

@@ -4,10 +4,7 @@ import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
-import dat.startcode.model.exceptions.IllegalDimensionException;
 import dat.startcode.model.persistence.ConnectionPool;
-import dat.startcode.model.persistence.CustomerMapper;
-import dat.startcode.model.services.CarportCalculator;
 import dat.startcode.model.services.CustomerFacade;
 import dat.startcode.model.services.SVG;
 
