@@ -80,10 +80,10 @@ public class CustomerMapper implements ICustomerMapper
     }
 
     @Override
-    public Request createCarportRequest(int coverageId, int userId, int width, int length, int height, boolean hasShed, int shedId, boolean isConfirmed) throws DatabaseException {
+    public Request createCarportRequest(int coverageId, int userId, int width, int length, int height, boolean hasShed, int shedId, boolean isConfirmed, double carportPrice) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
         Request request;
-        String sql = "insert into carport (coverage_id, user_id, width, length, height, shed_id, hasShed, isConfirmed) values (?,?,?,?,?,?,?,?)";
+        String sql = "insert into carport (coverage_id, user_id, width, length, height, shed_id, hasShed, isConfirmed,carport_price) values (?,?,?,?,?,?,?,?,?)";
         try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
@@ -100,11 +100,12 @@ public class CustomerMapper implements ICustomerMapper
                 }
                 ps.setBoolean(7, hasShed);
                 ps.setBoolean(8, isConfirmed);
+                ps.setDouble(9,carportPrice);
 
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 1)
                 {
-                    request = new Request(coverageId,userId,width, length, height,shedId,hasShed,isConfirmed);
+                    request = new Request(coverageId,userId,width, length, height,shedId,hasShed,isConfirmed,carportPrice);
                 } else
                 {
                     throw new DatabaseException("Carport til brugeren med id = " + userId + " kunne ikke indsættes i databasen");

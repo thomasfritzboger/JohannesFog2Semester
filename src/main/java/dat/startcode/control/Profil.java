@@ -70,7 +70,7 @@ public class Profil extends Command {
                     && session.getAttribute("redskabsrumValgt").equals("y")) {
                 hasShed = true;
                 //stempel ned i shed tabel med width, length og placement
-                int shedWidth = (int) session.getAttribute("redskabsrumBredde");
+                int shedWidth = (int) session.getAttribute("redskabsrumbredde");
                 int shedLength = (int) session.getAttribute("redskabsrumLængde");
                 String shedPlacement = (String) session.getAttribute("redskabsrumPlacering");
 
@@ -91,7 +91,7 @@ public class Profil extends Command {
             System.out.println("hasShed: " + hasShed);
             System.out.println("shedId: " + shedId);
             System.out.println("Hello 0.5");
-            Request carportRequest = CustomerFacade.createCarportRequest(coverageId, userId, width, length, height, hasShed, shedId, isConfirmed, connectionPool);
+            Request carportRequest = CustomerFacade.createCarportRequest(coverageId, userId, width, length, height, hasShed, shedId, isConfirmed, (Double) session.getAttribute("carportPrice"), connectionPool);
             System.out.println(carportRequest);
             System.out.println("Hello 0.75");
         }

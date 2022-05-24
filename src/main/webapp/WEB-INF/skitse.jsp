@@ -13,8 +13,6 @@
 
     <jsp:body>
 
-
-
         <!--SVG SKITSEN LAVES HER-->
 
         <script type="text/javascript">
@@ -69,7 +67,6 @@
             </form>
         </div>
 
-
         <div>
                 ${sessionScope.svgdrawing}
         </div>
@@ -80,6 +77,7 @@
                 <li>Carport bredde: ${carportbredde} cm</li>
                 <li>Carport længde: ${carportlængde} cm</li>
                 <li>Carport højde: ${carporthøjde} cm</li>
+                <li>Carport pris: ${carportPrice} kr.</li>
             </ul>
         </div>
 
