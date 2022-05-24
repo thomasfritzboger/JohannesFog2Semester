@@ -1,6 +1,7 @@
 package dat.startcode.model.services;
 
 import dat.startcode.model.dtos.LagerDTO;
+import dat.startcode.model.dtos.OrderLineDTO;
 import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
@@ -30,4 +31,8 @@ public class ProductFacade {
         productMapper.saveMaterialLines(carport_id,product_id,unit_length,unit_quantity,total_line_price);
     }
 
+    public static List<OrderLineDTO> getMaterialLinesByCarportId (ConnectionPool connectionPool, int carportId) throws  DatabaseException {
+        ProductMapper productMapper = new ProductMapper(connectionPool);
+        return productMapper.getMaterialLinesByCarportId(carportId);
+    }
 }

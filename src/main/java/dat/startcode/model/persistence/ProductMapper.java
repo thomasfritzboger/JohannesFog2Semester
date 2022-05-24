@@ -1,6 +1,7 @@
 package dat.startcode.model.persistence;
 
 import dat.startcode.model.dtos.LagerDTO;
+import dat.startcode.model.dtos.OrderLineDTO;
 import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
@@ -117,6 +118,38 @@ public class ProductMapper implements IProductMapper {
             throw new DatabaseException(ex, "Kunne ikke indsætte material line i databasen");
         }
 
+    }
+
+    @Override
+    public List<OrderLineDTO> getMaterialLinesByCarportId(int carportId) throws DatabaseException {
+        List<OrderLineDTO> materialLineList = new ArrayList<>();
+        String sql = "SELECT p.product_description, m.unit_length, m.unit_quantity, p.scale, p.description from material_line as m " +
+                "inner join produktdto as p " +
+                "using (product_id) where m.carport_id = ?;";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1,carportId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+
+                    String productDescription = rs.getString("product_description");
+                    int unitLength = rs.getInt("unit_length");
+                    int unitQuantity = rs.getInt("unit_quantity");
+                    String scale = rs.getString("scale");
+                    String description = rs.getString("description");
+                    materialLineList.add(new OrderLineDTO(productDescription,unitLength,unitQuantity,scale,description));
+
+                }
+            } catch (SQLException throwables) {
+                throw new DatabaseException("Kunne ikke få alle linjer fra database");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DatabaseException("Kunne få forbindelse til databasen");
+        }
+
+        return materialLineList;
     }
 
 }

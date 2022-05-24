@@ -158,8 +158,8 @@
             </thead>
             <tbody>
             <c:forEach var="carport" items="${carportRequestByUser}">
-                <form action="fc/seSkitse" method="post">
-                    <input type="hidden" name="command" value="seSkitse">
+                <form>
+
                     <tr>
                         <td>${carport.getCarportId()}</td>
                         <td>${carport.getWidth()}x${carport.getLength()}x${carport.getHeight()}</td>
@@ -168,13 +168,16 @@
                         <td>d. ${carport.getCreated()}</td>
 
                         <td><c:if test="${carport.isConfirmed()}">Din carport er igang med at blive pakket. <br> Ring og aftal levering.
-                            <br><button class="btn btn-primary">Se stykliste</button>
-                            <button class="btn btn-primary">Se skitse</button>
+                            <br>
+                            <button formaction="fc/stykliste" class="btn btn-primary">
+                                <input type="hidden" name="command" value="stykliste">Se stykliste</button>
+                            <button formaction="fc/seskitse" class="btn btn-primary">
+                                <input type="hidden" name="command" value="seSkitse">Se skitse</button>
                             </c:if>
 
                         <c:if test="${carport.isConfirmed() == false}">Afventer bekræftelse <br>
-                            <button class="btn btn-primary">
-                                Se skitse
+                            <button formaction="fc/seskitse" class="btn btn-primary">
+                                <input type="hidden" name="command" value="seSkitse">Se skitse
                             </button>
                         </c:if>
                         </td>

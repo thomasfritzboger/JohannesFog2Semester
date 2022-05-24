@@ -21,6 +21,14 @@ public class OrderLineDTO {
         this.totalLinePrice = totalLinePrice;
     }
 
+    public OrderLineDTO(String productDescription, int length, int amount, String unitScale, String usementDescription) {
+        this.productDescription = productDescription;
+        this.length = length;
+        this.amount = amount;
+        this.unitScale = unitScale;
+        this.usementDescription = usementDescription;
+    }
+
     public String getProductDescription() {
         return productDescription;
     }
