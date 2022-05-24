@@ -6,7 +6,6 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Bestil carport i dag!
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -14,7 +13,7 @@
     </jsp:attribute>
 
     <jsp:body>
-
+<div class="container-frontpage">
         <!--Open modal if user not logged in-->
         <c:if test="${sessionScope.user == null}">
             <input type="image" src="${pageContext.request.contextPath}/images/carport_bygselv.png" name="carport" class="btTxt submit" id="123" data-bs-toggle="modal" data-bs-target="#exampleModal" />
@@ -34,7 +33,7 @@
                 </button>
             </div>
         </c:if>
-
+</div>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">

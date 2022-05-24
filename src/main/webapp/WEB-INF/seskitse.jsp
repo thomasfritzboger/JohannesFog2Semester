@@ -4,7 +4,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-        Skitse
+        Her er en skitse af din carport
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -14,9 +14,9 @@
     <jsp:body>
 
         <div>
-            <button class="btn btn-primary" onclick="history.back()">
-                Gå tilbage
-            </button>
+                <button class="btn btn-primary">
+                    Gå tilbage
+                </button>
         </div>
 
         <div>

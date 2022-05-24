@@ -28,6 +28,11 @@ public class SVG {
 
     private final String crossTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; stroke-width:1.5; stroke-dasharray:5 5\"  />";
 
+    private final String textTemplateY = "<text style=\"text-anchor: middle\" transform=\"translate(%d,%d) rotate(-90)\">%s cm</text>";
+
+    private final String textTemplateX = "<text style=\"text-anchor: middle\" transform=\"translate(%d,%d)\">%s cm</text>";
+
+
     public SVG(int x, int y, String viewBox, int width, int height) {
         this.x = x;
         this.y = y;
@@ -59,6 +64,14 @@ public class SVG {
     public void addShedLine(int x1, int y1, int x2, int y2) {
         svg.append(String.format(shedLineTemplate,x1,y1,x2,y2));
     }
+
+    public void addLineTextY(int locX, int locY, String carportBredde) {
+        svg.append(String.format(textTemplateY, locX,locY,carportBredde));
+    }
+    public void addLineTextX(int locX, int locY, String carportLængde) {
+        svg.append(String.format(textTemplateX, locX,locY,carportLængde));
+    }
+
     @Override
     public String toString()
     {

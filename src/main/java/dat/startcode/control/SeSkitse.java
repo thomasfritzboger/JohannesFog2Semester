@@ -244,19 +244,24 @@ public class SeSkitse extends Command {
         }
 
         //Afstandsmålere
+        //nederste linje
         svg.addLine(carportLength+70,carportWidth+100,50,carportWidth+100);
-        svg.addLine(0,50,0,carportWidth+50);
+        svg.addLine(carportLength+70,carportWidth+90,carportLength+70,carportWidth+110);
+        svg.addLine(50,carportWidth+90,50,carportWidth+110);
+        svg.addLineTextX((carportLength+120)/2,carportWidth+90, String.valueOf(carportLength));
+
+
+        //venstre linje
+        svg.addLine(10,50,10,carportWidth+50);
+        svg.addLine(0,50,20,50);
+        svg.addLine(0,carportWidth+50,20,carportWidth+50);
+        svg.addLineTextY(32,(carportWidth+100)/2, String.valueOf(carportWidth));
 
         svg.addSvg(innerSVG);
 
         session.setAttribute("svgdrawing", svg.toString());
-        session.setAttribute("carportbredde", carportWidth);
-        session.setAttribute("carportlængde", carportLength);
-        session.setAttribute("carporthøjde", carportHojde);
-        session.setAttribute("redskabsrumValgt", erRedskabsRumValgt);
-        session.setAttribute("redskabsrumPlacering", placering);
 
-        return "skitse";
+        return "seskitse";
     }
 
 

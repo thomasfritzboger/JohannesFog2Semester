@@ -15,3 +15,55 @@ th, td {
     padding:15px;
 }
 
+.container-faq {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+#info-box-faq {
+    background-color: #a6a6a6;
+    width: 450px;
+    height: 200px;
+    padding: 5px;
+}
+
+.div-around-accordion {
+    width: 50%;
+    margin-right: 30px;
+}
+
+.container-valg-af-carport {
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+    margin: auto;
+}
+
+#choose-carport-type-heading {
+    text-align: center;
+    margin: 50px 0px;
+}
+
+.container-frontpage {
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+@media (max-width: 1200px) {
+    .div-around-accordion {
+        width: 100%;
+    }
+    .container-faq {
+        justify-content: center;
+    }
+    #info-box-faq{
+        width: 100%;
+    }
+
+    #choose-carport-type-heading {
+        margin: 45px 0px;
+    }
+}

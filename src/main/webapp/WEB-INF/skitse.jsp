@@ -31,7 +31,11 @@
                     + carportRum +
                     "\nRedskabsrum: " + redskabsRumPlacering + "(placering)";
 
-                confirm(text);
+                return text;
+            }
+
+            function onClick() {
+                    document.getElementById('forespørgselbekræfter').value = "send";
             }
 
         </script>
@@ -49,15 +53,19 @@
         </div>
 
         <div>
-            <button class="btn btn-primary" onclick="history.back()">
+            <form action="fc/carportDesigner">
+                <input type="hidden" name="command" value="carportDesigner">
+            <button class="btn btn-primary">
                 Gå tilbage
             </button>
+            </form>
 
             <form action="fc/profil" method="post">
                 <input type="hidden" name="command" value="profil"/>
-                <button id="sendforespoergsel" class="btn btn-primary" onclick="sendForespoergsel()">
+                <button id="sendforespoergsel" type="submit" class="btn btn-primary" onclick="onClick();">
                     Send forespørgsel
                 </button>
+                <!--<input id="forespørgselbekræfter" name="forespørgselbekræfter" type="text" hidden>-->
             </form>
         </div>
 

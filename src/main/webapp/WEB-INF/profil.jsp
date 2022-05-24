@@ -64,7 +64,7 @@
                             <input type="hidden" name="command" value="profil">
                             <label for="indtastNyEmail">Indtast ny email: </label> <br>
                             <input type="email" id="indtastNyEmail" name="indtastNyEmail" required> <br> <br>
-                            <button class="btn btn-primary">Bekræft</button>
+                            <button class="btn btn-primary" onclick="return confirm('Er du sikker på du vil ændre din email?')">Bekræft</button>
                         </form>
                         <br>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>
@@ -93,7 +93,7 @@
                             <label for="passwordRepeated">Bekræft kodeord: </label> <br>
                             <input type="password" id="passwordRepeated" name="passwordRepeated" minlength="4" oninput="check(this)" required> <br> <br>
 
-                            <button class="btn btn-primary">Bekræft</button>
+                            <button class="btn btn-primary" onclick="return confirm('Er du sikker på du vil ændre dit kodeord?')">Bekræft</button>
 
                             <script type='text/javascript'>
                                 function check(input) {
@@ -131,7 +131,7 @@
                             <input type="hidden" name="command" value="profil">
                             <label for="nyttelefonnr">Indtast nyt telefonnr.: </label> <br>
                             <input type="tel" id="nyttelefonnr" placeholder="40404040" name="nyttelefonnr" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
-                            <button class="btn btn-primary">Bekræft</button>
+                            <button class="btn btn-primary" onclick="return confirm('Er du sikker på du vil ændre dit telefonnr?')">Bekræft</button>
                         </form>
                         <br>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>

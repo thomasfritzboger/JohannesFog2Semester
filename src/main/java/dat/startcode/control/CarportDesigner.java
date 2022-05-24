@@ -52,6 +52,18 @@ public class CarportDesigner extends Command{
         session.setAttribute("carportRoomWidthList", redskabsrumBredder);
         session.setAttribute("carportRoomLengthList", redskabsrumLaengder);
 
+
+        if(session.getAttribute("carportbredde") != null) {
+            session.setAttribute("carportbredde", null);
+            session.setAttribute("svgdrawing", null);
+            session.setAttribute("carportbredde", null);
+            session.setAttribute("carportlængde", null);
+            session.setAttribute("carporthøjde", null);
+            session.setAttribute("redskabsrumValgt", null);
+            session.setAttribute("redskabsrumPlacering", null);
+            session.setAttribute("redskabsrumLængde", null);
+        }
+
         return "carportDesigner";
     }
 }

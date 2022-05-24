@@ -52,9 +52,16 @@ public class Profil extends Command {
             CustomerFacade.updatePhoneNumber(userId,newPhoneNumber,connectionPool);
         }
 
+        //Owais arbejder her
+        /*System.out.println(session.getAttribute("forespørgselbekræfter") != null);
+        System.out.println(session.getAttribute("forespørgselbekræfter"));
+        System.out.println(session.getAttribute("forespørgselbekræfter").equals("send"));*/
+
+
         //laver et tjek på carportbredde for at se om vi kommer fra en forespørgsel eller forsøger
         //at tilgå profilsiden fra menuen
         if(session.getAttribute("carportbredde") != null) {
+            System.out.println("her når vi 1");
             int width = (int) session.getAttribute("carportbredde");
             int length = (int) session.getAttribute("carportlængde");
             int height = (int) session.getAttribute("carporthøjde");
@@ -65,11 +72,10 @@ public class Profil extends Command {
                 hasShed = true;
                 //stempel ned i shed tabel med width, length og placement
                 int shedWidth = (int) session.getAttribute("redskabsrumBredde");
-                System.out.println(shedWidth);
                 int shedLength = (int) session.getAttribute("redskabsrumLængde");
-                System.out.println(shedLength);
                 String shedPlacement = (String) session.getAttribute("redskabsrumPlacering");
 
+                System.out.println("her når vi ikke");
                 shed = CustomerFacade.createNewShed(shedWidth, shedLength, shedPlacement, connectionPool);
                 shedId = shed.getShedId();
             } else {

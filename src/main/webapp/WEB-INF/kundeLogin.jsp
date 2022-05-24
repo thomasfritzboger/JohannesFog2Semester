@@ -4,7 +4,6 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-        Carport factory!
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -13,22 +12,25 @@
 
     <jsp:body>
 
-        <h2>Vælg carport type:</h2>
+        <h1 style="text-align: center">🛠️ Carport factory! 🛠️</h1>
 
-        <div>
-            <p>Carport med fladt tag</p>
-            <a href="${pageContext.request.contextPath}/fc/carportDesigner?command=carportDesigner" >
-                <img src="${pageContext.request.contextPath}/images/fladt_tag.png" alt="carport med fladt tag">
-            </a>
+        <h2 id="choose-carport-type-heading">Vælg carport type:</h2>
+
+        <div class="container-valg-af-carport">
+            <div>
+                <p>Carport med fladt tag</p>
+                <a href="${pageContext.request.contextPath}/fc/carportDesigner?command=carportDesigner" >
+                    <img src="${pageContext.request.contextPath}/images/fladt_tag.png" alt="carport med fladt tag">
+                </a>
+            </div>
+
+            <div>
+                <p>Carport med rejsning</p>
+                <a href="${pageContext.request.contextPath}/fc/carportDesigner?command=carportDesigner" >
+                    <img src="${pageContext.request.contextPath}/images/carport_rejsning.png" alt="carport med rejsning">
+                </a>
+            </div>
         </div>
-
-        <div>
-            <p>Carport med rejsning</p>
-            <a href="${pageContext.request.contextPath}/fc/carportDesigner?command=carportDesigner" >
-                <img src="${pageContext.request.contextPath}/images/carport_rejsning.png" alt="carport med rejsning">
-            </a>
-        </div>
-
 
 
     </jsp:body>
