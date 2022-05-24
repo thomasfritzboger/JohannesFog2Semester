@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.exceptions.IllegalDimensionException;
@@ -9,6 +10,7 @@ import dat.startcode.model.services.SVG;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public class Skitse extends Command {
     @Override
@@ -243,9 +245,34 @@ public class Skitse extends Command {
 
         svg.addSvg(innerSVG);
 
+
+
+        int fullCarportShedLength = carportLength - shedLength;
         if(erRedskabsRumValgt != null) {
             carportLength -= shedLength;
+            fullCarportShedLength += shedLength;
         }
+
+        System.out.println(fullCarportShedLength);
+        System.out.println(carportWidth);
+        System.out.println(carportHojde);
+        System.out.println(erRedskabsRumValgt);
+        System.out.println(placering);
+        System.out.println(shedLength);
+        System.out.println(skurSize);
+
+        List<ProduktDTO> pDTO = (List<ProduktDTO>) session.getAttribute("productDTOListe");
+        CarportCalculator calculator = new CarportCalculator(pDTO);
+        try {
+            calculator.beregnCarport(fullCarportShedLength,carportWidth,carportHojde,erRedskabsRumValgt,tagType,placering,skurSize);
+        } catch (IllegalDimensionException e) {
+            e.printStackTrace();
+        }
+        //calculator.beregnCarportPris();
+        double carportPrice = ((double) Math.round(((calculator.carportPris*1.4)*100))/100);
+        System.out.println(calculator.mList);
+
+        session.setAttribute("carportPrice", carportPrice);
 
         session.setAttribute("svgdrawing", svg.toString());
         session.setAttribute("carportbredde", carportWidth);
