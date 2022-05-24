@@ -19,10 +19,10 @@ public class CustomerFacade
         return customerMapper.createNewShed(width, length, placement);
     }
 
-    public static Request createCarportRequest(int coverageId, int userId, int width, int length, int height, boolean hasShed, int shedId, boolean isConfirmed, ConnectionPool connectionPool) throws DatabaseException
+    public static Request createCarportRequest(int coverageId, int userId, int width, int length, int height, boolean hasShed, int shedId, boolean isConfirmed,double carportPrice, ConnectionPool connectionPool) throws DatabaseException
     {
         CustomerMapper customerMapper = new CustomerMapper(connectionPool);
-        return customerMapper.createCarportRequest(coverageId, userId, width, length, height, hasShed, shedId, isConfirmed);
+        return customerMapper.createCarportRequest(coverageId, userId, width, length, height, hasShed, shedId, isConfirmed, carportPrice);
     }
 
     public static List<Request> getCarportRequestById(int userId, ConnectionPool connectionPool) throws DatabaseException

@@ -30,6 +30,7 @@ public class ConfirmCarportRequest extends Command{
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
 
+        System.out.println("MaterialLine? start");
         HttpSession session = request.getSession();
 
         int carportId = Integer.parseInt(request.getParameter("godkend"));
@@ -51,12 +52,14 @@ public class ConfirmCarportRequest extends Command{
                 int spærAntal = (int) Math.ceil(carport.getCarportLength()/59.0);
                 int spærAfstand = (int) Math.ceil(carport.getCarportLength()/spærAntal);
                 int shedSize = (int) Math.ceil(shed.getLength()/spærAfstand);
-                materialLine = calculator.beregnCarport(carport.getCarportLength(),carport.getCarportWidth(),carport.getCarportHeight(), "y", "p",shed.getPlacement(),shedSize);
+                materialLine = calculator.beregnCarport(carport.getCarportLength()+carport.getShed().getLength(),carport.getCarportWidth(),carport.getCarportHeight(), "y", "p",shed.getPlacement(),shedSize);
+                System.out.println("materialline inde i ");
             }
         } catch (IllegalDimensionException e) {
             e.printStackTrace();
         }
 
+        System.out.println("materialline?");
         for (OrderLineDTO i : materialLine) {
             ProductFacade.saveMaterialLines(connectionPool,carportId,i.getProductId(),i.getLength(),i.getAmount(),i.getTotalLinePrice());
         }

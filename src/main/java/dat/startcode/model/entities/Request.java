@@ -15,9 +15,10 @@ public class Request {
     private Shed shed; //blev nødt til at lave shed objekt
     private boolean isConfirmed;
     private LocalDate created;
+    private double carportPrice;
 
 
-    public Request(int coverageId, int userId, int width, int length, int height, int shedId, boolean hasShed, boolean isConfirmed) {
+    public Request(int coverageId, int userId, int width, int length, int height, int shedId, boolean hasShed, boolean isConfirmed,double carportPrice) {
         this.coverageId = coverageId;
         this.userId = userId;
         this.width = width;
@@ -26,6 +27,7 @@ public class Request {
         this.shedId = shedId;
         this.hasShed = hasShed;
         this.isConfirmed = isConfirmed;
+        this.carportPrice = carportPrice;
     }
 
     public Request(int carportId, int coverageId, int userId, int width, int length, int height, int shedId, boolean hasShed, boolean isConfirmed) {
@@ -51,6 +53,14 @@ public class Request {
         this.shed = shed;
         this.isConfirmed = isConfirmed;
         this.created = created.toLocalDateTime().toLocalDate();
+    }
+
+    public double getCarportPrice() {
+        return carportPrice;
+    }
+
+    public void setCarportPrice(double carportPrice) {
+        this.carportPrice = carportPrice;
     }
 
     public int getCarportId() {
@@ -144,8 +154,10 @@ public class Request {
                 ", height=" + height +
                 ", shedId=" + shedId +
                 ", hasShed=" + hasShed +
+                ", shed=" + shed +
                 ", isConfirmed=" + isConfirmed +
                 ", created=" + created +
+                ", carportPrice=" + carportPrice +
                 '}';
     }
 }
