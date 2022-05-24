@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`carport` (
                                                `height` INT NOT NULL,
                                                `shed_id` INT NULL DEFAULT NULL,
                                                `hasShed` TINYINT NOT NULL DEFAULT '0',
+                                               `carport_price` DOUBLE NOT NULL,
                                                `isConfirmed` TINYINT NOT NULL DEFAULT '0',
                                                `carport_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                                PRIMARY KEY (`carport_id`),
@@ -185,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`material_line` (
                                                      `product_id` INT NOT NULL,
                                                      `unit_length` INT NULL DEFAULT NULL,
                                                      `unit_quantity` INT NOT NULL,
-                                                     `total_price` DOUBLE NOT NULL,
+                                                     `total_line_price` DOUBLE NOT NULL,
                                                      PRIMARY KEY (`material_line_id`),
                                                      INDEX `fk_material_line_carport1_idx` (`carport_id` ASC) VISIBLE,
                                                      INDEX `fk_material_line_product1_idx` (`product_id` ASC) VISIBLE,
@@ -329,11 +330,11 @@ INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `uni
 
 
 
-INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `width`, `length`, `height`, `shed_id`, `hasShed`, `isConfirmed`) VALUES ('40', '2', '360', '600', '210', '1', '1', '0');
-INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `width`, `length`, `height`, `hasShed`, `isConfirmed`) VALUES ('25', '3', '320', '540', '230', '0', '0');
+INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `width`, `length`, `height`, `shed_id`, `hasShed`, `carport_price`, `isConfirmed`) VALUES ('40', '2', '360', '600', '210', '1', '1', '2000','0');
+INSERT INTO `fog`.`carport` (`coverage_id`, `user_id`, `width`, `length`, `height`, `hasShed`, `carport_price`, `isConfirmed`) VALUES ('25', '3', '320', '540', '230', '0', '1000','0');
 
-INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_price`) VALUES ('1', '1', '360', '7', '70');
-INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_price`) VALUES ('2', '2', '540', '4', '60');
+INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_line_price`) VALUES ('1', '1', '360', '7', '70');
+INSERT INTO `fog`.`material_line` (`carport_id`, `product_id`, `unit_length`,`unit_quantity`, `total_line_price`) VALUES ('2', '2', '540', '4', '60');
 
 -- -----------------------------------------------------
 -- Views
@@ -351,11 +352,9 @@ FROM product as p
                     using (unit_scale_id);
 
 create view requestdto AS
-SELECT ca.carport_id, ca.user_id, ca.carport_created, co.coverage, SUM(m.total_price) AS price
+SELECT ca.carport_id, ca.user_id, ca.carport_created, co.coverage, ca.carport_price AS price
 FROM carport AS ca
          INNER JOIN coverage AS co
                     USING (coverage_id)
-         INNER JOIN material_line AS m
-                    USING (carport_id)
 WHERE ca.isConfirmed=0
 group by carport_id;
