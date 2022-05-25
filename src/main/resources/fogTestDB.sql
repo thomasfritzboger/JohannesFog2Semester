@@ -23,8 +23,7 @@ SELECT
     `ca`.`carport_price` AS `price`
 FROM
     ((`fog_test`.`carport` `ca`
-        JOIN `fog_test`.`coverage` `co` ON ((`ca`.`coverage_id` = `co`.`coverage_id`)))
-        JOIN `fog_test`.`material_line` `m` ON ((`ca`.`carport_id` = `m`.`carport_id`)))
+        JOIN `fog_test`.`coverage` `co` ON ((`ca`.`coverage_id` = `co`.`coverage_id`))))
 WHERE
     (`ca`.`isConfirmed` = 0)
 GROUP BY `ca`.`carport_id`;
