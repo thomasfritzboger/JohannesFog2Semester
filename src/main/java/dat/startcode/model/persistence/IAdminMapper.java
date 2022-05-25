@@ -13,6 +13,7 @@ public interface IAdminMapper {
     //TODO at gemme product som en classe.
     List<RequestDTO> getRequest() throws DatabaseException;
     List<RequestDTO> getApprovedRequest() throws DatabaseException;
+    void deleteRequest (int carportId) throws DatabaseException;
     Carport newCoverageForCarport( int newCoverage ,int carportId) throws DatabaseException;
     Carport approveCarport(int carportId) throws DatabaseException;
 }

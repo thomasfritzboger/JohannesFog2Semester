@@ -112,6 +112,22 @@ public class AdminMapper implements IAdminMapper {
     }
 
     @Override
+    public void deleteRequest(int carportId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO,"");
+
+        String sql = "DELETE FROM carport " +
+                "WHERE carport_id = ?";
+        try (Connection connection = connectionPool.getConnection()){
+            try (PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setInt(1,carportId);
+                ps.executeUpdate();
+            }
+        }catch (SQLException sqlException) {
+            throw new DatabaseException("Carportens id findes ikke");
+        }
+    }
+
+    @Override
     public Carport newCoverageForCarport(int newCoverage, int carportId) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO,"");
         Carport carport;

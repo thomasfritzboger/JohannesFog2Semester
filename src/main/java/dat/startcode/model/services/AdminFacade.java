@@ -26,6 +26,11 @@ public class AdminFacade {
         return adminMapper.getApprovedRequest();
     }
 
+    public static void deleteRequest (ConnectionPool connectionPool, int carportId) throws DatabaseException {
+        AdminMapper adminMapper = new AdminMapper(connectionPool);
+        adminMapper.deleteRequest(carportId);
+    }
+
     public static Carport updateCarportPrice(int newCoverage, int carportId, ConnectionPool connectionPool) throws DatabaseException {
         AdminMapper adminMapper = new AdminMapper(connectionPool);
         return adminMapper.newCoverageForCarport(newCoverage,carportId);
