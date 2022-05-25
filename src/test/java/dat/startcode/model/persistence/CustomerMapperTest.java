@@ -64,23 +64,23 @@ class CustomerMapperTest {
         }
     }
 
-    @Test
-    void createNewShed(){
-    }
-
-    @Test
-    void getShedById() {
-    }
-
-    @Test
-    void createCarportRequest() {
-    }
-
-    @Test
-    void getCarportRequestById() {
-    }
-
-    @Test
-    void getCarportById() {
-    }
+//    @Test
+//    void createNewShed(){
+//    }
+//
+//    @Test
+//    void getShedById() {
+//    }
+//
+//    @Test
+//    void createCarportRequest() {
+//    }
+//
+//    @Test
+//    void getCarportRequestById() {
+//    }
+//
+//    @Test
+//    void getCarportById() {
+//    }
 }

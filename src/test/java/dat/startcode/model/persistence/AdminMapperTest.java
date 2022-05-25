@@ -81,7 +81,7 @@ class AdminMapperTest {
                 // Remove all rows from material_line table
                 stmt.execute("delete from material_line");
                 // Insert material lines
-                stmt.execute("insert into material_line (material_line_id, carport_id, product_id, unit_length, unit_quantity, total_price) " +
+                stmt.execute("insert into material_line (material_line_id, carport_id, product_id, unit_length, unit_quantity, total_line_price) " +
                         "values ('1','1','1','360','3','100'), " +
                         "('2','2','1','270','5','90'), " +
                         "('3','3','1','360','2','200')");
