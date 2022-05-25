@@ -20,7 +20,7 @@ SELECT
     `ca`.`user_id` AS `user_id`,
     `ca`.`carport_created` AS `carport_created`,
     `co`.`coverage` AS `coverage`,
-    SUM(`m`.`total_price`) AS `price`
+    `ca`.`carport_price` AS `price`
 FROM
     ((`fog_test`.`carport` `ca`
         JOIN `fog_test`.`coverage` `co` ON ((`ca`.`coverage_id` = `co`.`coverage_id`)))
