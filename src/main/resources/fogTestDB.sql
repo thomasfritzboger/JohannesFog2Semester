@@ -27,7 +27,7 @@ FROM
         JOIN `fog_test`.`material_line` `m` ON ((`ca`.`carport_id` = `m`.`carport_id`)))
 WHERE
     (`ca`.`isConfirmed` = 0)
-GROUP BY `ca`.`carport_id`
+GROUP BY `ca`.`carport_id`;
 
 CREATE
     ALGORITHM = UNDEFINED
@@ -49,4 +49,4 @@ FROM
         JOIN `fog_test`.`product_description` `d` ON ((`p`.`product_description_id` = `d`.`product_description_id`)))
         JOIN `fog_test`.`productvariant` `v` ON ((`p`.`productvariant_id` = `v`.`productvariant_id`)))
         JOIN `fog_test`.`usement` `m` ON ((`p`.`usement_id` = `m`.`usement_id`)))
-        JOIN `fog_test`.`unit_scale` `s` ON ((`p`.`unit_scale_id` = `s`.`unit_scale_id`)))
+        JOIN `fog_test`.`unit_scale` `s` ON ((`p`.`unit_scale_id` = `s`.`unit_scale_id`)));
