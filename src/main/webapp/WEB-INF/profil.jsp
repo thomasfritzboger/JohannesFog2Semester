@@ -15,12 +15,10 @@
 
         <h3>Dine forespørgsler</h3>
 
-        <br>
         <button data-bs-toggle="modal" data-bs-target="#exampleModal2" name="coverageEditor"
-                class="btn btn-secondary">
+                class="btn btn-info">
             Rediger kontaktoplysninger
         </button>
-        <br>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
@@ -140,6 +138,7 @@
             </div>
         </div>
 
+        <br> <br>
         <c:if test="${carportRequestByUser.isEmpty()}">
             Du har ingen forespørgsler.
             <a href="${pageContext.request.contextPath}/fc/kundeLogin?command=kundeLogin" class="link-primary" >Klik her</a> for at komme igang med at bygge din helt egen carport.

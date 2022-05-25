@@ -15,18 +15,28 @@ th, td {
     padding:15px;
 }
 
+.navbar {
+    font-size: 17px;
+}
+
 .container-faq {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    margin-top: 20px;
 }
 
 #info-box-faq {
-    background-color: #a6a6a6;
+    background-color: #afb8c7;
     width: 450px;
     height: 200px;
-    padding: 5px;
+    padding: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+#box-around-bygningsreglement {
+    text-align: center;
 }
 
 .div-around-accordion {
@@ -53,7 +63,17 @@ th, td {
 }
 
 
+
 /*Styling på carport dimensions siden*/
+
+#container-good-to-knows {
+    background-color: #afb8c7;
+    padding: 10px;
+    width: 470px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    margin: auto;
+}
 
 .container-carportdesigner {
     display: flex;
@@ -89,6 +109,7 @@ th, td {
 .container-skitse-knap {
     display: flex;
     justify-content: center;
+    margin: 20px;
 }
 
 .dimensions-items {
@@ -104,15 +125,36 @@ th, td {
 }
 
 
+/*stykliste styling*/
+.container-knapper-stykliste {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.container-carport-dimensions-side {
+    background-color: #afb8c7;
+    padding: 10px;
+    width: 250px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    margin: auto;
+}
+
+/*skitse side*/
+.container-knapper-skitse-side {
+    display: flex;
+    flex-direction: row;
+}
+
+
 @media (max-width: 475px) {
     .dimensions-items {
         margin: 3px;
     }
 }
 
-#container-good-to-knows {
-    position: absolute;
-}
+
 
 
 @media (max-width: 1200px) {
@@ -128,5 +170,9 @@ th, td {
 
     #choose-carport-type-heading {
         margin: 45px 0px;
+    }
+
+    #container-good-to-knows {
+        width: 400px;
     }
 }

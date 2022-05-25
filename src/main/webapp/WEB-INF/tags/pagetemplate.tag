@@ -46,7 +46,7 @@
 
                     <!--Navigationsbaren hvis kunden er logget IND-->
                     <c:if test="${sessionScope.user.role.equals('kunde')}">
-                        <a class="nav-item nav-link" style="pointer-events: none; cursor: default;">Velkommen: ${fn:toLowerCase(sessionScope.user.email)}</a>
+                        <a class="nav-item nav-link" style="pointer-events: none; cursor: default; font-style: italic">Velkommen: ${fn:toLowerCase(sessionScope.user.email)}</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Forside</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/faq?command=faq">FAQ</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/profil2?command=profil2">Profil</a>
@@ -58,7 +58,7 @@
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/ordre?command=ordre">Ordre</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/kunder?command=kunder">Kunder</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/lager?command=lager">Lager</a>
-                        <a class="nav-item nav-link" style="pointer-events: none; cursor: default;">Admin: ${fn:toLowerCase(sessionScope.user.email)}</a>
+                        <a class="nav-item nav-link" style="pointer-events: none; cursor: default; font-style: italic">Admin: ${fn:toLowerCase(sessionScope.user.email)}</a>
                     </c:if>
 
                     <c:if test="${sessionScope.user != null}">
@@ -92,13 +92,19 @@
 
                         <label for="email">Email: </label>
                         <br>
-                        <input type="email" id="email" name="email" required/>
+                        <input type="email" id="email" name="email" placeholder="Indtast email" required style="margin-bottom: 10px"/>
                         <br>
                         <label for="password">Kodeord: </label>
                         <br>
-                        <input type="password" id="password" name="password" minlength="4"
+                        <input type="password" id="password" name="password"  placeholder="Indtast kode" minlength="4"
                                required/>
                         <br>
+                        <!-- Checkbox -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                            <label class="form-check-label" for="form2Example31"> Husk mig </label>
+                        </div>
+
                         <br>
                         <button type="submit" class="btn btn-primary" >
                             Log ind

@@ -8,14 +8,6 @@
 
         <h1 style="text-align: center">Ønsket dimensioner for carport</h1>
 
-        <div id="container-good-to-knows" style="background-color: grey; width: 400px; height: 120px;">
-            <h2>Good to knows:</h2>
-            <ul>
-                <li>Carport bredde skal være minimum <b>3.8 meter</b> før et redskabsrum kan tilføjes i venstre
-                    eller højre hjørne.</li>
-            </ul>
-        </div>
-
         <!--to funktioner til at tjekke om bredde og længde er valgt-->
         <script type="text/javascript">
             function checkChosen() {
@@ -155,6 +147,17 @@
             }
         </script>
 
+
+        <div id="container-good-to-knows">
+            <h2 style="color: white; font-weight: bold; text-align: center">Good to knows:</h2>
+            <ul>
+                <li>Et redskabsrum kan tilvælges efter valg af carportens bredde, højde og længde.</li>
+                <li>Carport bredde skal være minimum <b>3.8 meter</b> før et redskabsrum kan tilføjes i venstre
+                    eller højre hjørne.</li>
+                <li>Redskabsrummets bredde er fastlagt baseret på ens valg af placering.</li>
+            </ul>
+        </div>
+
         <div class="container-carportdesigner">
 
         <form action="fc/skitse" method="post">
@@ -235,7 +238,7 @@
 
             <div class="dimensions-items">
                 <label for="redskabsrumBredde">Redskabsrum bredde:</label> <br>
-                <input type="text" id="redskabsrumBredde" style="width: 75px" readonly> m (denne er fastlagt)
+                <input type="text" id="redskabsrumBredde" style="width: 75px" readonly> m
             </div>
 
             <div class="dimensions-items">
