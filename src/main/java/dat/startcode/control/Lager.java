@@ -26,6 +26,9 @@ public class Lager extends Command {
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute("user");
+        if(!user.getRole().equals("admin")) {
+            return "error";
+        }
 
         if (request.getParameter("produktId") != null && request.getParameter("nyPris") != null) {
             int produktID = Integer.parseInt(request.getParameter("produktId"));
@@ -33,8 +36,10 @@ public class Lager extends Command {
             ProductFacade.updateLagerPrice(connectionPool, produktID, nyPris);
         }
 
-        if(!user.getRole().equals("admin")) {
-            return "error";
+        if (request.getParameter("description") != null && request.getParameter("nyBeskrivelse") != null) {
+            int produktID = Integer.parseInt(request.getParameter("description"));
+            String nyBeskrivelse = request.getParameter("nyBeskrivelse");
+            ProductFacade.updateLagerDescription(connectionPool,produktID,nyBeskrivelse);
         }
 
         lagerDTOList = ProductFacade.getLager(connectionPool);

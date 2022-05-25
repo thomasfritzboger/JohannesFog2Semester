@@ -100,6 +100,23 @@ public class ProductMapper implements IProductMapper {
         }
     }
 
+    @Override
+    public void updateLagerDescription(int id, String description) throws DatabaseException {
+
+        String sql = "UPDATE product_description SET product_description = ? WHERE product_description_id = ?";
+
+        try (Connection connection = connectionPool.getConnection()){
+            try (PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setString(1,description);
+                ps.setInt(2,id);
+                ps.executeUpdate();
+            }
+        }catch (SQLException sqlException) {
+            throw new DatabaseException("Kunne ikke ændre beskrivelsen for produkt idet: "+ id);
+        }
+
+    }
+
     public void saveMaterialLines( int carport_id,int product_id,int unit_length, int unit_quantity, double total_line_price) throws DatabaseException {
 
         String sql = "insert into material_line (carport_id,product_id,unit_length,unit_quantity,total_line_price) values (?,?,?,?,?)";
