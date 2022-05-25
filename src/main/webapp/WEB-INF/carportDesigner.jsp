@@ -6,9 +6,9 @@
 
     <jsp:body>
 
-        <h1>Ønsket dimensioner for carport</h1>
+        <h1 style="text-align: center">Ønsket dimensioner for carport</h1>
 
-        <div style="background-color: grey; width: 400px; height: 120px;">
+        <div id="container-good-to-knows" style="background-color: grey; width: 400px; height: 120px;">
             <h2>Good to knows:</h2>
             <ul>
                 <li>Carport bredde skal være minimum <b>3.8 meter</b> før et redskabsrum kan tilføjes i venstre
@@ -155,105 +155,110 @@
             }
         </script>
 
-
-
+        <div class="container-carportdesigner">
 
         <form action="fc/skitse" method="post">
         <!--Denne div er til valg af carport bredde og længde-->
-        <div>
-            <label for="carportbredde">Carport bredde:</label> <br>
-            <select name="carportbredde" id="carportbredde" onchange="checkChosen()">
-                <option value="" disabled selected>Vælg bredde</option>
-                <c:forEach items="${sessionScope.carportWidthList}" var="width">
-                    <option id="breddevaerdi" value="${width}">${width/100} m</option>
-                </c:forEach>
-            </select>
-
-            <br>
-
-            <label for="carportlængde">Carport længde:</label> <br>
-            <select name="carportlængde" id="carportlængde" onchange="checkChosen()">
-                <option value="" disabled selected>Vælg længde</option>
-                    <c:forEach items="${sessionScope.carportLengthList}" var="length">
-                        <option id="laengdevaerdi" value="${length}">${length/100} m</option>
+        <div class="container-width-length-height">
+            <div class="dimensions-items">
+                <label for="carportbredde">Carport bredde:</label> <br>
+                <select name="carportbredde" id="carportbredde" onchange="checkChosen()">
+                    <option value="" disabled selected>Vælg bredde</option>
+                    <c:forEach items="${sessionScope.carportWidthList}" var="width">
+                        <option id="breddevaerdi" value="${width}">${width/100} m</option>
                     </c:forEach>
-            </select>
+                </select>
+            </div>
 
-            <br>
+            <div class="dimensions-items">
+                <label for="carportlængde">Carport længde:</label> <br>
+                <select name="carportlængde" id="carportlængde" onchange="checkChosen()">
+                    <option value="" disabled selected>Vælg længde</option>
+                        <c:forEach items="${sessionScope.carportLengthList}" var="length">
+                            <option id="laengdevaerdi" value="${length}">${length/100} m</option>
+                        </c:forEach>
+                </select>
+            </div>
 
-            <label for="carporthøjde">Carport højde:</label> <br>
-            <select name="carporthøjde" id="carporthøjde" onchange="checkChosen()">
-                <option value="" disabled selected>Vælg højde</option>
-                <c:forEach items="${sessionScope.carportHeightList}" var="height">
-                    <option id="højdeværdi" value="${height}">${height/100} m</option>
-                </c:forEach>
-            </select>
+            <div class="dimensions-items">
+                <label for="carporthøjde">Carport højde:</label> <br>
+                <select name="carporthøjde" id="carporthøjde" onchange="checkChosen()">
+                    <option value="" disabled selected>Vælg højde</option>
+                    <c:forEach items="${sessionScope.carportHeightList}" var="height">
+                        <option id="højdeværdi" value="${height}">${height/100} m</option>
+                    </c:forEach>
+                </select>
+            </div>
 
         </div>
 
         <!--Denne div er til valg af tag og taghældning????-->
-        <div>
-            <label for="tagtype">Tagtype:</label> <br>
-            <select name="tagtype" id="tagtype">
-                <!--<option value="" disabled selected>Valg tagtype/farve</option>-->
-                <option value="p">Plasttrapez tag</option>
-                <option value="c">Cembrit tag</option>
-            </select>
+        <div class="container-tagtype-haeldning">
+            <div class="dimensions-items">
+                <label for="tagtype">Tagtype:</label> <br>
+                <select name="tagtype" id="tagtype">
+                    <!--<option value="" disabled selected>Valg tagtype/farve</option>-->
+                    <option value="p">Plasttrapez tag</option>
+                    <option value="c">Cembrit tag</option>
+                </select>
+            </div>
 
-            <br>
-
-            <label for="taghaeldning">Taghældning:</label> <br>
-            <select name="taghaeldning" id="taghaeldning">
-                <option value="" disabled selected>0 grader</option>
-            </select>
+            <div class="dimensions-items">
+                <label for="taghaeldning">Taghældning:</label> <br>
+                <select name="taghaeldning" id="taghaeldning">
+                    <option value="" disabled selected>0 grader</option>
+                </select>
+            </div>
         </div>
 
-        <label id="checkBoxRedskabsrum" for="redskabsrumValgt" style="opacity: 0.6;">Tilføj redskabsrum? </label>
-        <input type="checkbox" id="redskabsrumValgt" name="redskabsrumValgt"
-               value="n" onclick="redskabsRumValgt()" disabled>
-
-        <br><br>
+        <div class="container-redskabsrum-tilvalg">
+            <div class="dimensions-items">
+                <label id="checkBoxRedskabsrum" for="redskabsrumValgt" style="opacity: 0.6;">Tilføj redskabsrum? </label>
+                <input type="checkbox" id="redskabsrumValgt" name="redskabsrumValgt"
+                       value="n" onclick="redskabsRumValgt()" disabled>
+            </div>
+        </div>
 
         <!--Hvis redskabsrum tilvælges og alt information er tastet ind mht. dimensioner fremvises
         følgende muligheder til redskabsrummet-->
         
-        <div>
-            <label for="redskabsrumPlacering">Redskabsrum placering: </label> <br>
-            <select name="redskabsrumPlacering" id="redskabsrumPlacering" disabled onchange="redskabsRumValgt()">
-                <option value="" disabled selected>Valg placering</option>
-                <option id="venstre" value="venstre">venstre</option>
-                <option id="midt" value="midt">midt</option>
-                <option id="højre" value="højre">højre</option>
-            </select>
+        <div class="container-redskabsrum-dimensioner">
+            <div class="dimensions-items">
+                <label for="redskabsrumPlacering">Redskabsrum placering: </label> <br>
+                <select name="redskabsrumPlacering" id="redskabsrumPlacering" disabled onchange="redskabsRumValgt()">
+                    <option value="" disabled selected>Valg placering</option>
+                    <option id="venstre" value="venstre">venstre</option>
+                    <option id="midt" value="midt">midt</option>
+                    <option id="højre" value="højre">højre</option>
+                </select>
+            </div>
 
-            <br>
+            <div class="dimensions-items">
+                <label for="redskabsrumBredde">Redskabsrum bredde:</label> <br>
+                <input type="text" id="redskabsrumBredde" style="width: 75px" readonly> m (denne er fastlagt)
+            </div>
 
-            <label for="redskabsrumBredde">Redskabsrum bredde:</label> <br>
-            <input type="text" id="redskabsrumBredde" readonly> m (denne er fastlagt)
-
-            <br>
-
-            <label for="redskabsrumLængde">Redskabsrum længde:</label> <br>
-            <select name="redskabsrumLængde" id="redskabsrumLængde" disabled onchange="tjekOmAltErIndtastet();">
-                <option value="" disabled selected>Vælg længde</option>
-            </select>
+            <div class="dimensions-items">
+                <label for="redskabsrumLængde">Redskabsrum længde:</label> <br>
+                <select name="redskabsrumLængde" id="redskabsrumLængde" disabled onchange="tjekOmAltErIndtastet();">
+                    <option value="" disabled selected>Vælg længde</option>
+                </select>
+            </div>
 
             <input id="afstandMellemSpaer" type="text" hidden value="">
             <input name="skurSize" id="skurSize" type="number" hidden value="0">
         </div>
 
-        <br><br>
-
-        <div>
-
+        <div class="container-skitse-knap">
                 <input type="hidden" name="command" value="skitse"/>
                 <button id="seSkitse" class="btn btn-primary" disabled>
                     Se skitse
                 </button>
         </div>
+
         </form>
 
-
+        </div>
 
     </jsp:body>
 

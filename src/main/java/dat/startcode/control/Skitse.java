@@ -163,7 +163,7 @@ public class Skitse extends Command {
             }
             if (placering.equals("venstre")) {
 
-                innerSVG.addShedLine(carportLength - 8, carportWidth / 2, carportLength - 8 - 100, carportWidth / 2 + 13);
+                innerSVG.addShedLine(carportLength - 8, carportWidth / 2+11, carportLength - 8 - 100, carportWidth / 2 + 24);
 
             }
             if (placering.equals("højre")) {

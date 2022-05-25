@@ -25,10 +25,12 @@ abstract class Command
         commands.put("lager", new Lager());
         commands.put("skitse", new Skitse());
         commands.put("profil", new Profil());
+        commands.put("profil2", new ProfilFraMenu());
         commands.put("stykliste", new Stykliste());
         commands.put("updateCarportPrice", new UpdateCarportPrice());
         commands.put("confirmCarportRequest", new ConfirmCarportRequest());
         commands.put("seSkitse", new SeSkitse());
+        commands.put("deleteRequest", new DeleteRequest());
     }
 
     static Command from( HttpServletRequest request ) {

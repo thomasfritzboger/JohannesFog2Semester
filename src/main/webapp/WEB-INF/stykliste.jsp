@@ -13,6 +13,13 @@
 
     <jsp:body>
 
+        <div>
+            <button class="btn btn-primary" onclick="history.back()">
+                Gå tilbage
+            </button>
+        </div>
+
+
         <table class="table table-striped">
             <thead>
              <tr>

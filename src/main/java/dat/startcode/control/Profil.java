@@ -47,12 +47,6 @@ public class Profil extends Command {
             CustomerFacade.updatePhoneNumber(userId,newPhoneNumber,connectionPool);
         }
 
-        //Owais arbejder her
-        /*System.out.println(session.getAttribute("forespørgselbekræfter") != null);
-        System.out.println(session.getAttribute("forespørgselbekræfter"));
-        System.out.println(session.getAttribute("forespørgselbekræfter").equals("send"));*/
-
-
         //laver et tjek på carportbredde for at se om vi kommer fra en forespørgsel eller forsøger
         //at tilgå profilsiden fra menuen
         if(session.getAttribute("carportbredde") != null) {
@@ -79,22 +73,13 @@ public class Profil extends Command {
             }
 
             boolean isConfirmed = false;
-            System.out.println("Hello");
+
             //createCarportRequest
-            System.out.println("width: " + width);
-            System.out.println("length: " + length);
-            System.out.println("height: " + height);
-            System.out.println("hasShed: " + hasShed);
-            System.out.println("shedId: " + shedId);
-            System.out.println("Hello 0.5");
             Request carportRequest = CustomerFacade.createCarportRequest(coverageId, userId, width, length, height, hasShed, shedId, isConfirmed, (Double) session.getAttribute("carportPrice"), connectionPool);
-            System.out.println(carportRequest);
-            System.out.println("Hello 0.75");
         }
 
         //bruges til at loade på profilside
         List<Request> userRequests = CustomerFacade.getCarportRequestById(user.getUserId(), connectionPool);
-        System.out.println("Hello 2");
         session = request.getSession();
 
         session.setAttribute("carportbredde", null);
@@ -103,13 +88,12 @@ public class Profil extends Command {
         session.setAttribute("redskabsrumValgt", null);
         session.setAttribute("redskabsrumPlacering", null);
 
-        System.out.println("Hello 3");
         session.setAttribute("carportRequestByUser", userRequests);
 
         if(!user.getRole().equals("kunde")) {
             return "error";
         }
-        System.out.println("Hello 4");
+
         return "profil";
     }
 }

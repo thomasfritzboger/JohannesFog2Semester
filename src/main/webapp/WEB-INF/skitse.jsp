@@ -63,7 +63,6 @@
                 <button id="sendforespoergsel" type="submit" class="btn btn-primary" onclick="onClick();">
                     Send forespørgsel
                 </button>
-                <!--<input id="forespørgselbekræfter" name="forespørgselbekræfter" type="text" hidden>-->
             </form>
         </div>
 

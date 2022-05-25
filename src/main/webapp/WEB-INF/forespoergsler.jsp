@@ -44,21 +44,26 @@
                     <td></td>
 
                     <td>
+                        <span style="float: left">
                         <form>
-                            <button formaction="" name="forespoergsel" value=""
-                                    class="btn btn-secondary">
-                                Se forespørgsel
-                            </button>
                             <button formaction="confirmCarportRequest" name="godkend" value="${carportRequest.carportId}"
                                     class="btn btn-secondary" onclick="return confirm('Skal den godkendes?')">
                                 <input type="hidden" name="command" value="confirmCarportRequest">
                                 Godkend
                             </button>
-                            <button formaction="" name="afvis" value=""
-                                    class="btn btn-secondary">
+                        </form>
+                        </span>
+                        <span style="float: left; margin-left: 5px" >
+
+                        <form>
+                            <button formaction="deleteRequest" name="afvis" value="${carportRequest.carportId}"
+                                    class="btn btn-secondary" onclick="return confirm('Skal den afvises?')">
+                                <input type="hidden" name="command" value="deleteRequest">
                                 Afvis
                             </button>
                         </form>
+                        </span>
+
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
                              aria-hidden="true">
@@ -78,9 +83,17 @@
                                             <input type="number" id="carportId" name="carportId" required min="1" max="${sessionScope.carportRequest.size()}"/>
                                             <br>
                                             <br>
-                                            <label for="newCoverage">Nyt dækningsbidrag:</label>
-                                            <br>
-                                            <input type="number" id="newCoverage" name="newCoverage" required min="1" max="100"/>
+                                            <div>
+                                                <label for="newCoverage">Vælg dækningsgrad: </label>
+                                                <br>
+                                                <select class="styled-select-v2" name="newCoverage" id="newCoverage">
+                                                    <option value="40">40</option>
+                                                    <option value="35">35</option>
+                                                    <option value="30">30</option>
+                                                    <option value="25">25</option>
+
+                                                </select>
+                                            </div>
                                             <br>
                                             <br>
                                             <button type="submit" class="btn btn-dark">

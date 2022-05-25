@@ -32,7 +32,7 @@ public class SeSkitse extends Command {
             return "error";
         }
 
-        int carportId = Integer.parseInt(request.getParameter("getcarportid"));
+        int carportId = Integer.parseInt(request.getParameter("getcarportid1"));
         System.out.println(carportId);
 
         //getCarportById
@@ -174,7 +174,7 @@ public class SeSkitse extends Command {
             }
             if (placering.equals("venstre")) {
 
-                innerSVG.addShedLine(carportLength-8,carportWidth/2,carportLength-8-100,carportWidth/2+13);
+                innerSVG.addShedLine(carportLength - 8, carportWidth / 2+11, carportLength - 8 - 100, carportWidth / 2 + 24);
 
             }
             if (placering.equals("højre")) {
