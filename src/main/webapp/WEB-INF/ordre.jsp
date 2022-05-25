@@ -11,6 +11,7 @@
     </jsp:attribute>
 
     <jsp:body>
+
         <h3>Alle godkendte ordre</h3>
         <table class="table table-striped">
             <thead>
@@ -32,12 +33,12 @@
                         <td>${requestApproved.accepted}</td>
                         <td>
 
-                            <button formaction="fc/stykliste" class="btn btn-primary">
+                            <button formaction="fc/stykliste" class="btn btn-secondary">
                                 <input type="hidden" name="command" value="stykliste">Se stykliste
                             </button>
 
                         </td>
-                        <input id="getcarportid" name="getcarportid" value="${requestApproved.carportId}" hidden>
+                        <input id="getcarportid0" name="getcarportid0" value="${requestApproved.carportId}" hidden>
                     </tr>
                 </form>
             </c:forEach>

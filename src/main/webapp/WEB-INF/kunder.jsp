@@ -15,7 +15,7 @@
 
 
         <!--knap til at fremsøge kunder. Der tjekkes længere nede om en ekstra tabel med kundeinformation bør vises-->
-        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#fremsogkundemodal">
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#fremsogkundemodal">
             Fremsøg kunde
         </button>
         <br>

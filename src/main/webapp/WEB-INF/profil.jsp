@@ -35,11 +35,11 @@
                         Dit tlfnr. er: ${user.getPhoneNumber()} <br>
                         Din adresse er: ${user.getAddress()} (${user.getPostalCode()}) <br> <br>
                         <input type="hidden" name="command" value="updateUserInformation">
-                        <button id="newEmail" name="newEmail" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3">Rediger email</button>
+                        <button id="newEmail" name="newEmail" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal3">Rediger email</button>
                         <br><br>
-                        <button id="newPassword" name="newPassword" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal4">Rediger kodeord</button>
+                        <button id="newPassword" name="newPassword" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal4">Rediger kodeord</button>
                         <br><br>
-                        <button id="newPhoneNumber" name="newPhoneNumber" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal5">Rediger telefonnr.</button>
+                        <button id="newPhoneNumber" name="newPhoneNumber" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal5">Rediger telefonnr.</button>
                         <br>
                     </div>
                 </div>
@@ -62,10 +62,10 @@
                             <input type="hidden" name="command" value="profil">
                             <label for="indtastNyEmail">Indtast ny email: </label> <br>
                             <input type="email" id="indtastNyEmail" name="indtastNyEmail" required> <br> <br>
-                            <button class="btn btn-primary" onclick="return confirm('Er du sikker på du vil ændre din email?')">Bekræft</button>
+                            <button class="btn btn-info" onclick="return confirm('Er du sikker på du vil ændre din email?')">Bekræft</button>
                         </form>
                         <br>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                             <label for="passwordRepeated">Bekræft kodeord: </label> <br>
                             <input type="password" id="passwordRepeated" name="passwordRepeated" minlength="4" oninput="check(this)" required> <br> <br>
 
-                            <button class="btn btn-primary" onclick="return confirm('Er du sikker på du vil ændre dit kodeord?')">Bekræft</button>
+                            <button class="btn btn-info" onclick="return confirm('Er du sikker på du vil ændre dit kodeord?')">Bekræft</button>
 
                             <script type='text/javascript'>
                                 function check(input) {
@@ -107,7 +107,7 @@
                         </form>
 
                         <br>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>
                     </div>
                 </div>
             </div>
@@ -129,10 +129,10 @@
                             <input type="hidden" name="command" value="profil">
                             <label for="nyttelefonnr">Indtast nyt telefonnr.: </label> <br>
                             <input type="tel" id="nyttelefonnr" placeholder="40404040" name="nyttelefonnr" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
-                            <button class="btn btn-primary" onclick="return confirm('Er du sikker på du vil ændre dit telefonnr?')">Bekræft</button>
+                            <button class="btn btn-info" onclick="return confirm('Er du sikker på du vil ændre dit telefonnr?')">Bekræft</button>
                         </form>
                         <br>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal2">Gå Tilbage</button>
                     </div>
                 </div>
             </div>
