@@ -34,39 +34,7 @@
             </div>
         </c:if>
 </div>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Du kan logge ind her</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
 
-                        <form action="fc/login" method="post">
-                            <input type="hidden" name="command" value="login"/>
-
-                            <label for="email">Email: </label> <br>
-                            <input type="email" id="email" name="email" required/> <br>
-
-                            <label for="password">Kodeord: </label> <br>
-                            <input type="password" id="password" name="password" minlength="4" required/> <br> <br>
-
-                            <input type="submit"  value="Log in"/>
-
-                            <br>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal2"
-                                aria-label="Close" data-dismiss="#exampleModal">
-                            Ikke medlem endnu? Klik her.
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -81,23 +49,23 @@
                             <input type="hidden" name="command" value="lavbruger"/>
 
                             <label for="emailny">Email: </label> <br>
-                            <input type="email" id="emailny" name="emailny" required> <br> <br>
+                            <input type="email" id="emailny" name="emailny" placeholder="Indtast email" required> <br> <br>
 
                             <label for="telefonnr">Telefonnr: </label> <br>
-                            <input type="tel" id="telefonnr" placeholder="40404040" name="telefonnr" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
+                            <input type="tel" id="telefonnr" placeholder="Indtast telefonnummer" name="telefonnr" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
 
                             <label for="addresse">Addresse: </label> <br>
-                            <input type="text" id="addresse" name="addresse" minlength="4" required>
+                            <input type="text" id="addresse" name="addresse" placeholder="Indtast addresse" minlength="4" required>
                             <br> <br>
 
                             <label for="postnr">Postnr.: </label> <br>
                             <input type="text" id="postnr" name="postnr" pattern="[0-9]{4}" placeholder="Fire cifre" required> <br><br>
 
                             <label for="passwordny">Kodeord: </label> <br>
-                            <input type="password" id="passwordny" name="passwordny" minlength="4" placeholder="Kode" required> <br> <br>
+                            <input type="password" id="passwordny" name="passwordny" minlength="4" placeholder="Indtast kode" required> <br> <br>
 
                             <label for="passwordRepeated">Bekræft kodeord: </label> <br>
-                            <input type="password" id="passwordRepeated" name="passwordRepeated" minlength="4" oninput="check(this)" required> <br> <br>
+                            <input type="password" id="passwordRepeated" name="passwordRepeated" placeholder="Gentag kode" minlength="4" oninput="check(this)" required> <br> <br>
 
                             <script type='text/javascript'>
                                 function check(input) {
@@ -109,11 +77,13 @@
                                     }
                                 }
                             </script>
-                            <br /><br />
+
 
                             <button type="submit" class="btn btn-primary" >
                                 Bliv medlem
                             </button>
+
+                            <br> <br>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"

@@ -56,12 +56,14 @@
 
 
             <div id="info-box-faq">
-                <h3 style="color: white;">Nyttige links</h3>
-                <br>
-                <a class="btn btn-primary" href="https://bygningsreglementet.dk/Administrative-bestemmelser/BRV/Sekundaer-bebyggelse?Layout=ShowAll
-               " role="button">Korrekt opdateret lovgivning kan altid findes i bygningsreglementet</a>
-
+                <h3 style="color: white; font-weight: bold; text-align: center">Nyttige links</h3>
+                <p>Korrekt opdateret lovgivning kan altid findes i bygningsreglementet. Klik på linket for at læse mere.</p>
+                <div id="box-around-bygningsreglement">
+                    <a class="btn btn-primary" href="https://bygningsreglementet.dk/Administrative-bestemmelser/BRV/Sekundaer-bebyggelse?Layout=ShowAll" target="_blank"
+                       role="button"><i class="fa fa-info-circle"></i> Gå til bygningsreglement</a>
+                </div>
             </div>
+
 
         </div>
     </jsp:body>

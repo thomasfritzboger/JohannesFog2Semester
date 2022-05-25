@@ -50,33 +50,37 @@
 
         </div>
 
-        <div>
-            <form action="fc/carportDesigner">
-                <input type="hidden" name="command" value="carportDesigner">
-            <button class="btn btn-primary">
-                Gå tilbage
-            </button>
-            </form>
-
-            <form action="fc/profil" method="post">
-                <input type="hidden" name="command" value="profil"/>
-                <button id="sendforespoergsel" type="submit" class="btn btn-primary" onclick="onClick();">
-                    Send forespørgsel
+        <div class="container-knapper-skitse-side">
+                <div>
+                <form action="fc/carportDesigner">
+                    <input type="hidden" name="command" value="carportDesigner">
+                <button class="btn btn-primary" style="margin-right: 5px;">
+                    Gå tilbage
                 </button>
-            </form>
+                </form>
+                </div>
+                <div>
+                <form action="fc/profil" method="post">
+                    <input type="hidden" name="command" value="profil"/>
+                    <button id="sendforespoergsel" type="submit" class="btn btn-primary" onclick="onClick();">
+                        Send forespørgsel
+                    </button>
+                </form>
+            </div>
         </div>
+
 
         <div>
                 ${sessionScope.svgdrawing}
         </div>
 
-        <div style="background-color: grey; width: 450px; height: 140px;">
-            <h2>Din carport:</h2>
+        <div class="container-carport-dimensions-side">
+            <h2 style="color: white">Din carport:</h2>
             <ul>
-                <li>Carport bredde: ${carportbredde} cm</li>
-                <li>Carport længde: ${carportlængde} cm</li>
-                <li>Carport højde: ${carporthøjde} cm</li>
-                <li>Carport pris: ${carportPrice} kr.</li>
+                <li>bredde er: ${carportbredde} cm</li>
+                <li>længde er: ${carportlængde} cm</li>
+                <li>højde er: ${carporthøjde} cm</li>
+                <li>pris er: ${carportPrice} kr.</li>
             </ul>
         </div>
 
