@@ -142,7 +142,7 @@ public class ProductMapper implements IProductMapper {
         List<OrderLineDTO> materialLineList = new ArrayList<>();
         String sql = "SELECT p.product_description, m.unit_length, m.unit_quantity, p.scale, p.description from material_line as m " +
                 "inner join produktdto as p " +
-                "using (product_id) where m.carport_id = ?;";
+                "using (product_id) where m.carport_id = ? order by p.scale;";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {

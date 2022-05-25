@@ -12,10 +12,19 @@
     </jsp:attribute>
 
     <jsp:body>
+    <div class="container-knapper-lager-side">
+        <div>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" name="priceEditor"
+                    class="btn btn-secondary" style="margin-right: 5px"> Skift pris på produkt </button>
+            <br>
+        </div>
 
-        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" name="priceEditor"
-                class="btn btn-secondary"> Skift pris på produkt </button>
-        <br>
+        <div>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#descriptionEditor" name="descriptionEditor"
+                    class="btn btn-secondary"> Skift produkt beskrivelse </button>
+            <br>
+        </div>
+    </div>
 
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
              aria-hidden="true">
@@ -49,12 +58,6 @@
                 </div>
             </div>
         </div>
-
-
-
-        <button type="button" data-bs-toggle="modal" data-bs-target="#descriptionEditor" name="descriptionEditor"
-                class="btn btn-secondary"> Skift produkt beskrivelse </button>
-        <br>
 
         <div class="modal fade" id="descriptionEditor" tabindex="-1" aria-labelledby="descriptionEditor"
              aria-hidden="true">

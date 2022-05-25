@@ -135,7 +135,7 @@ th, td {
 .container-carport-dimensions-side {
     background-color: #afb8c7;
     padding: 10px;
-    width: 250px;
+    width: 350px;
     height: auto;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     margin: auto;
@@ -154,7 +154,12 @@ th, td {
     }
 }
 
-
+/*lager side styling*/
+.container-knapper-lager-side {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
 
 
 @media (max-width: 1200px) {

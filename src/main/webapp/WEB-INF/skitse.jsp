@@ -70,18 +70,15 @@
         </div>
 
 
-        <div>
-                ${sessionScope.svgdrawing}
-        </div>
-
         <div class="container-carport-dimensions-side">
             <h2 style="color: white">Din carport:</h2>
-            <ul>
-                <li>bredde er: ${carportbredde} cm</li>
-                <li>længde er: ${carportlængde} cm</li>
-                <li>højde er: ${carporthøjde} cm</li>
-                <li>pris er: ${carportPrice} kr.</li>
-            </ul>
+            <p>bredde: ${carportbredde} cm, længde: ${carportlængde} cm, højde: ${carporthøjde} cm <br>
+            Forventet pris: ${carportPrice} kr.</p>
+        </div>
+
+
+        <div>
+                ${sessionScope.svgdrawing}
         </div>
 
 
