@@ -41,7 +41,8 @@ Funktionelt kan applikationen:
 - Administratoren kan bekræfte forespørgsler, fremsøge kunder, tjekke ordre og ændre på lagerholdning.
 - Du kan oprette en bruger eller logge på en følgende roler:
     1. `kunde1@fog.dk` med password: `1234` (rolle: `kunde`)
-    2. `admin@fog.dk` med password: `1234` (rolle: `admin`)
+    2. `kunde2@fog.dk` med password: `1234` (rolle: `kunde`)
+    3. `admin@fog.dk` med password: `1234` (rolle: `admin`)
 - Hvis man indtaster ugyldige data under indlogning, bliver man sendt til en en fejlside.
 
 ## MVC arkitektur med front-controller
