@@ -5,6 +5,7 @@ import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -127,20 +128,58 @@ public class AdminMapper implements IAdminMapper {
         }
     }
 
+    public Carport getCarportPriceAndCoverageById(int carportId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO,"");
+
+        Carport carport = null;
+
+        String sql = "SELECT carport_price, coverage_id FROM carport WHERE carport_id = ?";
+
+        try (Connection connection = connectionPool.getConnection()){
+            try (PreparedStatement ps = connection.prepareStatement(sql)){
+
+                ps.setInt(1, carportId);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    double carportPrice = rs.getDouble("carport_price");
+                    int coverage = rs.getInt("coverage_id");
+
+                    carport = new Carport(coverage, carportPrice);
+                }
+            } catch (SQLException sqlException) {
+                throw new DatabaseException("Kunne ikke finde prisen på carport");
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            throw new DatabaseException("Kunne ikke få forbindelse til databasen");
+        }
+        return carport;
+    }
+
     @Override
     public Carport newCoverageForCarport(int newCoverage, int carportId) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO,"");
         Carport carport;
-        String sql = "UPDATE carport " +
-                "SET coverage_id = ? " +
-                "WHERE carport_id = ?";
+        Carport carport1 = getCarportPriceAndCoverageById(carportId);
+        String sql = "UPDATE carport SET coverage_id = ?, carport_price = ? WHERE carport_id = ?";
 
         try (Connection connection = connectionPool.getConnection()){
             try (PreparedStatement ps = connection.prepareStatement(sql)){
+
+                //get carportprice by carport id
+                double getCarportPrice = carport1.getCarportPrice();
+
+                //get coverage by carport id
+                int oldCoverage = carport1.getCoverage();
+
+                double newPrice = Math.round(((getCarportPrice/((double)oldCoverage/100+1))*((double)newCoverage/100+1))*100.0)/100.0;
+
                 ps.setInt(1,newCoverage);
-                ps.setInt(2,carportId);
+                ps.setDouble(2, newPrice);
+                ps.setInt(3,carportId);
                 ps.executeUpdate();
-                carport = new Carport(carportId,newCoverage);
+                carport = new Carport(carportId,newCoverage, newPrice);
             }
         }catch (SQLException sqlException) {
             throw new DatabaseException("Enten er carportens id forkert, eller det valgte dækningsbidrag findes ikke");

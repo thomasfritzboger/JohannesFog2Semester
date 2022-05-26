@@ -10,6 +10,8 @@ public class Carport {
     private int carportWidth;
     private int carportLength;
     private int carportHeight;
+
+    private Double carportPrice;
     private boolean hasShed;
 
     private Shed shed;
@@ -43,9 +45,15 @@ public class Carport {
         this.hasShed = hasShed;
     }
 
-    public Carport(int carportId, int newCoverage) {
+    public Carport(int carportId, int newCoverage, double newPrice) {
         this.carportId = carportId;
         this.coverage = newCoverage;
+        this.carportPrice = newPrice;
+    }
+
+    public Carport(int coverage, Double carportPrice) {
+        this.coverage = coverage;
+        this.carportPrice = carportPrice;
     }
 
     public Carport(int carportId) {
@@ -84,6 +92,22 @@ public class Carport {
 
     public void setShed(Shed shed) {
         this.shed = shed;
+    }
+
+    public int getCoverage() {
+        return coverage;
+    }
+
+    public void setCoverage(int coverage) {
+        this.coverage = coverage;
+    }
+
+    public Double getCarportPrice() {
+        return carportPrice;
+    }
+
+    public void setCarportPrice(Double carportPrice) {
+        this.carportPrice = carportPrice;
     }
 
     @Override
