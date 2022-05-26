@@ -1,6 +1,7 @@
 package dat.startcode.model.persistence;
 
 import dat.startcode.model.dtos.LagerDTO;
+import dat.startcode.model.dtos.OrderLineDTO;
 import dat.startcode.model.dtos.ProduktDTO;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.services.ProductFacade;
@@ -32,6 +33,26 @@ class ProductMapperTest {
     void setUp() {
         try (Connection testConnection = connectionPool.getConnection()){
             try (Statement stmt = testConnection.createStatement()){
+                // Remove all rows from user table
+                stmt.execute("delete from user");
+                // Insert users
+                stmt.execute("insert into user (user_id, email, password, role, phonenumber, address, postal_code) " +
+                        "values ('1','admin@fog.dk','1234','admin','70707070','Envej 1','2800'), " +
+                        "('2','kunde1@fog.dk','1234','kunde','80808080','Tovej 2','2800'), " +
+                        "('3','kunde2@fog.dk','1234','kunde','90909090','Trevej 3','3600')");
+                // Remove all rows from coverage table
+                stmt.execute("delete from coverage");
+                // Insert coverage
+                stmt.execute("insert into coverage (coverage_id, coverage) " +
+                        "values ('40','40'), " +
+                        "('30','30')");
+                // Remove all rows from carport table
+                stmt.execute("delete from carport");
+                // Insert carports
+                stmt.execute("insert into carport (carport_id, coverage_id, user_id, width, length, height, hasShed, isConfirmed) " +
+                        "values ('1','40','2','300','540','210','0','0'), " +
+                        "('2','40','3','320','560','220','0','0'), " +
+                        "('3','40','2','300','540','210','0','1')");
                 // Remove all rows from usement table
                 stmt.execute("delete from usement");
                 // Insert usement descriptions
@@ -62,6 +83,13 @@ class ProductMapperTest {
                         "values ('1','1','1','1','1'), " +
                         "('2','1','1','1','1'), " +
                         "('3','1','1','1','1')");
+                // Remove all rows from material_line table
+                stmt.execute("delete from material_line");
+                // Insert material lines
+                stmt.execute("insert into material_line (material_line_id, carport_id, product_id, unit_length, unit_quantity, total_line_price) " +
+                        "values ('1','1','1','360','3','100'), " +
+                        "('2','2','1','270','5','90'), " +
+                        "('3','3','1','360','2','200')");
             }
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
@@ -87,17 +115,43 @@ class ProductMapperTest {
 
     @Test
     void getLager() throws DatabaseException {
-        List<LagerDTO> lagerList = ProductFacade.getLager(connectionPool);
-        assertEquals(4,lagerList.size());
+        List<LagerDTO> stockList = ProductFacade.getLager(connectionPool);
+        assertEquals(4,stockList.size());
     }
 
     @Test
     void updateLagerPrice() throws DatabaseException {
-        List<LagerDTO> lagerProduct = ProductFacade.getLager(connectionPool);
-        assertEquals(22,lagerProduct.get(0).getLagerPrice());
+        List<LagerDTO> stockProduct = ProductFacade.getLager(connectionPool);
+        assertEquals(22,stockProduct.get(0).getLagerPrice());
 
-        ProductFacade.updateLagerPrice(connectionPool,lagerProduct.get(0).getLagerId(),66);
-        lagerProduct = ProductFacade.getLager(connectionPool);
-        assertEquals(66,lagerProduct.get(0).getLagerPrice());
+        ProductFacade.updateLagerPrice(connectionPool,stockProduct.get(0).getLagerId(),66);
+        stockProduct = ProductFacade.getLager(connectionPool);
+        assertEquals(66,stockProduct.get(0).getLagerPrice());
+    }
+
+    @Test
+    void updateLagerDescription() throws DatabaseException {
+        List<LagerDTO> stockProduct = ProductFacade.getLager(connectionPool);
+        assertEquals("Tredje tekst",stockProduct.get(2).getLagerDescription());
+
+        ProductFacade.updateLagerDescription(connectionPool,3,"7x6 mm. træ");
+        stockProduct = ProductFacade.getLager(connectionPool);
+        assertNotEquals("Tredje tekst",stockProduct.get(2).getLagerDescription());
+        assertEquals("7x6 mm. træ",stockProduct.get(2).getLagerDescription());
+    }
+
+    @Test
+    void saveMaterialLines() throws DatabaseException {
+        ProductFacade.saveMaterialLines(connectionPool,1,3,360,5,12000);
+        ProductFacade.saveMaterialLines(connectionPool,1,1,270,3,10000);
+        ProductFacade.saveMaterialLines(connectionPool,1,2,360,4,9000);
+        List<OrderLineDTO> materialLines = ProductFacade.getMaterialLinesByCarportId(connectionPool,1);
+        assertEquals(4,materialLines.size());
+    }
+
+    @Test
+    void getMaterialLinesByCarportId() throws DatabaseException {
+        List<OrderLineDTO> materialLines = ProductFacade.getMaterialLinesByCarportId(connectionPool,2);
+        assertEquals("stk",materialLines.get(0).getUnitScale());
     }
 }

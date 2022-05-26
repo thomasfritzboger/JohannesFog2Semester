@@ -141,7 +141,19 @@ class AdminMapperTest {
 
         approvedList = AdminFacade.getRequest(connectionPool);
         AdminFacade.confirmCarportRequest(approvedList.get(1).getCarportId(),connectionPool);
+
         approvedList = AdminFacade.getApprovedRequest(connectionPool);
         assertEquals(2,approvedList.size());
+    }
+
+    @Test
+    void deleteRequest() throws DatabaseException {
+        List<RequestDTO> requestList = AdminFacade.getRequest(connectionPool);
+        assertEquals(2,requestList.size());
+
+        AdminFacade.deleteRequest(connectionPool,2);
+
+        requestList = AdminFacade.getRequest(connectionPool);
+        assertEquals(1,requestList.size());
     }
 }
