@@ -58,10 +58,10 @@ class CustomerMapperTest {
                 // Remove all rows from carport table
                 stmt.execute("delete from carport");
                 // Insert carports
-                stmt.execute("insert into carport (carport_id, coverage_id, user_id, width, length, height, shed_id,hasShed, isConfirmed) " +
-                        "values ('1','40','2','300','540','210', '1','1','0'), " +
-                        "('2','40','3','320','560','220','1','0','0'), " +
-                        "('3','40','2','300','540','210','2','1','0')");
+                stmt.execute("insert into carport (carport_id, coverage_id, user_id, width, length, height, roof_type, shed_id, hasShed, isConfirmed) " +
+                        "values ('1','40','2','300','540','210','p','1','1','0'), " +
+                        "('2','40','3','320','560','220','c','1','0','0'), " +
+                        "('3','40','2','300','540','210','p','2','1','0')");
             }
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());

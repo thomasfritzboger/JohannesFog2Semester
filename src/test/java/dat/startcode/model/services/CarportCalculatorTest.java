@@ -316,6 +316,6 @@ class CarportCalculatorTest {
     @Test
     void beregnCarportPris() throws IllegalDimensionException {
         calculator.calculateCarport(780,600,220,"y","p","center",5);
-        assertEquals(31628, calculator.getCarportPrice(),1);
+        assertEquals(31561, calculator.getCarportPrice(),1);
     }
 }
