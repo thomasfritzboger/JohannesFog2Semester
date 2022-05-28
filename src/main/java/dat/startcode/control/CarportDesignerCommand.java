@@ -34,8 +34,8 @@ public class CarportDesignerCommand extends Command{
 
         User user = (User) session.getAttribute("user");
 
-        List<ProductDTO> productDTOListe;
-        productDTOListe = ProductFacade.getProductDTOs(connectionPool);
+        List<ProductDTO> productDTOList;
+        productDTOList = ProductFacade.getProductDTOs(connectionPool);
 
 
         if(!user.getRole().equals("kunde")) {
@@ -43,7 +43,7 @@ public class CarportDesignerCommand extends Command{
         }
 
         session = request.getSession();
-        session.setAttribute("productDTOList", productDTOListe);
+        session.setAttribute("productDTOList", productDTOList);
         session.setAttribute("carportWidthList", carportWidth);
         session.setAttribute("carportLengthList", carportLength);
         session.setAttribute("carportHeightList", carportHeight);
