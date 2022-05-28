@@ -14,13 +14,13 @@ Projektet er udført af:
 
 ## Deployment på Droplet
 Flere af os har uploadet til hver vores droplets. Her er de listet:
-- [Nummer 1](http://134.209.250.205:8080/fogcarport/)
-- [Nummer 2](http://46.101.240.195:8080/fog/)
-- [Nummer 3]()
+- [Deployment 1](http://134.209.250.205:8080/fogcarport/) <!--Owais-->
+- [Deployment 2](http://46.101.240.195:8080/fog/) <!--Thomas-->
+- [Deployment 3](http://64.225.97.221:8080/fog/) <!--Andreas-->
 
 ## Logbog
 Her er et link til vores logbog
-- [LOGBOG]()
+- [LOGBOG](https://docs.google.com/document/d/1hYZP6E3MkkmH_mHPWVnAW8JdBuTCLxNIA6XpuR8aLoA/edit?usp=sharing)
 
 ## Hvordan køres projektet?
 1. Først skal du clone projektet eller downloade en zip-fil med projektet til din arbejdsstation.
@@ -31,7 +31,7 @@ Her er et link til vores logbog
    3. Klik på "Fix knappen"
    4. Vælg war-exploded som deployment type
    5. Nu kan du klikke på den grønne play-knap for at bygge og køre projektet.
-4. Du skal nok ændre kodeord til databasen i projektet, så du kan tilgå den lokalt. Det gøres under model-delen i filerne: `/persistence/ConnectionPool` i linie 13 og 14. Du kan evt. klikke på Configuration i top-menuen -> Edit configurations -> Startup/Connection og lave to environment variabler. Den ene skal under Name hedde db_un og ud fra Value taster du din MySQL brugernavn. Den anden skal hedde db_up under navn og skal have din MySQL kode under value. På den måde kan du tilgå scriptet.
+4. Du skal nok ændre kodeord til databasen i projektet, så du kan tilgå den lokalt. Det gøres under model-delen i filerne: `/persistence/ConnectionPool` i linie 13 og 14. Du kan evt. klikke på Configuration i top-menuen -> Edit configurations -> Startup/Connection og lave to environment variabler. Den ene skal under Name hedde `db_un` og ud fra Value taster du dit MySQL brugernavn. Den anden skal hedde `db_up` under navn og skal have din MySQL kode under value. På den måde kan du tilgå scriptet.
 
 ## Bemærkninger
 - Strukturering er i passende packages for overblik (MVC). Noget af strukturen er også givet af Maven, og kan ikke laves om. F.eks. opdelingen i `/java` og `/webapp`.
