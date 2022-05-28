@@ -20,7 +20,7 @@ Flere af os har uploadet til hver vores droplets. Her er de listet:
 
 ## Logbog
 Her er et link til vores logbog
-- [LOGBOG]()
+- [LOGBOG](https://docs.google.com/document/d/1hYZP6E3MkkmH_mHPWVnAW8JdBuTCLxNIA6XpuR8aLoA/edit?usp=sharing)
 
 ## Hvordan køres projektet?
 1. Først skal du clone projektet eller downloade en zip-fil med projektet til din arbejdsstation.
