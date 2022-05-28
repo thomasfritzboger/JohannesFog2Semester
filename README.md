@@ -14,9 +14,9 @@ Projektet er udført af:
 
 ## Deployment på Droplet
 Flere af os har uploadet til hver vores droplets. Her er de listet:
-- [Nummer 1](http://134.209.250.205:8080/fogcarport/)
-- [Nummer 2](http://46.101.240.195:8080/fog/)
-- [Nummer 3]()
+- [Deployment 1](http://134.209.250.205:8080/fogcarport/) <!--Owais-->
+- [Deployment 2](http://46.101.240.195:8080/fog/) <!--Thomas-->
+- [Deployment 3](http://64.225.97.221:8080/fog/) <!--Andreas-->
 
 ## Logbog
 Her er et link til vores logbog
