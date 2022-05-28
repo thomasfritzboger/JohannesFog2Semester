@@ -22,7 +22,7 @@ public class ProductMapper implements IProductMapper {
 
         List<ProductDTO> productDTOList = new ArrayList<>();
 
-        String sql = "SELECT * FROM produktdto order by product_id";
+        String sql = "SELECT * FROM productdto order by product_id";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -127,7 +127,7 @@ public class ProductMapper implements IProductMapper {
     public List<OrderLineDTO> getMaterialLinesByCarportId(int carportId) throws DatabaseException {
         List<OrderLineDTO> materialLineList = new ArrayList<>();
         String sql = "SELECT p.product_description, m.unit_length, m.unit_quantity, p.scale, p.description from material_line as m " +
-                "inner join produktdto as p " +
+                "inner join productdto as p " +
                 "using (product_id) where m.carport_id = ? order by p.scale;";
 
         try (Connection connection = connectionPool.getConnection()) {

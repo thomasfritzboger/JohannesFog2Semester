@@ -329,7 +329,7 @@ INSERT INTO `fog`.`product` (`product_description_id`, `productvariant_id`, `uni
 -- -----------------------------------------------------
 -- Views
 -- -----------------------------------------------------
-CREATE VIEW ProduktDTO AS
+CREATE VIEW productdto AS
 SELECT p.product_id, d.product_description, d.unit_price, v.length, v.width, v.height, v.diameter, m.usement_description as description, s.unit_scale as scale
 FROM product as p
          inner join product_description as d

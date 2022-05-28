@@ -32,7 +32,7 @@ CREATE
     ALGORITHM = UNDEFINED
     DEFINER = `root`@`localhost`
     SQL SECURITY DEFINER
-    VIEW `fog_test`.`produktdto` AS
+    VIEW `fog_test`.`productdto` AS
 SELECT
     `p`.`product_id` AS `product_id`,
     `d`.`product_description` AS `product_description`,
