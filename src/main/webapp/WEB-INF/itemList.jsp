@@ -13,7 +13,7 @@
 
     <jsp:body>
 
-        <div class="container-knapper-stykliste">
+        <div class="container-buttons-itemList">
             <div style="margin-right: 5px;">
                 <button class="btn btn-primary" onclick="history.back()">
                     Gå tilbage
@@ -21,7 +21,7 @@
             </div>
 
             <div>
-                <button class="btn btn-primary" onclick="gemSomPDF()">
+                <button class="btn btn-primary" onclick="saveAsPDF()">
                     Gem som pdf
                 </button>
             </div>
@@ -30,7 +30,7 @@
 
         <br>
 
-        <table id="styklistetabel" class="table table-striped">
+        <table id="itemListTable" class="table table-striped">
             <thead>
              <tr>
                 <th>Produktbeskrivelse</th>
@@ -41,13 +41,13 @@
              </tr>
             </thead>
             <tbody>
-            <c:forEach var="materialline" items="${sessionScope.materiallinelist}">
+            <c:forEach var="materialLine" items="${sessionScope.materialLineList}">
                 <tr>
-                    <td>${materialline.productDescription}</td>
-                    <td>${materialline.length}</td>
-                    <td>${materialline.amount}</td>
-                    <td>${materialline.unitScale}</td>
-                    <td>${materialline.usementDescription}</td>
+                    <td>${materialLine.productDescription}</td>
+                    <td>${materialLine.length}</td>
+                    <td>${materialLine.amount}</td>
+                    <td>${materialLine.unitScale}</td>
+                    <td>${materialLine.usementDescription}</td>
                 </tr>
             </c:forEach>
 
@@ -59,8 +59,8 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
         <script type="text/javascript">
-            function gemSomPDF() {
-                html2canvas(document.getElementById('styklistetabel'), {
+            function saveAsPDF() {
+                html2canvas(document.getElementById('itemListTable'), {
                     onrendered: function (canvas) {
                         var data = canvas.toDataURL();
                         var docDefinition = {

@@ -3,30 +3,25 @@ package dat.startcode.model.services;
 import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.Request;
 import dat.startcode.model.entities.Shed;
-import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.persistence.CustomerMapper;
-import dat.startcode.model.persistence.UserMapper;
 
 import java.util.List;
 
 public class CustomerFacade
 {
-    public static Shed createNewShed(int width, int length, String placement, ConnectionPool connectionPool) throws DatabaseException
-    {
+    public static Shed createNewShed(int width, int length, String placement, ConnectionPool connectionPool) throws DatabaseException {
         CustomerMapper customerMapper = new CustomerMapper(connectionPool);
         return customerMapper.createNewShed(width, length, placement);
     }
 
-    public static Request createCarportRequest(int coverageId, int userId, int width, int length, int height, boolean hasShed, int shedId, boolean isConfirmed,double carportPrice, ConnectionPool connectionPool) throws DatabaseException
-    {
+    public static Request createCarportRequest(int coverageId, int userId, int width, int length, int height, String roofType, boolean hasShed, int shedId, boolean isConfirmed,double carportPrice, ConnectionPool connectionPool) throws DatabaseException {
         CustomerMapper customerMapper = new CustomerMapper(connectionPool);
-        return customerMapper.createCarportRequest(coverageId, userId, width, length, height, hasShed, shedId, isConfirmed, carportPrice);
+        return customerMapper.createCarportRequest(coverageId, userId, width, length, height, roofType, hasShed, shedId, isConfirmed, carportPrice);
     }
 
-    public static List<Request> getCarportRequestById(int userId, ConnectionPool connectionPool) throws DatabaseException
-    {
+    public static List<Request> getCarportRequestById(int userId, ConnectionPool connectionPool) throws DatabaseException {
         CustomerMapper customerMapper = new CustomerMapper(connectionPool);
         return customerMapper.getCarportRequestById(userId);
     }
@@ -41,14 +36,14 @@ public class CustomerFacade
         return customerMapper.updateEmail(userId,newEmail);
     }
 
-    public static boolean updatePass(int userId, String pass, ConnectionPool connectionPool) throws DatabaseException {
+    public static boolean updatePassword(int userId, String pass, ConnectionPool connectionPool) throws DatabaseException {
         CustomerMapper customerMapper = new CustomerMapper(connectionPool);
         return customerMapper.updatePassword(userId,pass);
     }
 
-    public static boolean updatePhoneNumber(int userId, String phonenumber, ConnectionPool connectionPool) throws DatabaseException {
+    public static boolean updatePhoneNumber(int userId, String phoneNumber, ConnectionPool connectionPool) throws DatabaseException {
         CustomerMapper customerMapper = new CustomerMapper(connectionPool);
-        return customerMapper.updatePhoneNumber(userId,phonenumber);
+        return customerMapper.updatePhoneNumber(userId,phoneNumber);
     }
 
 }

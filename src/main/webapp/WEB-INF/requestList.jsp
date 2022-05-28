@@ -46,7 +46,7 @@
                     <td>
                         <span style="float: left">
                         <form>
-                            <button formaction="confirmCarportRequest" name="godkend" value="${carportRequest.carportId}"
+                            <button formaction="confirmCarportRequest" name="approve" value="${carportRequest.carportId}"
                                     class="btn btn-secondary" onclick="return confirm('Skal den godkendes?')">
                                 <input type="hidden" name="command" value="confirmCarportRequest">
                                 Godkend
@@ -56,7 +56,7 @@
                         <span style="float: left; margin-left: 5px" >
 
                         <form>
-                            <button formaction="deleteRequest" name="afvis" value="${carportRequest.carportId}"
+                            <button formaction="deleteRequest" name="decline" value="${carportRequest.carportId}"
                                     class="btn btn-secondary" onclick="return confirm('Skal den afvises?')">
                                 <input type="hidden" name="command" value="deleteRequest">
                                 Afvis

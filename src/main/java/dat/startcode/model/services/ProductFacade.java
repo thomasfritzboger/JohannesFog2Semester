@@ -1,8 +1,8 @@
 package dat.startcode.model.services;
 
-import dat.startcode.model.dtos.LagerDTO;
+import dat.startcode.model.dtos.StockDTO;
 import dat.startcode.model.dtos.OrderLineDTO;
-import dat.startcode.model.dtos.ProduktDTO;
+import dat.startcode.model.dtos.ProductDTO;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.persistence.ProductMapper;
@@ -11,29 +11,29 @@ import java.util.List;
 
 public class ProductFacade {
 
-    public static List<ProduktDTO> getProduktDTOs (ConnectionPool connectionPool) throws DatabaseException {
+    public static List<ProductDTO> getProductDTOs(ConnectionPool connectionPool) throws DatabaseException {
         ProductMapper productMapper = new ProductMapper(connectionPool);
         return productMapper.getAllProducts();
     }
 
-    public static List<LagerDTO> getLager (ConnectionPool connectionPool) throws DatabaseException {
+    public static List<StockDTO> getStock(ConnectionPool connectionPool) throws DatabaseException {
         ProductMapper productMapper = new ProductMapper(connectionPool);
-        return productMapper.getLager();
+        return productMapper.getStock();
     }
 
-    public static void updateLagerPrice (ConnectionPool connectionPool, int id, double price) throws DatabaseException{
+    public static void updateUnitPrice(ConnectionPool connectionPool, int id, double price) throws DatabaseException{
         ProductMapper productMapper = new ProductMapper(connectionPool);
-        productMapper.updateLagerPrice(id,price);
+        productMapper.updateUnitPrice(id,price);
     }
 
-    public static void updateLagerDescription (ConnectionPool connectionPool, int id, String description) throws DatabaseException {
+    public static void updateProductDescription(ConnectionPool connectionPool, int id, String description) throws DatabaseException {
         ProductMapper productMapper = new ProductMapper(connectionPool);
-        productMapper.updateLagerDescription(id,description);
+        productMapper.updateProductDescription(id,description);
     }
 
-    public static void saveMaterialLines(ConnectionPool connectionPool, int carport_id,int product_id,int unit_length, int unit_quantity, double total_line_price) throws DatabaseException {
+    public static void saveMaterialLines(ConnectionPool connectionPool, int carportId, int productId, int unitLength, int unitQuantity, double totalLinePrice) throws DatabaseException {
         ProductMapper productMapper = new ProductMapper(connectionPool);
-        productMapper.saveMaterialLines(carport_id,product_id,unit_length,unit_quantity,total_line_price);
+        productMapper.saveMaterialLines(carportId,productId,unitLength,unitQuantity,totalLinePrice);
     }
 
     public static List<OrderLineDTO> getMaterialLinesByCarportId (ConnectionPool connectionPool, int carportId) throws  DatabaseException {

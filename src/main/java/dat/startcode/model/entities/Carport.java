@@ -10,12 +10,12 @@ public class Carport {
     private int carportWidth;
     private int carportLength;
     private int carportHeight;
-
+    private String roofType;
     private Double carportPrice;
     private boolean hasShed;
-
     private Shed shed;
     private LocalDate created;
+
 
 
     public Carport (int carportId, int userId, int carportWidth, int carportLength){
@@ -36,11 +36,12 @@ public class Carport {
         this.shed = shed;
     }
 
-    public Carport(int carportId, int width, int length, int height, Shed shed, boolean hasShed) {
+    public Carport(int carportId, int width, int length, int height, String roofType, Shed shed, boolean hasShed) {
         this.carportId = carportId;
         this.carportWidth = width;
         this.carportLength = length;
         this.carportHeight = height;
+        this.roofType = roofType;
         this.shed = shed;
         this.hasShed = hasShed;
     }
@@ -78,6 +79,14 @@ public class Carport {
 
     public int getCarportHeight() {
         return carportHeight;
+    }
+
+    public String getRoofType() {
+        return roofType;
+    }
+
+    public void setRoofType(String roofType) {
+        this.roofType = roofType;
     }
 
     public LocalDate getCreated() { return created; }
@@ -119,6 +128,8 @@ public class Carport {
                 ", carportWidth=" + carportWidth +
                 ", carportLength=" + carportLength +
                 ", carportHeight=" + carportHeight +
+                ", roofType='" + roofType + '\'' +
+                ", carportPrice=" + carportPrice +
                 ", hasShed=" + hasShed +
                 ", shed=" + shed +
                 ", created=" + created +

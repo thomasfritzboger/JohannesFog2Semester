@@ -16,7 +16,7 @@
 
         <h2 id="choose-carport-type-heading">Vælg carport type:</h2>
 
-        <div class="container-valg-af-carport">
+        <div class="container-chosen-carport">
             <div>
                 <p>Carport med fladt tag</p>
                 <a href="${pageContext.request.contextPath}/fc/carportDesigner?command=carportDesigner" >

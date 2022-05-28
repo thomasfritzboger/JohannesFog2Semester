@@ -49,15 +49,15 @@
                         <a class="nav-item nav-link" style="pointer-events: none; cursor: default; font-style: italic">Velkommen: ${fn:toLowerCase(sessionScope.user.email)}</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Forside</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/faq?command=faq">FAQ</a>
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/profil2?command=profil2">Profil</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/profile2?command=profile2">Profil</a>
                     </c:if>
 
                     <!--Navigationsbaren hvis admin er logget IND-->
                     <c:if test="${sessionScope.user.role.equals('admin')}">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/forespoergsler?command=forespoergsler">Forespørgsler</a>
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/ordre?command=ordre">Ordre</a>
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/kunder?command=kunder">Kunder</a>
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/lager?command=lager">Lager</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/requestList?command=requestList">Forespørgsler</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/order?command=order">Ordre</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/customer?command=customer">Kunder</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/stock?command=stock">Lager</a>
                         <a class="nav-item nav-link" style="pointer-events: none; cursor: default; font-style: italic">Admin: ${fn:toLowerCase(sessionScope.user.email)}</a>
                     </c:if>
 

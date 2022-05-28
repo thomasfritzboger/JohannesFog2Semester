@@ -2,6 +2,7 @@ package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.dtos.RequestDTO;
+import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.services.AdminFacade;
@@ -11,27 +12,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class DeleteRequest extends Command{
-
+public class OrderCommand extends Command {
+    List<RequestDTO> requestApproved;
     private ConnectionPool connectionPool;
 
-    private List<RequestDTO> carportRequest;
+    public OrderCommand() { this.connectionPool = ApplicationStart.getConnectionPool(); }
 
-    public DeleteRequest() {
-        this.connectionPool = ApplicationStart.getConnectionPool();
-    }
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
+
         HttpSession session = request.getSession();
 
-        int carportId = Integer.parseInt(request.getParameter("afvis"));
+        User user = (User) session.getAttribute("user");
 
-        AdminFacade.deleteRequest(connectionPool,carportId);
+        if(!user.getRole().equals("admin")) {
+            return "error";
+        }
 
-        carportRequest = AdminFacade.getRequest(connectionPool);
+        requestApproved = AdminFacade.getApprovedRequest(connectionPool);
 
-        session.setAttribute("carportRequest",carportRequest);
+        session = request.getSession();
 
-        return "forespoergsler";
+        session.setAttribute("requestApproved", requestApproved);
+
+        return "order";
     }
 }

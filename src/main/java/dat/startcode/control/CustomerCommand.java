@@ -1,7 +1,6 @@
 package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
-import dat.startcode.model.dtos.RequestDTO;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
@@ -12,13 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class Ordre extends Command {
 
-    List<RequestDTO> requestApproved;
+public class CustomerCommand extends Command {
+
+    List<User> customerList;
+    User searchedCustomer = null;
 
     private ConnectionPool connectionPool;
 
-    public Ordre() { this.connectionPool = ApplicationStart.getConnectionPool(); }
+    public CustomerCommand()
+    {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
@@ -31,12 +35,28 @@ public class Ordre extends Command {
             return "error";
         }
 
-        requestApproved = AdminFacade.getApprovedRequest(connectionPool);
+
+        String email = request.getParameter("searchedEmail");
+
+        customerList = AdminFacade.getCustomerList(connectionPool);
+
+        if(email != null) {
+            for (User u : customerList) {
+                if(u.getEmail().equals(email)) {
+                    searchedCustomer = u;
+                    break;
+                }
+                searchedCustomer = null;
+            }
+        }
 
         session = request.getSession();
 
-        session.setAttribute("requestApproved", requestApproved);
+        session.setAttribute("customerList", customerList);
+        session.setAttribute("searchedCustomer", searchedCustomer);
+        session.setAttribute("searchedEmail", email);
 
-        return "ordre";
+        return "customer";
     }
+
 }

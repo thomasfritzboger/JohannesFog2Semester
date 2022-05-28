@@ -2,7 +2,6 @@ package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.entities.Request;
-import dat.startcode.model.entities.Shed;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
@@ -13,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class ProfilFraMenu extends Command {
+public class ProfileFromMenuCommand extends Command {
 
-    Request request;
-    Shed shed;
+//    Request request;
+//    Shed shed;
 
     private ConnectionPool connectionPool;
 
-    public ProfilFraMenu() { this.connectionPool = ApplicationStart.getConnectionPool(); }
+    public ProfileFromMenuCommand() { this.connectionPool = ApplicationStart.getConnectionPool(); }
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
@@ -30,16 +29,16 @@ public class ProfilFraMenu extends Command {
 
         int userId = ((User) session.getAttribute("user")).getUserId();
 
-        String updatedEmail = request.getParameter("indtastNyEmail");
-        String newPass = request.getParameter("passwordny");
-        String newPhoneNumber = request.getParameter("nyttelefonnr");
+        String updatedEmail = request.getParameter("enterNewEmail");
+        String newPassword = request.getParameter("newPassword");
+        String newPhoneNumber = request.getParameter("newPhoneNumber");
 
         if(updatedEmail != null) {
             CustomerFacade.updateEmail(userId,updatedEmail,connectionPool);
         }
 
-        if(newPass != null) {
-            CustomerFacade.updatePass(userId,newPass,connectionPool);
+        if(newPassword != null) {
+            CustomerFacade.updatePassword(userId,newPassword,connectionPool);
         }
 
         if(newPhoneNumber != null) {
@@ -56,6 +55,6 @@ public class ProfilFraMenu extends Command {
             return "error";
         }
 
-        return "profil";
+        return "profile";
     }
 }

@@ -1,22 +1,25 @@
 package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
+import dat.startcode.model.dtos.RequestDTO;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
-import dat.startcode.model.persistence.ConnectionPool;
+import dat.startcode.model.services.AdminFacade;
 import dat.startcode.model.services.UserFacade;
+import dat.startcode.model.persistence.ConnectionPool;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LavBruger extends Command
+public class LoginCommand extends Command
 {
     private ConnectionPool connectionPool;
 
-    public LavBruger()
+    public LoginCommand()
     {
         this.connectionPool = ApplicationStart.getConnectionPool();
     }
@@ -25,22 +28,18 @@ public class LavBruger extends Command
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException
     {
         User user = null;
+        List<RequestDTO> carportRequest;
+
         try {
             HttpSession session = request.getSession();
             session.setAttribute("user", null); // adding empty user object to session scope
 
-            String email = request.getParameter("emailny");
-            String password = request.getParameter("passwordny");
-            String phoneNumber = request.getParameter("telefonnr");
-            String address = request.getParameter("addresse");
-            int postalNumber = Integer.parseInt(request.getParameter("postnr"));
-
-            user = UserFacade.createUser(email, password, "kunde", phoneNumber, address, postalNumber, connectionPool);
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
 
             user = UserFacade.login(email, password, connectionPool);
 
             session = request.getSession();
-
             session.setAttribute("user", user); // adding user object to session scope
         } catch (DatabaseException e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
@@ -48,6 +47,13 @@ public class LavBruger extends Command
             return "error";
         }
 
-        return "kundeLogin";
+        if(user.getRole().equals("admin")) {
+            HttpSession session = request.getSession();
+            carportRequest = AdminFacade.getRequest(connectionPool);
+            session.setAttribute("carportRequest",carportRequest);
+            return "requestList";
+        } else {
+            return "customerLogin";
+        }
     }
 }

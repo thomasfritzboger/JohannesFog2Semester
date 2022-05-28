@@ -1,43 +1,43 @@
 package dat.startcode.model.dtos;
 
-public class ProduktDTO {
+public class ProductDTO {
 
-    private int produktId;
-    private String produktDescription;
+    private int productId;
+    private String productDescription;
     private double unitPrice;
-    private Integer lenght;
+    private Integer length;
     private Integer width;
     private Integer height;
-    private Double diamenter;
+    private Double diameter;
     private String unitScale;
     private String usementDescription;
 
-    public ProduktDTO(int produktId, String produktDescription, double unitPrice, int lenght, int width, int height, double diamenter, String usementDescription,String unitScale) {
-        this.produktId = produktId;
-        this.produktDescription = produktDescription;
+    public ProductDTO(int productId, String productDescription, double unitPrice, int length, int width, int height, double diameter, String usementDescription, String unitScale) {
+        this.productId = productId;
+        this.productDescription = productDescription;
         this.unitPrice = unitPrice;
-        this.lenght = lenght;
+        this.length = length;
         this.width = width;
         this.height = height;
-        this.diamenter = diamenter;
+        this.diameter = diameter;
         this.unitScale = unitScale;
         this.usementDescription = usementDescription;
     }
 
-    public int getProduktId() {
-        return produktId;
+    public int getProductId() {
+        return productId;
     }
 
-    public String getProduktDescription() {
-        return produktDescription;
+    public String getProductDescription() {
+        return productDescription;
     }
 
     public double getUnitPrice() {
         return unitPrice;
     }
 
-    public Integer getLenght() {
-        return lenght;
+    public Integer getLength() {
+        return length;
     }
 
     public Integer getWidth() {
@@ -48,8 +48,8 @@ public class ProduktDTO {
         return height;
     }
 
-    public Double getDiamenter() {
-        return diamenter;
+    public Double getDiameter() {
+        return diameter;
     }
 
     public String getUnitScale() {
@@ -62,14 +62,14 @@ public class ProduktDTO {
 
     @Override
     public String toString() {
-        return "ProduktDTO{" +
-                "produktId=" + produktId +
-                ", produktDescription='" + produktDescription + '\'' +
+        return "ProductDTO{" +
+                "productId=" + productId +
+                ", productDescription='" + productDescription + '\'' +
                 ", unitPrice=" + unitPrice +
-                ", lenght=" + lenght +
+                ", length=" + length +
                 ", width=" + width +
                 ", height=" + height +
-                ", diamenter=" + diamenter +
+                ", diameter=" + diameter +
                 ", unitScale='" + unitScale + '\'' +
                 ", usementDescription='" + usementDescription + '\'' +
                 '}';

@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class SeSkitse extends Command {
+public class ViewDrawingCommand extends Command {
 
     private ConnectionPool connectionPool;
 
-    public SeSkitse()
+    public ViewDrawingCommand()
     {
         this.connectionPool = ApplicationStart.getConnectionPool();
     }
@@ -32,8 +32,7 @@ public class SeSkitse extends Command {
             return "error";
         }
 
-        int carportId = Integer.parseInt(request.getParameter("getcarportid1"));
-        System.out.println(carportId);
+        int carportId = Integer.parseInt(request.getParameter("getCarportId1"));
 
         //getCarportById
         Carport carport = CustomerFacade.getCarportById(carportId, connectionPool);
@@ -45,22 +44,22 @@ public class SeSkitse extends Command {
         int carportLength = carport.getCarportLength();
 
         // hent carport højde
-        int carportHojde = carport.getCarportHeight();
+        //int carportHojde = carport.getCarportHeight();
 
         //String erRedskabsRumValgt = request.getParameter("redskabsrumValgt");
-        boolean erRedskabsRumValgt = carport.isHasShed();
+        boolean hasShed = carport.isHasShed();
 
-        String placering = null;
-        int skurSize = 0;
+        String placement = null;
+        int shedSize = 0;
 
-        if(erRedskabsRumValgt) {
+        if(hasShed) {
             int shedLength = carport.getShed().getLength();
             carportLength += shedLength;
-            placering = carport.getShed().getPlacement();
+            placement = carport.getShed().getPlacement();
 
             int antalSpær = (int) Math.ceil(carportLength/59.0);
             int spærAfstand = (int) Math.ceil(carportLength/antalSpær);
-            skurSize = (int) Math.ceil(shedLength/spærAfstand);
+            shedSize = (int) Math.ceil(shedLength/spærAfstand);
         }
 
         int antalSpær = (int) Math.ceil(carportLength/59.0);
@@ -80,25 +79,25 @@ public class SeSkitse extends Command {
         innerSVG.addRect(0, carportWidth-35, 5, carportLength+20);
 
         //Skur tilvalgt
-        if (erRedskabsRumValgt) {
+        if (hasShed) {
 
             //Tegn spær
             int spærStartX = 0;
-            int numOfSpær = 1;
+            int totalAntalSpær = 1;
             int stolpeXStart = 0;
             int stolpeStartMidt = 0;
 
             while(spærStartX < carportLength/2) {
                 innerSVG.addRect( spærStartX, 0,carportWidth, 5);
-                numOfSpær++;
+                totalAntalSpær++;
                 spærStartX+=spærAfs;
                 stolpeStartMidt = spærStartX;
-                if (numOfSpær == 2) stolpeXStart = spærStartX-3;
+                if (totalAntalSpær == 2) stolpeXStart = spærStartX-3;
             }
 
             spærStartX = carportLength - 5;
             while(spærStartX > (carportLength/2)-7) {
-                numOfSpær++;
+                totalAntalSpær++;
                 innerSVG.addRect( spærStartX, 0,carportWidth, 5);
                 spærStartX-=spærAfs;
             }
@@ -107,17 +106,17 @@ public class SeSkitse extends Command {
             int stolpeYStart = 32;
 
             //Tegn skur
-            if (placering!=null && placering.equals("midt")) {
+            if (placement!=null && placement.equals("center")) {
                 // innerSVG.addRect(carportLength-(int)Math.round(skurSize*spærAfs)-8,stolpeYStart,carportWidth-59,(int)Math.round(skurSize*spærAfs)+11);
-                innerSVG.addShedRectTemplate(carportLength-(int)Math.round(skurSize*spærAfs)-8,stolpeYStart,carportWidth-59,(int)Math.round(skurSize*spærAfs)+11);
+                innerSVG.addShedRectTemplate(carportLength-(int)Math.round(shedSize*spærAfs)-8,stolpeYStart,carportWidth-59,(int)Math.round(shedSize*spærAfs)+11);
             }
 
-            if (placering!=null && placering.equals("højre")) {
-                innerSVG.addShedRectTemplate(carportLength-(int)Math.round(skurSize*spærAfs)-8,carportWidth/2,(carportWidth/2)-33,(int)Math.round(skurSize*spærAfs)+11);
+            if (placement!=null && placement.equals("right")) {
+                innerSVG.addShedRectTemplate(carportLength-(int)Math.round(shedSize*spærAfs)-8,carportWidth/2,(carportWidth/2)-33,(int)Math.round(shedSize*spærAfs)+11);
             }
 
-            if (placering!= null && placering.equals("venstre")) {
-                innerSVG.addShedRectTemplate(carportLength-(int)Math.round(skurSize*spærAfs)-8,stolpeYStart,(carportWidth/2)-19,(int)Math.round(skurSize*spærAfs)+11);
+            if (placement!= null && placement.equals("left")) {
+                innerSVG.addShedRectTemplate(carportLength-(int)Math.round(shedSize*spærAfs)-8,stolpeYStart,(carportWidth/2)-19,(int)Math.round(shedSize*spærAfs)+11);
             }
 
             //2 forreste stolper
@@ -129,81 +128,81 @@ public class SeSkitse extends Command {
             innerSVG.addRect(carportLength-8, carportWidth-38, 11,11);
 
             //Stolper ved skur start
-            innerSVG.addRect(carportLength-(int)Math.round(skurSize*spærAfs)-8, stolpeYStart, 11,11);
-            innerSVG.addRect(carportLength-(int)Math.round(skurSize*spærAfs)-8, carportWidth-38, 11,11);
+            innerSVG.addRect(carportLength-(int)Math.round(shedSize*spærAfs)-8, stolpeYStart, 11,11);
+            innerSVG.addRect(carportLength-(int)Math.round(shedSize*spærAfs)-8, carportWidth-38, 11,11);
 
             //Stolper midt mellem skur start og carport start
-            innerSVG.addRect((carportLength-(int)Math.round(skurSize*spærAfs)-8+stolpeXStart)/2, stolpeYStart, 11,11);
-            innerSVG.addRect((carportLength-(int)Math.round(skurSize*spærAfs)-8+stolpeXStart)/2, carportWidth-38, 11,11);
+            innerSVG.addRect((carportLength-(int)Math.round(shedSize*spærAfs)-8+stolpeXStart)/2, stolpeYStart, 11,11);
+            innerSVG.addRect((carportLength-(int)Math.round(shedSize*spærAfs)-8+stolpeXStart)/2, carportWidth-38, 11,11);
 
             //Evt midterstolper skur
             if (carportWidth>=380) {
                 //Bagerste
                 innerSVG.addRect(carportLength-8, carportWidth/2, 11,11);
                 //Forreste
-                innerSVG.addRect(carportLength-(int)Math.round(skurSize*spærAfs)-8, carportWidth/2, 11,11);
+                innerSVG.addRect(carportLength-(int)Math.round(shedSize*spærAfs)-8, carportWidth/2, 11,11);
             }
 
             //Stolpe ved skurdør
-            if (placering.equals("midt")) {
+            if (placement.equals("center")) {
                 innerSVG.addRect(carportLength-8-2*(int) Math.round(spærAfs), carportWidth-38, 11,11);
             }
-            if (placering.equals("venstre") || placering.equals("højre")) {
+            if (placement.equals("left") || placement.equals("right")) {
                 innerSVG.addRect(carportLength-8-2*(int) Math.round(spærAfs), carportWidth/2, 11,11);
             }
 
             //Evt suplerende stolper
-            if (skurSize*spærAfs>310 && skurSize*spærAfs<310+2*spærAfs) {
-                int halvSkur = ((carportLength-(int)Math.round(skurSize*spærAfs)-8)+(carportLength-8))/2;
-                innerSVG.addRect(halvSkur, stolpeYStart, 11,11);
+            if (shedSize*spærAfs>310 && shedSize*spærAfs<310+2*spærAfs) {
+                int halfShed = ((carportLength-(int)Math.round(shedSize*spærAfs)-8)+(carportLength-8))/2;
+                innerSVG.addRect(halfShed, stolpeYStart, 11,11);
             }
-            if (skurSize*spærAfs>310+2*spærAfs) {
-                int halvSkur = ((carportLength-(int)Math.round(skurSize*spærAfs)-8)+(carportLength-8))/2;
-                innerSVG.addRect(halvSkur, stolpeYStart, 11,11);
-                int skurStartX = carportLength-(int)Math.round(skurSize*spærAfs)-8;
+            if (shedSize*spærAfs>310+2*spærAfs) {
+                int halfShed = ((carportLength-(int)Math.round(shedSize*spærAfs)-8)+(carportLength-8))/2;
+                innerSVG.addRect(halfShed, stolpeYStart, 11,11);
+                int shedStartX = carportLength-(int)Math.round(shedSize*spærAfs)-8;
                 int dørStolpe = carportLength-8-2*(int) Math.round(spærAfs);
-                int halvtDørside = ( skurStartX+dørStolpe)/2;
-                innerSVG.addRect(halvtDørside, carportWidth-38, 11,11);
+                int halvDørside = ( shedStartX+dørStolpe)/2;
+                innerSVG.addRect(halvDørside, carportWidth-38, 11,11);
             }
 
             int dørLængde = (int) Math.round(2*spærAfs);
             //Tilføjer døren
-            if (placering.equals("midt")) {
+            if (placement.equals("center")) {
 
                 innerSVG.addShedLine(carportLength-8,carportWidth-33,carportLength-8-100,carportWidth-13);
             }
-            if (placering.equals("venstre")) {
+            if (placement.equals("left")) {
 
                 innerSVG.addShedLine(carportLength - 8, carportWidth / 2+11, carportLength - 8 - 100, carportWidth / 2 + 24);
 
             }
-            if (placering.equals("højre")) {
+            if (placement.equals("right")) {
                 innerSVG.addShedLine(carportLength-8,carportWidth/2,carportLength-8-100,carportWidth/2-13);
 
             }
 
-            innerSVG.addCrossLine(stolpeXStart+5, stolpeYStart+5,carportLength-(int)Math.round(skurSize*spærAfs)-8,carportWidth-33);
-            innerSVG.addCrossLine(stolpeXStart+5, carportWidth-33,carportLength-(int)Math.round(skurSize*spærAfs)-8,stolpeYStart+5);
+            innerSVG.addCrossLine(stolpeXStart+5, stolpeYStart+5,carportLength-(int)Math.round(shedSize*spærAfs)-8,carportWidth-33);
+            innerSVG.addCrossLine(stolpeXStart+5, carportWidth-33,carportLength-(int)Math.round(shedSize*spærAfs)-8,stolpeYStart+5);
 
         } else {
             //Skur fravalgt
             //Tegn spær
             int spærStartX = 0;
-            int numOfSpær = 1;
+            int totalAntalSpær = 1;
             int stolpeXStart = 0;
             int stolpeStartMidt = 0;
 
             while(spærStartX < carportLength/2) {
                 innerSVG.addRect( spærStartX, 0,carportWidth, 5);
-                numOfSpær++;
+                totalAntalSpær++;
                 spærStartX+=spærAfs;
                 stolpeStartMidt = spærStartX;
-                if (numOfSpær == 2) stolpeXStart = spærStartX-3;
+                if (totalAntalSpær == 2) stolpeXStart = spærStartX-3;
             }
 
             spærStartX = carportLength - 5;
             while(spærStartX > (carportLength/2)-7) {
-                numOfSpær++;
+                totalAntalSpær++;
                 innerSVG.addRect( spærStartX, 0,carportWidth, 5);
                 spærStartX-=spærAfs;
             }
@@ -220,16 +219,16 @@ public class SeSkitse extends Command {
             innerSVG.addRect(carportLength-8, carportWidth-38, 11,11);
 
             //Midterste 2 stolper
-            if (numOfSpær%2 != 0) {
+            if (totalAntalSpær%2 != 0) {
 
-                int korrektion = 0;
-                if (carportLength == 480) korrektion = 9;
-                if (carportLength == 500) korrektion = 7;
-                if (carportLength == 520) korrektion = 6;
-                if (carportLength == 600) korrektion = 7;
+                int correctionFactor = 0;
+                if (carportLength == 480) correctionFactor = 9;
+                if (carportLength == 500) correctionFactor = 7;
+                if (carportLength == 520) correctionFactor = 6;
+                if (carportLength == 600) correctionFactor = 7;
 
-                innerSVG.addRect(stolpeStartMidt-korrektion, stolpeYStart, 11,11);
-                innerSVG.addRect(stolpeStartMidt-korrektion, carportWidth-38, 11,11);
+                innerSVG.addRect(stolpeStartMidt-correctionFactor, stolpeYStart, 11,11);
+                innerSVG.addRect(stolpeStartMidt-correctionFactor, carportWidth-38, 11,11);
 
             } else {
                 innerSVG.addRect((carportLength+(int)Math.round(spærAfs))/2-7, stolpeYStart, 11,11);
@@ -256,9 +255,9 @@ public class SeSkitse extends Command {
 
         svg.addSvg(innerSVG);
 
-        session.setAttribute("svgdrawing", svg.toString());
+        session.setAttribute("svgDrawing", svg.toString());
 
-        return "seskitse";
+        return "viewDrawing";
     }
 
 

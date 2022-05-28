@@ -1,148 +1,98 @@
 package dat.startcode.model.services;
 
 import dat.startcode.model.dtos.OrderLineDTO;
-import dat.startcode.model.dtos.ProduktDTO;
+import dat.startcode.model.dtos.ProductDTO;
 import dat.startcode.model.exceptions.IllegalDimensionException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarportCalculator{
 
-    List<ProduktDTO> pDTO;
+    List<ProductDTO> productDTOList;
 
-    public CarportCalculator(List<ProduktDTO> liste) {
-        this.pDTO = liste;
+    public CarportCalculator(List<ProductDTO> productDTOList) {
+        this.productDTOList = productDTOList;
     }
 
-    public CarportCalculator() {} //Test-constructor needed for test to not error.
-
     //Materialeliste for carport inklusive skur, hvis de bruger samme type
-    public List<OrderLineDTO> mList = new ArrayList<>();
+    private List<OrderLineDTO> orderLineDTOList = new ArrayList<>();
 
-    public double carportPris;
-
-    public int carportLængde;
-    public int carportBredde;
-    public int carportHøjde;
-    public int stolpeIkkeFastgjortRem;
-    public int afstandMellemSpær;
-    public int tagHældning;
-    public String tagtype;
-    public boolean hasSkur;
-    public int reglarAntal;
-    public SkurCalculator skur;
+    private double carportPrice;
+    private int carportLength;
+    private int carportWidth;
+    private int carportHeight;
+    private int stolpeIkkeFastgjortRem;
+    private int afstandMellemSpær;
+    private String roofMaterial;
+    private boolean hasShed;
+    private int reglarAntal;
+    protected ShedCalculator shedCalculator;
 
     //Klassevariabler der skal tilføjes materialelisten
-    public int spærLængde;
-    public int spærAntal;
-
-    public int remLængde;
-    public int remAntal;
-
-    public int stolperLængde;
-    public int stolperAntal;
-
-    public int oversternLangsideLængde;
-    public int oversternLangsideAntal;
-
-    public int understernLangsideLængde;
-    public int understernLangsideAntal;
-
-    public int oversternBredsideLængde;
-    public int oversternBredsideAntal;
-
-    public int understernBredsideLængde;
-    public int understernBredsideAntal;
-
-    public int vandbrædderLangsideLængde;
-    public int vandbrædderLangsideAntal;
-
-    public int vandbrædderBredsideLængde;
-    public int vandbrædderBredsideAntal;
-
-    public int rullerHulbåndLængde;
-    public int rullerHulbåndAntal;
-
-    public int firkantSkiverLængde;
-    public int firkantSkiverAntal;
-
-    public int bolteLængde;
-    public int bolteAntal;
-
-    public int pakkerPlastTagskruerLængde;
-    public int pakkerPlastTagskruerAntal;
-
-    public int pakkerCembritTagskruerLængde;
-    public int pakkerCembritTagskruerAntal;
-
-    public int universalbeslagVenstreLængde;
-    public int universalbeslagVenstreAntal;
-
-    public int universalbeslagHøjreLængde;
-    public int universalbeslagHøjreAntal;
-
-    public int vinkelbeslagLængde;
-    public int vinkelbeslagAntal;
-
-    public int plastTagpladerLangeLængde;
-    public int plastTagpladerLangeAntal;
-
-    public int plastTagpladerKorteLængde;
-    public int plastTagpladerKorteAntal;
-
-    public int cembritpladerLængde;
-    public int cembritpladerAntal;
-
-    public int pakkerSkruerAf45x60Længde;
-    public int pakkerSkruerAf45x60Antal;
-
-    public int pakkerBeslagskruerLængde;
-    public int pakkerBeslagskruerAntal;
+    private int spærLængde, spærAntal;
+    private int remLængde, remAntal;
+    private int stolperLængde, stolperAntal;
+    private int oversternLangsideLængde, oversternLangsideAntal;
+    private int understernLangsideLængde, understernLangsideAntal;
+    private int oversternBredsideLængde, oversternBredsideAntal;
+    private int understernBredsideLængde, understernBredsideAntal;
+    private int vandbrædderLangsideLængde, vandbrædderLangsideAntal;
+    private int vandbrædderBredsideLængde, vandbrædderBredsideAntal;
+    private int rullerHulbåndLængde, rullerHulbåndAntal;
+    private int firkantSkiverLængde, firkantSkiverAntal;
+    private int bolteLængde, bolteAntal;
+    private int pakkerPlastTagskruerLængde, pakkerPlastTagskruerAntal;
+    private int pakkerCembritTagskruerLængde, pakkerCembritTagskruerAntal;
+    private int universalbeslagVenstreLængde, universalbeslagVenstreAntal;
+    private int universalbeslagHøjreLængde, universalbeslagHøjreAntal;
+    private int vinkelbeslagLængde, vinkelbeslagAntal;
+    private int plastTagpladerLangeLængde, plastTagpladerLangeAntal;
+    private int plastTagpladerKorteLængde, plastTagpladerKorteAntal;
+    private int cembritpladerLængde, cembritpladerAntal;
+    private int pakkerSkruerAf45x60Længde, pakkerSkruerAf45x60Antal;
+    private int pakkerBeslagskruerLængde, pakkerBeslagskruerAntal;
 
     //Metode til beregning med med skur
-    public List<OrderLineDTO> beregnCarport(int l, int b, int h, String hasSkur, String tagmateriale,
-                                            String placeringSkur, int skurSize) throws IllegalDimensionException {
+    public List<OrderLineDTO> calculateCarport(int carportLength, int carportWidth, int carportHeight, String hasShed, String roofMaterial,
+                                               String shedPlacement, int shedSize) throws IllegalDimensionException {
 
-        setDimensionCarport(l,b,h);
-        setHasSkur(hasSkur.toLowerCase());
-        setAntalSpær(l);
+        setDimensionCarport(carportLength,carportWidth,carportHeight);
+        setHasShed(hasShed.toLowerCase());
+        setAntalSpær(carportLength);
 
+        beregnAfstandMellemSpær(carportLength, spærAntal);
 
-        beregnAfstandMellemSpær(l, spærAntal);
+        if (this.hasShed) {
+            shedCalculator.doorWidth = 2*afstandMellemSpær;
+            shedCalculator.afstandMellemSpær = afstandMellemSpær;
 
-        if (this.hasSkur) {
-            skur.breddeAfDør = 2*afstandMellemSpær;
-            skur.afstandMellemSpær = afstandMellemSpær;
+            setShedLength(shedSize*afstandMellemSpær);
 
-            setSkurLængde(skurSize*afstandMellemSpær);
+            shedCalculator.længdeLangsideMinusDør = shedCalculator.getShedLength() - shedCalculator.doorWidth;
 
-            skur.længdeLangsideMinusDør = skur.skurLængde-skur.breddeAfDør;
+            shedCalculator.setShedPlacement(shedPlacement.toLowerCase());
+            setShedWidth(this.carportWidth);
+            checkDimensionsShed(shedCalculator.getShedLength());
 
-            skur.setPlaceringAfSkur(placeringSkur.toLowerCase());
-            setSkurBredde(carportBredde);
-            checkDimensionsSkur(skur.skurLængde);
-
-            skur.beregnAntalLøsholter(skur.skurLængde,skur.skurBredde);
-            skur.skurHøjde = carportHøjde;
-            skur.beregenAntalBeklædningsBrædder(skur.skurHøjde);
-            skur.beregnAntalKorteBeklædningsSkruer();
-            skur.beregnAntalLangeBeklædningsSkruer();
+            shedCalculator.beregnAntalLøsholter(shedCalculator.shedLength, shedCalculator.shedWidth);
+            shedCalculator.shedHeight = this.carportHeight;
+            shedCalculator.beregenAntalBeklædningsBrædder(shedCalculator.shedHeight);
+            shedCalculator.beregnAntalKorteBeklædningsSkruer();
+            shedCalculator.beregnAntalLangeBeklædningsSkruer();
 
             //Alle beregninger på skur er færdige, hent materialer fra skuret og læg dem i carportlisten
-            for (OrderLineDTO orderLineDTO : skur.skurList) {
-                mList.add(orderLineDTO);
+            for (OrderLineDTO orderLineDTO : shedCalculator.shedMaterialList) {
+                orderLineDTOList.add(orderLineDTO);
             }
-
         }
 
         setAntalReglar();
-        checkDimensionsCarport(carportLængde,carportBredde,carportHøjde);
-        setStolpeLængde(carportHøjde);
-        beregnAntalStolper(carportLængde);
-        tagtype = setTagType(tagmateriale.toLowerCase());
+        checkDimensionsCarport(this.carportLength, this.carportWidth, this.carportHeight);
+        setStolpeLængde(this.carportHeight);
+        beregnAntalStolper();
+        this.roofMaterial = setRoofMaterial(roofMaterial.toLowerCase());
         remAntal = 2;
-        remLængde = carportLængde;
+        remLængde = this.carportLength;
 
         addItemToList(7,remLængde,remAntal);
 
@@ -150,13 +100,12 @@ public class CarportCalculator{
 
         addItemToList(15,rullerHulbåndLængde,rullerHulbåndAntal);
 
-        beregnTagPlader(carportLængde,carportBredde);
-        beregnAntalSternbrædder(carportLængde,carportBredde);
-        beregnAntalVandbrædder(carportLængde,carportBredde);
+        beregnTagPlader(this.carportLength, this.carportWidth);
+        beregnAntalSternbrædder(this.carportLength, this.carportWidth);
+        beregnAntalVandbrædder(this.carportLength, this.carportWidth);
         beregnAntalVinkelbeslag();
-        beregnSkruerTag(carportLængde,carportBredde);
+        beregnSkruerTag(this.carportLength, this.carportWidth);
 
-        //Beregn antal univesal beslag
         universalbeslagHøjreAntal = spærAntal;
 
         addItemToList(16,universalbeslagHøjreLængde,universalbeslagHøjreAntal);
@@ -165,182 +114,170 @@ public class CarportCalculator{
 
         addItemToList(17,universalbeslagVenstreLængde,universalbeslagVenstreAntal);
 
-        //Antagelse: Der skal altid bruges en pakke med skruer i størrelse 4,5x60
         pakkerSkruerAf45x60Antal = 1;
 
         addItemToList(18,pakkerSkruerAf45x60Længde,pakkerSkruerAf45x60Antal);
         beregnAntalPakkerMedBeslagskruer();
 
-        //Antagelse at der skal bruges en skive pr bolt, som fastgøres rem
-        //Beregn antal firkantskiver
-        firkantSkiverAntal =  2*(stolperAntal-stolpeIkkeFastgjortRem);
+        if (shedCalculator != null) {
+            firkantSkiverAntal = 2 * (stolperAntal - stolpeIkkeFastgjortRem - shedCalculator.getAntalStolperPåSpærEkstraNårSkur());
+            bolteAntal = 2*(stolperAntal-stolpeIkkeFastgjortRem-shedCalculator.getAntalStolperPåSpærEkstraNårSkur());
+        } else {
+            firkantSkiverAntal = 2 * (stolperAntal - stolpeIkkeFastgjortRem);
+            bolteAntal = 2*(stolperAntal-stolpeIkkeFastgjortRem);
+        }
 
         addItemToList(21,firkantSkiverLængde,firkantSkiverAntal);
 
-        //Beregn antal bolte
-        bolteAntal = 2*(stolperAntal-stolpeIkkeFastgjortRem);
-
-
         addItemToList(20,bolteLængde,bolteAntal);
 
-        for (OrderLineDTO orderLineDTO : mList) {
-            if (orderLineDTO.productDescription != null)  System.out.println(orderLineDTO);
-        }
-
-        beregnCarportPris();
-        return mList;
+        calculateCarportPrice();
+        return orderLineDTOList;
     }
 
-    public void setDimensionCarport(int l, int b, int h){
-        carportLængde = l;
-        carportBredde = b;
-        carportHøjde = h;
+    public void setDimensionCarport(int carportLength, int carportWidth, int carportHeight){
+        this.carportLength = carportLength;
+        this.carportWidth = carportWidth;
+        this.carportHeight = carportHeight;
     }
 
-    public void checkDimensionsCarport (int l, int b, int h) throws IllegalDimensionException {
+    public void checkDimensionsCarport (int carportLength, int carportWidth, int carportHeight) throws IllegalDimensionException {
 
-        if (b < 300 || b > 600)  { throw new IllegalDimensionException
+        if (carportWidth < 300 || carportWidth > 600)  { throw new IllegalDimensionException
                 ("Din carport er enten for smal eller for bred, bredden skal være mellem 3,0 m til 6 m");}
-        if (h < 210 || h > 300)  { throw new IllegalDimensionException
+        if (carportHeight < 210 || carportHeight > 300)  { throw new IllegalDimensionException
                 ("Din carport er enten for lav eller for høj, højden skal være mellem 2,1 m til 3,6 m");}
-        if (!hasSkur && (l < 420 || l > 600)) {throw new IllegalDimensionException
+        if (!hasShed && (carportLength < 420 || carportLength > 600)) {throw new IllegalDimensionException
                 ("Din carport er enten for kort eller for lang, længden skal være mellem 4,2 m til 6 m");}
-        if (hasSkur && (l < skur.skurLængde+420 || l > skur.skurLængde+600)) { throw new IllegalDimensionException
+        if (hasShed && (carportLength < shedCalculator.shedLength +420 || carportLength > shedCalculator.shedLength +600)) { throw new IllegalDimensionException
                 ("Din carport er enten for kort eller for lang, når du har skur, den skal være mellem  "
-                        +((skur.skurLængde+420))+"cm og "+((skur.skurLængde+600))+"cm lang"); }
+                        +((shedCalculator.shedLength +420))+"cm og "+((shedCalculator.shedLength +600))+"cm lang"); }
     }
 
 
-    public void setAntalSpær (int l){
-        spærAntal =  1+ (int) Math.ceil(l/59.0);
-        spærLængde = carportBredde;
+    public void setAntalSpær (int carportLength){
+        spærAntal =  1+ (int) Math.ceil(carportLength/59.0);
+        spærLængde = carportWidth;
 
         addItemToList(8,spærLængde,spærAntal);
-
     }
 
-    public int beregnAfstandMellemSpær(int l, int numOfSpær) {
-        afstandMellemSpær = (int)Math.ceil((l/(numOfSpær-1)));
+    public int beregnAfstandMellemSpær(int carportLength, int totalAntalSpær) {
+        afstandMellemSpær = (int)Math.ceil((carportLength/(totalAntalSpær-1)));
         return afstandMellemSpær;
     }
 
-    public void setStolpeLængde (int l) {
-
-        stolperLængde = l + 90;
+    public void setStolpeLængde (int carportLength) {
+        stolperLængde = carportLength + 90;
     }
 
-    public void beregnAntalStolper(int l) {
-
+    public void beregnAntalStolper() {
         int res;
 
-        if (!hasSkur) {
-            //res = 6+stolpeIkkeFastgjortRem;
+        if (!hasShed) {
             stolperAntal = 6;
         } else {
-            int ekstra =stolpeIkkeFastgjortRem + skur.antalStolperPåRemEkstraNårSkur + skur.antalStolperPåSpærEkstraNårSkur;
-            res = 6+ekstra;
+            int extra =stolpeIkkeFastgjortRem + shedCalculator.getAntalStolperPåRemEkstraNårSkur() + shedCalculator.getAntalStolperPåSpærEkstraNårSkur();
+            res = 6+extra;
             stolperAntal = res;
         }
-
         addItemToList(9,stolperLængde,stolperAntal);
-
     }
 
-    public String setTagType(String s) {
-        if (s.equalsIgnoreCase("p")) {
-            tagtype = "Trapezplader i plast";
+    public String setRoofMaterial(String roofMaterial) {
+        if (roofMaterial.equalsIgnoreCase("p")) {
+            this.roofMaterial = "Trapezplader i plast";
         }
-        if (s.equalsIgnoreCase("c")) {
-            tagtype = "Cembrit tagplader";
+        if (roofMaterial.equalsIgnoreCase("c")) {
+            this.roofMaterial = "Cembrit tagplader";
         }
-        return tagtype;
+        return this.roofMaterial;
     }
 
-    public void setHasSkur(String s) {
-        if (s.equalsIgnoreCase("y")) {
-            hasSkur = true;
-            this.skur = new SkurCalculator(pDTO);
-            skur.carportBredde = carportBredde;
+    public void setHasShed(String hasShed) {
+        if (hasShed.equalsIgnoreCase("y")) {
+            this.hasShed = true;
+            this.shedCalculator = new ShedCalculator(productDTOList);
+            shedCalculator.carportWidth = carportWidth;
 
         } else {
-            hasSkur = false;
+            this.hasShed = false;
         }
     }
 
-    public int setSkurLængde(int i) {
-        if (skur != null) {
-            skur.skurLængde = i;
-            return skur.skurLængde;
+    public int setShedLength(int shedLength) {
+        if (shedCalculator != null) {
+            shedCalculator.shedLength = shedLength;
+            return shedCalculator.shedLength;
         }
-
         return 0;
     }
 
     //Minus 70 hvis udhæng begge sider, ellers 35cm til halvt skur, som har udhæng i en side
-    public int setSkurBredde (int b) {
-        if (skur.placeringAfSkur.equals("midt")) {
-            skur.skurBredde = b -70;
+    public int setShedWidth(int shedWidth) {
+        if (shedCalculator.shedPlacement.equals("center")) {
+            shedCalculator.shedWidth = shedWidth -70;
 
         }   else {
-            skur.skurBredde = (b/2)-35;
+            shedCalculator.shedWidth = (shedWidth/2)-35;
         }
-        return skur.skurBredde;
+        return shedCalculator.shedWidth;
     }
 
-    public void checkDimensionsSkur(int l) throws IllegalDimensionException {
+    public void checkDimensionsShed(int shedLength) throws IllegalDimensionException {
 
-        if (skur.placeringAfSkur.equals("venstre") || skur.placeringAfSkur.equals("højre")) {
+        if (shedCalculator.shedPlacement.equals("left") || shedCalculator.shedPlacement.equals("right")) {
 
-            if (carportBredde<310) {
-                hasSkur = false;
+            if (carportWidth <310) {
+                hasShed = false;
                 throw new IllegalDimensionException("Dit skur kan kun vælges med placering i midten, hvis din carport er smallere end 310");
             }
 
-            if (l < 3*afstandMellemSpær || l > 5*afstandMellemSpær) {
-                hasSkur = false;
-                throw new IllegalDimensionException("Dit skur er enten for kort eller for lang, længden skal være mellem "+(3*afstandMellemSpær)+" cm til "+(5*afstandMellemSpær)+" cm når du har valgt et halvt skur");
-
+            if (shedLength < 3*afstandMellemSpær || shedLength > 5*afstandMellemSpær) {
+                hasShed = false;
+                throw new IllegalDimensionException("Dit skur er enten for kort eller for lang, længden skal være mellem "+(3*afstandMellemSpær)+" cm til "
+                        +(5*afstandMellemSpær)+" cm når du har valgt et halvt skur");
             }  else {
-                hasSkur = true;
+                hasShed = true;
             }
         }
 
-        if (skur.placeringAfSkur.equals("midt")) {
-            if (l < 3*afstandMellemSpær || l > 10*afstandMellemSpær) {
-                hasSkur = false;
-                throw new IllegalDimensionException("Dit skur er enten for kort eller for lang, længden skal være mellem "+(3*afstandMellemSpær)+" cm til "+(10*afstandMellemSpær)+" cm når du har valgt et halvt skur");
-
-            }     else {
-                hasSkur = true;
+        if (shedCalculator.shedPlacement.equals("center")) {
+            if (shedLength < 3*afstandMellemSpær || shedLength > 10*afstandMellemSpær) {
+                hasShed = false;
+                throw new IllegalDimensionException("Dit skur er enten for kort eller for lang, længden skal være mellem "+(3*afstandMellemSpær)+" cm til "
+                        +(10*afstandMellemSpær)+" cm når du har valgt et halvt skur");
+            }   else {
+                hasShed = true;
             }
         }
     }
 
     public void beregnTagPlader (int l, int b) {
 
-        if (tagtype.equals("Cembrit tagplader")) {
+        if (roofMaterial.equals("Cembrit tagplader")) {
 
             int langsideRundetOp;
             int bredsideRundetOp;
-            langsideRundetOp = (int) Math.ceil(carportLængde/100.0);
-            bredsideRundetOp = (int) Math.ceil(carportBredde/100.0);
+            langsideRundetOp = (int) Math.ceil(carportLength /100.0);
+            bredsideRundetOp = (int) Math.ceil(carportWidth /100.0);
             cembritpladerAntal = langsideRundetOp*bredsideRundetOp;
 
             addItemToList(27,cembritpladerLængde,cembritpladerAntal);
 
         }
-        if (tagtype.equals("Trapezplader i plast")) {
+        if (roofMaterial.equals("Trapezplader i plast")) {
             if (l<=600) {
-                plastTagpladerLangeAntal = (int)Math.ceil(carportBredde/100.0);
+                plastTagpladerLangeAntal = (int)Math.ceil(carportWidth /100.0);
                 plastTagpladerLangeLængde = (int) Math.ceil(l/60.0)*60;
             } else if (l<=820){
-                plastTagpladerLangeAntal = (int)Math.ceil(carportBredde/100.0);
-                plastTagpladerKorteAntal = (int)Math.ceil(carportBredde/100.0);
+                plastTagpladerLangeAntal = (int)Math.ceil(carportWidth /100.0);
+                plastTagpladerKorteAntal = (int)Math.ceil(carportWidth /100.0);
                 plastTagpladerLangeLængde = (int)Math.ceil((l-220)/60.0)*60;
                 plastTagpladerKorteLængde = 240;
             } else {
-                plastTagpladerLangeAntal = (int) Math.ceil(carportBredde/100.0);
-                plastTagpladerKorteAntal = (int) Math.ceil(carportBredde/100.0);
+                plastTagpladerLangeAntal = (int) Math.ceil(carportWidth /100.0);
+                plastTagpladerKorteAntal = (int) Math.ceil(carportWidth /100.0);
                 plastTagpladerLangeLængde = 600;
                 plastTagpladerKorteLængde = (int) Math.ceil((l-580)/60.0)*60;
             }
@@ -352,25 +289,23 @@ public class CarportCalculator{
 
     //Bruges ifm udregningen af antal vinkelbeslag
     public void setAntalReglar () {
-        if (skur != null) {
-            reglarAntal = (skur.løsholterLangsideMedDørAntal+skur.løsholterLangsideUdenDørAntal+
-                    skur.løsholterBredsideAntal);
+        if (shedCalculator != null) {
+            reglarAntal = (shedCalculator.getLøsholterLangsideMedDørAntal() + shedCalculator.getLøsholterLangsideUdenDørAntal() +
+                    shedCalculator.getLøsholterBredsideAntal());
         }
-        // reglarAntal = (skur.løsholterLangsideMedDørAntal+skur.løsholterLangsideUdenDørAntal+
-        //         skur.løsholterBredsideAntal);
     }
 
     public void beregnSkruerTag (int l, int b) {
 
         //Antagelse 16 skruer pr kvm
         //Beregn antal pakker med bundskruer til trapez tag;
-        if (tagtype.equals("Trapezplader i plast")) {
+        if (roofMaterial.equals("Trapezplader i plast")) {
 
             pakkerPlastTagskruerAntal = (int) Math.ceil(((l/100)*(b/100)*16.0)/200);
 
             addItemToList(14,pakkerPlastTagskruerLængde,pakkerPlastTagskruerAntal);
 
-        } else if (tagtype.equals("Cembrit tagplader")) {
+        } else if (roofMaterial.equals("Cembrit tagplader")) {
             pakkerCembritTagskruerAntal = (int) Math.ceil((((l/100.0)*(b/100.0))*8)/100);
 
         addItemToList(28,pakkerCembritTagskruerLængde,pakkerCembritTagskruerAntal);
@@ -431,60 +366,89 @@ public class CarportCalculator{
             vandbrædderBredsideLængde = (int) Math.ceil((b/2)/60.0)*60;
             vandbrædderBredsideAntal = 2;
         }
-
         addItemToList(11,vandbrædderLangsideLængde, vandbrædderLangsideAntal);
         addItemToList(12,vandbrædderBredsideLængde, vandbrædderBredsideAntal);
     }
 
-    //Antagelse: Der skal bruges 2 vinkelbeslag mellem spær og stolper, der ikke er boltet til rem
-    //Antagelse: Der skal bruges 2 vinkelbeslag mellem løsholter og stolper
     public void beregnAntalVinkelbeslag () {
-        if (!hasSkur) {
+        if (!hasShed) {
             vinkelbeslagAntal = 2*stolpeIkkeFastgjortRem;
         }  else {
-            if (skur.længdeLangsideMinusDør*3 < 480) {
+            if (shedCalculator.længdeLangsideMinusDør*3 < 480) {
 
-            vinkelbeslagAntal = 4+ 2*skur.antalStolperPåSpærEkstraNårSkur+ 2*reglarAntal;
+            vinkelbeslagAntal = 4+ 2* shedCalculator.getAntalStolperPåSpærEkstraNårSkur() + 2*reglarAntal;
             } else {
 
-            vinkelbeslagAntal = 2*skur.antalStolperPåSpærEkstraNårSkur+ 2*reglarAntal;
+            vinkelbeslagAntal = 2* shedCalculator.getAntalStolperPåSpærEkstraNårSkur() + 2*reglarAntal;
             }
-
         }
-
         addItemToList(26,vinkelbeslagLængde, vinkelbeslagAntal);
-
     }
 
-    //Antagelse: Der bruges 4 skruer hver gang hulbånd krydser et spær og 9 skruer til hvert universalbeslag
     public void beregnAntalPakkerMedBeslagskruer() {
-        int tilUniversal = 2*spærAntal*9;
+        int tilUniversalBeslag = 2*spærAntal*9;
         int tilHulbånd = 4*spærAntal;
-        pakkerBeslagskruerAntal = (int) Math.ceil ((tilHulbånd+tilUniversal+0.0)/250);
+        pakkerBeslagskruerAntal = (int) Math.ceil ((tilHulbånd+tilUniversalBeslag+0.0)/250);
 
         addItemToList(19,pakkerBeslagskruerLængde,pakkerBeslagskruerAntal);
-
     }
 
     private void addItemToList(int index, int length, int amount) {
         if (length == 0) {
-            mList.add(new OrderLineDTO(pDTO.get(index).getProduktId(),pDTO.get(index).getProduktDescription(),
+            orderLineDTOList.add(new OrderLineDTO(productDTOList.get(index).getProductId(), productDTOList.get(index).getProductDescription(),
                     length, amount,
-                    pDTO.get(index).getUnitScale(),
-                    pDTO.get(index).getUsementDescription(),
-                    amount*pDTO.get(index).getUnitPrice()));
+                    productDTOList.get(index).getUnitScale(),
+                    productDTOList.get(index).getUsementDescription(),
+                    amount* productDTOList.get(index).getUnitPrice()));
         } else {
-            mList.add(new OrderLineDTO(pDTO.get(index).getProduktId(),pDTO.get(index).getProduktDescription(),
+            orderLineDTOList.add(new OrderLineDTO(productDTOList.get(index).getProductId(), productDTOList.get(index).getProductDescription(),
                     length, amount,
-                    pDTO.get(index).getUnitScale(),
-                    pDTO.get(index).getUsementDescription(),
-                    amount*length/100.0*pDTO.get(index).getUnitPrice()));
+                    productDTOList.get(index).getUnitScale(),
+                    productDTOList.get(index).getUsementDescription(),
+                    amount*length/100.0* productDTOList.get(index).getUnitPrice()));
         }
     }
 
-    public void beregnCarportPris() {
-        for (OrderLineDTO orderLineDTODTO : mList) {
-            carportPris += orderLineDTODTO.totalLinePrice;
+    public void calculateCarportPrice() {
+        for (OrderLineDTO orderLineDTODTO : orderLineDTOList) {
+            carportPrice += orderLineDTODTO.getTotalLinePrice();
         }
+    }
+
+    public double getCarportPrice() {
+        return carportPrice;
+    }
+    public int getCarportLength() {
+        return carportLength;
+    }
+    public int getCarportWidth() {
+        return carportWidth;
+    }
+    public int getCarportHeight() {
+        return carportHeight;
+    }
+    public int getAfstandMellemSpær() {
+        return afstandMellemSpær;
+    }
+    public boolean isHasShed() {
+        return hasShed;
+    }
+    public int getSpærLængde() {
+        return spærLængde;
+    }
+    public int getSpærAntal() {
+        return spærAntal;
+    }
+    public int getStolperLængde() {
+        return stolperLængde;
+    }
+    public int getStolperAntal() {
+        return stolperAntal;
+    }
+    public int getPakkerPlastTagskruerAntal() {
+        return pakkerPlastTagskruerAntal;
+    }
+    public int getPakkerCembritTagskruerAntal() {
+        return pakkerCembritTagskruerAntal;
     }
 }

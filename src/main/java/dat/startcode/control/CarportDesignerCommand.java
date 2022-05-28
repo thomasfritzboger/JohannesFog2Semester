@@ -1,7 +1,7 @@
 package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
-import dat.startcode.model.dtos.ProduktDTO;
+import dat.startcode.model.dtos.ProductDTO;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class CarportDesigner extends Command{
+public class CarportDesignerCommand extends Command{
 
     private ConnectionPool connectionPool;
 
-    public CarportDesigner() {
+    public CarportDesignerCommand() {
         this.connectionPool = ApplicationStart.getConnectionPool();
     }
 
@@ -24,8 +24,8 @@ public class CarportDesigner extends Command{
     int[] carportLength = {420,440,460,480,500,520,540,560,580,600};
     int[] carportHeight = {210,220,230,240,250,260,270,280,290,300};
     //String[] redskabsRumPlacering = {"venstre", "højre", "midt"};
-    int[] redskabsrumBredder = {210,220,230,240,250,260,270,280,290,300}; // skal fikses
-    int[] redskabsrumLaengder = {210,220,230,240,250,260,270,280,290,300}; // skal fikses
+    //int[] redskabsrumBredder = {210,220,230,240,250,260,270,280,290,300}; // skal fikses
+    //int[] redskabsrumLaengder = {210,220,230,240,250,260,270,280,290,300}; // skal fikses
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
@@ -34,8 +34,8 @@ public class CarportDesigner extends Command{
 
         User user = (User) session.getAttribute("user");
 
-        List<ProduktDTO> productDTOListe;
-        productDTOListe = ProductFacade.getProduktDTOs(connectionPool);
+        List<ProductDTO> productDTOListe;
+        productDTOListe = ProductFacade.getProductDTOs(connectionPool);
 
 
         if(!user.getRole().equals("kunde")) {
@@ -43,24 +43,24 @@ public class CarportDesigner extends Command{
         }
 
         session = request.getSession();
-        session.setAttribute("productDTOListe", productDTOListe);
+        session.setAttribute("productDTOList", productDTOListe);
         session.setAttribute("carportWidthList", carportWidth);
         session.setAttribute("carportLengthList", carportLength);
         session.setAttribute("carportHeightList", carportHeight);
         //session.setAttribute("carportRoomPlacements", redskabsRumPlacering);
-        session.setAttribute("carportRoomWidthList", redskabsrumBredder);
-        session.setAttribute("carportRoomLengthList", redskabsrumLaengder);
+        //session.setAttribute("carportRoomWidthList", redskabsrumBredder);
+        //session.setAttribute("carportRoomLengthList", redskabsrumLaengder);
 
 
-        if(session.getAttribute("carportbredde") != null) {
-            session.setAttribute("carportbredde", null);
-            session.setAttribute("svgdrawing", null);
-            session.setAttribute("carportbredde", null);
-            session.setAttribute("carportlængde", null);
-            session.setAttribute("carporthøjde", null);
-            session.setAttribute("redskabsrumValgt", null);
-            session.setAttribute("redskabsrumPlacering", null);
-            session.setAttribute("redskabsrumLængde", null);
+        if(session.getAttribute("carportWidth") != null) {
+            //session.setAttribute("carportbredde", null);
+            session.setAttribute("svgDrawing", null);
+            session.setAttribute("carportWidth", null);
+            session.setAttribute("carportLength", null);
+            session.setAttribute("carportHeight", null);
+            session.setAttribute("shedChosen", null);
+            session.setAttribute("shedPlacement", null);
+            session.setAttribute("shedLength", null);
         }
 
         return "carportDesigner";

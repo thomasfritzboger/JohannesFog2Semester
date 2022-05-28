@@ -58,10 +58,10 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="fc/profil">
-                            <input type="hidden" name="command" value="profil">
-                            <label for="indtastNyEmail">Indtast ny email: </label> <br>
-                            <input type="email" id="indtastNyEmail" name="indtastNyEmail" required> <br> <br>
+                        <form action="fc/profile">
+                            <input type="hidden" name="command" value="profile">
+                            <label for="enterNewEmail">Indtast ny email: </label> <br>
+                            <input type="email" id="enterNewEmail" name="enterNewEmail" required> <br> <br>
                             <button class="btn btn-info" onclick="return confirm('Er du sikker på du vil ændre din email?')">Bekræft</button>
                         </form>
                         <br>
@@ -83,10 +83,10 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="fc/profil">
-                            <input type="hidden" name="command" value="profil">
-                            <label for="passwordny">Indtast nyt kodeord: </label> <br>
-                            <input type="password" id="passwordny" name="passwordny" minlength="4" placeholder="Kode" required> <br> <br>
+                        <form action="fc/profile">
+                            <input type="hidden" name="command" value="profile">
+                            <label for="newPassword">Indtast nyt kodeord: </label> <br>
+                            <input type="password" id="newPassword" name="newPassword" minlength="4" placeholder="Kode" required> <br> <br>
 
                             <label for="passwordRepeated">Bekræft kodeord: </label> <br>
                             <input type="password" id="passwordRepeated" name="passwordRepeated" minlength="4" oninput="check(this)" required> <br> <br>
@@ -95,7 +95,7 @@
 
                             <script type='text/javascript'>
                                 function check(input) {
-                                    if (input.value != document.getElementById('passwordny').value) {
+                                    if (input.value != document.getElementById('newPassword').value) {
                                         input.setCustomValidity('Koderne skal være ens.');
                                     } else {
                                         // input is valid -- reset the error message
@@ -125,10 +125,10 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="fc/profil">
-                            <input type="hidden" name="command" value="profil">
-                            <label for="nyttelefonnr">Indtast nyt telefonnr.: </label> <br>
-                            <input type="tel" id="nyttelefonnr" placeholder="40404040" name="nyttelefonnr" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
+                        <form action="fc/profile">
+                            <input type="hidden" name="command" value="profile">
+                            <label for="newPhoneNumber">Indtast nyt telefonnr.: </label> <br>
+                            <input type="tel" id="newPhoneNumber" placeholder="40404040" name="newPhoneNumber" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
                             <button class="btn btn-info" onclick="return confirm('Er du sikker på du vil ændre dit telefonnr?')">Bekræft</button>
                         </form>
                         <br>
@@ -141,7 +141,7 @@
         <br> <br>
         <c:if test="${carportRequestByUser.isEmpty()}">
             Du har ingen forespørgsler.
-            <a href="${pageContext.request.contextPath}/fc/kundeLogin?command=kundeLogin" class="link-primary" >Klik her</a> for at komme igang med at bygge din helt egen carport.
+            <a href="${pageContext.request.contextPath}/fc/customerLogin?command=customerLogin" class="link-primary" >Klik her</a> for at komme igang med at bygge din helt egen carport.
         </c:if>
 
         <c:if test="${!carportRequestByUser.isEmpty()}">
@@ -169,33 +169,33 @@
                         <td><c:if test="${carport.isConfirmed()}">Din carport er igang med at blive pakket. <br> Ring og aftal levering.
                             <br>
 
-                            <div class="container-stykliste-og-skite-knapper-profil">
-                                <form action="fc/stykliste">
-                                    <input type="hidden" name="command" value="stykliste">
+                            <div class="container-itemList-and-drawing-buttons-profile">
+                                <form action="fc/itemList">
+                                    <input type="hidden" name="command" value="itemList">
                                     <button class="btn btn-primary" style="margin: 2px">
                                         Se stykliste
                                     </button>
-                                    <input id="getcarportid0" name="getcarportid0" value="${carport.getCarportId()}" hidden>
+                                    <input id="getCarportId0" name="getCarportId0" value="${carport.getCarportId()}" hidden>
                                 </form>
 
-                                <form action="fc/seSkitse">
-                                    <input type="hidden" name="command" value="seSkitse">
+                                <form action="fc/viewDrawing">
+                                    <input type="hidden" name="command" value="viewDrawing">
                                     <button class="btn btn-primary" style="margin: 2px">
                                         Se skitse
                                     </button>
-                                    <input class="getcarportid1" name="getcarportid1" value="${carport.getCarportId()}" hidden>
+                                    <input class="getCarportId1" name="getCarportId1" value="${carport.getCarportId()}" hidden>
                                 </form>
                             </div>
 
                             </c:if>
 
                         <c:if test="${carport.isConfirmed() == false}">Afventer bekræftelse <br>
-                            <form action="fc/seSkitse">
-                                <input type="hidden" name="command" value="seSkitse">
+                            <form action="fc/viewDrawing">
+                                <input type="hidden" name="command" value="viewDrawing">
                                 <button class="btn btn-primary">
                                   Se skitse
                                 </button>
-                                <input class="getcarportid1" name="getcarportid1" value="${carport.getCarportId()}" hidden>
+                                <input class="getCarportId1" name="getCarportId1" value="${carport.getCarportId()}" hidden>
                             </form>
                         </c:if>
                         </td>

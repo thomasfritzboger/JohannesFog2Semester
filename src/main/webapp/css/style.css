@@ -44,7 +44,7 @@ th, td {
     margin-right: 30px;
 }
 
-.container-valg-af-carport {
+.container-chosen-carport {
     display: flex;
     justify-content: space-around;
     width: 400px;
@@ -88,25 +88,25 @@ th, td {
     flex-wrap: wrap;
 }
 
-.container-tagtype-haeldning {
+.container-roofMaterial-roofAngle {
     display: flex;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.container-redskabsrum-tilvalg {
+.container-shed-chosen {
     display: flex;
     justify-content: center;
 }
 
-.container-redskabsrum-dimensioner {
+.container-shed-dimensions {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-.container-skitse-knap {
+.container-drawing-button {
     display: flex;
     justify-content: center;
     margin: 20px;
@@ -118,7 +118,7 @@ th, td {
 
 
 /*styling på profilsiden*/
-.container-stykliste-og-skite-knapper-profil {
+.container-itemList-and-drawing-buttons-profile {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -126,13 +126,13 @@ th, td {
 
 
 /*stykliste styling*/
-.container-knapper-stykliste {
+.container-buttons-itemList {
     display: flex;
     flex-direction: row;
 }
 
 
-.container-carport-dimensions-side {
+.container-carport-dimensions-page {
     background-color: #afb8c7;
     padding: 10px;
     width: 350px;
@@ -142,7 +142,7 @@ th, td {
 }
 
 /*skitse side*/
-.container-knapper-skitse-side {
+.container-buttons-drawing-page {
     display: flex;
     flex-direction: row;
 }
@@ -155,7 +155,7 @@ th, td {
 }
 
 /*lager side styling*/
-.container-knapper-lager-side {
+.container-buttons-stock-page {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;

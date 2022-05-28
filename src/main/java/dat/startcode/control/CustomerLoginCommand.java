@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class KundeLogin extends Command{
+public class CustomerLoginCommand extends Command{
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
 
@@ -19,6 +19,6 @@ public class KundeLogin extends Command{
             return "error";
         }
 
-        return "kundeLogin";
+        return "customerLogin";
     }
 }

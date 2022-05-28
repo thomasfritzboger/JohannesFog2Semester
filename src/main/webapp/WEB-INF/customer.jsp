@@ -15,30 +15,30 @@
 
 
         <!--knap til at fremsøge kunder. Der tjekkes længere nede om en ekstra tabel med kundeinformation bør vises-->
-        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#fremsogkundemodal">
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#searchCustomerModal">
             Fremsøg kunde
         </button>
         <br>
         <br>
 
             <!-- Modal -->
-            <div class="modal fade" id="fremsogkundemodal" tabindex="-1" aria-labelledby="fremsogkundemodal"
+            <div class="modal fade" id="searchCustomerModal" tabindex="-1" aria-labelledby="searchCustomerModal"
                  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="fremsogkundemodal">Kundesøgning</h5>
+                            <h5 class="modal-title" id="searchCustomerModal">Kundesøgning</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
 
-                            <form action="fc/kunder" method="post">
-                                <input type="hidden" name="command" value="kunder"/>
+                            <form action="fc/customer" method="post">
+                                <input type="hidden" name="command" value="customer"/>
 
-                                <label for="soegtemail">Søg efter kunde med deres email:</label>
+                                <label for="searchedEmail">Søg efter kunde med deres email:</label>
                                 <br>
-                                <input type="email" id="soegtemail" name="soegtemail" required/>
+                                <input type="email" id="searchedEmail" name="searchedEmail" required/>
                                 <br> <br>
                                 <button type="submit" class="btn btn-dark">
                                     Søg
@@ -51,8 +51,7 @@
             </div>
         </td>
 
-        <c:if test="${searchedcustomer != null}">
-            <!--TODO tjek hvis en kunde er slået op. Hvis ja, så fremvis tabellen og headeren-->
+        <c:if test="${searchedCustomer != null}">
             <b><h5>Fandt kunden du søgte: </h5></b>
 
             <table class="table table-striped">
@@ -66,10 +65,10 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>${searchedcustomer.userId}</td>
-                        <td>${searchedcustomer.email}</td>
-                        <td>${searchedcustomer.phoneNumber}</td>
-                        <td>${searchedcustomer.postalCode}, ${searchedcustomer.address}</td>
+                        <td>${searchedCustomer.userId}</td>
+                        <td>${searchedCustomer.email}</td>
+                        <td>${searchedCustomer.phoneNumber}</td>
+                        <td>${searchedCustomer.postalCode}, ${searchedCustomer.address}</td>
                     </tr>
                 </tbody>
             </table>
@@ -77,9 +76,9 @@
         </c:if>
 
 
-        <c:if test="${searchedcustomer == null && soegtemail != null}">
+        <c:if test="${searchedCustomer == null && searchedEmail != null}">
         <!--Hvis kunden ikke findes så hvis - kan evt. slettes-->
-            <b><h5>Kunde med email: (${soegtemail}) kunne ikke findes</h5></b>
+            <b><h5>Kunde med email: (${searchedEmail}) kunne ikke findes</h5></b>
         </c:if>
 
 
@@ -94,12 +93,12 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="kunder" items="${sessionScope.customerlist}">
+            <c:forEach var="customer" items="${sessionScope.customerList}">
                 <tr>
-                    <td>${kunder.userId}</td>
-                    <td>${kunder.email}</td>
-                    <td>${kunder.phoneNumber}</td>
-                    <td>${kunder.postalCode}, ${kunder.address}</td>
+                    <td>${customer.userId}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.phoneNumber}</td>
+                    <td>${customer.postalCode}, ${customer.address}</td>
                 </tr>
             </c:forEach>
             </tbody>

@@ -1,12 +1,9 @@
 package dat.startcode.model.persistence;
 
-import dat.startcode.model.dtos.LagerDTO;
+import dat.startcode.model.dtos.StockDTO;
 import dat.startcode.model.dtos.OrderLineDTO;
-import dat.startcode.model.dtos.ProduktDTO;
-import dat.startcode.model.entities.Carport;
-import dat.startcode.model.entities.User;
+import dat.startcode.model.dtos.ProductDTO;
 import dat.startcode.model.exceptions.DatabaseException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,11 +17,10 @@ public class ProductMapper implements IProductMapper {
 
     public ProductMapper(ConnectionPool connectionPool) { this.connectionPool = connectionPool; }
 
-
     @Override
-    public List<ProduktDTO> getAllProducts() throws DatabaseException {
+    public List<ProductDTO> getAllProducts() throws DatabaseException {
 
-        List<ProduktDTO> produktDTOList = new ArrayList<>();
+        List<ProductDTO> productDTOList = new ArrayList<>();
 
         String sql = "SELECT * FROM produktdto order by product_id";
 
@@ -32,8 +28,8 @@ public class ProductMapper implements IProductMapper {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    int produktId = rs.getInt("product_id");
-                    String produktDescription = rs.getString("product_description");
+                    int productId = rs.getInt("product_id");
+                    String productDescription = rs.getString("product_description");
                     double unitPrice = rs.getDouble("unit_price");
                     int length = rs.getInt("length");
                     int width = rs.getInt("width");
@@ -42,8 +38,7 @@ public class ProductMapper implements IProductMapper {
                     String usement = rs.getString("description");
                     String scale = rs.getString("scale");
 
-                    produktDTOList.add(new ProduktDTO(produktId,produktDescription,unitPrice,length,width,height,diameter,usement,scale));
-                    System.out.println("SQL Create");
+                    productDTOList.add(new ProductDTO(productId,productDescription,unitPrice,length,width,height,diameter,usement,scale));
                 }
             } catch (SQLException throwables) {
                 throw new DatabaseException("Kunne ikke få alle produtker fra database");
@@ -52,14 +47,13 @@ public class ProductMapper implements IProductMapper {
             ex.printStackTrace();
             throw new DatabaseException("Kunne få forbindelse til databasen");
         }
-
-        return produktDTOList;
+        return productDTOList;
     }
 
     @Override
-    public List<LagerDTO> getLager() throws DatabaseException {
+    public List<StockDTO> getStock() throws DatabaseException {
 
-        List<LagerDTO> lagerDTOList = new ArrayList<>();
+        List<StockDTO> stockDTOList = new ArrayList<>();
 
         String sql = "SELECT * FROM product_description";
 
@@ -67,11 +61,10 @@ public class ProductMapper implements IProductMapper {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    int lagerID = rs.getInt("product_description_id");
-                    String lagerDescription = rs.getString("product_description");
-                    double lagerPrice = rs.getDouble("unit_price");
-
-                    lagerDTOList.add(new LagerDTO(lagerID,lagerDescription,lagerPrice));
+                    int stockId = rs.getInt("product_description_id");
+                    String productDescription = rs.getString("product_description");
+                    double unitPrice = rs.getDouble("unit_price");
+                    stockDTOList.add(new StockDTO(stockId,productDescription,unitPrice));
                 }
             } catch (SQLException throwables) {
                 throw new DatabaseException("Kunne ikke få alle product_descriptions fra databasen");
@@ -80,13 +73,11 @@ public class ProductMapper implements IProductMapper {
             ex.printStackTrace();
             throw new DatabaseException("Kunne få forbindelse til databasen");
         }
-
-        return lagerDTOList;
+        return stockDTOList;
     }
 
     @Override
-    public void updateLagerPrice(int id, double price) throws DatabaseException {
-
+    public void updateUnitPrice(int id, double price) throws DatabaseException {
         String sql = "UPDATE product_description SET unit_price = ? WHERE product_description_id = ?";
 
         try (Connection connection = connectionPool.getConnection()){
@@ -101,10 +92,8 @@ public class ProductMapper implements IProductMapper {
     }
 
     @Override
-    public void updateLagerDescription(int id, String description) throws DatabaseException {
-
+    public void updateProductDescription(int id, String description) throws DatabaseException {
         String sql = "UPDATE product_description SET product_description = ? WHERE product_description_id = ?";
-
         try (Connection connection = connectionPool.getConnection()){
             try (PreparedStatement ps = connection.prepareStatement(sql)){
                 ps.setString(1,description);
@@ -114,27 +103,24 @@ public class ProductMapper implements IProductMapper {
         }catch (SQLException sqlException) {
             throw new DatabaseException("Kunne ikke ændre beskrivelsen for produkt idet: "+ id);
         }
-
     }
 
-    public void saveMaterialLines( int carport_id,int product_id,int unit_length, int unit_quantity, double total_line_price) throws DatabaseException {
+    public void saveMaterialLines(int carportId, int productId, int unitLength, int unitQuantity, double totalPrice) throws DatabaseException {
 
         String sql = "insert into material_line (carport_id,product_id,unit_length,unit_quantity,total_line_price) values (?,?,?,?,?)";
-
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql))  {
-                ps.setInt(1, carport_id);
-                ps.setInt(2, product_id);
-                ps.setInt(3, unit_length);
-                ps.setInt(4, unit_quantity);
-                ps.setDouble(5, total_line_price);
+                ps.setInt(1, carportId);
+                ps.setInt(2, productId);
+                ps.setInt(3, unitLength);
+                ps.setInt(4, unitQuantity);
+                ps.setDouble(5, totalPrice);
                 ps.executeUpdate();
             }
         }
         catch (SQLException ex) {
             throw new DatabaseException(ex, "Kunne ikke indsætte material line i databasen");
         }
-
     }
 
     @Override
@@ -149,14 +135,12 @@ public class ProductMapper implements IProductMapper {
                 ps.setInt(1,carportId);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-
                     String productDescription = rs.getString("product_description");
                     int unitLength = rs.getInt("unit_length");
                     int unitQuantity = rs.getInt("unit_quantity");
                     String scale = rs.getString("scale");
                     String description = rs.getString("description");
                     materialLineList.add(new OrderLineDTO(productDescription,unitLength,unitQuantity,scale,description));
-
                 }
             } catch (SQLException throwables) {
                 throw new DatabaseException("Kunne ikke få alle linjer fra database");
@@ -165,7 +149,6 @@ public class ProductMapper implements IProductMapper {
             ex.printStackTrace();
             throw new DatabaseException("Kunne få forbindelse til databasen");
         }
-
         return materialLineList;
     }
 

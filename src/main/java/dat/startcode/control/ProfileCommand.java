@@ -13,14 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class Profil extends Command {
+public class ProfileCommand extends Command {
 
-    Request request;
+    //Request request;
     Shed shed;
-
     private ConnectionPool connectionPool;
 
-    public Profil() { this.connectionPool = ApplicationStart.getConnectionPool(); }
+    public ProfileCommand() { this.connectionPool = ApplicationStart.getConnectionPool(); }
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
@@ -29,18 +28,19 @@ public class Profil extends Command {
         User user = (User) session.getAttribute("user");
 
         int coverageId = 40;
+        String roofType = (String) session.getAttribute("roofType");
         int userId = ((User) session.getAttribute("user")).getUserId();
 
-        String updatedEmail = request.getParameter("indtastNyEmail");
-        String newPass = request.getParameter("passwordny");
-        String newPhoneNumber = request.getParameter("nyttelefonnr");
+        String updatedEmail = request.getParameter("enterNewEmail");
+        String newPassword = request.getParameter("newPassword");
+        String newPhoneNumber = request.getParameter("newPhoneNumber");
 
         if(updatedEmail != null) {
             CustomerFacade.updateEmail(userId,updatedEmail,connectionPool);
         }
 
-        if(newPass != null) {
-            CustomerFacade.updatePass(userId,newPass,connectionPool);
+        if(newPassword != null) {
+            CustomerFacade.updatePassword(userId,newPassword,connectionPool);
         }
 
         if(newPhoneNumber != null) {
@@ -49,22 +49,20 @@ public class Profil extends Command {
 
         //laver et tjek på carportbredde for at se om vi kommer fra en forespørgsel eller forsøger
         //at tilgå profilsiden fra menuen
-        if(session.getAttribute("carportbredde") != null) {
-            System.out.println("her når vi 1");
-            int width = (int) session.getAttribute("carportbredde");
-            int length = (int) session.getAttribute("carportlængde");
-            int height = (int) session.getAttribute("carporthøjde");
+        if(session.getAttribute("carportWidth") != null) {
+            int width = (int) session.getAttribute("carportWidth");
+            int length = (int) session.getAttribute("carportLength");
+            int height = (int) session.getAttribute("carportHeight");
             boolean hasShed;
             int shedId;
-            if (session.getAttribute("redskabsrumValgt") != null
-                    && session.getAttribute("redskabsrumValgt").equals("y")) {
+            if (session.getAttribute("shedChosen") != null
+                    && session.getAttribute("shedChosen").equals("y")) {
                 hasShed = true;
                 //stempel ned i shed tabel med width, length og placement
-                int shedWidth = (int) session.getAttribute("redskabsrumbredde");
-                int shedLength = (int) session.getAttribute("redskabsrumLængde");
-                String shedPlacement = (String) session.getAttribute("redskabsrumPlacering");
+                int shedWidth = (int) session.getAttribute("shedWidth");
+                int shedLength = (int) session.getAttribute("shedLength");
+                String shedPlacement = (String) session.getAttribute("shedPlacement");
 
-                System.out.println("her når vi ikke");
                 shed = CustomerFacade.createNewShed(shedWidth, shedLength, shedPlacement, connectionPool);
                 shedId = shed.getShedId();
             } else {
@@ -75,18 +73,18 @@ public class Profil extends Command {
             boolean isConfirmed = false;
 
             //createCarportRequest
-            Request carportRequest = CustomerFacade.createCarportRequest(coverageId, userId, width, length, height, hasShed, shedId, isConfirmed, (Double) session.getAttribute("carportPrice"), connectionPool);
+            Request carportRequest = CustomerFacade.createCarportRequest(coverageId, userId, width, length, height, roofType, hasShed, shedId, isConfirmed, (Double) session.getAttribute("carportPrice"), connectionPool);
         }
 
         //bruges til at loade på profilside
         List<Request> userRequests = CustomerFacade.getCarportRequestById(user.getUserId(), connectionPool);
         session = request.getSession();
 
-        session.setAttribute("carportbredde", null);
-        session.setAttribute("carportlængde", null);
-        session.setAttribute("carporthøjde", null);
-        session.setAttribute("redskabsrumValgt", null);
-        session.setAttribute("redskabsrumPlacering", null);
+        session.setAttribute("carportWidth", null);
+        session.setAttribute("carportLength", null);
+        session.setAttribute("carportHeight", null);
+        session.setAttribute("shedChosen", null);
+        session.setAttribute("shedPlacement", null);
 
         session.setAttribute("carportRequestByUser", userRequests);
 
@@ -94,6 +92,6 @@ public class Profil extends Command {
             return "error";
         }
 
-        return "profil";
+        return "profile";
     }
 }

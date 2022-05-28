@@ -1,9 +1,6 @@
 package dat.startcode.model.entities;
 
-import java.util.Objects;
-
-public class User
-{
+public class User {
     private int userId;
     private String email;
     private String password;
@@ -11,7 +8,6 @@ public class User
     private String phoneNumber;
     private String address;
     private int postalCode;
-
 
     public User(String email, String password, String role) {
         this.email = email;

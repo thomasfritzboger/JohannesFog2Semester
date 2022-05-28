@@ -19,9 +19,8 @@
             <input type="image" src="${pageContext.request.contextPath}/images/carport_bygselv.png" name="carport" class="btTxt submit" id="123" data-bs-toggle="modal" data-bs-target="#exampleModal" />
         </c:if>
 
-        <!--If logged in only link to carport factory TODO-->
         <c:if test="${sessionScope.user != null}">
-            <a href="${pageContext.request.contextPath}/fc/kundeLogin?command=kundeLogin">
+            <a href="${pageContext.request.contextPath}/fc/customerLogin?command=customerLogin">
                 <img src="${pageContext.request.contextPath}/images/carport_bygselv.png">
             </a>
         </c:if>
@@ -45,31 +44,32 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="fc/lavbruger" method="post">
-                            <input type="hidden" name="command" value="lavbruger"/>
+                        <form action="fc/createUser" method="post">
+                            <input type="hidden" name="command" value="createUser"/>
 
-                            <label for="emailny">Email: </label> <br>
-                            <input type="email" id="emailny" name="emailny" placeholder="Indtast email" required> <br> <br>
+                            <label for="newEmail">Email: </label> <br>
+                            <input type="email" id="newEmail" name="newEmail" placeholder="Indtast email" required> <br> <br>
 
-                            <label for="telefonnr">Telefonnr: </label> <br>
-                            <input type="tel" id="telefonnr" placeholder="Indtast telefonnummer" name="telefonnr" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
+                            <label for="phoneNumber">Telefonnr: </label> <br>
+                            <input type="tel" id="phoneNumber" placeholder="Indtast telefonnummer" name="phoneNumber"
+                                   pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
 
-                            <label for="addresse">Addresse: </label> <br>
-                            <input type="text" id="addresse" name="addresse" placeholder="Indtast addresse" minlength="4" required>
+                            <label for="address">Addresse: </label> <br>
+                            <input type="text" id="address" name="address" placeholder="Indtast addresse" minlength="4" required>
                             <br> <br>
 
-                            <label for="postnr">Postnr.: </label> <br>
-                            <input type="text" id="postnr" name="postnr" pattern="[0-9]{4}" placeholder="Fire cifre" required> <br><br>
+                            <label for="postalCode">Postnr.: </label> <br>
+                            <input type="text" id="postalCode" name="postalCode" pattern="[0-9]{4}" placeholder="Fire cifre" required> <br><br>
 
-                            <label for="passwordny">Kodeord: </label> <br>
-                            <input type="password" id="passwordny" name="passwordny" minlength="4" placeholder="Indtast kode" required> <br> <br>
+                            <label for="newPassword">Kodeord: </label> <br>
+                            <input type="password" id="newPassword" name="newPassword" minlength="4" placeholder="Indtast kode" required> <br> <br>
 
                             <label for="passwordRepeated">Bekræft kodeord: </label> <br>
                             <input type="password" id="passwordRepeated" name="passwordRepeated" placeholder="Gentag kode" minlength="4" oninput="check(this)" required> <br> <br>
 
                             <script type='text/javascript'>
                                 function check(input) {
-                                    if (input.value != document.getElementById('passwordny').value) {
+                                    if (input.value != document.getElementById('newPassword').value) {
                                         input.setCustomValidity('Koderne skal være ens.');
                                     } else {
                                         // input is valid -- reset the error message

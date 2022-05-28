@@ -19,21 +19,20 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfirmCarportRequest extends Command{
+public class ConfirmCarportRequestCommand extends Command{
 
     private ConnectionPool connectionPool;
     private List<RequestDTO> carportRequest;
 
-    public ConfirmCarportRequest() {
+    public ConfirmCarportRequestCommand() {
         this.connectionPool = ApplicationStart.getConnectionPool();
     }
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
 
-        System.out.println("MaterialLine? start");
         HttpSession session = request.getSession();
 
-        int carportId = Integer.parseInt(request.getParameter("godkend"));
+        int carportId = Integer.parseInt(request.getParameter("approve"));
 
         AdminFacade.confirmCarportRequest(carportId,connectionPool);
 
@@ -43,28 +42,26 @@ public class ConfirmCarportRequest extends Command{
         Shed shed = carport.getShed();
 
         List<OrderLineDTO> materialLine = new ArrayList<>();
-        CarportCalculator calculator = new CarportCalculator(ProductFacade.getProduktDTOs(connectionPool));
+        CarportCalculator calculator = new CarportCalculator(ProductFacade.getProductDTOs(connectionPool));
 
         try {
             if (shed==null) {
-                materialLine = calculator.beregnCarport(carport.getCarportLength(),carport.getCarportWidth(),carport.getCarportHeight(), "n", "p",null,0);
+                materialLine = calculator.calculateCarport(carport.getCarportLength(),carport.getCarportWidth(),carport.getCarportHeight(), "n", carport.getRoofType(),null,0);
             } else {
                 int spærAntal = (int) Math.ceil(carport.getCarportLength()/59.0);
                 int spærAfstand = (int) Math.ceil(carport.getCarportLength()/spærAntal);
                 int shedSize = (int) Math.ceil(shed.getLength()/spærAfstand);
-                materialLine = calculator.beregnCarport(carport.getCarportLength()+carport.getShed().getLength(),carport.getCarportWidth(),carport.getCarportHeight(), "y", "p",shed.getPlacement(),shedSize);
-                System.out.println("materialline inde i ");
+                materialLine = calculator.calculateCarport(carport.getCarportLength()+carport.getShed().getLength(),carport.getCarportWidth(),carport.getCarportHeight(), "y", carport.getRoofType(),shed.getPlacement(),shedSize);
             }
         } catch (IllegalDimensionException e) {
             e.printStackTrace();
         }
 
-        System.out.println("materialline?");
         for (OrderLineDTO i : materialLine) {
             ProductFacade.saveMaterialLines(connectionPool,carportId,i.getProductId(),i.getLength(),i.getAmount(),i.getTotalLinePrice());
         }
 
         session.setAttribute("carportRequest",carportRequest);
-        return "forespoergsler";
+        return "requestList";
     }
 }

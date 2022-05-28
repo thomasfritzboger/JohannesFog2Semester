@@ -17,8 +17,7 @@ public class ApplicationStart implements ServletContextListener
 {
     private static ConnectionPool connectionPool;
 
-    public ApplicationStart()
-    {
+    public ApplicationStart() {
 
     }
 

@@ -13,24 +13,24 @@ abstract class Command
 
     private static void initCommands() {
         commands = new HashMap<>();
-        commands.put("login", new Login());
-        commands.put("logout", new Logout());
-        commands.put("lavbruger", new LavBruger());
-        commands.put("faq", new Faq());
-        commands.put("kundeLogin",new KundeLogin());
-        commands.put("carportDesigner", new CarportDesigner());
-        commands.put("forespoergsler", new Forespoergsler());
-        commands.put("kunder", new Kunder());
-        commands.put("ordre", new Ordre());
-        commands.put("lager", new Lager());
-        commands.put("skitse", new Skitse());
-        commands.put("profil", new Profil());
-        commands.put("profil2", new ProfilFraMenu());
-        commands.put("stykliste", new Stykliste());
-        commands.put("updateCarportPrice", new UpdateCarportPrice());
-        commands.put("confirmCarportRequest", new ConfirmCarportRequest());
-        commands.put("seSkitse", new SeSkitse());
-        commands.put("deleteRequest", new DeleteRequest());
+        commands.put("login", new LoginCommand());
+        commands.put("logout", new LogoutCommand());
+        commands.put("createUser", new CreateUserCommand());
+        commands.put("faq", new FaqCommand());
+        commands.put("customerLogin",new CustomerLoginCommand());
+        commands.put("carportDesigner", new CarportDesignerCommand());
+        commands.put("requestList", new RequestListCommand());
+        commands.put("customer", new CustomerCommand());
+        commands.put("order", new OrderCommand());
+        commands.put("stock", new StockCommand());
+        commands.put("drawing", new DrawingCommand());
+        commands.put("profile", new ProfileCommand());
+        commands.put("profile2", new ProfileFromMenuCommand());
+        commands.put("itemList", new ItemListCommand());
+        commands.put("updateCarportPrice", new UpdateCarportPriceCommand());
+        commands.put("confirmCarportRequest", new ConfirmCarportRequestCommand());
+        commands.put("viewDrawing", new ViewDrawingCommand());
+        commands.put("deleteRequest", new DeleteRequestCommand());
     }
 
     static Command from( HttpServletRequest request ) {

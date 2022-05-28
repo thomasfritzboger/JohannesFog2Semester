@@ -1,8 +1,8 @@
 package dat.startcode.model.persistence;
 
-import dat.startcode.model.dtos.LagerDTO;
+import dat.startcode.model.dtos.StockDTO;
 import dat.startcode.model.dtos.OrderLineDTO;
-import dat.startcode.model.dtos.ProduktDTO;
+import dat.startcode.model.dtos.ProductDTO;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.services.ProductFacade;
 import org.junit.jupiter.api.BeforeAll;
@@ -109,35 +109,35 @@ class ProductMapperTest {
 
     @Test
     void getAllProducts() throws DatabaseException {
-        List<ProduktDTO> productList = ProductFacade.getProduktDTOs(connectionPool);
+        List<ProductDTO> productList = ProductFacade.getProductDTOs(connectionPool);
         assertEquals(3,productList.size());
     }
 
     @Test
     void getLager() throws DatabaseException {
-        List<LagerDTO> stockList = ProductFacade.getLager(connectionPool);
+        List<StockDTO> stockList = ProductFacade.getStock(connectionPool);
         assertEquals(4,stockList.size());
     }
 
     @Test
     void updateLagerPrice() throws DatabaseException {
-        List<LagerDTO> stockProduct = ProductFacade.getLager(connectionPool);
-        assertEquals(22,stockProduct.get(0).getLagerPrice());
+        List<StockDTO> stockProduct = ProductFacade.getStock(connectionPool);
+        assertEquals(22,stockProduct.get(0).getUnitPrice());
 
-        ProductFacade.updateLagerPrice(connectionPool,stockProduct.get(0).getLagerId(),66);
-        stockProduct = ProductFacade.getLager(connectionPool);
-        assertEquals(66,stockProduct.get(0).getLagerPrice());
+        ProductFacade.updateUnitPrice(connectionPool,stockProduct.get(0).getStockId(),66);
+        stockProduct = ProductFacade.getStock(connectionPool);
+        assertEquals(66,stockProduct.get(0).getUnitPrice());
     }
 
     @Test
     void updateLagerDescription() throws DatabaseException {
-        List<LagerDTO> stockProduct = ProductFacade.getLager(connectionPool);
-        assertEquals("Tredje tekst",stockProduct.get(2).getLagerDescription());
+        List<StockDTO> stockProduct = ProductFacade.getStock(connectionPool);
+        assertEquals("Tredje tekst",stockProduct.get(2).getStockDescription());
 
-        ProductFacade.updateLagerDescription(connectionPool,3,"7x6 mm. træ");
-        stockProduct = ProductFacade.getLager(connectionPool);
-        assertNotEquals("Tredje tekst",stockProduct.get(2).getLagerDescription());
-        assertEquals("7x6 mm. træ",stockProduct.get(2).getLagerDescription());
+        ProductFacade.updateProductDescription(connectionPool,3,"7x6 mm. træ");
+        stockProduct = ProductFacade.getStock(connectionPool);
+        assertNotEquals("Tredje tekst",stockProduct.get(2).getStockDescription());
+        assertEquals("7x6 mm. træ",stockProduct.get(2).getStockDescription());
     }
 
     @Test

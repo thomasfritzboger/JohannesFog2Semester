@@ -5,12 +5,10 @@ import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -48,7 +46,6 @@ public class AdminMapper implements IAdminMapper {
             ex.printStackTrace();
             throw new DatabaseException("Kunne få forbindelse til databasen");
         }
-
         return customerList;
     }
 
@@ -78,7 +75,6 @@ public class AdminMapper implements IAdminMapper {
             sqlException.printStackTrace();
             throw new DatabaseException("Kunne ikke få forbindelse til databasen");
         }
-
         return requestList;
     }
 

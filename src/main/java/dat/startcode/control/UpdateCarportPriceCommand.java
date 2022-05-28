@@ -14,12 +14,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UpdateCarportPrice extends Command{
-
-
+public class UpdateCarportPriceCommand extends Command{
     private ConnectionPool connectionPool;
 
-    public UpdateCarportPrice() {
+    public UpdateCarportPriceCommand() {
         this.connectionPool = ApplicationStart.getConnectionPool();
     }
     @Override
@@ -43,6 +41,6 @@ public class UpdateCarportPrice extends Command{
             return "error";
         }
 
-        return "forespoergsler";
+        return "requestList";
     }
 }

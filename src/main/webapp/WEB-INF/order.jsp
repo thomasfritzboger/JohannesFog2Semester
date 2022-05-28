@@ -33,12 +33,12 @@
                         <td>${requestApproved.accepted}</td>
                         <td>
 
-                            <button formaction="fc/stykliste" class="btn btn-secondary">
-                                <input type="hidden" name="command" value="stykliste">Se stykliste
+                            <button formaction="fc/itemList" class="btn btn-secondary">
+                                <input type="hidden" name="command" value="itemList">Se stykliste
                             </button>
 
                         </td>
-                        <input id="getcarportid0" name="getcarportid0" value="${requestApproved.carportId}" hidden>
+                        <input id="getCarportId0" name="getCarportId0" value="${requestApproved.carportId}" hidden>
                     </tr>
                 </form>
             </c:forEach>

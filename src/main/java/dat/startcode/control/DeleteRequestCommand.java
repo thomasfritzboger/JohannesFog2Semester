@@ -1,36 +1,37 @@
 package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
-import dat.startcode.model.dtos.OrderLineDTO;
-import dat.startcode.model.entities.User;
+import dat.startcode.model.dtos.RequestDTO;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
-import dat.startcode.model.services.ProductFacade;
+import dat.startcode.model.services.AdminFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class Stykliste extends Command {
-
+public class DeleteRequestCommand extends Command{
 
     private ConnectionPool connectionPool;
-    public Stykliste () {
+
+    private List<RequestDTO> carportRequest;
+
+    public DeleteRequestCommand() {
         this.connectionPool = ApplicationStart.getConnectionPool();
     }
-
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
-
         HttpSession session = request.getSession();
 
-        int carportId = Integer.parseInt(request.getParameter("getcarportid0"));
+        int carportId = Integer.parseInt(request.getParameter("decline"));
 
-        List<OrderLineDTO> materialLineList = ProductFacade.getMaterialLinesByCarportId(connectionPool, carportId);
+        AdminFacade.deleteRequest(connectionPool,carportId);
 
-        session.setAttribute("materiallinelist",materialLineList);
+        carportRequest = AdminFacade.getRequest(connectionPool);
 
-        return "stykliste";
+        session.setAttribute("carportRequest",carportRequest);
+
+        return "requestList";
     }
 }

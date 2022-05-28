@@ -3,7 +3,6 @@ package dat.startcode.model.persistence;
 import dat.startcode.model.dtos.RequestDTO;
 import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.Request;
-import dat.startcode.model.entities.Shed;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.services.AdminFacade;
@@ -84,7 +83,7 @@ class CustomerMapperTest {
 
     @Test
     void createCarportRequest() throws DatabaseException {
-        CustomerFacade.createCarportRequest(30,2,500,400,210,false,-1,false,3000,connectionPool);
+        CustomerFacade.createCarportRequest(30,2,500,400,210,"c",false,-1,false,3000,connectionPool);
         List<RequestDTO> requests = AdminFacade.getRequest(connectionPool);
         assertEquals(4,requests.size());
     }
@@ -123,7 +122,7 @@ class CustomerMapperTest {
     @Test
     void updatePassword() throws DatabaseException {
         User user = UserFacade.login("kunde1@fog.dk","1234",connectionPool);
-        CustomerFacade.updatePass(user.getUserId(), "3322",connectionPool);
+        CustomerFacade.updatePassword(user.getUserId(), "3322",connectionPool);
         assertThrows(DatabaseException.class, () -> UserFacade.login(user.getEmail(), "1234", connectionPool));
         User user2 = UserFacade.login("kunde1@fog.dk","3322",connectionPool);
         assertEquals("kunde1@fog.dk",user2.getEmail());

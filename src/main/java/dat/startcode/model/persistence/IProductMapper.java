@@ -1,18 +1,17 @@
 package dat.startcode.model.persistence;
 
-import dat.startcode.model.dtos.LagerDTO;
+import dat.startcode.model.dtos.StockDTO;
 import dat.startcode.model.dtos.OrderLineDTO;
-import dat.startcode.model.dtos.ProduktDTO;
+import dat.startcode.model.dtos.ProductDTO;
 import dat.startcode.model.exceptions.DatabaseException;
-
 import java.util.List;
 
 public interface IProductMapper {
-    List<ProduktDTO> getAllProducts() throws DatabaseException;
-    List<LagerDTO> getLager() throws DatabaseException;
-    void updateLagerPrice(int id, double price) throws DatabaseException;
-    void updateLagerDescription(int id, String description) throws DatabaseException;
-    void saveMaterialLines(int carport_id,int product_id,int unit_lenght, int unit_quantity, double total_price) throws DatabaseException;
+    List<ProductDTO> getAllProducts() throws DatabaseException;
+    List<StockDTO> getStock() throws DatabaseException;
+    void updateUnitPrice(int id, double price) throws DatabaseException;
+    void updateProductDescription(int id, String description) throws DatabaseException;
+    void saveMaterialLines(int carportId, int productId, int unitLength, int unitQuantity, double totalPrice) throws DatabaseException;
     List<OrderLineDTO> getMaterialLinesByCarportId(int carportId) throws DatabaseException;
 }
 

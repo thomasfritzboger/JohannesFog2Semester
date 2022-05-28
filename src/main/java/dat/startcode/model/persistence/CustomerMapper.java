@@ -1,21 +1,20 @@
 package dat.startcode.model.persistence;
 
-import dat.startcode.model.entities.*;
+import dat.startcode.model.entities.Carport;
+import dat.startcode.model.entities.Request;
+import dat.startcode.model.entities.Shed;
 import dat.startcode.model.exceptions.DatabaseException;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CustomerMapper implements ICustomerMapper
-{
+public class CustomerMapper implements ICustomerMapper {
     ConnectionPool connectionPool;
 
-    public CustomerMapper(ConnectionPool connectionPool)
-    {
+    public CustomerMapper(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
 
@@ -61,15 +60,12 @@ public class CustomerMapper implements ICustomerMapper
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-
                 ps.setInt(1,shedId);
-
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int width = rs.getInt("width");
                     int length = rs.getInt("length");
                     String placement = rs.getString("placement");
-
                     shed = new Shed(shedId, width,length,placement);
                 }
             }
@@ -80,27 +76,26 @@ public class CustomerMapper implements ICustomerMapper
     }
 
     @Override
-    public Request createCarportRequest(int coverageId, int userId, int width, int length, int height, boolean hasShed, int shedId, boolean isConfirmed, double carportPrice) throws DatabaseException {
+    public Request createCarportRequest(int coverageId, int userId, int width, int length, int height, String roofType, boolean hasShed, int shedId, boolean isConfirmed, double carportPrice) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
         Request request;
-        String sql = "insert into carport (coverage_id, user_id, width, length, height, shed_id, hasShed, isConfirmed,carport_price) values (?,?,?,?,?,?,?,?,?)";
-        try (Connection connection = connectionPool.getConnection())
-        {
-            try (PreparedStatement ps = connection.prepareStatement(sql))
-            {
+        String sql = "insert into carport (coverage_id, user_id, width, length, height, roof_type, shed_id, hasShed, isConfirmed,carport_price) values (?,?,?,?,?,?,?,?,?,?)";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, coverageId);
                 ps.setInt(2, userId);
                 ps.setInt(3, width);
                 ps.setInt(4, length);
                 ps.setInt(5, height);
+                ps.setString(6, roofType);
                 if(shedId == -1) {
-                    ps.setNull(6, java.sql.Types.INTEGER);
+                    ps.setNull(7, java.sql.Types.INTEGER);
                 } else {
-                    ps.setInt(6, shedId);
+                    ps.setInt(7, shedId);
                 }
-                ps.setBoolean(7, hasShed);
-                ps.setBoolean(8, isConfirmed);
-                ps.setDouble(9,carportPrice);
+                ps.setBoolean(8, hasShed);
+                ps.setBoolean(9, isConfirmed);
+                ps.setDouble(10,carportPrice);
 
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 1)
@@ -112,8 +107,7 @@ public class CustomerMapper implements ICustomerMapper
                 }
             }
         }
-        catch (SQLException ex)
-        {
+        catch (SQLException ex) {
             throw new DatabaseException(ex, "Kunne ikke indsætte carport i databasen.");
         }
         return request;
@@ -130,9 +124,7 @@ public class CustomerMapper implements ICustomerMapper
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-
                 ps.setInt(1,userId);
-
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int carportId = rs.getInt("carport_id");
@@ -144,8 +136,7 @@ public class CustomerMapper implements ICustomerMapper
                     boolean isConfirmed = rs.getBoolean("isConfirmed");
                     Timestamp dateCreated = rs.getTimestamp("carport_created");
 
-                    if(hasShed)
-                        shed = getShedById(shedId);
+                    if(hasShed) shed = getShedById(shedId);
 
                     request = new Request(carportId, width, length, height, shedId, hasShed, shed, isConfirmed, dateCreated);
                     userRequestList.add(request);
@@ -163,24 +154,21 @@ public class CustomerMapper implements ICustomerMapper
         Carport carport = null;
         Shed shed = null;
 
-        String sql = "SELECT width, length, height, shed_id, hasShed FROM carport WHERE carport_id = ?";
+        String sql = "SELECT width, length, height, roof_type, shed_id, hasShed FROM carport WHERE carport_id = ?";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-
                 ps.setInt(1, carportId);
-
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int width = rs.getInt("width");
                     int length = rs.getInt("length");
                     int height = rs.getInt("height");
+                    String roofType = rs.getString("roof_type");
                     int shedId = rs.getInt("shed_id");
                     boolean hasShed = rs.getBoolean("hasShed");
-
                     shed = getShedById(shedId);
-
-                    carport = new Carport(carportId, width, length, height, shed, hasShed);
+                    carport = new Carport(carportId, width, length, height, roofType, shed, hasShed);
                 }
             }
         } catch (Exception ex) {
@@ -192,7 +180,6 @@ public class CustomerMapper implements ICustomerMapper
     @Override
     public boolean updateEmail(int userId, String newEmail) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
-        boolean result = false;
         String sql = "update user SET email = ? where user_id = ?";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -209,7 +196,6 @@ public class CustomerMapper implements ICustomerMapper
     @Override
     public boolean updatePassword(int userId, String newPassword) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
-        boolean result = false;
         String sql = "update user SET password = ? where user_id = ?";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -226,7 +212,6 @@ public class CustomerMapper implements ICustomerMapper
     @Override
     public boolean updatePhoneNumber(int userId, String newPhoneNumber) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
-        boolean result = false;
         String sql = "update user SET phonenumber = ? where user_id = ?";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -239,6 +224,4 @@ public class CustomerMapper implements ICustomerMapper
         }
         return true;
     }
-
-
 }

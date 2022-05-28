@@ -65,11 +65,11 @@ public class SVG {
         svg.append(String.format(shedLineTemplate,x1,y1,x2,y2));
     }
 
-    public void addLineTextY(int locX, int locY, String carportBredde) {
-        svg.append(String.format(textTemplateY, locX,locY,carportBredde));
+    public void addLineTextY(int locX, int locY, String carportWidth) {
+        svg.append(String.format(textTemplateY, locX,locY,carportWidth));
     }
-    public void addLineTextX(int locX, int locY, String carportLængde) {
-        svg.append(String.format(textTemplateX, locX,locY,carportLængde));
+    public void addLineTextX(int locX, int locY, String carportLength) {
+        svg.append(String.format(textTemplateX, locX,locY,carportLength));
     }
 
     @Override

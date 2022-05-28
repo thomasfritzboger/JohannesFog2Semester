@@ -5,6 +5,13 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema fog
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
 -- Schema fog
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `fog` DEFAULT CHARACTER SET utf8 ;
@@ -21,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`coverage` (
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8mb3;
 
+
 -- -----------------------------------------------------
 -- Table `fog`.`shed`
 -- -----------------------------------------------------
@@ -33,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`shed` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `fog`.`user`
@@ -51,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`user` (
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
 
+
 -- -----------------------------------------------------
 -- Table `fog`.`carport`
 -- -----------------------------------------------------
@@ -61,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`carport` (
                                                `width` INT NOT NULL,
                                                `length` INT NOT NULL,
                                                `height` INT NOT NULL,
+                                               `roof_type` VARCHAR(45) NOT NULL,
                                                `shed_id` INT NULL DEFAULT NULL,
                                                `hasShed` TINYINT NOT NULL DEFAULT '0',
                                                `carport_price` DOUBLE NOT NULL DEFAULT '0',
@@ -83,6 +94,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`carport` (
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
 
+
 -- -----------------------------------------------------
 -- Table `fog`.`product_description`
 -- -----------------------------------------------------
@@ -94,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`product_description` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `fog`.`productvariant`
@@ -108,6 +121,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`productvariant` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `fog`.`unit_scale`
@@ -131,6 +145,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`usement` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `fog`.`product`
@@ -161,6 +176,7 @@ CREATE TABLE IF NOT EXISTS `fog`.`product` (
     ENGINE = InnoDB
     AUTO_INCREMENT = 1
     DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `fog`.`material_line`

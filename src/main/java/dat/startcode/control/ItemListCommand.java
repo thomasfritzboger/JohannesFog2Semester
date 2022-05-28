@@ -1,24 +1,20 @@
 package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
-import dat.startcode.model.dtos.RequestDTO;
-import dat.startcode.model.entities.User;
+import dat.startcode.model.dtos.OrderLineDTO;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
-import dat.startcode.model.services.AdminFacade;
+import dat.startcode.model.services.ProductFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class Forespoergsler extends Command {
-
-    List<RequestDTO> carportRequest;
+public class ItemListCommand extends Command {
 
     private ConnectionPool connectionPool;
-
-    public Forespoergsler() {
+    public ItemListCommand() {
         this.connectionPool = ApplicationStart.getConnectionPool();
     }
 
@@ -27,16 +23,12 @@ public class Forespoergsler extends Command {
 
         HttpSession session = request.getSession();
 
-        User user = (User) session.getAttribute("user");
+        int carportId = Integer.parseInt(request.getParameter("getCarportId0"));
 
-        if(!user.getRole().equals("admin")) {
-            return "error";
-        }
+        List<OrderLineDTO> materialLineList = ProductFacade.getMaterialLinesByCarportId(connectionPool, carportId);
 
-        carportRequest = AdminFacade.getRequest(connectionPool);
+        session.setAttribute("materialLineList",materialLineList);
 
-        session.setAttribute("carportRequest", carportRequest);
-
-        return "forespoergsler";
+        return "itemList";
     }
 }

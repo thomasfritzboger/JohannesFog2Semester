@@ -12,7 +12,7 @@
     </jsp:attribute>
 
     <jsp:body>
-    <div class="container-knapper-lager-side">
+    <div class="container-buttons-stock-page">
         <div>
             <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" name="priceEditor"
                     class="btn btn-secondary" style="margin-right: 5px"> Skift pris på produkt </button>
@@ -37,16 +37,16 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="fc/lager" >
-                            <input type="hidden" name="command" value="lager">
-                            <label for="produktId">Produkt id:</label>
+                        <form action="fc/stock" >
+                            <input type="hidden" name="command" value="stock">
+                            <label for="productId">Produkt id:</label>
                             <br>
-                            <input type="number" id="produktId" name="produktId" required min="1" max="${sessionScope.LagerListe.size()}"/>
+                            <input type="number" id="productId" name="productId" required min="1" max="${sessionScope.stockList.size()}"/>
                             <br>
                             <br>
-                            <label for="nyPris">Ny pris:</label>
+                            <label for="newPrice">Ny pris:</label>
                             <br>
-                            <input type="number" id="nyPris" name="nyPris" step="0.01"/>
+                            <input type="number" id="newPrice" name="newPrice" step="0.01"/>
                             <br>
                             <br>
                             <button type="submit" class="btn btn-dark">
@@ -70,16 +70,16 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="fc/lager" >
-                            <input type="hidden" name="command" value="lager">
+                        <form action="fc/stock" >
+                            <input type="hidden" name="command" value="stock">
                             <label for="description">Produkt id:</label>
                             <br>
                             <input type="number" id="description" name="description" required min="1" max="${sessionScope.LagerListe.size()}"/>
                             <br>
                             <br>
-                            <label for="nyPris">Ny beskrivelse:</label>
+                            <label for="newPrice">Ny beskrivelse:</label>
                             <br>
-                            <input type="text" id="nyBeskrivelse" name="nyBeskrivelse"/>
+                            <input type="text" id="newDescription" name="newDescription"/>
                             <br>
                             <br>
                             <button type="submit" class="btn btn-dark">
@@ -101,11 +101,11 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="LagerListe" items="${sessionScope.LagerListe}">
+                <c:forEach var="stockList" items="${sessionScope.stockList}">
                     <tr>
-                        <td>${LagerListe.lagerId}</td>
-                        <td>${LagerListe.lagerDescription}</td>
-                        <td>${LagerListe.lagerPrice}</td>
+                        <td>${stockList.stockId}</td>
+                        <td>${stockList.stockDescription}</td>
+                        <td>${stockList.unitPrice}</td>
                     </tr>
                 </c:forEach>
             </tbody>

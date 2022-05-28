@@ -1,9 +1,6 @@
 package dat.startcode.model.services;
 
-import dat.startcode.model.entities.User;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public class Authentication
 {
