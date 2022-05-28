@@ -80,7 +80,7 @@
                                             <input type="hidden" name="command" value="updateCarportPrice">
                                             <label for="carportId">Carports id:</label>
                                             <br>
-                                            <input type="number" id="carportId" name="carportId" required min="1" max="${sessionScope.carportRequest.size()+1}"/>
+                                            <input type="number" id="carportId" name="carportId" required min="1"/>
                                             <br>
                                             <br>
                                             <div>
