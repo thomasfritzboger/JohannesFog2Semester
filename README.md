@@ -5,7 +5,7 @@
 ## Om projektet
 Fog carport 2. semester eksamensprojekt. Produktet er en hjemmeside, hvor vi har løst en opgave for firmaet Johannes Fog. Vi har bygget et website, hvor man bl.a. kan bestille en skræddersyet carport og modtage en stykliste og en tegning af den model man har bestilt. Vi har bygget web-applikationen i Java, MySql, HTML, CSS, JS og Bootstrap og kører det på en Tomcat webcontainer. Arkitekturen er implementeret med et command-pattern og en front-controller.
 
-Vores rapport omkring projektet kan tilgås og læses her '[dokumentation/rapport]()'. <br> <br>
+Vores rapport omkring projektet kan tilgås og læses her '[documentation/rapport]()'. <br> <br>
 Projektet er udført af:
 - [Andreas Fritzbøger](https://github.com/Wolfgang1235)
 - [Mads Herlevsen](https://github.com/Mads725)
