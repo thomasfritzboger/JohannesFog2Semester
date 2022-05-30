@@ -14,16 +14,14 @@
     <jsp:body>
 
         <div>
-                <button class="btn btn-primary" onclick="history.back()">
-                    Gå tilbage
-                </button>
+            <button class="btn btn-primary" onclick="history.back()">
+                Gå tilbage
+            </button>
         </div>
 
         <div>
                 ${sessionScope.svgDrawing}
         </div>
-
-
 
     </jsp:body>
 

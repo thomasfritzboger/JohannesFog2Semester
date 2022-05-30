@@ -12,7 +12,7 @@ public class Request {
     private int height;
     private int shedId;
     private boolean hasShed;
-    private Shed shed; //blev nødt til at lave shed objekt
+    private Shed shed;
     private boolean isConfirmed;
     private LocalDate created;
     private double carportPrice;
@@ -29,19 +29,6 @@ public class Request {
         this.isConfirmed = isConfirmed;
         this.carportPrice = carportPrice;
     }
-
-    public Request(int carportId, int coverageId, int userId, int width, int length, int height, int shedId, boolean hasShed, boolean isConfirmed) {
-        this.carportId = carportId;
-        this.coverageId = coverageId;
-        this.userId = userId;
-        this.width = width;
-        this.length = length;
-        this.height = height;
-        this.shedId = shedId;
-        this.hasShed = hasShed;
-        this.isConfirmed = isConfirmed;
-    }
-
 
     public Request(int carportId, int width, int length, int height, int shed_id, boolean hasShed, Shed shed, boolean isConfirmed, Timestamp created) {
         this.carportId = carportId;

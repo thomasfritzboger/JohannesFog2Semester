@@ -13,27 +13,27 @@
     </jsp:attribute>
 
     <jsp:body>
-<div class="container-frontpage">
-        <!--Open modal if user not logged in-->
-        <c:if test="${sessionScope.user == null}">
-            <input type="image" src="${pageContext.request.contextPath}/images/carport_bygselv.png" name="carport" class="btTxt submit" id="123" data-bs-toggle="modal" data-bs-target="#exampleModal" />
-        </c:if>
+        <div class="container-frontpage">
+            <!--Open modal if user not logged in-->
+            <c:if test="${sessionScope.user == null}">
+                <input type="image" src="${pageContext.request.contextPath}/images/carport_bygselv.png" name="carport"
+                       class="btTxt submit" id="123" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
+            </c:if>
 
-        <c:if test="${sessionScope.user != null}">
-            <a href="${pageContext.request.contextPath}/fc/customerLogin?command=customerLogin">
-                <img src="${pageContext.request.contextPath}/images/carport_bygselv.png">
-            </a>
-        </c:if>
+            <c:if test="${sessionScope.user != null}">
+                <a href="${pageContext.request.contextPath}/fc/customerLogin?command=customerLogin">
+                    <img src="${pageContext.request.contextPath}/images/carport_bygselv.png">
+                </a>
+            </c:if>
 
-        <c:if test="${sessionScope.user == null}">
-            <div class="d-flex justify-content-center" style="padding-top: 30px;">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Start din rejse!
-                </button>
-            </div>
-        </c:if>
-</div>
-
+            <c:if test="${sessionScope.user == null}">
+                <div class="d-flex justify-content-center" style="padding-top: 30px;">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Start din rejse!
+                    </button>
+                </div>
+            </c:if>
+        </div>
 
         <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -48,24 +48,29 @@
                             <input type="hidden" name="command" value="createUser"/>
 
                             <label for="newEmail">Email: </label> <br>
-                            <input type="email" id="newEmail" name="newEmail" placeholder="Indtast email" required> <br> <br>
+                            <input type="email" id="newEmail" name="newEmail" placeholder="Indtast email" required> <br>
+                            <br>
 
                             <label for="phoneNumber">Telefonnr: </label> <br>
                             <input type="tel" id="phoneNumber" placeholder="Indtast telefonnummer" name="phoneNumber"
                                    pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required> <br> <br>
 
                             <label for="address">Addresse: </label> <br>
-                            <input type="text" id="address" name="address" placeholder="Indtast addresse" minlength="4" required>
+                            <input type="text" id="address" name="address" placeholder="Indtast addresse" minlength="4"
+                                   required>
                             <br> <br>
 
                             <label for="postalCode">Postnr.: </label> <br>
-                            <input type="text" id="postalCode" name="postalCode" pattern="[0-9]{4}" placeholder="Fire cifre" required> <br><br>
+                            <input type="text" id="postalCode" name="postalCode" pattern="[0-9]{4}"
+                                   placeholder="Fire cifre" required> <br><br>
 
                             <label for="newPassword">Kodeord: </label> <br>
-                            <input type="password" id="newPassword" name="newPassword" minlength="4" placeholder="Indtast kode" required> <br> <br>
+                            <input type="password" id="newPassword" name="newPassword" minlength="4"
+                                   placeholder="Indtast kode" required> <br> <br>
 
                             <label for="passwordRepeated">Bekræft kodeord: </label> <br>
-                            <input type="password" id="passwordRepeated" name="passwordRepeated" placeholder="Gentag kode" minlength="4" oninput="check(this)" required> <br> <br>
+                            <input type="password" id="passwordRepeated" name="passwordRepeated"
+                                   placeholder="Gentag kode" minlength="4" oninput="check(this)" required> <br> <br>
 
                             <script type='text/javascript'>
                                 function check(input) {
@@ -78,15 +83,15 @@
                                 }
                             </script>
 
-
-                            <button type="submit" class="btn btn-primary" >
+                            <button type="submit" class="btn btn-primary">
                                 Bliv medlem
                             </button>
 
                             <br> <br>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal"
                                         aria-label="Close" data-dismiss="#exampleModal">
                                     Allerede medlem? Klik her.
                                 </button>

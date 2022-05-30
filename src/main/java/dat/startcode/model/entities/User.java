@@ -49,7 +49,6 @@ public class User {
         this.postalCode = postalCode;
     }
 
-
     public int getUserId() {
         return userId;
     }
@@ -118,6 +117,4 @@ public class User {
                 ", postalCode='" + postalCode + '\'' +
                 '}';
     }
-
-
 }

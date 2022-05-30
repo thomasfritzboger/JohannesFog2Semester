@@ -43,7 +43,6 @@ public class ShedCalculator {
     private int pakkerKorteBeklædningsSkruerLængde, pakkerKorteBeklædningsSkruerAntal;
     private int pakkerLangeBeklædningsSkruerLængde, pakkerLangeBeklædningsSkruerAntal;
 
-
     public ShedCalculator(List<ProductDTO> liste) {
         this.productDTOList = liste;
         shedMaterialList = new ArrayList<>();
@@ -54,7 +53,6 @@ public class ShedCalculator {
         lægteTilDørAntal = 1;
         lægtePåDørLængde = 420;
         addItemToList(4,lægtePåDørLængde,lægteTilDørAntal);
-
     }
 
     public void setShedPlacement(String shedPlacement) {
@@ -62,24 +60,18 @@ public class ShedCalculator {
         this.shedPlacement = shedPlacement;
         if (shedPlacement.equals("center")) {
             shedWidth = carportWidth;
-
         } else if (shedPlacement.equals("left")) {
-            shedWidth = carportWidth /2;
-
+            shedWidth = carportWidth/2;
         } else if (shedPlacement.equals("right")) {
-            shedWidth = carportWidth /2;
-
+            shedWidth = carportWidth/2;
         } else {
             shedWidth = 0;
         }
-
         beregnEkstraStolper(shedLength);
     }
 
     private void beregnEkstraStolper(int l){
-
         switch (shedPlacement){
-
             case "center":
                 if (shedWidth > 310) {
                     antalStolperPåSpærEkstraNårSkur += 2;
@@ -101,7 +93,6 @@ public class ShedCalculator {
                     antalEkstraFirkantSkiverNårSkur += 5;
                 }
                 break;
-
             case "left":
                 if (l<=310) {
 
@@ -117,7 +108,6 @@ public class ShedCalculator {
                     antalEkstraFirkantSkiverNårSkur += 4;
                 }
                 break;
-
             case "right":
                 if (l<=310) {
                     antalStolperPåSpærEkstraNårSkur += 3;
@@ -184,19 +174,16 @@ public class ShedCalculator {
             antalVinkelbeslagEkstraNårSkur += 6;
         }
         else if (l > 240 && l <= 310 ) {
-
             l = (int) Math.ceil((l)/30.0)*30;
             løsholterLangsideUdenDørLængde = l;
             løsholterLangsideUdenDørAntal += 3;
             antalVinkelbeslagEkstraNårSkur += 6;
         } else {
             if (shedLength /2 <= 240 ) {
-
                 løsholterLangsideUdenDørLængde = 240;
                 løsholterLangsideUdenDørAntal += 6;
                 antalVinkelbeslagEkstraNårSkur += 12;
             } else {
-
                 løsholterLangsideUdenDørLængde = (int) Math.ceil((l/2)/30.0)*30;
                 løsholterLangsideUdenDørAntal += 6;
                 antalVinkelbeslagEkstraNårSkur += 12;

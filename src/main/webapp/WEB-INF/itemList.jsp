@@ -32,13 +32,13 @@
 
         <table id="itemListTable" class="table table-striped">
             <thead>
-             <tr>
+            <tr>
                 <th>Produktbeskrivelse</th>
                 <th>Længde</th>
                 <th>Antal</th>
                 <th>Enhed</th>
                 <th>Brugsbeskrivelse</th>
-             </tr>
+            </tr>
             </thead>
             <tbody>
             <c:forEach var="materialLine" items="${sessionScope.materialLineList}">
@@ -56,8 +56,10 @@
         </table>
 
         <!--Gemmer som pdf ved brug af følgende https://www.aspsnippets.com/Articles/Convert-Export-HTML-Table-to-PDF-file-using-JavaScript.aspx-->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
         <script type="text/javascript">
             function saveAsPDF() {
                 html2canvas(document.getElementById('itemListTable'), {
@@ -74,7 +76,6 @@
                 });
             }
         </script>
-
 
     </jsp:body>
 

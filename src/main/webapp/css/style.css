@@ -62,10 +62,7 @@ th, td {
     display: block;
 }
 
-
-
 /*Styling på carport dimensions siden*/
-
 #container-good-to-knows {
     background-color: #afb8c7;
     padding: 10px;
@@ -116,7 +113,6 @@ th, td {
     margin: 10px;
 }
 
-
 /*styling på profilsiden*/
 .container-itemList-and-drawing-buttons-profile {
     display: flex;
@@ -124,13 +120,11 @@ th, td {
     flex-wrap: wrap;
 }
 
-
 /*stykliste styling*/
 .container-buttons-itemList {
     display: flex;
     flex-direction: row;
 }
-
 
 .container-carport-dimensions-page {
     background-color: #afb8c7;
@@ -147,7 +141,6 @@ th, td {
     flex-direction: row;
 }
 
-
 @media (max-width: 475px) {
     .dimensions-items {
         margin: 3px;
@@ -160,7 +153,6 @@ th, td {
     flex-direction: row;
     margin-bottom: 10px;
 }
-
 
 @media (max-width: 1200px) {
     .div-around-accordion {

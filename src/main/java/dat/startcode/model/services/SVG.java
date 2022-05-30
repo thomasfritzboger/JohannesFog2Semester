@@ -20,18 +20,15 @@ public class SVG {
 
     private final String shedRectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill:#0069d9; fill-opacity:0.1;\" />";
 
-
     private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000;\" />";
 
     private final String shedLineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; stroke-width:3 \"/>";
-
 
     private final String crossTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; stroke-width:1.5; stroke-dasharray:5 5\"  />";
 
     private final String textTemplateY = "<text style=\"text-anchor: middle\" transform=\"translate(%d,%d) rotate(-90)\">%s cm</text>";
 
     private final String textTemplateX = "<text style=\"text-anchor: middle\" transform=\"translate(%d,%d)\">%s cm</text>";
-
 
     public SVG(int x, int y, String viewBox, int width, int height) {
         this.x = x;

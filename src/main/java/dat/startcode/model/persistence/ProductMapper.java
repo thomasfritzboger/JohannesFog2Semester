@@ -41,11 +41,11 @@ public class ProductMapper implements IProductMapper {
                     productDTOList.add(new ProductDTO(productId,productDescription,unitPrice,length,width,height,diameter,usement,scale));
                 }
             } catch (SQLException throwables) {
-                throw new DatabaseException("Kunne ikke få alle produtker fra database");
+                throw new DatabaseException("Kunne ikke få alle produkter fra databasen");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DatabaseException("Kunne få forbindelse til databasen");
+            throw new DatabaseException("Kunne ikke få forbindelse til databasen");
         }
         return productDTOList;
     }
@@ -71,7 +71,7 @@ public class ProductMapper implements IProductMapper {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DatabaseException("Kunne få forbindelse til databasen");
+            throw new DatabaseException("Kunne ikke få forbindelse til databasen");
         }
         return stockDTOList;
     }
@@ -87,7 +87,7 @@ public class ProductMapper implements IProductMapper {
                 ps.executeUpdate();
             }
         }catch (SQLException sqlException) {
-            throw new DatabaseException("Kunne ikke ændre prisen for produkt idet: "+ id);
+            throw new DatabaseException("Kunne ikke ændre prisen for produkt med id: "+ id);
         }
     }
 
@@ -101,7 +101,7 @@ public class ProductMapper implements IProductMapper {
                 ps.executeUpdate();
             }
         }catch (SQLException sqlException) {
-            throw new DatabaseException("Kunne ikke ændre beskrivelsen for produkt idet: "+ id);
+            throw new DatabaseException("Kunne ikke ændre beskrivelsen for produkt med id: "+ id);
         }
     }
 
@@ -147,7 +147,7 @@ public class ProductMapper implements IProductMapper {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DatabaseException("Kunne få forbindelse til databasen");
+            throw new DatabaseException("Kunne ikke få forbindelse til databasen");
         }
         return materialLineList;
     }

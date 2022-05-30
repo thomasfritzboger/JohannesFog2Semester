@@ -128,11 +128,11 @@ public class UserMapper implements IUserMapper {
                     carportList.add(new Carport(carportId, userId, shedId, hasShed));
                 }
             } catch (SQLException throwables) {
-                throw new DatabaseException("Kunne ikke finde carporte i databasen");
+                throw new DatabaseException("Kunne ikke finde carporte til bruger med id " + loggedInUserId);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DatabaseException("Kunne få forbindelse til databasen");
+            throw new DatabaseException("Kunne ikke få forbindelse til databasen");
         }
         return carportList;
     }

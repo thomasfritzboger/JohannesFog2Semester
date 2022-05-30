@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 abstract class Command
 {
-
     private static HashMap<String, Command> commands;
 
     private static void initCommands() {

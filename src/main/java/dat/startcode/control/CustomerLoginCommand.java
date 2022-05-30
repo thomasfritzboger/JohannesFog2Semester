@@ -14,7 +14,6 @@ public class CustomerLoginCommand extends Command{
 
         User user = (User) session.getAttribute("user");
 
-
         if(!user.getRole().equals("kunde")) {
             return "error";
         }

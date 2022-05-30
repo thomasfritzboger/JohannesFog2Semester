@@ -13,12 +13,6 @@ public class Shed {
         this.placement = placement;
     }
 
-    public Shed(int width, int length, String placement) {
-        this.width = width;
-        this.length = length;
-        this.placement = placement;
-    }
-
     public int getShedId() {
         return shedId;
     }

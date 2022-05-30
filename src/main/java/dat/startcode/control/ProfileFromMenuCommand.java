@@ -14,9 +14,6 @@ import java.util.List;
 
 public class ProfileFromMenuCommand extends Command {
 
-//    Request request;
-//    Shed shed;
-
     private ConnectionPool connectionPool;
 
     public ProfileFromMenuCommand() { this.connectionPool = ApplicationStart.getConnectionPool(); }

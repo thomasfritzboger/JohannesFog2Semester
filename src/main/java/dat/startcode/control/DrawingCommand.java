@@ -69,7 +69,6 @@ public class DrawingCommand extends Command {
 
         //Skur tilvalgt
         if (shedChosen != null) {
-
             //Tegn spær
             int spærStartX = 0;
             int totalAntalSpær = 1;
@@ -96,13 +95,11 @@ public class DrawingCommand extends Command {
 
             //Tegn skur
             if (shedPlacement.equals("center")) {
-                // innerSVG.addRect(carportLength-(int)Math.round(skurSize*spærAfs)-8,stolpeYStart,carportWidth-59,(int)Math.round(skurSize*spærAfs)+11);
                 innerSVG.addShedRectTemplate(carportLength - (int) Math.round(shedSize * spærAfstand) - 8, stolpeYStart, carportWidth - 59, (int) Math.round(shedSize * spærAfstand) + 11);
             }
 
             if (shedPlacement.equals("right")) {
                 innerSVG.addShedRectTemplate(carportLength - (int) Math.round(shedSize * spærAfstand) - 8, carportWidth / 2, (carportWidth / 2) - 33, (int) Math.round(shedSize * spærAfstand) + 11);
-
             }
 
             if (shedPlacement.equals("left")) {
@@ -141,7 +138,7 @@ public class DrawingCommand extends Command {
                 innerSVG.addRect(carportLength - 8 - 2 * (int) Math.round(spærAfstand), carportWidth / 2, 11, 11);
             }
 
-            //Evt suplerende stolper
+            //Evt supplerende stolper
             if (shedSize * spærAfstand > 310 && shedSize * spærAfstand < 310 + 2 * spærAfstand) {
                 int halfShed = ((carportLength - (int) Math.round(shedSize * spærAfstand) - 8) + (carportLength - 8)) / 2;
                 innerSVG.addRect(halfShed, stolpeYStart, 11, 11);
@@ -155,25 +152,19 @@ public class DrawingCommand extends Command {
                 innerSVG.addRect(halvDørside, carportWidth - 38, 11, 11);
             }
 
-            //int dørLængde = (int) Math.round(2 * spærAfstand);
             //Tilføjer døren
             if (shedPlacement.equals("center")) {
-
                 innerSVG.addShedLine(carportLength - 8, carportWidth - 33, carportLength - 8 - 100, carportWidth - 13);
             }
+
             if (shedPlacement.equals("left")) {
-
                 innerSVG.addShedLine(carportLength - 8, carportWidth / 2+11, carportLength - 8 - 100, carportWidth / 2 + 24);
-
             }
             if (shedPlacement.equals("right")) {
                 innerSVG.addShedLine(carportLength - 8, carportWidth / 2, carportLength - 8 - 100, carportWidth / 2 - 13);
-
             }
-
             innerSVG.addCrossLine(stolpeXStart + 5, stolpeYStart + 5, carportLength - (int) Math.round(shedSize * spærAfstand) - 8, carportWidth - 33);
             innerSVG.addCrossLine(stolpeXStart + 5, carportWidth - 33, carportLength - (int) Math.round(shedSize * spærAfstand) - 8, stolpeYStart + 5);
-
         } else {
             //Skur fravalgt
             //Tegn spær
@@ -210,7 +201,6 @@ public class DrawingCommand extends Command {
 
             //Midterste 2 stolper
             if (totalAntalSpær % 2 != 0) {
-
                 int correctionFactor = 0;
                 if (carportLength == 480) correctionFactor = 9;
                 if (carportLength == 500) correctionFactor = 7;
@@ -219,12 +209,10 @@ public class DrawingCommand extends Command {
 
                 innerSVG.addRect(stolpeStartMidt - correctionFactor, stolpeYStart, 11, 11);
                 innerSVG.addRect(stolpeStartMidt - correctionFactor, carportWidth - 38, 11, 11);
-
             } else {
                 innerSVG.addRect((carportLength + (int) Math.round(spærAfstand)) / 2 - 7, stolpeYStart, 11, 11);
                 innerSVG.addRect((carportLength + (int) Math.round(spærAfstand)) / 2 - 7, carportWidth - 38, 11, 11);
             }
-
             innerSVG.addCrossLine(stolpeXStart + 5, stolpeYStart + 5, carportLength - 3, carportWidth - 33);
             innerSVG.addCrossLine(stolpeXStart + 5, carportWidth - 33, carportLength - 3, stolpeYStart + 5);
         }
@@ -236,7 +224,6 @@ public class DrawingCommand extends Command {
         svg.addLine(50, carportWidth + 90, 50, carportWidth + 110);
         svg.addLineTextX((carportLength + 120) / 2, carportWidth + 90, String.valueOf(carportLength));
 
-
         //venstre linje
         svg.addLine(10, 50, 10, carportWidth + 50);
         svg.addLine(0, 50, 20, 50);
@@ -245,12 +232,12 @@ public class DrawingCommand extends Command {
 
         svg.addSvg(innerSVG);
 
-
         int fullCarportShedLength = carportLength - shedLength;
         if (shedChosen != null) {
             carportLength -= shedLength;
             fullCarportShedLength += shedLength;
         }
+
         if (shedChosen == null) {
             shedChosen = "n";
         }
@@ -262,7 +249,7 @@ public class DrawingCommand extends Command {
         } catch (IllegalDimensionException e) {
             e.printStackTrace();
         }
-        //calculator.beregnCarportPris();
+
         double carportPrice = ((double) Math.round(((calculator.getCarportPrice() *1.4)*100))/100);
 
         session.setAttribute("carportPrice", carportPrice);

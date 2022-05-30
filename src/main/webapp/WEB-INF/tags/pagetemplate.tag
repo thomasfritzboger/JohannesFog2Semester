@@ -68,8 +68,8 @@
                                 Log ud <img src="${pageContext.request.contextPath}/images/log_out.png" style="width: 20px" alt="">
                             </button>
                         </form>
-
                     </c:if>
+
                 </div>
             </div>
         </div>
@@ -104,7 +104,6 @@
                             <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
                             <label class="form-check-label" for="form2Example31"> Husk mig </label>
                         </div>
-
                         <br>
                         <button type="submit" class="btn btn-primary" >
                             Log ind
@@ -122,7 +121,6 @@
             </div>
         </div>
     </div>
-
 
 </header>
 
@@ -143,17 +141,14 @@
                 </div>
             </div>
 
-
             <div class="col-sm">
                 <a class="btn btn-outline-dark btn-floating m-1" href="#!" role="button"
                 ><i class="fa fa-instagram"></i
                 ></a>
 
-
                 <a class="btn btn-outline-dark btn-floating m-1" href="#!" role="button"
                 ><i class="fa fa-facebook"></i
                 ></a>
-
 
                 <a class="btn btn-outline-dark btn-floating m-1" href="#!" role="button"
                 ><i class="fa fa-linkedin"></i

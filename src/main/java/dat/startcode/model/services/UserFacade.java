@@ -27,5 +27,4 @@ public class UserFacade
         UserMapper userMapper = new UserMapper(connectionPool);
         return userMapper.getCarportByUser(userId);
     }
-
 }

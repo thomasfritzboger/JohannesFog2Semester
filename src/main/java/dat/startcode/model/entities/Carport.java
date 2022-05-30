@@ -16,8 +16,6 @@ public class Carport {
     private Shed shed;
     private LocalDate created;
 
-
-
     public Carport (int carportId, int userId, int carportWidth, int carportLength){
         this.carportId = carportId;
         this.userId = userId;
@@ -136,4 +134,3 @@ public class Carport {
                 '}';
     }
 }
-      

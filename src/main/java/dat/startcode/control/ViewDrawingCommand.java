@@ -43,10 +43,6 @@ public class ViewDrawingCommand extends Command {
         //hent carport længde
         int carportLength = carport.getCarportLength();
 
-        // hent carport højde
-        //int carportHojde = carport.getCarportHeight();
-
-        //String erRedskabsRumValgt = request.getParameter("redskabsrumValgt");
         boolean hasShed = carport.isHasShed();
 
         String placement = null;
@@ -80,7 +76,6 @@ public class ViewDrawingCommand extends Command {
 
         //Skur tilvalgt
         if (hasShed) {
-
             //Tegn spær
             int spærStartX = 0;
             int totalAntalSpær = 1;
@@ -107,7 +102,6 @@ public class ViewDrawingCommand extends Command {
 
             //Tegn skur
             if (placement!=null && placement.equals("center")) {
-                // innerSVG.addRect(carportLength-(int)Math.round(skurSize*spærAfs)-8,stolpeYStart,carportWidth-59,(int)Math.round(skurSize*spærAfs)+11);
                 innerSVG.addShedRectTemplate(carportLength-(int)Math.round(shedSize*spærAfs)-8,stolpeYStart,carportWidth-59,(int)Math.round(shedSize*spærAfs)+11);
             }
 
@@ -168,17 +162,15 @@ public class ViewDrawingCommand extends Command {
             int dørLængde = (int) Math.round(2*spærAfs);
             //Tilføjer døren
             if (placement.equals("center")) {
-
                 innerSVG.addShedLine(carportLength-8,carportWidth-33,carportLength-8-100,carportWidth-13);
             }
+
             if (placement.equals("left")) {
-
                 innerSVG.addShedLine(carportLength - 8, carportWidth / 2+11, carportLength - 8 - 100, carportWidth / 2 + 24);
-
             }
+
             if (placement.equals("right")) {
                 innerSVG.addShedLine(carportLength-8,carportWidth/2,carportLength-8-100,carportWidth/2-13);
-
             }
 
             innerSVG.addCrossLine(stolpeXStart+5, stolpeYStart+5,carportLength-(int)Math.round(shedSize*spærAfs)-8,carportWidth-33);
@@ -220,7 +212,6 @@ public class ViewDrawingCommand extends Command {
 
             //Midterste 2 stolper
             if (totalAntalSpær%2 != 0) {
-
                 int correctionFactor = 0;
                 if (carportLength == 480) correctionFactor = 9;
                 if (carportLength == 500) correctionFactor = 7;
@@ -229,7 +220,6 @@ public class ViewDrawingCommand extends Command {
 
                 innerSVG.addRect(stolpeStartMidt-correctionFactor, stolpeYStart, 11,11);
                 innerSVG.addRect(stolpeStartMidt-correctionFactor, carportWidth-38, 11,11);
-
             } else {
                 innerSVG.addRect((carportLength+(int)Math.round(spærAfs))/2-7, stolpeYStart, 11,11);
                 innerSVG.addRect((carportLength+(int)Math.round(spærAfs))/2-7, carportWidth-38, 11,11);
@@ -246,7 +236,6 @@ public class ViewDrawingCommand extends Command {
         svg.addLine(50,carportWidth+90,50,carportWidth+110);
         svg.addLineTextX((carportLength+120)/2,carportWidth+90, String.valueOf(carportLength));
 
-
         //venstre linje
         svg.addLine(10,50,10,carportWidth+50);
         svg.addLine(0,50,20,50);
@@ -259,6 +248,4 @@ public class ViewDrawingCommand extends Command {
 
         return "viewDrawing";
     }
-
-
 }

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-
 public class CustomerCommand extends Command {
 
     List<User> customerList;
@@ -35,11 +34,11 @@ public class CustomerCommand extends Command {
             return "error";
         }
 
-
         String email = request.getParameter("searchedEmail");
 
         customerList = AdminFacade.getCustomerList(connectionPool);
 
+        //søg efter eksisterende email i vores kundeliste
         if(email != null) {
             for (User u : customerList) {
                 if(u.getEmail().equals(email)) {

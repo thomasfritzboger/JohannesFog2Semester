@@ -40,11 +40,11 @@ public class AdminMapper implements IAdminMapper {
                     customerList.add(new User(userId, email, phoneNumber, address, postalCode));
                 }
             } catch (SQLException throwables) {
-                throw new DatabaseException("Kunne ikke få alle kunder fra database");
+                throw new DatabaseException("Kunne ikke få alle kunder fra databasen");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DatabaseException("Kunne få forbindelse til databasen");
+            throw new DatabaseException("Kunne ikke få forbindelse til databasen");
         }
         return customerList;
     }
@@ -99,7 +99,7 @@ public class AdminMapper implements IAdminMapper {
                     requestList.add(new RequestDTO(carportId,userId,date,accepted));
                 }
             } catch (SQLException sqlException) {
-                throw new DatabaseException("Kunne ikke få alle carport");
+                throw new DatabaseException("Kunne ikke få alle forespørgsler");
             }
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -178,7 +178,7 @@ public class AdminMapper implements IAdminMapper {
                 carport = new Carport(carportId,newCoverage, newPrice);
             }
         }catch (SQLException sqlException) {
-            throw new DatabaseException("Enten er carportens id forkert, eller det valgte dækningsbidrag findes ikke");
+            throw new DatabaseException("Enten er carportens id forkert, eller den valgte dækningsbidrag ikke tilgængelig");
         }
         return carport;
     }
@@ -198,7 +198,7 @@ public class AdminMapper implements IAdminMapper {
                 carport = new Carport(carportId);
             }
         }catch (SQLException sqlException) {
-            throw new DatabaseException("Kunne bekræfte forspørgsel for carport: " + carportId);
+            throw new DatabaseException("Kunne ikke bekræfte forespørgsel for carport med id: " + carportId);
         }
         return carport;
     }

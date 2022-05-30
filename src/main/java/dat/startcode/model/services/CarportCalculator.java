@@ -6,7 +6,7 @@ import dat.startcode.model.exceptions.IllegalDimensionException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarportCalculator{
+public class CarportCalculator {
 
     List<ProductDTO> productDTOList;
 
@@ -154,7 +154,6 @@ public class CarportCalculator{
                         +((shedCalculator.shedLength +420))+"cm og "+((shedCalculator.shedLength +600))+"cm lang"); }
     }
 
-
     public void setAntalSpær (int carportLength){
         spærAntal =  1+ (int) Math.ceil(carportLength/59.0);
         spærLængde = carportWidth;
@@ -268,12 +267,12 @@ public class CarportCalculator{
         }
         if (roofMaterial.equals("Trapezplader i plast")) {
             if (l<=600) {
-                plastTagpladerLangeAntal = (int)Math.ceil(carportWidth /100.0);
+                plastTagpladerLangeAntal = (int) Math.ceil(carportWidth /100.0);
                 plastTagpladerLangeLængde = (int) Math.ceil(l/60.0)*60;
             } else if (l<=820){
-                plastTagpladerLangeAntal = (int)Math.ceil(carportWidth /100.0);
-                plastTagpladerKorteAntal = (int)Math.ceil(carportWidth /100.0);
-                plastTagpladerLangeLængde = (int)Math.ceil((l-220)/60.0)*60;
+                plastTagpladerLangeAntal = (int) Math.ceil(carportWidth /100.0);
+                plastTagpladerKorteAntal = (int) Math.ceil(carportWidth /100.0);
+                plastTagpladerLangeLængde = (int) Math.ceil((l-220)/60.0)*60;
                 plastTagpladerKorteLængde = 240;
             } else {
                 plastTagpladerLangeAntal = (int) Math.ceil(carportWidth /100.0);
@@ -296,20 +295,14 @@ public class CarportCalculator{
     }
 
     public void beregnSkruerTag (int l, int b) {
-
         //Antagelse 16 skruer pr kvm
         //Beregn antal pakker med bundskruer til trapez tag;
         if (roofMaterial.equals("Trapezplader i plast")) {
-
             pakkerPlastTagskruerAntal = (int) Math.ceil(((l/100)*(b/100)*16.0)/200);
-
             addItemToList(14,pakkerPlastTagskruerLængde,pakkerPlastTagskruerAntal);
-
         } else if (roofMaterial.equals("Cembrit tagplader")) {
             pakkerCembritTagskruerAntal = (int) Math.ceil((((l/100.0)*(b/100.0))*8)/100);
-
-        addItemToList(28,pakkerCembritTagskruerLængde,pakkerCembritTagskruerAntal);
-
+            addItemToList(28,pakkerCembritTagskruerLængde,pakkerCembritTagskruerAntal);
         } else {
             System.out.println("Ingen skruer, da tagtype ikke kan vælges");
         }
@@ -327,6 +320,7 @@ public class CarportCalculator{
             understernLangsideAntal = 4;
             oversternLangsideAntal = 4;
         }
+
         if (b<=600) {
             understernBredsideLængde = (int) Math.ceil(b/60.0)*60;
             oversternBredsideLængde = (int) Math.ceil(b/60.0)*60;
@@ -345,7 +339,6 @@ public class CarportCalculator{
         addItemToList(2,oversternBredsideLængde,oversternBredsideAntal);
         addItemToList(3,oversternLangsideLængde, oversternLangsideAntal);
     }
-
 
     public void beregnAntalVandbrædder(int l, int b){
         if (l<=480){
@@ -389,7 +382,6 @@ public class CarportCalculator{
         int tilUniversalBeslag = 2*spærAntal*9;
         int tilHulbånd = 4*spærAntal;
         pakkerBeslagskruerAntal = (int) Math.ceil ((tilHulbånd+tilUniversalBeslag+0.0)/250);
-
         addItemToList(19,pakkerBeslagskruerLængde,pakkerBeslagskruerAntal);
     }
 

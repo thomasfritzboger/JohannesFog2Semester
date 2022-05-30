@@ -46,14 +46,15 @@
                     <td>
                         <span style="float: left">
                         <form>
-                            <button formaction="confirmCarportRequest" name="approve" value="${carportRequest.carportId}"
+                            <button formaction="confirmCarportRequest" name="approve"
+                                    value="${carportRequest.carportId}"
                                     class="btn btn-secondary" onclick="return confirm('Skal den godkendes?')">
                                 <input type="hidden" name="command" value="confirmCarportRequest">
                                 Godkend
                             </button>
                         </form>
                         </span>
-                        <span style="float: left; margin-left: 5px" >
+                        <span style="float: left; margin-left: 5px">
 
                         <form>
                             <button formaction="deleteRequest" name="decline" value="${carportRequest.carportId}"
@@ -70,7 +71,8 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Indtast hvilken carport det vedrører, og hvad det nye dækningsbidrag skal være.</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Indtast hvilken carport det
+                                            vedrører, og hvad det nye dækningsbidrag skal være.</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>

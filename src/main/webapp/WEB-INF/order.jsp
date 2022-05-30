@@ -32,11 +32,9 @@
                         <td>${requestApproved.created}</td>
                         <td>${requestApproved.accepted}</td>
                         <td>
-
                             <button formaction="fc/itemList" class="btn btn-secondary">
                                 <input type="hidden" name="command" value="itemList">Se stykliste
                             </button>
-
                         </td>
                         <input id="getCarportId0" name="getCarportId0" value="${requestApproved.carportId}" hidden>
                     </tr>

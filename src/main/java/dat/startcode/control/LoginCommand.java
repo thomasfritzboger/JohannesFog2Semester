@@ -32,7 +32,7 @@ public class LoginCommand extends Command
 
         try {
             HttpSession session = request.getSession();
-            session.setAttribute("user", null); // adding empty user object to session scope
+            session.setAttribute("user", null);
 
             String email = request.getParameter("email");
             String password = request.getParameter("password");
@@ -40,7 +40,7 @@ public class LoginCommand extends Command
             user = UserFacade.login(email, password, connectionPool);
 
             session = request.getSession();
-            session.setAttribute("user", user); // adding user object to session scope
+            session.setAttribute("user", user);
         } catch (DatabaseException e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
             request.setAttribute("errormessage", e.getMessage());

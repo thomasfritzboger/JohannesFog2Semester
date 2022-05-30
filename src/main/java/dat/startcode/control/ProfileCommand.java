@@ -15,7 +15,6 @@ import java.util.List;
 
 public class ProfileCommand extends Command {
 
-    //Request request;
     Shed shed;
     private ConnectionPool connectionPool;
 

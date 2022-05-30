@@ -27,7 +27,7 @@ public class CreateUserCommand extends Command
         User user = null;
         try {
             HttpSession session = request.getSession();
-            session.setAttribute("user", null); // adding empty user object to session scope
+            session.setAttribute("user", null);
 
             String email = request.getParameter("newEmail");
             String password = request.getParameter("newPassword");
