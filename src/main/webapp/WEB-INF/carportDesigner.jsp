@@ -256,11 +256,8 @@
                         Se skitse
                     </button>
                 </div>
-
             </form>
-
         </div>
 
     </jsp:body>
-
 </t:pagetemplate>
