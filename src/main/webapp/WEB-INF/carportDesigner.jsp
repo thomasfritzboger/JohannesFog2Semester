@@ -108,6 +108,7 @@
                     removeOptions(selectLength);
 
                     for (let i = 3; i <= 10; i++) {
+                        //må ikke overstige 10 meter i længde
                         if ((i * afstandMellemSpaer) + parseInt(document.getElementById("carportLength").value) > 1000) {
                             break;
                         }
@@ -132,14 +133,13 @@
             }
 
             function checkForAllIsSelected() {
-                //tjek om deres værdier alle 3 er indtastet, hvis ja så enable se skitse knap ellers nej
+                //tjek om redskabsrummets værdier er indtastet, hvis ja så enable 'se skitse' knap
                 if ((document.getElementById("shedPlacement").value === "center"
                         || document.getElementById("shedPlacement").value === "left"
                         || document.getElementById("shedPlacement").value === "right")
                     && document.getElementById("shedLength").value > 0) {
                     document.getElementById("viewDrawing").disabled = false;
                     document.getElementById("shedSize").value = (document.getElementById("shedLength").value / document.getElementById("afstandMellemSpaer").value);
-                    console.log(document.getElementById("shedSize").value);
                 } else {
                     document.getElementById("viewDrawing").disabled = true;
                 }
