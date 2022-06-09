@@ -15,21 +15,22 @@
                 document.getElementById("shedPlacement").disabled = true;
                 document.getElementById("shedLength").disabled = true;
 
-                //hvis man vil skifte enabled på checkbox
+                //tjek om carport bredde, længde og højde er valgt
                 if (document.getElementById("carportWidth").value > 0
                     && document.getElementById("carportLength").value > 0
                     && document.getElementById("carportHeight").value > 0) {
-                    document.getElementById("shedChosen").disabled = false;
-                    document.getElementById("checkBoxShed").style.opacity = 1;
-                    document.getElementById("viewDrawing").disabled = false;
+                    document.getElementById("shedChosen").disabled = false; //gør det muligt at tilføje redskabsrum
+                    document.getElementById("checkBoxShed").style.opacity = 1; //gør den fuld synlig
+                    document.getElementById("viewDrawing").disabled = false; //man kan se skitsen, hvis redskabsrum IKKE er valgt
                 }
             }
 
+            //er redskabsrummet valgt?
             function isShedChosen() {
                 if (document.getElementById("shedChosen").checked) {
                     document.getElementById("shedChosen").value = "y";
-                    document.getElementById("shedPlacement").disabled = false;
-                    document.getElementById("shedLength").disabled = false;
+                    document.getElementById("shedPlacement").disabled = false; //vis nu redskabsrumsplacering dropdown
+                    document.getElementById("shedLength").disabled = false; //vis nu redskabsrumslængde dropdown
 
                     //tjek om bredden af vores carport er mindre end 3.8, hvis ja, så kan man kun have redskabsrumplaceringen
                     // i midten
@@ -47,12 +48,13 @@
                             || document.getElementById("shedPlacement").value === "left"
                             || document.getElementById("shedPlacement").value === "right")
                         && document.getElementById("shedLength").value > 0) {
-                        document.getElementById("viewDrawing").disabled = false;
+                        document.getElementById("viewDrawing").disabled = false; //'se skitse' knap kan klikkes
                     } else {
-                        document.getElementById("viewDrawing").disabled = true;
+                        document.getElementById("viewDrawing").disabled = true; //'se skitse' knap kan IKKE klikkes
                     }
                 }
 
+                //Der skal være specifikke længder til redskabsrummet alt efter om denne er sat i venstre/højre eller midten
                 let carportWidth = parseInt(document.getElementById("carportWidth").value);
                 let carportLength = parseInt(document.getElementById("carportLength").value);
 
@@ -65,19 +67,29 @@
 
                 let options = [];
 
+                //fjern alle elementer fra en liste
+                function removeOptions(selectElement) {
+                    let i, L = selectElement.options.length - 1;
+                    for (i = L; i > 0; i--) {
+                        selectElement.remove(i);
+                    }
+                }
+
                 if (document.getElementById("shedPlacement").value === "left"
                     || document.getElementById("shedPlacement").value === "right") {
+                    //sæt redskabsrummets bredde - halvdelen af carporten minus udhæng
                     document.getElementById("shedWidth").value = ((carportWidth / 2) - 35) / 100;
 
                     //fjern nuværende elementer i længde dropdown
                     let selectLength = document.getElementById("shedLength");
                     removeOptions(selectLength);
 
-                    //indsætter array i options
+                    //indsætter nye elementer i vores liste
                     options = [(3 * afstandMellemSpaer),
                         (4 * afstandMellemSpaer),
                         (5 * afstandMellemSpaer)];
 
+                    //indsætter nu listen tilbage i dropdown
                     for (let i = 0; i < options.length; i++) {
                         let opt = options[i];
                         let el = document.createElement("option");
@@ -88,6 +100,7 @@
                 }
 
                 if (document.getElementById("shedPlacement").value === "center") {
+                    //sæt redskabsrummets bredde - carporten bredde minus udhæng fra begge sider
                     document.getElementById("shedWidth").value = (carportWidth - 70) / 100;
 
                     //fjern nuværende elementer i længde dropdown
@@ -115,13 +128,6 @@
                     document.getElementById("shedPlacement").disabled = true;
                     document.getElementById("shedLength").disabled = true;
                     document.getElementById("viewDrawing").disabled = false;
-                }
-            }
-
-            function removeOptions(selectElement) {
-                let i, L = selectElement.options.length - 1;
-                for (i = L; i > 0; i--) {
-                    selectElement.remove(i);
                 }
             }
 
