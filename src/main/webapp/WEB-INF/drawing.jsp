@@ -14,7 +14,6 @@
     <jsp:body>
 
         <!--SVG SKITSEN LAVES HER-->
-
         <script type="text/javascript">
             function onClick() {
                 document.getElementById('confirmRequest').value = "send";

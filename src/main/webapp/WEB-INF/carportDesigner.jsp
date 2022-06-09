@@ -26,7 +26,7 @@
             }
 
             //er redskabsrummet valgt?
-            function isShedChosen() {
+            function updateShedValues() {
                 if (document.getElementById("shedChosen").checked) {
                     document.getElementById("shedChosen").value = "y";
                     document.getElementById("shedPlacement").disabled = false; //vis nu redskabsrumsplacering dropdown
@@ -132,7 +132,7 @@
                 }
             }
 
-            function checkForAllIsSelected() {
+            function checkIfAllIsSelected() {
                 //tjek om redskabsrummets værdier er indtastet, hvis ja så enable 'se skitse' knap
                 if ((document.getElementById("shedPlacement").value === "center"
                         || document.getElementById("shedPlacement").value === "left"
@@ -217,7 +217,7 @@
                     <div class="dimensions-items">
                         <label id="checkBoxShed" for="shedChosen" style="opacity: 0.6;">Tilføj redskabsrum? </label>
                         <input type="checkbox" id="shedChosen" name="shedChosen"
-                               value="n" onclick="isShedChosen()" disabled>
+                               value="n" onclick="updateShedValues()" disabled>
                     </div>
                 </div>
 
@@ -226,7 +226,7 @@
                 <div class="container-shed-dimensions">
                     <div class="dimensions-items">
                         <label for="shedPlacement">Redskabsrum placering: </label> <br>
-                        <select name="shedPlacement" id="shedPlacement" disabled onchange="isShedChosen()">
+                        <select name="shedPlacement" id="shedPlacement" disabled onchange="updateShedValues()">
                             <option value="" disabled selected>Valg placering</option>
                             <option id="left" value="left">venstre</option>
                             <option id="center" value="center">midt</option>
@@ -241,7 +241,7 @@
 
                     <div class="dimensions-items">
                         <label for="shedLength">Redskabsrum længde:</label> <br>
-                        <select name="shedLength" id="shedLength" disabled onchange="checkForAllIsSelected();">
+                        <select name="shedLength" id="shedLength" disabled onchange="checkIfAllIsSelected();">
                             <option value="" disabled selected>Vælg længde</option>
                         </select>
                     </div>
