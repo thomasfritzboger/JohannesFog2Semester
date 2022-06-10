@@ -15,7 +15,7 @@ public class CarportCalculator {
     }
 
     //Materialeliste for carport inklusive skur, hvis de bruger samme type
-    private List<OrderLineDTO> orderLineDTOList = new ArrayList<>();
+    private List<OrderLineDTO> orderLineDTOList = new ArrayList<>(); //stykliste
 
     private double carportPrice;
     private int carportLength;
@@ -174,7 +174,7 @@ public class CarportCalculator {
         int res;
 
         if (!hasShed) {
-            stolperAntal = 6;
+            stolperAntal = 6; //stolper er altid 6, når skur ikke er tilvalgt, da parkeringsplads er mellem 4.2-6m
         } else {
             int extra =stolpeIkkeFastgjortRem + shedCalculator.getAntalStolperPåRemEkstraNårSkur() + shedCalculator.getAntalStolperPåSpærEkstraNårSkur();
             res = 6+extra;

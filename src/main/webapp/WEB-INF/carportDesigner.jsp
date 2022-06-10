@@ -78,13 +78,16 @@
                 if (document.getElementById("shedPlacement").value === "left"
                     || document.getElementById("shedPlacement").value === "right") {
                     //sæt redskabsrummets bredde - halvdelen af carporten minus udhæng
-                    document.getElementById("shedWidth").value = ((carportWidth / 2) - 35) / 100;
+                    document.getElementById("shedWidth").value = ((carportWidth / 2) - 35) / 100; //udregn bredden og sæt ind
 
                     //fjern nuværende elementer i længde dropdown
                     let selectLength = document.getElementById("shedLength");
                     removeOptions(selectLength);
 
                     //indsætter nye elementer i vores liste
+                    //Baseret på vores antagelser: stolperne sidder fast i noget..
+                    //3 er minimum for alle skure, da den skal være minimum én spærlængde længere end døren, og døren er altid 2
+                    //5 er maksimum for halve skure, da det er det vi har besluttes
                     options = [(3 * afstandMellemSpaer),
                         (4 * afstandMellemSpaer),
                         (5 * afstandMellemSpaer)];
@@ -101,12 +104,13 @@
 
                 if (document.getElementById("shedPlacement").value === "center") {
                     //sæt redskabsrummets bredde - carporten bredde minus udhæng fra begge sider
-                    document.getElementById("shedWidth").value = (carportWidth - 70) / 100;
+                    document.getElementById("shedWidth").value = (carportWidth - 70) / 100; //udregn bredden og sæt ind
 
                     //fjern nuværende elementer i længde dropdown
                     let selectLength = document.getElementById("shedLength");
                     removeOptions(selectLength);
 
+                    //itereres til 10, da denne giver den største skurlængde under 10 meter sammen med parkeringsareal
                     for (let i = 3; i <= 10; i++) {
                         //må ikke overstige 10 meter i længde
                         if ((i * afstandMellemSpaer) + parseInt(document.getElementById("carportLength").value) > 1000) {
@@ -139,6 +143,7 @@
                         || document.getElementById("shedPlacement").value === "right")
                     && document.getElementById("shedLength").value > 0) {
                     document.getElementById("viewDrawing").disabled = false;
+                    //spærlængder for skuret sendes videre til næste side
                     document.getElementById("shedSize").value = (document.getElementById("shedLength").value / document.getElementById("afstandMellemSpaer").value);
                 } else {
                     document.getElementById("viewDrawing").disabled = true;
@@ -227,9 +232,9 @@
                     <div class="dimensions-items">
                         <label for="shedPlacement">Redskabsrum placering: </label> <br>
                         <select name="shedPlacement" id="shedPlacement" disabled onchange="updateShedValues()">
-                            <option value="" disabled selected>Valg placering</option>
+                            <option value="" disabled selected>Vælg placering</option>
                             <option id="left" value="left">venstre</option>
-                            <option id="center" value="center">midt</option>
+                            <option id="center" value="center">fuld længde</option>
                             <option id="right" value="right">højre</option>
                         </select>
                     </div>
