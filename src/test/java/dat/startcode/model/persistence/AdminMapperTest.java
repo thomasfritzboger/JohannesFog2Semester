@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AdminMapperTest {
     private final static String USER = "root";
-    private final static String PASSWORD = "Lægø3428@A";
+    private final static String PASSWORD = "Liloca/123!!";
     private final static String URL = "jdbc:mysql://localhost:3306/fog_test?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false";
 
     private static ConnectionPool connectionPool;

@@ -36,8 +36,9 @@ public class ConfirmCarportRequestCommand extends Command{
 
         AdminFacade.confirmCarportRequest(carportId,connectionPool);
 
-        carportRequest = AdminFacade.getRequest(connectionPool);
+        carportRequest = AdminFacade.getRequest(connectionPool); //forespørgsler med isConfirmed = 0
 
+        //Generer nu styklisten for den specifikke godkendte carport
         Carport carport = CustomerFacade.getCarportById(carportId, connectionPool);
         Shed shed = carport.getShed();
 

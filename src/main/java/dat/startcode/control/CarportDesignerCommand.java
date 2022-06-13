@@ -39,7 +39,6 @@ public class CarportDesignerCommand extends Command{
             return "error";
         }
 
-        session = request.getSession();
         session.setAttribute("productDTOList", productDTOList);
         session.setAttribute("carportWidthList", carportWidth);
         session.setAttribute("carportLengthList", carportLength);

@@ -39,8 +39,6 @@ public class CreateUserCommand extends Command
 
             user = UserFacade.login(email, password, connectionPool);
 
-            session = request.getSession();
-
             session.setAttribute("user", user); // adding user object to session scope
         } catch (DatabaseException e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());

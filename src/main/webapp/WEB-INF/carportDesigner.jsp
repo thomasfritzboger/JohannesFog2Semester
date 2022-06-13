@@ -8,8 +8,9 @@
 
         <h1 style="text-align: center">Ønsket dimensioner for carport</h1>
 
-        <!--to funktioner til at tjekke om bredde og længde er valgt-->
         <script type="text/javascript">
+
+            <!--Funktion som tjekker om carport længde, bredde og højde er valgt-->
             function checkChosen() {
                 document.getElementById("shedChosen").checked = false;
                 document.getElementById("shedPlacement").disabled = true;
@@ -25,7 +26,7 @@
                 }
             }
 
-            //er redskabsrummet valgt?
+            <!--Er redskabsrummet valgt skal værdierne opdateres for redskabsrummet-->
             function updateShedValues() {
                 if (document.getElementById("shedChosen").checked) {
                     document.getElementById("shedChosen").value = "y";

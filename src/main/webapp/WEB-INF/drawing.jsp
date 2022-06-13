@@ -13,14 +13,6 @@
 
     <jsp:body>
 
-        <!--SVG SKITSEN LAVES HER-->
-        <script type="text/javascript">
-            function onClick() {
-                document.getElementById('confirmRequest').value = "send";
-            }
-
-        </script>
-
         <!--hidden div med alle dimensioner hentet-->
         <div hidden>
             <input type="text" id="carportWidth" name="carportWidth" value="${carportWidth}" hidden>
@@ -44,19 +36,21 @@
             <div>
                 <form action="fc/profile" method="post">
                     <input type="hidden" name="command" value="profile"/>
-                    <button id="sendRequest" type="submit" class="btn btn-primary" onclick="onClick();">
+                    <button id="sendRequest" type="submit" class="btn btn-primary" onclick="return confirm('Er du sikker på du vil sende en forespørgsel?')">
                         Send forespørgsel
                     </button>
                 </form>
             </div>
         </div>
 
+        <!--INFO BOKS MED DIMENSIONER-->
         <div class="container-carport-dimensions-page">
             <h2 style="color: white">Din carport:</h2>
             <p>bredde: ${carportWidth} cm, længde: ${carportLength} cm, højde: ${carportHeight} cm <br>
                 Forventet pris: ${carportPrice} kr.</p>
         </div>
 
+        <!--SVG SKITSEN TEGNES HER-->
         <div>
                 ${sessionScope.svgDrawing}
         </div>
